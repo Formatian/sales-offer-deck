@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project Reveal Starter</title>
+  <link rel="icon" type="image/svg+xml" href="assets/project-mark.svg" />
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
+  <link rel="stylesheet" href="open-location-stack.css" />
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="slides.md" data-separator="^---$" data-separator-vertical="^--$"
+        data-separator-notes="^Note:"></section>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-meta">
+      <a href="https://example.com">example.com</a>
+      <span>&copy; 2026 Your Project</span>
+    </div>
+    <span id="slide-counter"></span>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@5.0.5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@5.0.5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      hashOneBasedIndex: true,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      plugins: [RevealNotes, RevealMarkdown],
+      overview: true,
+      controls: true,
+      progress: true,
+      slideNumber: true,
+      center: true
+    });
+
+    function syncChrome(slide) {
+      const isTitle = slide.classList.contains('title-slide');
+      document.querySelector('.slide-footer').style.display = isTitle ? 'none' : '';
+    }
+
+    function updateSlideCount() {
+      const footer = document.getElementById('slide-counter');
+      const idx = Reveal.getSlidePastCount() + 1;
+      const total = Reveal.getTotalSlides();
+      footer.textContent = `Slide ${idx} of ${total}`;
+    }
+
+    function relayoutSoon() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          Reveal.layout();
+          fitCurrentSlide();
+        });
+      });
+    }
+
+    function fitSlide(slide) {
+      if (!slide || slide.classList.contains('stack')) {
+        return;
+      }
+
+      slide.style.zoom = '';
+      slide.classList.remove('is-auto-fitted');
+
+      const maxIterations = 8;
+      const minZoom = 0.48;
+      const footer = document.querySelector('.slide-footer');
+
+      for (let i = 0; i < maxIterations; i += 1) {
+        const visibleBottom =
+          footer && footer.style.display !== 'none'
+            ? footer.getBoundingClientRect().top - 8
+            : window.innerHeight - 8;
+
+        const visibleChildren = Array.from(slide.children).filter(child => {
+          const style = window.getComputedStyle(child);
+          return style.display !== 'none' && style.visibility !== 'hidden';
+        });
+
+        const contentBottom = visibleChildren.reduce((maxBottom, child) => {
+          return Math.max(maxBottom, child.getBoundingClientRect().bottom);
+        }, slide.getBoundingClientRect().top);
+
+        const overflow = contentBottom - visibleBottom;
+        if (overflow <= 2) {
+          break;
+        }
+
+        const currentZoom = Number.parseFloat(slide.style.zoom || '1');
+        const availableHeight = Math.max(1, visibleBottom - slide.getBoundingClientRect().top);
+        const contentHeight = Math.max(1, contentBottom - slide.getBoundingClientRect().top);
+        const nextZoom = Math.max(minZoom, currentZoom * (availableHeight / contentHeight));
+
+        if (Math.abs(nextZoom - currentZoom) < 0.003) {
+          break;
+        }
+
+        slide.style.zoom = nextZoom.toFixed(3);
+        slide.classList.add('is-auto-fitted');
+      }
+    }
+
+    function fitCurrentSlide() {
+      fitSlide(Reveal.getCurrentSlide());
+    }
+
+    function watchSlideImages(slide) {
+      slide.querySelectorAll('img').forEach(img => {
+        if (!img.complete) {
+          img.addEventListener('load', relayoutSoon, { once: true });
+          img.addEventListener('error', relayoutSoon, { once: true });
+        }
+      });
+
+      slide.querySelectorAll('video').forEach(video => {
+        if (video.readyState < 1) {
+          video.addEventListener('loadedmetadata', relayoutSoon, { once: true });
+          video.addEventListener('error', relayoutSoon, { once: true });
+        }
+      });
+    }
+
+    function resetSlideGifs(slide) {
+      if (!slide) {
+        return;
+      }
+
+      slide.querySelectorAll('img[data-reset-on-show="true"]').forEach(img => {
+        const originalSrc = img.dataset.originalSrc || img.getAttribute('src');
+        if (!originalSrc) {
+          return;
+        }
+
+        img.dataset.originalSrc = originalSrc;
+
+        const separator = originalSrc.includes('?') ? '&' : '?';
+        const resetSrc = `${originalSrc}${separator}restart=${Date.now()}`;
+        img.setAttribute('src', resetSrc);
+      });
+
+      slide.querySelectorAll('video[data-reset-on-show="true"]').forEach(video => {
+        video.currentTime = 0;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => { });
+        }
+      });
+    }
+
+    Reveal.on('ready', event => {
+      syncChrome(event.currentSlide);
+      updateSlideCount();
+      resetSlideGifs(event.currentSlide);
+      watchSlideImages(event.currentSlide);
+      relayoutSoon();
+    });
+
+    Reveal.on('slidechanged', event => {
+      syncChrome(event.currentSlide);
+      updateSlideCount();
+      resetSlideGifs(event.currentSlide);
+      watchSlideImages(event.currentSlide);
+      relayoutSoon();
+    });
+
+    window.addEventListener('load', relayoutSoon, { once: true });
+    window.addEventListener('resize', relayoutSoon);
+  </script>
+
+</body>
+
+</html>

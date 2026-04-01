@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Project placeholder mark</title>
+  <desc id="desc">A neutral geometric placeholder logo for a presentation starter project.</desc>
+  <rect width="240" height="240" rx="40" fill="#0a0a0a"/>
+  <path d="M64 176V64h52c21 0 38 17 38 38 0 18-12 33-29 37l43 37h-36l-37-33H96v33H64zm32-60h18c12 0 22-10 22-22s-10-22-22-22H96v44z" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Convert Bitmap To WebP"
+  short_description: "Convert PNG and JPG assets to WebP"
+  default_prompt: "Use $convert-bitmap-to-webp to convert PNG or JPG assets to WebP and update references safely."

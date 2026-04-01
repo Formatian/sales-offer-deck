@@ -1,0 +1,4 @@
+interface:
+  display_name: "Take Website Screenshot"
+  short_description: "Capture website screenshots cleanly"
+  default_prompt: "Use $take-website-screenshot to capture a clean screenshot of a website, including dismissing cookie popups first."

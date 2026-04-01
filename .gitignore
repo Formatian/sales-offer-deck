@@ -1,0 +1,16 @@
+.DS_Store
+dist
+.cloudflare
+.wrangler/
+node_modules/
+test-results/
+playwright-report/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+bun.lock
+bun.lockb

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Slide Content"
+  short_description: "Write concise, presentation-first slide copy"
+  default_prompt: "Use $slide-content to tighten and rewrite slide copy so it reads clearly in presentation format."
+
+policy:
+  allow_implicit_invocation: true
