@@ -25,6 +25,28 @@ body {
   background: var(--color-bg);
 }
 
+body.video-slide-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(7, 15, 17, 0.58), rgba(7, 15, 17, 0.68)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
+}
+
+body.cover-slide-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(7, 15, 17, 0.64), rgba(7, 15, 17, 0.72)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
+}
+
 .reveal-viewport {
   background:
     linear-gradient(180deg, rgba(8, 17, 18, 0.8), rgba(8, 17, 18, 0.84)),
@@ -38,17 +60,6 @@ body {
   background: #0f1f22;
 }
 
-.reveal-viewport.video-slide-active::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(8, 17, 18, 0.54), rgba(8, 17, 18, 0.62)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.08), transparent 24%);
-}
-
 .reveal-viewport.video-slide-active .reveal {
   position: relative;
   z-index: 2;
@@ -60,7 +71,7 @@ body {
 
 .reveal-viewport.video-slide-active .backgrounds .slide-background.present video,
 .reveal-viewport.video-slide-active .backgrounds .slide-background.present iframe {
-  filter: brightness(0.6) saturate(0.82);
+  filter: brightness(0.48) saturate(0.78);
 }
 
 .reveal {
@@ -77,13 +88,10 @@ body {
 }
 
 .reveal .slides section:not(.stack) {
-  padding: 2.2rem 0 3rem;
-}
-
-.reveal .slides section.is-vertically-centered {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 2.2rem 0 3rem;
   min-height: calc(100vh - 8.2rem);
 }
 

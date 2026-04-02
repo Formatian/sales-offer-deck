@@ -51,16 +51,18 @@
     function syncChrome(slide) {
       const indices = Reveal.getIndices(slide);
       const isTitle = slide.classList.contains('title-slide') || indices.h === 0;
+      const isCoverSlide = slide.classList.contains('proposal-cover');
       const activeBackground = document.querySelector('.backgrounds .slide-background.present');
       const isVideoHero =
         slide.classList.contains('hero-video-slide') ||
-        slide.classList.contains('proposal-cover') ||
+        isCoverSlide ||
         slide.hasAttribute('data-background-video') ||
         !!activeBackground?.querySelector('video');
       document.querySelector('.slide-footer').style.display = isTitle ? 'none' : '';
       document.querySelector('.corner-brand').style.display = isTitle ? 'none' : '';
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('video-slide-active', isVideoHero);
+      document.body.classList.toggle('cover-slide-active', isCoverSlide);
     }
 
     function updateSlideCount() {
@@ -75,8 +77,21 @@
         requestAnimationFrame(() => {
           Reveal.layout();
           fitCurrentSlide();
+          syncChromeSoon();
         });
       });
+    }
+
+    function syncChromeSoon() {
+      const currentSlide = Reveal.getCurrentSlide();
+      if (!currentSlide) {
+        return;
+      }
+
+      syncChrome(currentSlide);
+      requestAnimationFrame(() => syncChrome(currentSlide));
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 120);
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 360);
     }
 
     function fitSlide(slide) {
@@ -86,7 +101,6 @@
 
       slide.style.zoom = '';
       slide.classList.remove('is-auto-fitted');
-      slide.classList.remove('is-vertically-centered');
 
       const maxIterations = 8;
       const minZoom = 0.48;
@@ -124,44 +138,6 @@
         slide.style.zoom = nextZoom.toFixed(3);
         slide.classList.add('is-auto-fitted');
       }
-
-      updateVerticalAlignment(slide);
-    }
-
-    function updateVerticalAlignment(slide) {
-      if (!slide || slide.classList.contains('stack')) {
-        return;
-      }
-
-      const footer = document.querySelector('.slide-footer');
-      const slideRect = slide.getBoundingClientRect();
-      const visibleBottom =
-        footer && footer.style.display !== 'none'
-          ? footer.getBoundingClientRect().top - 8
-          : window.innerHeight - 8;
-
-      const visibleChildren = Array.from(slide.children).filter(child => {
-        const style = window.getComputedStyle(child);
-        return style.display !== 'none' && style.visibility !== 'hidden';
-      });
-
-      if (visibleChildren.length === 0) {
-        return;
-      }
-
-      const contentTop = visibleChildren.reduce((minTop, child) => {
-        return Math.min(minTop, child.getBoundingClientRect().top);
-      }, visibleBottom);
-
-      const contentBottom = visibleChildren.reduce((maxBottom, child) => {
-        return Math.max(maxBottom, child.getBoundingClientRect().bottom);
-      }, slideRect.top);
-
-      const availableHeight = Math.max(1, visibleBottom - slideRect.top);
-      const contentHeight = Math.max(1, contentBottom - contentTop);
-      const shouldCenter = contentHeight < availableHeight * 0.72;
-
-      slide.classList.toggle('is-vertically-centered', shouldCenter);
     }
 
     function fitCurrentSlide() {
@@ -229,7 +205,7 @@
     }
 
     Reveal.on('ready', event => {
-      syncChrome(event.currentSlide);
+      syncChromeSoon();
       updateSlideCount();
       updateExternalLinks();
       resetSlideGifs(event.currentSlide);
@@ -238,7 +214,7 @@
     });
 
     Reveal.on('slidechanged', event => {
-      syncChrome(event.currentSlide);
+      syncChromeSoon();
       updateSlideCount();
       updateExternalLinks(event.currentSlide);
       resetSlideGifs(event.currentSlide);
@@ -248,6 +224,10 @@
 
     window.addEventListener('load', relayoutSoon, { once: true });
     window.addEventListener('resize', relayoutSoon);
+    new MutationObserver(() => syncChromeSoon()).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   </script>
 
 </body>
