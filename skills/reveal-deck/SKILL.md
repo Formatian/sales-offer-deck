@@ -40,6 +40,7 @@ bunx serve .
 - Keep borders, cards, and typography minimal and editorial.
 - Reuse `assets/open-location-stack-logo.svg` for branding.
 - Avoid adding external asset dependencies when a local SVG will do.
+- Open all external links in a new tab using `target="_blank"` with `rel="noreferrer noopener"`.
 
 ## Validation
 
