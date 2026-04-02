@@ -45,13 +45,21 @@
       controls: true,
       progress: true,
       slideNumber: false,
-      center: false
+      center: true
     });
 
     function syncChrome(slide) {
       const indices = Reveal.getIndices(slide);
-      const isTitle = slide.classList.contains('title-slide') || indices.h === 0;
-      const isCoverSlide = slide.classList.contains('proposal-cover');
+      const totalSlides = Reveal.getTotalSlides();
+      const isFirstSlide = indices.h === 0;
+      const isLastSlide = indices.h === totalSlides - 1;
+      const isPlatformVideoSlide = slide.classList.contains('platform-video-slide');
+      const isTitle = slide.classList.contains('title-slide') || isFirstSlide || isLastSlide;
+      const isCoverSlide =
+        slide.classList.contains('proposal-cover') ||
+        slide.classList.contains('end-cover') ||
+        isFirstSlide ||
+        isLastSlide;
       const activeBackground = document.querySelector('.backgrounds .slide-background.present');
       const isVideoHero =
         slide.classList.contains('hero-video-slide') ||
@@ -63,6 +71,24 @@
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('cover-slide-active', isCoverSlide);
+      document.body.classList.toggle('platform-video-active', isPlatformVideoSlide);
+      syncActiveVideoPlayback({ isPlatformVideoSlide });
+    }
+
+    function syncActiveVideoPlayback({ isPlatformVideoSlide }) {
+      const activeVideo = document.querySelector('.backgrounds .slide-background.present video');
+      if (!activeVideo) {
+        return;
+      }
+
+      activeVideo.playbackRate = isPlatformVideoSlide ? 0.58 : 1;
+      activeVideo.muted = true;
+      activeVideo.loop = true;
+
+      const playPromise = activeVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => { });
+      }
     }
 
     function updateSlideCount() {
@@ -92,6 +118,7 @@
       requestAnimationFrame(() => syncChrome(currentSlide));
       setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 120);
       setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 360);
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 800);
     }
 
     function fitSlide(slide) {

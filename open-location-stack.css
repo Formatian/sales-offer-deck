@@ -36,6 +36,17 @@ body.video-slide-active::before {
     radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
 }
 
+body.platform-video-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6, 12, 14, 0.72), rgba(6, 12, 14, 0.82)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.08), transparent 24%);
+}
+
 body.cover-slide-active::before {
   content: "";
   position: fixed;
@@ -74,6 +85,11 @@ body.cover-slide-active::before {
   filter: brightness(0.48) saturate(0.78);
 }
 
+body.platform-video-active .backgrounds .slide-background.present video,
+body.platform-video-active .backgrounds .slide-background.present iframe {
+  filter: brightness(0.34) saturate(0.7);
+}
+
 .reveal {
   font-size: 152%;
 }
@@ -88,11 +104,20 @@ body.cover-slide-active::before {
 }
 
 .reveal .slides section:not(.stack) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 2.2rem 0 3rem;
-  min-height: calc(100vh - 8.2rem);
+}
+
+.reveal.overview .slides section.present {
+  position: relative;
+}
+
+.reveal.overview .slides section.present::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 8px solid var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(88, 212, 108, 0.2);
+  pointer-events: none;
 }
 
 .reveal .slides section.is-auto-fitted {
@@ -232,7 +257,7 @@ body.cover-slide-active::before {
 
 .corner-brand img {
   display: block;
-  width: 164px;
+  width: 182px;
   height: auto;
 }
 
@@ -280,6 +305,16 @@ body.cover-slide-active::before {
   min-height: calc(100vh - 130px);
   text-align: center;
   gap: 0;
+}
+
+.reveal.overview .cover-shell {
+  min-height: 100%;
+  height: 100%;
+}
+
+.reveal.overview .slide-footer,
+.reveal.overview .corner-brand {
+  display: none !important;
 }
 
 .cover-wordmark-image {
@@ -332,6 +367,14 @@ body.cover-slide-active::before {
   text-transform: uppercase;
   color: rgba(245, 247, 245, 0.95) !important;
   text-align: center;
+}
+
+.end-cover .cover-issue-date {
+  margin-top: 2.1rem;
+}
+
+.end-cover .cover-meta {
+  margin-top: 1.3rem;
 }
 
 .cover-issue-date {
@@ -387,6 +430,10 @@ body.cover-slide-active::before {
   color: var(--color-accent);
 }
 
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
 .proposal-grid,
 .metric-strip,
 .timeline-grid {
@@ -413,6 +460,20 @@ body.cover-slide-active::before {
   border-radius: 0;
   background: rgba(22, 38, 42, 0.78);
   box-shadow: 0 18px 42px var(--color-shadow);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.proposal-card:hover,
+.metric-card:hover,
+.timeline-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(88, 212, 108, 0.22);
+  background: rgba(24, 42, 46, 0.9);
+  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.36);
 }
 
 .proposal-card p:last-child,
@@ -464,6 +525,19 @@ body.cover-slide-active::before {
   overflow: hidden;
   background: rgba(20, 35, 38, 0.92);
   box-shadow: 0 20px 44px var(--color-shadow);
+}
+
+.proposal-table tbody tr {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.proposal-table tbody tr:hover {
+  transform: translateY(-4px);
+  background: rgba(88, 212, 108, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(88, 212, 108, 0.18);
 }
 
 .pricing-table tbody tr:last-child td,

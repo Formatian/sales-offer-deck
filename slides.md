@@ -9,7 +9,7 @@
   <div class="cover-meta">
     <span class="cover-meta-pill">Prepared for: Timo Seber</span>
     <span class="meta-separator">|</span>
-    <span>Offer valid for 45 days</span>
+    <span class="cover-meta-pill">Offer valid for 45 days</span>
   </div>
 </section>
 
@@ -20,7 +20,7 @@
 
 <div class="proposal-grid two-up">
   <div class="proposal-card stat-card">
-    <p class="eyebrow">What Is Confirmed</p>
+    <p class="eyebrow text-accent">What Is Confirmed</p>
     <h3>Validated in Lear facilities</h3>
     <ul>
       <li>Joint POC completed successfully across 2025/2026</li>
@@ -29,7 +29,7 @@
     </ul>
   </div>
   <div class="proposal-card stat-card">
-    <p class="eyebrow">Commercial Shift</p>
+    <p class="eyebrow text-accent">Commercial Shift</p>
     <h3>Lower asset pricing for scale</h3>
     <ul>
       <li>Tracked asset pricing reduced by 33%</li>
@@ -58,7 +58,7 @@
 </div>
 
 ---
-<!-- .slide: class="hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="hero-video-slide platform-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
 ## Platform Commercials
 
 <p class="slide-lead">Core recurring platform pricing for <strong>10 users</strong>, <strong>1 admin</strong>, and <strong>1,000 tracked assets</strong>.</p>
@@ -279,7 +279,7 @@
   <div class="metric-card total-card">
     <span class="metric-label">With 3-Year Upfront Commitment</span>
     <strong>€172,836</strong>
-    <p>Includes discounted platform total of <strong>€69,336</strong>.</p>
+    <p>Includes discounted platform total of <strong>€69,336</strong></p>
   </div>
 </div>
 
@@ -332,6 +332,6 @@
   <div class="cover-meta">
     <span class="cover-meta-pill"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></span>
     <span class="meta-separator">|</span>
-    <span>tryformation.com</span>
+    <span class="cover-meta-pill"><a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a></span>
   </div>
 </section>
