@@ -1,177 +1,337 @@
-<!-- .slide: class="title-slide" -->
+<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
 
-<section class="title-layout">
-  <div class="title-copy">
-    <h1>Your Project Name</h1>
-    <h2>Reveal Presentation Subtitle</h2>
-  </div>
-  <div class="title-meta">
-    <div class="title-author">
-      <h3>Your Name</h3>
-    </div>
-    <div class="title-aside">
-      <img src="assets/project-mark.svg" alt="Project mark" class="title-logo" />
-    </div>
-  </div>
-  <div class="title-support">
-    <p class="hero-kicker">One clear sentence explaining the project, the audience, and the outcome.</p>
+<section class="cover-shell">
+  <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
+  <p class="cover-tagline">The power to know where.</p>
+  <div class="cover-rule"></div>
+  <h1 class="cover-title">Strategic Production Rollout &amp; Roadmap for Lear Corp.</h1>
+  <div class="cover-issue-date">Issued: March 31, 2026</div>
+  <div class="cover-meta">
+    <span class="cover-meta-pill">Prepared for: Timo Seber</span>
+    <span class="meta-separator">|</span>
+    <span>Offer valid for 45 days</span>
   </div>
 </section>
 
 ---
-## The Problem
+## Validated POC, Ready For Rollout
 
-<div class="card-grid two-up compact">
-  <div class="info-card">
-    <h3>What is broken now</h3>
+<p class="slide-lead">This offer converts the 2025/2026 validated POC into a production-ready, multi-site rollout plan with commercial terms designed to reduce the cost of scale.</p>
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card stat-card">
+    <p class="eyebrow">What Is Confirmed</p>
+    <h3>Validated in Lear facilities</h3>
     <ul>
-      <li>State the current pain clearly</li>
-      <li>Keep it concrete and operational</li>
-      <li>Focus on cost, delay, or risk</li>
+      <li>Joint POC completed successfully across 2025/2026</li>
+      <li>System validated in real facility conditions</li>
+      <li>Scope now shifts from pilot setup to repeatable production rollout</li>
     </ul>
   </div>
-  <div class="info-card">
-    <h3>Why it matters</h3>
+  <div class="proposal-card stat-card">
+    <p class="eyebrow">Commercial Shift</p>
+    <h3>Lower asset pricing for scale</h3>
     <ul>
-      <li>Who feels the pain</li>
-      <li>What work gets slower or harder</li>
-      <li>Why current fixes are not enough</li>
-    </ul>
-  </div>
-</div>
-
-> Use this slide to establish urgency in plain language.
-
----
-## Why Now
-
-<div class="card-grid three-up compact">
-  <div class="info-card">
-    <h3>Market shift</h3>
-    <p>Name the change that makes this timely.</p>
-  </div>
-  <div class="info-card">
-    <h3>Technical unlock</h3>
-    <p>Name the capability or cost change that makes the solution practical.</p>
-  </div>
-  <div class="info-card">
-    <h3>Business opening</h3>
-    <p>Name the wedge for adoption, revenue, or strategic leverage.</p>
-  </div>
-</div>
-
----
-## The Product
-
-<div class="card-grid two-up compact equal-card-grid">
-  <div class="info-card">
-    <h3>Core promise</h3>
-    <p>Describe the main outcome in one sentence.</p>
-  </div>
-  <div class="info-card">
-    <h3>Who it is for</h3>
-    <p>Call out the primary buyer, team, or user group.</p>
-  </div>
-  <div class="info-card">
-    <h3>What it replaces</h3>
-    <p>Explain the current workflow, stack, or alternative.</p>
-  </div>
-  <div class="info-card">
-    <h3>Why this wins</h3>
-    <p>Highlight the differentiator that matters to the audience.</p>
-  </div>
-</div>
-
----
-## How It Works
-
-<div class="card-grid three-up compact">
-  <div class="info-card">
-    <h3>1. Input</h3>
-    <p>What enters the system or workflow first.</p>
-  </div>
-  <div class="info-card">
-    <h3>2. Processing</h3>
-    <p>What your product does that others do not.</p>
-  </div>
-  <div class="info-card">
-    <h3>3. Output</h3>
-    <p>What the user gets and why it is valuable.</p>
-  </div>
-</div>
-
-> This slide should be understandable in under 10 seconds.
-
----
-## Proof
-
-<div class="card-grid two-up compact">
-  <div class="info-card">
-    <h3>Evidence</h3>
-    <ul>
-      <li>Pilot result</li>
-      <li>User quote</li>
-      <li>Adoption signal</li>
-    </ul>
-  </div>
-  <div class="info-card">
-    <h3>Credibility</h3>
-    <ul>
-      <li>Relevant team experience</li>
-      <li>Partner or customer signal</li>
-      <li>Technical asset or moat</li>
+      <li>Tracked asset pricing reduced by 33%</li>
+      <li>From <strong>€1.50</strong> to <strong>€1.00 per asset / month</strong></li>
+      <li>Supports wider deployment across more assets and more sites</li>
     </ul>
   </div>
 </div>
 
----
-## Roadmap
-
-<div class="card-grid three-up compact">
-  <div class="info-card">
-    <h3>Now</h3>
-    <p>What exists today.</p>
+<div class="metric-strip three-up">
+  <div class="metric-card">
+    <span class="metric-label">Platform</span>
+    <strong>Multi-tenant core system</strong>
+    <p>Admin Area, team and task management, zone triggering and alerts, rich content, wayfinding, search and tagging, Spatial Insights Suite, free access to the open source Open Location Stack plus IMDF Map Creator and Editor tools, Asset ID management, and multi-tenant hosting with managed hosting available.</p>
   </div>
-  <div class="info-card">
-    <h3>Next</h3>
-    <p>What ships in the next 3 to 6 months.</p>
+  <div class="metric-card">
+    <span class="metric-label">Rollout Goal</span>
+    <strong>Standardized multi-site deployment</strong>
+    <p>Enterprise capabilities, workflow controls, and integration layers needed for wider production operation.</p>
   </div>
-  <div class="info-card">
-    <h3>Later</h3>
-    <p>What becomes possible once the first phase works.</p>
+  <div class="metric-card">
+    <span class="metric-label">Estimate Basis</span>
+    <strong>Conservative by design</strong>
+    <p>Roadmap effort reflects current scope understanding and will be refined as requirements are clarified.</p>
   </div>
 </div>
 
 ---
-## Ask
+<!-- .slide: class="hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+## Platform Commercials
 
-<div class="card-grid two-up compact">
-  <div class="info-card">
-    <h3>What you want</h3>
+<p class="slide-lead">Core recurring platform pricing for <strong>10 users</strong>, <strong>1 admin</strong>, and <strong>1,000 tracked assets</strong>.</p>
+
+<table class="proposal-table pricing-table">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Users</td>
+      <td>10</td>
+      <td>€99 / mo</td>
+      <td>€990 / mo</td>
+    </tr>
+    <tr>
+      <td>Admin (Insight Suite)</td>
+      <td>1</td>
+      <td>€150 / mo</td>
+      <td>€150 / mo</td>
+    </tr>
+    <tr>
+      <td>Tracked Assets</td>
+      <td>1,000</td>
+      <td>€1.00 / mo</td>
+      <td>€1,000 / mo</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="metric-strip three-up">
+  <div class="metric-card total-card">
+    <span class="metric-label">Monthly</span>
+    <strong>€2,140</strong>
+    <p>Recurring core platform subscription.</p>
+  </div>
+  <div class="metric-card total-card">
+    <span class="metric-label">Yearly</span>
+    <strong>€25,680</strong>
+    <p>Equivalent annual platform run rate.</p>
+  </div>
+  <div class="metric-card total-card">
+    <span class="metric-label">36 Months</span>
+    <strong>€77,040</strong>
+    <p>Three-year platform value before discount.</p>
+  </div>
+</div>
+
+<blockquote class="pricing-callout">With a 3-year commitment billed in advance, platform pricing reduces by 10% to <strong>€1,926 / month</strong> or <strong>€69,336 total</strong> for the full 36-month term.</blockquote>
+
+---
+<!-- .slide: class="hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+## Roadmap Scope At A Glance
+
+<p class="slide-lead">The delivery plan establishes the foundation for secure, enterprise-grade rollout across additional Lear sites.</p>
+
+<div class="timeline-grid">
+  <div class="timeline-card">
+    <span class="metric-label">Phase 1</span>
+    <h3>Enterprise foundation</h3>
+    <p>Access control, Microsoft SSO, Lear database integration, Omlox-connected geofencing, and external system synchronization.</p>
+  </div>
+  <div class="timeline-card">
+    <span class="metric-label">Phase 2</span>
+    <h3>Operational workflows</h3>
+    <p>Messaging, tasking directly on objects, tag grouping and containerisation, and event-driven notifications.</p>
+  </div>
+  <div class="timeline-card">
+    <span class="metric-label">Phase 3</span>
+    <h3>Stability and scale</h3>
+    <p>Object history and auto-archiving, zone filter behavior improvements, and rollout-ready administration patterns.</p>
+  </div>
+</div>
+
+<div class="summary-band">
+  <div>
+    <span class="metric-label">Total Roadmap</span>
+    <strong>49 days</strong>
+  </div>
+  <div>
+    <span class="metric-label">One-Time Development</span>
+    <strong>€73,500</strong>
+  </div>
+  <div>
+    <span class="metric-label">Commercial Basis</span>
+    <strong>€1,500 / day standard rate</strong>
+  </div>
+</div>
+
+---
+## Work Packages 1 To 4
+
+<table class="proposal-table roadmap-table">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Scope</th>
+      <th>Days</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Custom Geofencing &amp; Lear DB Integration</td>
+      <td>API-linked geofencing areas, object creation flows, tag assignment, Omlox integration via Open Location Hub, and synchronization with Lear systems.</td>
+      <td>8</td>
+      <td>€12,000</td>
+    </tr>
+    <tr>
+      <td>Object &amp; User Messaging</td>
+      <td>Operational chat linked to tracked objects or users with in-app notifications and email delivery.</td>
+      <td>4</td>
+      <td>€6,000</td>
+    </tr>
+    <tr>
+      <td>Tag Grouping &amp; Containerisation</td>
+      <td>Bind multiple tags into a parent container with structured grouping, leveraging new inventory management behaviors where useful.</td>
+      <td>10</td>
+      <td>€15,000</td>
+    </tr>
+    <tr>
+      <td>Task Assignment On Objects</td>
+      <td>Task templates, default assignees, task status, and dashboard visibility tied directly to tracked objects.</td>
+      <td>4</td>
+      <td>€6,000</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+## Work Packages 5 To 9
+
+<table class="proposal-table roadmap-table">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Scope</th>
+      <th>Days</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Object History &amp; Auto-Archiving</td>
+      <td>Archive inactive assets after an agreed period while preserving search, recovery, and unarchive flows.</td>
+      <td>2</td>
+      <td>€3,000</td>
+    </tr>
+    <tr>
+      <td>Zone Behaviour Filters</td>
+      <td>Keep zones visible as part of the base map even when object filters are applied.</td>
+      <td>1</td>
+      <td>€1,500</td>
+    </tr>
+    <tr>
+      <td>Business Unit Access Control</td>
+      <td>Workspace team system with role- and business-unit-based access separation. FORMATION internalises part of the architecture investment.</td>
+      <td>10</td>
+      <td>€15,000</td>
+    </tr>
+    <tr>
+      <td>Microsoft SSO Integration</td>
+      <td>Enterprise Microsoft authentication via standard OpenID flows, developed against a Microsoft test account and aligned with Lear IT needs.</td>
+      <td>5</td>
+      <td>€7,500</td>
+    </tr>
+    <tr>
+      <td>Event-Based Notifications</td>
+      <td>Email and app notifications when tags reappear inside tracked areas or zones, including edge-case handling.</td>
+      <td>5</td>
+      <td>€7,500</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+## Commercial Structure &amp; Support
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">Payment Terms</p>
+    <h3 class="minor-heading">Platform and roadmap delivery</h3>
     <ul>
-      <li>Customer introductions</li>
-      <li>Design partners</li>
-      <li>Funding or distribution</li>
+      <li>Platform billed annually in advance</li>
+      <li>3-year advance commitment applies a 10% platform discount</li>
+      <li>Roadmap work billed 50% upfront and 50% on completion</li>
+      <li>Bundled roadmap commitment can reduce the effective day rate to as low as <strong>€1,000 / day</strong></li>
     </ul>
   </div>
-  <div class="info-card">
-    <h3>What happens next</h3>
-    <p>Add one clear follow-up action with a date or decision point.</p>
+  <div class="proposal-card">
+    <p class="eyebrow">Optional Production Support</p>
+    <h3 class="minor-heading">€10,000 per year</h3>
+    <ul>
+      <li>Lear database integration support</li>
+      <li>System maintenance and ongoing updates</li>
+      <li>Uptime monitoring and technical support</li>
+      <li>Dedicated hosting available separately at approximately <strong>€24,000 / year</strong></li>
+    </ul>
+  </div>
+</div>
+
+<blockquote class="pull-quote">"The commercial goal is not short-term cost minimization. It is a stable, low-risk production rollout structure for long-term operation in live manufacturing environments."</blockquote>
+
+---
+## Three-Year Cost Summary
+
+<div class="metric-strip two-up">
+  <div class="metric-card total-card">
+    <span class="metric-label">Without Platform Discount</span>
+    <strong>€180,540</strong>
+    <p>3-year platform plus roadmap development plus support.</p>
+  </div>
+  <div class="metric-card total-card">
+    <span class="metric-label">With 3-Year Upfront Commitment</span>
+    <strong>€172,836</strong>
+    <p>Includes discounted platform total of <strong>€69,336</strong>.</p>
+  </div>
+</div>
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">What Lear Gets</p>
+    <ul>
+      <li>Production-ready multi-site foundation</li>
+      <li>Enterprise controls and Microsoft-aligned access</li>
+      <li>Operational workflows tied directly to tracked assets</li>
+      <li>A clearer path from validated pilot to standardized rollout</li>
+    </ul>
+  </div>
+  <div class="proposal-card">
+    <p class="eyebrow">Next Step</p>
+    <ul>
+      <li>Confirm final requirements and integration assumptions</li>
+      <li>Align the roadmap into a committed delivery block</li>
+      <li>Finalize commercial structure and rollout sequence</li>
+      <li>Begin production implementation planning</li>
+    </ul>
   </div>
 </div>
 
 ---
-## Contact
+## Closing
 
-[your-domain.com](https://example.com)
-
-[you@example.com](mailto:you@example.com)
-
-<div class="qr-grid">
-  <div class="qr-card">
-    <div class="qrcode-slot">
-      <img src="assets/project-mark.svg" alt="Project mark" />
-      <a href="https://example.com">https://example.com</a>
-    </div>
+<div class="proposal-grid two-up">
+  <div class="proposal-card closing-card">
+    <p class="eyebrow">Prepared By</p>
+    <h3 class="minor-heading">Ian Hannigan</h3>
+    <p>Geschäftsführer<br />FORMATION GmbH<br />Berlin, March 31, 2026</p>
+  </div>
+  <div class="proposal-card closing-card">
+    <p class="eyebrow">Contact</p>
+    <h3 class="minor-heading"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></h3>
+    <p><a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a><br />The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments.</p>
   </div>
 </div>
+
+---
+<!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+
+<section class="cover-shell">
+  <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
+  <p class="cover-tagline">The power to know where.</p>
+  <div class="cover-rule"></div>
+  <h2 class="cover-end-title">Thank You</h2>
+  <div class="cover-issue-date">Ian Hannigan • FORMATION GmbH</div>
+  <div class="cover-meta">
+    <span class="cover-meta-pill"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></span>
+    <span class="meta-separator">|</span>
+    <span>tryformation.com</span>
+  </div>
+</section>

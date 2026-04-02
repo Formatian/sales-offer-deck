@@ -4,24 +4,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Project Reveal Starter</title>
-  <link rel="icon" type="image/svg+xml" href="assets/project-mark.svg" />
+  <title>FORMATION x Lear Corp. Production Rollout</title>
+  <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260402c" />
 </head>
 
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260402c" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
 
+  <a class="corner-brand" href="#/" aria-label="Back to start slide">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" />
+  </a>
+
   <div class="slide-footer">
     <div class="footer-meta">
-      <a href="https://example.com">example.com</a>
-      <span>&copy; 2026 Your Project</span>
+      <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a>
+      <span>&copy; 2026 FORMATION GmbH</span>
     </div>
     <span id="slide-counter"></span>
   </div>
@@ -40,13 +44,19 @@
       overview: true,
       controls: true,
       progress: true,
-      slideNumber: true,
+      slideNumber: false,
       center: true
     });
 
     function syncChrome(slide) {
-      const isTitle = slide.classList.contains('title-slide');
+      const indices = Reveal.getIndices(slide);
+      const isTitle = slide.classList.contains('title-slide') || indices.h === 0;
+      const isVideoHero =
+        slide.classList.contains('hero-video-slide') ||
+        slide.hasAttribute('data-background-video');
       document.querySelector('.slide-footer').style.display = isTitle ? 'none' : '';
+      document.querySelector('.corner-brand').style.display = isTitle ? 'none' : '';
+      document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
     }
 
     function updateSlideCount() {
@@ -115,6 +125,23 @@
       fitSlide(Reveal.getCurrentSlide());
     }
 
+    function updateExternalLinks(scope = document) {
+      scope.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) {
+          return;
+        }
+
+        const isExternal = /^https?:\/\//i.test(href) || /^mailto:/i.test(href);
+        if (!isExternal) {
+          return;
+        }
+
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noreferrer noopener');
+      });
+    }
+
     function watchSlideImages(slide) {
       slide.querySelectorAll('img').forEach(img => {
         if (!img.complete) {
@@ -161,6 +188,7 @@
     Reveal.on('ready', event => {
       syncChrome(event.currentSlide);
       updateSlideCount();
+      updateExternalLinks();
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
       relayoutSoon();
@@ -169,6 +197,7 @@
     Reveal.on('slidechanged', event => {
       syncChrome(event.currentSlide);
       updateSlideCount();
+      updateExternalLinks(event.currentSlide);
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
       relayoutSoon();
