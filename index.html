@@ -51,12 +51,16 @@
     function syncChrome(slide) {
       const indices = Reveal.getIndices(slide);
       const isTitle = slide.classList.contains('title-slide') || indices.h === 0;
+      const activeBackground = document.querySelector('.backgrounds .slide-background.present');
       const isVideoHero =
         slide.classList.contains('hero-video-slide') ||
-        slide.hasAttribute('data-background-video');
+        slide.classList.contains('proposal-cover') ||
+        slide.hasAttribute('data-background-video') ||
+        !!activeBackground?.querySelector('video');
       document.querySelector('.slide-footer').style.display = isTitle ? 'none' : '';
       document.querySelector('.corner-brand').style.display = isTitle ? 'none' : '';
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
+      document.body.classList.toggle('video-slide-active', isVideoHero);
     }
 
     function updateSlideCount() {
