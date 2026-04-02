@@ -7,7 +7,7 @@
   <title>FORMATION x Lear Corp. Production Rollout</title>
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260402c" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260402d" />
 </head>
 
 <body>
@@ -45,7 +45,7 @@
       controls: true,
       progress: true,
       slideNumber: false,
-      center: true
+      center: false
     });
 
     function syncChrome(slide) {
@@ -82,6 +82,7 @@
 
       slide.style.zoom = '';
       slide.classList.remove('is-auto-fitted');
+      slide.classList.remove('is-vertically-centered');
 
       const maxIterations = 8;
       const minZoom = 0.48;
@@ -119,6 +120,44 @@
         slide.style.zoom = nextZoom.toFixed(3);
         slide.classList.add('is-auto-fitted');
       }
+
+      updateVerticalAlignment(slide);
+    }
+
+    function updateVerticalAlignment(slide) {
+      if (!slide || slide.classList.contains('stack')) {
+        return;
+      }
+
+      const footer = document.querySelector('.slide-footer');
+      const slideRect = slide.getBoundingClientRect();
+      const visibleBottom =
+        footer && footer.style.display !== 'none'
+          ? footer.getBoundingClientRect().top - 8
+          : window.innerHeight - 8;
+
+      const visibleChildren = Array.from(slide.children).filter(child => {
+        const style = window.getComputedStyle(child);
+        return style.display !== 'none' && style.visibility !== 'hidden';
+      });
+
+      if (visibleChildren.length === 0) {
+        return;
+      }
+
+      const contentTop = visibleChildren.reduce((minTop, child) => {
+        return Math.min(minTop, child.getBoundingClientRect().top);
+      }, visibleBottom);
+
+      const contentBottom = visibleChildren.reduce((maxBottom, child) => {
+        return Math.max(maxBottom, child.getBoundingClientRect().bottom);
+      }, slideRect.top);
+
+      const availableHeight = Math.max(1, visibleBottom - slideRect.top);
+      const contentHeight = Math.max(1, contentBottom - contentTop);
+      const shouldCenter = contentHeight < availableHeight * 0.72;
+
+      slide.classList.toggle('is-vertically-centered', shouldCenter);
     }
 
     function fitCurrentSlide() {

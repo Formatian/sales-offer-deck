@@ -38,20 +38,29 @@ body {
   background: #0f1f22;
 }
 
-.reveal-viewport.video-slide-active::before {
+.reveal-viewport.video-slide-active::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(8, 17, 18, 0.58), rgba(8, 17, 18, 0.66)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.08), transparent 22%);
+    linear-gradient(180deg, rgba(8, 17, 18, 0.54), rgba(8, 17, 18, 0.62)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.08), transparent 24%);
 }
 
 .reveal-viewport.video-slide-active .reveal {
   position: relative;
   z-index: 2;
+}
+
+.reveal-viewport.video-slide-active .backgrounds {
+  position: relative;
+}
+
+.reveal-viewport.video-slide-active .backgrounds .slide-background.present video,
+.reveal-viewport.video-slide-active .backgrounds .slide-background.present iframe {
+  filter: brightness(0.6) saturate(0.82);
 }
 
 .reveal {
@@ -69,6 +78,13 @@ body {
 
 .reveal .slides section:not(.stack) {
   padding: 2.2rem 0 3rem;
+}
+
+.reveal .slides section.is-vertically-centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 8.2rem);
 }
 
 .reveal .slides section.is-auto-fitted {
@@ -200,7 +216,7 @@ body {
 
 .corner-brand {
   position: fixed;
-  right: 22px;
+  left: 22px;
   bottom: 72px;
   z-index: 35;
   opacity: 0.78;
@@ -208,12 +224,18 @@ body {
 
 .corner-brand img {
   display: block;
-  width: 140px;
+  width: 164px;
   height: auto;
 }
 
 .slide-footer a {
   color: rgba(239, 245, 240, 0.78);
+  text-decoration: none;
+}
+
+.slide-footer a:hover,
+.slide-footer a:focus-visible {
+  text-decoration: none;
 }
 
 .reveal .controls {
