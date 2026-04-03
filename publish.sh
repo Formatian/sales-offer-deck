@@ -17,4 +17,5 @@ else
   exit 1
 fi
 
+node ./scripts/write-deploy-metadata.js
 npx --yes wrangler pages deploy . --project-name="$PROJECT_NAME" --branch="$BRANCH_NAME"

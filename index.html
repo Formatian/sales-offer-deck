@@ -7,7 +7,7 @@
   <title>FORMATION x Lear Corp. Production Rollout</title>
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260403a" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260403c" />
 </head>
 
 <body>
@@ -26,6 +26,8 @@
     <div class="footer-meta">
       <span>&copy; 2026 FORMATION GmbH</span>
       <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
+      <span class="footer-divider" aria-hidden="true">|</span>
+      <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
     </div>
     <div class="footer-nav">
       <span id="slide-counter"></span>
@@ -53,8 +55,9 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260403a';
+    const DECK_VERSION = '20260403c';
     const DECK_LANG_KEY = 'formation-deck-language';
+    const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
       de: `slides.de.md?v=${DECK_VERSION}`
@@ -65,6 +68,7 @@
         title: 'FORMATION x Lear Corp. Production Rollout',
         slideLabel: 'Slide',
         ofLabel: 'of',
+        deployLabel: 'Live update',
         overviewOpen: 'Open slide overview',
         overviewClose: 'Close slide overview',
         overviewTitleOpen: 'Slide overview',
@@ -76,6 +80,7 @@
         title: 'FORMATION x Lear Corp. Produktions-Rollout',
         slideLabel: 'Folie',
         ofLabel: 'von',
+        deployLabel: 'Live-Update',
         overviewOpen: 'Folienübersicht öffnen',
         overviewClose: 'Folienübersicht schließen',
         overviewTitleOpen: 'Folienübersicht',
@@ -85,6 +90,7 @@
     };
 
     let currentLanguage = 'en';
+    let deployMetadata = null;
 
     function normalizeLanguage(language) {
       return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
@@ -131,6 +137,8 @@
         button.classList.toggle('is-active', isActive);
         button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
+
+      renderDeployTimestamp();
     }
 
     function applyDeckSource(language) {
@@ -225,6 +233,57 @@
       footer.textContent = `${copy.slideLabel} ${idx} ${copy.ofLabel} ${total}`;
     }
 
+    function formatDeployTimestamp(isoString, language) {
+      if (!isoString) {
+        return '';
+      }
+
+      const date = new Date(isoString);
+      if (Number.isNaN(date.getTime())) {
+        return isoString;
+      }
+
+      return new Intl.DateTimeFormat(language === 'de' ? 'de-DE' : 'en-GB', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Berlin',
+        timeZoneName: 'short'
+      }).format(date);
+    }
+
+    function renderDeployTimestamp() {
+      const deployLabel = document.getElementById('deploy-timestamp');
+      if (!deployLabel) {
+        return;
+      }
+
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      const deployedAt = deployMetadata?.deployedAt;
+      if (!deployedAt) {
+        deployLabel.textContent = '';
+        return;
+      }
+
+      deployLabel.textContent = `${copy.deployLabel}: ${formatDeployTimestamp(deployedAt, currentLanguage)}`;
+    }
+
+    async function loadDeployMetadata() {
+      try {
+        const response = await fetch(DEPLOY_META_URL, { cache: 'no-store' });
+        if (!response.ok) {
+          return;
+        }
+
+        deployMetadata = await response.json();
+        renderDeployTimestamp();
+      } catch (error) {
+        // Keep the footer clean if deployment metadata is unavailable.
+      }
+    }
+
     function syncBackgroundClasses() {
       const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
       const backgrounds = Array.from(document.querySelectorAll('.reveal .backgrounds > .slide-background'));
@@ -252,14 +311,56 @@
       const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
       const segmentPercent = 100 / totalSlides;
       const fillPercent = segmentPercent * activeSlide;
+      const segmentSizePx = progress.clientWidth / totalSlides;
 
       progress.style.setProperty('--slide-count', String(totalSlides));
       progress.style.setProperty('--active-slide', String(activeSlide));
       progress.style.setProperty('--segment-percent', `${segmentPercent}%`);
+      progress.style.setProperty('--segment-size-px', `${segmentSizePx}px`);
+      progress.style.setProperty('--active-fill-percent', `${fillPercent}%`);
 
       if (progressFill) {
         progressFill.style.width = `${fillPercent}%`;
       }
+
+      if (!progress.dataset.hoverActive) {
+        progress.style.setProperty('--hover-fill-percent', `${fillPercent}%`);
+      }
+    }
+
+    function clearProgressHover() {
+      const progress = document.querySelector('.reveal .progress');
+      if (!progress) {
+        return;
+      }
+
+      progress.dataset.hoverActive = 'false';
+      progress.style.setProperty('--hover-fill-percent', progress.style.getPropertyValue('--active-fill-percent') || '0%');
+    }
+
+    function getProgressHoverSlide(event, progress, totalSlides) {
+      const rect = progress.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      return Math.min(totalSlides, Math.max(1, Math.floor(ratio * totalSlides) + 1));
+    }
+
+    function handleProgressHover(event) {
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      const progress = event.currentTarget;
+      const totalSlides = Reveal.getTotalSlides();
+      if (!progress || totalSlides <= 1) {
+        return;
+      }
+
+      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const hoveredSlide = getProgressHoverSlide(event, progress, totalSlides);
+      const hoveredFillPercent = (hoveredSlide / totalSlides) * 100;
+
+      progress.style.setProperty('--hover-fill-percent', `${hoveredFillPercent}%`);
+      progress.dataset.hoverActive = hoveredSlide > activeSlide ? 'true' : 'false';
     }
 
     function mountFooterControls() {
@@ -369,6 +470,74 @@
 
     let overviewWheelAccum = 0;
     let overviewWheelLockUntil = 0;
+    let overviewEdgeDirection = 0;
+    let overviewEdgeTickHandle = 0;
+    let overviewEdgeLastStepAt = 0;
+
+    function stopOverviewEdgeScroll() {
+      overviewEdgeDirection = 0;
+      overviewEdgeLastStepAt = 0;
+
+      if (overviewEdgeTickHandle) {
+        cancelAnimationFrame(overviewEdgeTickHandle);
+        overviewEdgeTickHandle = 0;
+      }
+    }
+
+    function runOverviewEdgeScroll(now) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview()) || overviewEdgeDirection === 0) {
+        overviewEdgeTickHandle = 0;
+        return;
+      }
+
+      if (!overviewEdgeLastStepAt || now - overviewEdgeLastStepAt >= 275) {
+        if (overviewEdgeDirection > 0) {
+          Reveal.right();
+        } else {
+          Reveal.left();
+        }
+
+        overviewEdgeLastStepAt = now;
+      }
+
+      overviewEdgeTickHandle = requestAnimationFrame(runOverviewEdgeScroll);
+    }
+
+    function startOverviewEdgeScroll(direction) {
+      if (overviewEdgeDirection === direction && overviewEdgeTickHandle) {
+        return;
+      }
+
+      overviewEdgeDirection = direction;
+      overviewEdgeLastStepAt = 0;
+
+      if (!overviewEdgeTickHandle) {
+        overviewEdgeTickHandle = requestAnimationFrame(runOverviewEdgeScroll);
+      }
+    }
+
+    function handleOverviewPointerMove(event) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview())) {
+        stopOverviewEdgeScroll();
+        return;
+      }
+
+      const edgeZone = Math.max(120, Math.round(window.innerWidth * 0.16));
+      const leftThreshold = edgeZone;
+      const rightThreshold = window.innerWidth - edgeZone;
+
+      if (event.clientX <= leftThreshold) {
+        startOverviewEdgeScroll(-1);
+        return;
+      }
+
+      if (event.clientX >= rightThreshold) {
+        startOverviewEdgeScroll(1);
+        return;
+      }
+
+      stopOverviewEdgeScroll();
+    }
 
     function handleOverviewWheel(event) {
       if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview())) {
@@ -422,9 +591,7 @@
         return;
       }
 
-      const rect = progress.getBoundingClientRect();
-      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-      const targetIndex = Math.min(totalSlides - 1, Math.round(ratio * (totalSlides - 1)));
+      const targetIndex = getProgressHoverSlide(event, progress, totalSlides) - 1;
       Reveal.slide(targetIndex);
     }
 
@@ -509,6 +676,7 @@
     Reveal.on('ready', event => {
       syncBackgroundClasses();
       mountFooterControls();
+      loadDeployMetadata();
       syncChromeSoon();
       updateSlideCount();
       syncProgressTicks();
@@ -537,6 +705,7 @@
     });
 
     Reveal.on('overviewhidden', () => {
+      stopOverviewEdgeScroll();
       syncChromeSoon();
       relayoutSoon();
     });
@@ -544,6 +713,11 @@
     window.addEventListener('load', relayoutSoon, { once: true });
     window.addEventListener('resize', relayoutSoon);
     window.addEventListener('wheel', handleOverviewWheel, { passive: false });
+    window.addEventListener('mousemove', handleOverviewPointerMove, { passive: true });
+    window.addEventListener('mouseleave', stopOverviewEdgeScroll, { passive: true });
+    window.addEventListener('blur', stopOverviewEdgeScroll);
+    document.querySelector('.reveal .progress')?.addEventListener('mousemove', handleProgressHover, true);
+    document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       Reveal.toggleOverview();

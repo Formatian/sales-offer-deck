@@ -328,28 +328,72 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 
 .reveal .progress {
   --slide-count: 1;
-  --segment-size: calc(100% / var(--slide-count));
-  bottom: calc(40px + 1.44rem + 1px);
-  height: 3px;
-  padding: 6px 0;
-  z-index: 40;
+  --segment-size-px: 100px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(40px + 1.44rem + 8px);
+  height: 7px;
+  padding: 5px 0;
+  z-index: 60;
+  overflow: hidden;
   background-clip: content-box;
   box-sizing: content-box;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.08);
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.04) 0,
-    rgba(255, 255, 255, 0.04) calc(var(--segment-size) - 1px),
-    rgba(255, 255, 255, 0.18) calc(var(--segment-size) - 1px),
-    rgba(255, 255, 255, 0.18) var(--segment-size)
-  );
+  background-color: rgba(255, 255, 255, 0.03);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.14);
+  transition:
+    background-color 140ms ease,
+    box-shadow 140ms ease;
 }
 
-.reveal .progress span {
+.reveal .progress[data-hover-active="true"] {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.reveal .progress::before {
+  content: "";
+  position: absolute;
+  inset: 5px 0;
+  width: var(--hover-fill-percent);
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(var(--segment-size-px) - 4px),
+      rgba(9, 16, 18, 0.84) calc(var(--segment-size-px) - 4px),
+      rgba(9, 16, 18, 0.84) var(--segment-size-px)
+    ),
+    linear-gradient(90deg, rgba(88, 212, 108, 0.58), rgba(88, 212, 108, 0.38));
+  opacity: 0;
+  transition:
+    width 120ms ease,
+    opacity 120ms ease;
+}
+
+.reveal .progress[data-hover-active="true"]::before {
+  opacity: 1;
+}
+
+.reveal .progress > span {
   display: block;
+  position: relative;
   height: 100%;
-  background: var(--color-accent);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(var(--segment-size-px) - 4px),
+      rgba(9, 16, 18, 0.92) calc(var(--segment-size-px) - 4px),
+      rgba(9, 16, 18, 0.92) var(--segment-size-px)
+    ),
+    linear-gradient(90deg, rgba(88, 212, 108, 0.98), rgba(88, 212, 108, 0.84));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 12px rgba(88, 212, 108, 0.24);
   transition: width 180ms ease;
   transform: none !important;
   transform-origin: left center;
@@ -372,6 +416,26 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   color: rgba(239, 245, 240, 0.78);
   font-size: 0.84rem;
   backdrop-filter: blur(6px);
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.footer-divider {
+  color: rgba(239, 245, 240, 0.34);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.deploy-timestamp {
+  color: rgba(239, 245, 240, 0.56);
+  font-size: 0.74rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .corner-brand {
@@ -969,6 +1033,19 @@ body.overview-active .cover-title,
   .cover-meta {
     display: grid;
     gap: 0.3rem;
+  }
+
+  .slide-footer {
+    gap: 0.7rem;
+  }
+
+  .footer-meta {
+    flex-wrap: wrap;
+    gap: 0.3rem 0.75rem;
+  }
+
+  .deploy-timestamp {
+    white-space: normal;
   }
 
   .meta-separator {
