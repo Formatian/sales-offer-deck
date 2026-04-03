@@ -476,6 +476,47 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   gap: 0.75rem;
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid rgba(88, 212, 108, 0.2);
+  background: rgba(18, 33, 36, 0.4);
+}
+
+.language-option {
+  min-width: 38px;
+  height: 26px;
+  padding: 0 0.55rem;
+  border: 0;
+  background: transparent;
+  color: rgba(239, 245, 240, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.language-option:hover,
+.language-option:focus-visible {
+  color: rgba(239, 245, 240, 0.96);
+  background: rgba(88, 212, 108, 0.12);
+}
+
+.language-option.is-active {
+  background: var(--color-accent);
+  color: #0d1718;
+}
+
+body.language-switching .language-option {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 .overview-toggle {
   display: inline-flex;
   align-items: center;

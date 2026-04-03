@@ -7,13 +7,13 @@
   <title>FORMATION x Lear Corp. Production Rollout</title>
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260402d" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260403a" />
 </head>
 
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260402c" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260403a" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -41,6 +41,10 @@
           <path d="M18 6 6 18"></path>
         </svg>
       </button>
+      <div class="language-switch" role="group" aria-label="Presentation language">
+        <button type="button" class="language-option is-active" data-language="en" aria-pressed="true">EN</button>
+        <button type="button" class="language-option" data-language="de" aria-pressed="false">DE</button>
+      </div>
     </div>
   </div>
 
@@ -49,18 +53,116 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    Reveal.initialize({
-      hash: true,
-      hashOneBasedIndex: true,
-      transition: 'fade',
-      backgroundTransition: 'fade',
-      plugins: [RevealNotes, RevealMarkdown],
-      overview: true,
-      controls: true,
-      progress: true,
-      slideNumber: false,
-      center: true
-    });
+    const DECK_VERSION = '20260403a';
+    const DECK_LANG_KEY = 'formation-deck-language';
+    const DECK_SOURCES = {
+      en: `slides.md?v=${DECK_VERSION}`,
+      de: `slides.de.md?v=${DECK_VERSION}`
+    };
+    const LANGUAGE_COPY = {
+      en: {
+        htmlLang: 'en',
+        title: 'FORMATION x Lear Corp. Production Rollout',
+        slideLabel: 'Slide',
+        ofLabel: 'of',
+        overviewOpen: 'Open slide overview',
+        overviewClose: 'Close slide overview',
+        overviewTitleOpen: 'Slide overview',
+        overviewTitleClose: 'Close slide overview',
+        switchLabel: 'Presentation language'
+      },
+      de: {
+        htmlLang: 'de',
+        title: 'FORMATION x Lear Corp. Produktions-Rollout',
+        slideLabel: 'Folie',
+        ofLabel: 'von',
+        overviewOpen: 'Folienübersicht öffnen',
+        overviewClose: 'Folienübersicht schließen',
+        overviewTitleOpen: 'Folienübersicht',
+        overviewTitleClose: 'Folienübersicht schließen',
+        switchLabel: 'Sprache der Präsentation'
+      }
+    };
+
+    let currentLanguage = 'en';
+
+    function normalizeLanguage(language) {
+      return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
+    }
+
+    function getLanguageFromLocation() {
+      const params = new URLSearchParams(window.location.search);
+      return normalizeLanguage(params.get('lang') || '');
+    }
+
+    function persistLanguage(language) {
+      try {
+        window.localStorage.setItem(DECK_LANG_KEY, language);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getPreferredLanguage() {
+      const locationLanguage = getLanguageFromLocation();
+      if (locationLanguage !== 'en' || new URLSearchParams(window.location.search).has('lang')) {
+        return locationLanguage;
+      }
+
+      try {
+        return normalizeLanguage(window.localStorage.getItem(DECK_LANG_KEY) || 'en');
+      } catch (error) {
+        return 'en';
+      }
+    }
+
+    function applyLanguageMetadata(language) {
+      const copy = LANGUAGE_COPY[language] || LANGUAGE_COPY.en;
+      document.documentElement.lang = copy.htmlLang;
+      document.title = copy.title;
+
+      const switcher = document.querySelector('.language-switch');
+      if (switcher) {
+        switcher.setAttribute('aria-label', copy.switchLabel);
+      }
+
+      document.querySelectorAll('.language-option').forEach(button => {
+        const isActive = button.dataset.language === language;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    function applyDeckSource(language) {
+      const slideSource = document.querySelector('.reveal .slides > section[data-markdown]');
+      if (!slideSource) {
+        return;
+      }
+
+      slideSource.setAttribute('data-markdown', DECK_SOURCES[language]);
+    }
+
+    function updateLanguageLocation(language) {
+      const url = new URL(window.location.href);
+      if (language === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', language);
+      }
+
+      return url.toString();
+    }
+
+    function switchDeckLanguage(language) {
+      const nextLanguage = normalizeLanguage(language);
+      if (nextLanguage === currentLanguage) {
+        return;
+      }
+
+      persistLanguage(nextLanguage);
+      document.body.classList.add('language-switching');
+      window.location.replace(updateLanguageLocation(nextLanguage));
+    }
 
     function syncChrome(slide) {
       const isOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
@@ -87,9 +189,10 @@
       document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
       document.body.classList.toggle('overview-active', isOverview);
       const overviewToggle = document.querySelector('.overview-toggle');
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
       if (overviewToggle) {
-        overviewToggle.setAttribute('aria-label', isOverview ? 'Close slide overview' : 'Open slide overview');
-        overviewToggle.setAttribute('title', isOverview ? 'Close slide overview' : 'Slide overview');
+        overviewToggle.setAttribute('aria-label', isOverview ? copy.overviewClose : copy.overviewOpen);
+        overviewToggle.setAttribute('title', isOverview ? copy.overviewTitleClose : copy.overviewTitleOpen);
       }
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('video-slide-active', isVideoHero);
@@ -118,7 +221,8 @@
       const footer = document.getElementById('slide-counter');
       const idx = Reveal.getSlidePastCount() + 1;
       const total = Reveal.getTotalSlides();
-      footer.textContent = `Slide ${idx} of ${total}`;
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      footer.textContent = `${copy.slideLabel} ${idx} ${copy.ofLabel} ${total}`;
     }
 
     function syncBackgroundClasses() {
@@ -173,6 +277,7 @@
       } else if (controls.parentElement !== footerNav) {
         footerNav.appendChild(controls);
       }
+
     }
 
     function relayoutSoon() {
@@ -383,6 +488,24 @@
       });
     }
 
+    const preferredLanguage = getPreferredLanguage();
+    currentLanguage = preferredLanguage;
+    applyDeckSource(currentLanguage);
+    applyLanguageMetadata(currentLanguage);
+
+    Reveal.initialize({
+      hash: true,
+      hashOneBasedIndex: true,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      plugins: [RevealNotes, RevealMarkdown],
+      overview: true,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      center: true
+    });
+
     Reveal.on('ready', event => {
       syncBackgroundClasses();
       mountFooterControls();
@@ -425,10 +548,16 @@
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       Reveal.toggleOverview();
     });
+    document.querySelectorAll('.language-option').forEach(button => {
+      button.addEventListener('click', () => {
+        switchDeckLanguage(button.dataset.language || 'en');
+      });
+    });
     new MutationObserver(() => syncChromeSoon()).observe(document.body, {
       childList: true,
       subtree: true
     });
+
   </script>
 
 </body>
