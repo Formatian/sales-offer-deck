@@ -302,7 +302,8 @@
 
     function syncProgressTicks() {
       const progress = document.querySelector('.reveal .progress');
-      const progressFill = progress?.querySelector('span');
+      const progressFill = progress?.querySelector('span:not(.progress-hover-fill)');
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
       if (!progress) {
         return;
       }
@@ -324,6 +325,11 @@
         progressFill.style.width = `${fillPercent}%`;
       }
 
+      if (hoverFill && (!progress.dataset.hoverActive || progress.dataset.hoverActive === 'false')) {
+        hoverFill.style.left = `${fillPercent}%`;
+        hoverFill.style.width = '0%';
+      }
+
       if (!progress.dataset.hoverActive) {
         progress.style.setProperty('--hover-fill-percent', '0%');
       }
@@ -331,6 +337,7 @@
 
     function clearProgressHover() {
       const progress = document.querySelector('.reveal .progress');
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
       if (!progress) {
         return;
       }
@@ -338,6 +345,10 @@
       progress.dataset.hoverActive = 'false';
       progress.style.setProperty('--hover-start-percent', progress.style.getPropertyValue('--active-fill-percent') || '0%');
       progress.style.setProperty('--hover-fill-percent', '0%');
+      if (hoverFill) {
+        hoverFill.style.left = progress.style.getPropertyValue('--active-fill-percent') || '0%';
+        hoverFill.style.width = '0%';
+      }
     }
 
     function getProgressHoverSlide(event, progress, totalSlides) {
@@ -352,6 +363,7 @@
       }
 
       const progress = event.currentTarget;
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
       const totalSlides = Reveal.getTotalSlides();
       if (!progress || totalSlides <= 1) {
         return;
@@ -369,6 +381,11 @@
         isFutureHover ? `${Math.max(0, hoveredFillPercent - activeFillPercent)}%` : '0%'
       );
       progress.dataset.hoverActive = isFutureHover ? 'true' : 'false';
+
+      if (hoverFill) {
+        hoverFill.style.left = `${activeFillPercent}%`;
+        hoverFill.style.width = isFutureHover ? `${Math.max(0, hoveredFillPercent - activeFillPercent)}%` : '0%';
+      }
     }
 
     function mountFooterControls() {
@@ -387,6 +404,18 @@
         footerNav.appendChild(controls);
       }
 
+    }
+
+    function ensureProgressHoverFill() {
+      const progress = document.querySelector('.reveal .progress');
+      if (!progress || progress.querySelector('.progress-hover-fill')) {
+        return;
+      }
+
+      const hoverFill = document.createElement('span');
+      hoverFill.className = 'progress-hover-fill';
+      hoverFill.setAttribute('aria-hidden', 'true');
+      progress.appendChild(hoverFill);
     }
 
     function relayoutSoon() {
@@ -684,6 +713,7 @@
     Reveal.on('ready', event => {
       syncBackgroundClasses();
       mountFooterControls();
+      ensureProgressHoverFill();
       loadDeployMetadata();
       syncChromeSoon();
       updateSlideCount();

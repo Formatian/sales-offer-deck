@@ -330,6 +330,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   --slide-count: 1;
   --segment-size-px: 100px;
   --hover-start-percent: 0%;
+  --hover-fill-percent: 0%;
   position: fixed;
   left: 0;
   right: 0;
@@ -338,6 +339,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   padding: 5px 0;
   z-index: 60;
   overflow: hidden;
+  isolation: isolate;
   background-clip: content-box;
   box-sizing: content-box;
   cursor: pointer;
@@ -354,14 +356,14 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.reveal .progress::before {
-  content: "";
+.reveal .progress .progress-hover-fill {
+  display: block;
   position: absolute;
   top: 5px;
   bottom: 5px;
-  left: var(--hover-start-percent);
-  width: var(--hover-fill-percent);
-  z-index: 1;
+  left: 0;
+  width: 0;
+  z-index: 3;
   pointer-events: none;
   background-image:
     repeating-linear-gradient(
@@ -377,18 +379,20 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
     0 0 18px rgba(88, 212, 108, 0.34);
   opacity: 0;
   transition:
+    left 120ms ease,
     width 120ms ease,
     opacity 120ms ease,
     box-shadow 120ms ease;
 }
 
-.reveal .progress[data-hover-active="true"]::before {
+.reveal .progress[data-hover-active="true"] .progress-hover-fill {
   opacity: 0.95;
 }
 
 .reveal .progress > span {
   display: block;
   position: relative;
+  z-index: 2;
   height: 100%;
   background-image:
     repeating-linear-gradient(
