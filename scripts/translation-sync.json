@@ -1,0 +1,8 @@
+{
+  "closing-summary": {
+    "englishFile": "slides.md",
+    "germanFile": "slides.de.md",
+    "english": "<p class=\"closing-summary\">The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments. In the short term, it delivers the operational efficiencies typically associated with RTLS systems. In parallel, it lays the foundation for a broader industrial operating model: a shared human-robotic workplace supported by a common operational layer for all actors across the production environment.</p>",
+    "german": "<p class=\"closing-summary\">Das Rollout-Angebot ist so aufgebaut, dass Plattform-Weiterentwicklung, Lear-spezifische Anforderungen und eine risikoarme Einführung in den Produktivbetrieb ausgewogen zusammenkommen. Kurzfristig liefert es die operativen Effizienzgewinne, die typischerweise mit RTLS-Systemen verbunden sind. Gleichzeitig legt es die Grundlage für ein erweitertes Produktionsbetriebsmodell: eine gemeinsame Arbeitsumgebung für Menschen und Robotik, getragen von einer einheitlichen operativen Ebene für alle Akteure im Produktionsumfeld.</p>"
+  }
+}

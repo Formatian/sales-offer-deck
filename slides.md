@@ -308,7 +308,7 @@
 ---
 ## Closing
 
-<p class="closing-summary">The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments.</p>
+<p class="closing-summary">The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments. In the short term, it delivers the operational efficiencies typically associated with RTLS systems. In parallel, it lays the foundation for a broader industrial operating model: a shared human-robotic workplace supported by a common operational layer for all actors across the production environment.</p>
 
 <div class="closing-layout">
   <div class="proposal-card closing-card closing-card-prepared">

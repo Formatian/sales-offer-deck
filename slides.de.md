@@ -308,7 +308,7 @@
 ---
 ## Abschluss
 
-<p class="closing-summary">Das Rollout-Angebot ist so aufgebaut, dass Plattform-Weiterentwicklung, Lear-spezifische Anforderungen und eine risikoarme Einführung in den Produktivbetrieb ausgewogen zusammenkommen.</p>
+<p class="closing-summary">Das Rollout-Angebot ist so aufgebaut, dass Plattform-Weiterentwicklung, Lear-spezifische Anforderungen und eine risikoarme Einführung in den Produktivbetrieb ausgewogen zusammenkommen. Kurzfristig liefert es die operativen Effizienzgewinne, die typischerweise mit RTLS-Systemen verbunden sind. Gleichzeitig legt es die Grundlage für ein erweitertes Produktionsbetriebsmodell: eine gemeinsame Arbeitsumgebung für Menschen und Robotik, getragen von einer einheitlichen operativen Ebene für alle Akteure im Produktionsumfeld.</p>
 
 <div class="closing-layout">
   <div class="proposal-card closing-card closing-card-prepared">
