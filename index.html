@@ -121,6 +121,22 @@
       footer.textContent = `Slide ${idx} of ${total}`;
     }
 
+    function syncBackgroundClasses() {
+      const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
+      const backgrounds = Array.from(document.querySelectorAll('.reveal .backgrounds > .slide-background'));
+      const sharedCount = Math.min(slides.length, backgrounds.length);
+
+      for (let i = 0; i < sharedCount; i += 1) {
+        const slide = slides[i];
+        const background = backgrounds[i];
+
+        background.classList.toggle('is-proposal-cover', slide.classList.contains('proposal-cover'));
+        background.classList.toggle('is-end-cover', slide.classList.contains('end-cover'));
+        background.classList.toggle('is-hero-video-slide', slide.classList.contains('hero-video-slide'));
+        background.classList.toggle('is-platform-video-slide', slide.classList.contains('platform-video-slide'));
+      }
+    }
+
     function syncProgressTicks() {
       const progress = document.querySelector('.reveal .progress');
       const progressFill = progress?.querySelector('span');
@@ -368,6 +384,7 @@
     }
 
     Reveal.on('ready', event => {
+      syncBackgroundClasses();
       mountFooterControls();
       syncChromeSoon();
       updateSlideCount();
@@ -379,6 +396,7 @@
     });
 
     Reveal.on('slidechanged', event => {
+      syncBackgroundClasses();
       syncChromeSoon();
       updateSlideCount();
       syncProgressTicks();
@@ -389,6 +407,7 @@
     });
 
     Reveal.on('overviewshown', () => {
+      syncBackgroundClasses();
       resetAllSlideFitting();
       syncChromeSoon();
       requestAnimationFrame(() => Reveal.layout());

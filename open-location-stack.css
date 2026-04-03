@@ -25,6 +25,21 @@ body {
   background: var(--color-bg);
 }
 
+@keyframes overviewAmbientDrift {
+  0% {
+    background-position: 100% 0%, 18% 82%, 50% 50%;
+  }
+  33% {
+    background-position: 92% 8%, 24% 76%, 50% 50%;
+  }
+  66% {
+    background-position: 84% 4%, 14% 88%, 50% 50%;
+  }
+  100% {
+    background-position: 100% 0%, 18% 82%, 50% 50%;
+  }
+}
+
 body.video-slide-active::before {
   content: "";
   position: fixed;
@@ -78,6 +93,16 @@ body.overview-active .reveal-viewport,
     radial-gradient(circle at top right, rgba(109, 234, 127, 0.16), transparent 24%),
     radial-gradient(circle at 18% 82%, rgba(88, 212, 108, 0.12), transparent 22%),
     linear-gradient(180deg, #173238 0%, #12292d 100%);
+  background-size: 136% 136%, 132% 132%, 100% 100%;
+  animation: overviewAmbientDrift 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.overview-active .reveal-viewport,
+  .reveal.overview .reveal-viewport,
+  .reveal-viewport:has(.reveal.overview) {
+    animation: none;
+  }
 }
 
 .reveal-viewport.video-slide-active .reveal {
@@ -168,16 +193,33 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
     radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
 }
 
+.reveal.overview .backgrounds .slide-background.is-proposal-cover::after,
+.reveal.overview .backgrounds .slide-background.is-end-cover::after {
+  background:
+    linear-gradient(180deg, rgba(7, 15, 17, 0.3), rgba(7, 15, 17, 0.42)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.14), transparent 26%);
+}
+
 .reveal.overview .backgrounds .slide-background video,
 .reveal.overview .backgrounds .slide-background iframe,
 .reveal.overview .backgrounds .slide-background[data-background-image] {
   filter: brightness(0.52) saturate(0.8);
 }
 
+.reveal.overview .backgrounds .slide-background.is-proposal-cover video,
+.reveal.overview .backgrounds .slide-background.is-end-cover video,
+.reveal.overview .backgrounds .slide-background.is-proposal-cover iframe,
+.reveal.overview .backgrounds .slide-background.is-end-cover iframe {
+  filter: brightness(0.72) saturate(0.92);
+}
+
 .reveal.overview .slides section.proposal-cover,
 .reveal.overview .slides section.end-cover,
-.reveal.overview .slides section.hero-video-slide[data-background-video] {
-  background: transparent;
+.reveal.overview .slides section.hero-video-slide,
+.reveal.overview .slides section.platform-video-slide,
+.reveal.overview .slides section[data-background-video] {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .reveal .slides section.is-auto-fitted {
@@ -504,11 +546,6 @@ body.overview-active .cover-shell,
   min-height: 100%;
   height: 100%;
   padding: 0 8%;
-}
-
-body.overview-active .corner-brand,
-.reveal.overview .corner-brand {
-  display: none !important;
 }
 
 .cover-wordmark-image {

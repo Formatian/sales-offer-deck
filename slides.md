@@ -4,7 +4,7 @@
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
   <p class="cover-tagline">The power to know where.</p>
   <div class="cover-rule"></div>
-  <h1 class="cover-title cover-title-main">Strategic Production Rollout &amp; Roadmap for Lear Corp.</h1>
+  <h1 class="cover-title cover-title-main">Offer: Production Rollout &amp; Roadmap Development for Lear Corp.</h1>
   <div class="cover-meta">
     <span class="cover-meta-pill cover-issue-date">Issued: March 31, 2026</span>
     <span class="meta-separator">|</span>
@@ -314,7 +314,7 @@
   <div class="proposal-card closing-card closing-card-prepared">
     <p class="eyebrow">Prepared By</p>
     <h3 class="minor-heading">Ian Hannigan</h3>
-    <p>Geschäftsführer<br />FORMATION GmbH<br />Berlin, March 31, 2026</p>
+    <p>Founder and CEO<br />FORMATION GmbH<br />Berlin, March 31, 2026</p>
   </div>
 </div>
 
@@ -326,7 +326,6 @@
   <p class="cover-tagline">The power to know where.</p>
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Thank You</h2>
-  <div class="cover-issue-date">Ian Hannigan • FORMATION GmbH</div>
   <div class="cover-meta">
     <span class="cover-meta-pill"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></span>
     <span class="meta-separator">|</span>
