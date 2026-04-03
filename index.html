@@ -30,11 +30,15 @@
     <div class="footer-nav">
       <span id="slide-counter"></span>
       <button type="button" class="overview-toggle" aria-label="Toggle slide overview" title="Slide overview">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="overview-icon overview-icon-grid" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="3" width="7" height="7" rx="1.2"></rect>
           <rect x="14" y="3" width="7" height="7" rx="1.2"></rect>
           <rect x="3" y="14" width="7" height="7" rx="1.2"></rect>
           <rect x="14" y="14" width="7" height="7" rx="1.2"></rect>
+        </svg>
+        <svg class="overview-icon overview-icon-close" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6 18 18"></path>
+          <path d="M18 6 6 18"></path>
         </svg>
       </button>
     </div>
@@ -79,9 +83,14 @@
         slide.hasAttribute('data-background-video') ||
         !!activeBackground?.querySelector('video');
       document.querySelector('.slide-footer').style.display =
-        (isOverview || (isTitle && !keepFooterVisible)) ? 'none' : '';
+        (isTitle && !keepFooterVisible) ? 'none' : '';
       document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
       document.body.classList.toggle('overview-active', isOverview);
+      const overviewToggle = document.querySelector('.overview-toggle');
+      if (overviewToggle) {
+        overviewToggle.setAttribute('aria-label', isOverview ? 'Close slide overview' : 'Open slide overview');
+        overviewToggle.setAttribute('title', isOverview ? 'Close slide overview' : 'Slide overview');
+      }
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('cover-slide-active', isCoverSlide);

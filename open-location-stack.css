@@ -71,6 +71,15 @@ body.cover-slide-active::before {
   background: #0f1f22;
 }
 
+body.overview-active .reveal-viewport,
+.reveal.overview .reveal-viewport,
+.reveal-viewport:has(.reveal.overview) {
+  background:
+    radial-gradient(circle at top right, rgba(109, 234, 127, 0.16), transparent 24%),
+    radial-gradient(circle at 18% 82%, rgba(88, 212, 108, 0.12), transparent 22%),
+    linear-gradient(180deg, #173238 0%, #12292d 100%);
+}
+
 .reveal-viewport.video-slide-active .reveal {
   position: relative;
   z-index: 2;
@@ -107,28 +116,38 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   padding: 2.2rem 0 3rem;
 }
 
+.reveal.overview .slides section.present {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .reveal.overview .slides section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: none !important;
   outline: none;
-  background-color: rgba(10, 18, 20, 0.94);
-  background-clip: padding-box;
 }
 
 .reveal.overview .slides section:not(.stack) {
-  padding: 0 !important;
+  padding: 0.72rem 0.76rem 0.82rem !important;
 }
 
-.reveal.overview .slides section.present {
-  border-color: rgba(255, 255, 255, 0.12);
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-  background-color: rgba(10, 18, 20, 0.94);
+.reveal.overview .slides section > * {
+  width: 100%;
+  flex: 0 0 auto;
 }
 
-.reveal.overview .backgrounds .slide-background {
-  background-color: #0f1b1d !important;
+.reveal.overview .slides section:not(.hero-video-slide):not(.platform-video-slide):not(.proposal-cover):not(.end-cover):not([data-background-video]):not([data-background-image]):not([data-background-iframe]) {
+  background:
+    linear-gradient(180deg, rgba(8, 17, 18, 0.8), rgba(8, 17, 18, 0.84)),
+    radial-gradient(circle at top right, rgba(88, 212, 108, 0.12), transparent 22%),
+    radial-gradient(circle at 20% 85%, rgba(88, 212, 108, 0.08), transparent 20%),
+    url("assets/tracked-welding-equipment-2.webp") center center / cover no-repeat,
+    linear-gradient(180deg, #14272b 0%, #0f1f22 100%);
+  background-clip: padding-box;
 }
 
 .reveal.overview .backgrounds .slide-background.present,
@@ -141,14 +160,16 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     linear-gradient(180deg, rgba(7, 15, 17, 0.58), rgba(7, 15, 17, 0.68)),
     radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
 }
 
 .reveal.overview .backgrounds .slide-background video,
-.reveal.overview .backgrounds .slide-background iframe {
-  filter: brightness(0.5) saturate(0.78);
+.reveal.overview .backgrounds .slide-background iframe,
+.reveal.overview .backgrounds .slide-background[data-background-image] {
+  filter: brightness(0.52) saturate(0.8);
 }
 
 .reveal .slides section.is-auto-fitted {
@@ -429,6 +450,26 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   fill: currentColor;
 }
 
+.overview-icon {
+  flex: 0 0 auto;
+}
+
+.overview-icon-close {
+  display: none;
+  fill: none !important;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+body.overview-active .overview-icon-grid {
+  display: none;
+}
+
+body.overview-active .overview-icon-close {
+  display: block;
+}
+
 .overview-toggle:hover,
 .overview-toggle:focus-visible {
   transform: translateY(-1px);
@@ -457,9 +498,7 @@ body.overview-active .cover-shell,
   padding: 0 8%;
 }
 
-body.overview-active .slide-footer,
 body.overview-active .corner-brand,
-.reveal.overview .slide-footer,
 .reveal.overview .corner-brand {
   display: none !important;
 }
