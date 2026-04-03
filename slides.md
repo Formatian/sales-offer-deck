@@ -4,7 +4,7 @@
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
   <p class="cover-tagline">The power to know where.</p>
   <div class="cover-rule"></div>
-  <h1 class="cover-title">Strategic Production Rollout &amp; Roadmap for Lear Corp.</h1>
+  <h1 class="cover-title cover-title-main">Strategic Production Rollout &amp; Roadmap for Lear Corp.</h1>
   <div class="cover-issue-date">Issued: March 31, 2026</div>
   <div class="cover-meta">
     <span class="cover-meta-pill">Prepared for: Timo Seber</span>
@@ -265,7 +265,7 @@
   </div>
 </div>
 
-<blockquote class="pull-quote">"The commercial goal is not short-term cost minimization. It is a stable, low-risk production rollout structure for long-term operation in live manufacturing environments."</blockquote>
+<blockquote class="pull-quote">The commercial goal is not short-term cost minimization. It is a stable, low-risk production rollout structure for long-term operation in live manufacturing environments.</blockquote>
 
 ---
 ## Three-Year Cost Summary
@@ -307,16 +307,13 @@
 ---
 ## Closing
 
-<div class="proposal-grid two-up">
-  <div class="proposal-card closing-card">
+<p class="closing-summary">The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments.</p>
+
+<div class="closing-layout">
+  <div class="proposal-card closing-card closing-card-prepared">
     <p class="eyebrow">Prepared By</p>
     <h3 class="minor-heading">Ian Hannigan</h3>
     <p>Geschäftsführer<br />FORMATION GmbH<br />Berlin, March 31, 2026</p>
-  </div>
-  <div class="proposal-card closing-card">
-    <p class="eyebrow">Contact</p>
-    <h3 class="minor-heading"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></h3>
-    <p><a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a><br />The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments.</p>
   </div>
 </div>
 

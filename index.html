@@ -24,8 +24,11 @@
 
   <div class="slide-footer">
     <div class="footer-meta">
-      <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a>
       <span>&copy; 2026 FORMATION GmbH</span>
+      <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
+    </div>
+    <div class="footer-nav">
+      <span id="slide-counter"></span>
       <button type="button" class="overview-toggle" aria-label="Toggle slide overview" title="Slide overview">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="3" width="7" height="7" rx="1.2"></rect>
@@ -35,7 +38,6 @@
         </svg>
       </button>
     </div>
-    <span id="slide-counter"></span>
   </div>
 
   <script src="https://unpkg.com/reveal.js@5.0.5/dist/reveal.js"></script>
@@ -57,12 +59,14 @@
     });
 
     function syncChrome(slide) {
+      const isOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
       const indices = Reveal.getIndices(slide);
       const totalSlides = Reveal.getTotalSlides();
       const isFirstSlide = indices.h === 0;
       const isLastSlide = indices.h === totalSlides - 1;
       const isPlatformVideoSlide = slide.classList.contains('platform-video-slide');
       const isTitle = slide.classList.contains('title-slide') || isFirstSlide || isLastSlide;
+      const keepFooterVisible = isFirstSlide || isLastSlide;
       const isCoverSlide =
         slide.classList.contains('proposal-cover') ||
         slide.classList.contains('end-cover') ||
@@ -74,8 +78,10 @@
         isCoverSlide ||
         slide.hasAttribute('data-background-video') ||
         !!activeBackground?.querySelector('video');
-      document.querySelector('.slide-footer').style.display = isTitle ? 'none' : '';
-      document.querySelector('.corner-brand').style.display = isTitle ? 'none' : '';
+      document.querySelector('.slide-footer').style.display =
+        (isOverview || (isTitle && !keepFooterVisible)) ? 'none' : '';
+      document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
+      document.body.classList.toggle('overview-active', isOverview);
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('video-slide-active', isVideoHero);
       document.body.classList.toggle('cover-slide-active', isCoverSlide);
@@ -104,6 +110,44 @@
       const idx = Reveal.getSlidePastCount() + 1;
       const total = Reveal.getTotalSlides();
       footer.textContent = `Slide ${idx} of ${total}`;
+    }
+
+    function syncProgressTicks() {
+      const progress = document.querySelector('.reveal .progress');
+      const progressFill = progress?.querySelector('span');
+      if (!progress) {
+        return;
+      }
+
+      const totalSlides = Math.max(1, Reveal.getTotalSlides());
+      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const segmentPercent = 100 / totalSlides;
+      const fillPercent = segmentPercent * activeSlide;
+
+      progress.style.setProperty('--slide-count', String(totalSlides));
+      progress.style.setProperty('--active-slide', String(activeSlide));
+      progress.style.setProperty('--segment-percent', `${segmentPercent}%`);
+
+      if (progressFill) {
+        progressFill.style.width = `${fillPercent}%`;
+      }
+    }
+
+    function mountFooterControls() {
+      const controls = document.querySelector('.reveal .controls');
+      const footerNav = document.querySelector('.slide-footer .footer-nav');
+      const overviewToggle = footerNav?.querySelector('.overview-toggle');
+      if (!controls || !footerNav) {
+        return;
+      }
+
+      controls.classList.add('footer-controls');
+
+      if (overviewToggle) {
+        footerNav.insertBefore(controls, overviewToggle);
+      } else if (controls.parentElement !== footerNav) {
+        footerNav.appendChild(controls);
+      }
     }
 
     function relayoutSoon() {
@@ -136,6 +180,10 @@
 
       slide.style.zoom = '';
       slide.classList.remove('is-auto-fitted');
+
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
 
       const maxIterations = 8;
       const minZoom = 0.48;
@@ -177,6 +225,77 @@
 
     function fitCurrentSlide() {
       fitSlide(Reveal.getCurrentSlide());
+    }
+
+    function resetAllSlideFitting() {
+      document.querySelectorAll('.reveal .slides section').forEach(slide => {
+        if (slide.classList.contains('stack')) {
+          return;
+        }
+        slide.style.zoom = '';
+        slide.classList.remove('is-auto-fitted');
+      });
+    }
+
+    let overviewWheelAccum = 0;
+    let overviewWheelLockUntil = 0;
+
+    function handleOverviewWheel(event) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview())) {
+        overviewWheelAccum = 0;
+        return;
+      }
+
+      const now = Date.now();
+      if (now < overviewWheelLockUntil) {
+        event.preventDefault();
+        return;
+      }
+
+      const axisDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+          ? event.deltaX
+          : event.deltaY;
+
+      if (Math.abs(axisDelta) < 4) {
+        return;
+      }
+
+      event.preventDefault();
+      overviewWheelAccum += axisDelta;
+
+      if (Math.abs(overviewWheelAccum) < 36) {
+        return;
+      }
+
+      if (overviewWheelAccum > 0) {
+        Reveal.right();
+      } else {
+        Reveal.left();
+      }
+
+      overviewWheelAccum = 0;
+      overviewWheelLockUntil = now + 180;
+    }
+
+    function handleProgressClick(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      const progress = event.currentTarget;
+      const totalSlides = Reveal.getTotalSlides();
+      if (!progress || totalSlides <= 1) {
+        return;
+      }
+
+      const rect = progress.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      const targetIndex = Math.min(totalSlides - 1, Math.round(ratio * (totalSlides - 1)));
+      Reveal.slide(targetIndex);
     }
 
     function updateExternalLinks(scope = document) {
@@ -240,8 +359,10 @@
     }
 
     Reveal.on('ready', event => {
+      mountFooterControls();
       syncChromeSoon();
       updateSlideCount();
+      syncProgressTicks();
       updateExternalLinks();
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
@@ -251,14 +372,28 @@
     Reveal.on('slidechanged', event => {
       syncChromeSoon();
       updateSlideCount();
+      syncProgressTicks();
       updateExternalLinks(event.currentSlide);
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
       relayoutSoon();
     });
 
+    Reveal.on('overviewshown', () => {
+      resetAllSlideFitting();
+      syncChromeSoon();
+      requestAnimationFrame(() => Reveal.layout());
+    });
+
+    Reveal.on('overviewhidden', () => {
+      syncChromeSoon();
+      relayoutSoon();
+    });
+
     window.addEventListener('load', relayoutSoon, { once: true });
     window.addEventListener('resize', relayoutSoon);
+    window.addEventListener('wheel', handleOverviewWheel, { passive: false });
+    document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       Reveal.toggleOverview();
     });
