@@ -361,24 +361,29 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   bottom: 5px;
   left: var(--hover-start-percent);
   width: var(--hover-fill-percent);
+  z-index: 1;
   pointer-events: none;
   background-image:
     repeating-linear-gradient(
       90deg,
       transparent 0,
       transparent calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.84) calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.84) var(--segment-size-px)
+      rgba(9, 16, 18, 0.62) calc(var(--segment-size-px) - 4px),
+      rgba(9, 16, 18, 0.62) var(--segment-size-px)
     ),
-    linear-gradient(90deg, rgba(88, 212, 108, 0.58), rgba(88, 212, 108, 0.38));
+    linear-gradient(90deg, rgba(126, 245, 144, 0.96), rgba(88, 212, 108, 0.72));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 0 18px rgba(88, 212, 108, 0.34);
   opacity: 0;
   transition:
     width 120ms ease,
-    opacity 120ms ease;
+    opacity 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .reveal .progress[data-hover-active="true"]::before {
-  opacity: 1;
+  opacity: 0.95;
 }
 
 .reveal .progress > span {

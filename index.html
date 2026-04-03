@@ -725,6 +725,7 @@
     window.addEventListener('mouseleave', stopOverviewEdgeScroll, { passive: true });
     window.addEventListener('blur', stopOverviewEdgeScroll);
     document.querySelector('.reveal .progress')?.addEventListener('mousemove', handleProgressHover, true);
+    document.querySelector('.reveal .progress')?.addEventListener('pointermove', handleProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
