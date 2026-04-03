@@ -2,7 +2,7 @@
 
 <section class="cover-shell">
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
-  <p class="cover-tagline">The power to know where.</p>
+  <p class="cover-tagline">The power of knowing where</p>
   <div class="cover-rule"></div>
   <h1 class="cover-title cover-title-main">Offer: Production Rollout &amp; Roadmap Development for Lear Corp.</h1>
   <div class="cover-meta">
@@ -323,7 +323,7 @@
 
 <section class="cover-shell">
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
-  <p class="cover-tagline">The power to know where.</p>
+  <p class="cover-tagline">The power of knowing where</p>
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Thank You</h2>
   <div class="cover-meta">

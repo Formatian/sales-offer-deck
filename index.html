@@ -318,13 +318,14 @@
       progress.style.setProperty('--segment-percent', `${segmentPercent}%`);
       progress.style.setProperty('--segment-size-px', `${segmentSizePx}px`);
       progress.style.setProperty('--active-fill-percent', `${fillPercent}%`);
+      progress.style.setProperty('--hover-start-percent', `${fillPercent}%`);
 
       if (progressFill) {
         progressFill.style.width = `${fillPercent}%`;
       }
 
       if (!progress.dataset.hoverActive) {
-        progress.style.setProperty('--hover-fill-percent', `${fillPercent}%`);
+        progress.style.setProperty('--hover-fill-percent', '0%');
       }
     }
 
@@ -335,7 +336,8 @@
       }
 
       progress.dataset.hoverActive = 'false';
-      progress.style.setProperty('--hover-fill-percent', progress.style.getPropertyValue('--active-fill-percent') || '0%');
+      progress.style.setProperty('--hover-start-percent', progress.style.getPropertyValue('--active-fill-percent') || '0%');
+      progress.style.setProperty('--hover-fill-percent', '0%');
     }
 
     function getProgressHoverSlide(event, progress, totalSlides) {
@@ -357,10 +359,16 @@
 
       const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
       const hoveredSlide = getProgressHoverSlide(event, progress, totalSlides);
+      const activeFillPercent = (activeSlide / totalSlides) * 100;
       const hoveredFillPercent = (hoveredSlide / totalSlides) * 100;
+      const isFutureHover = hoveredSlide > activeSlide;
 
-      progress.style.setProperty('--hover-fill-percent', `${hoveredFillPercent}%`);
-      progress.dataset.hoverActive = hoveredSlide > activeSlide ? 'true' : 'false';
+      progress.style.setProperty('--hover-start-percent', `${activeFillPercent}%`);
+      progress.style.setProperty(
+        '--hover-fill-percent',
+        isFutureHover ? `${Math.max(0, hoveredFillPercent - activeFillPercent)}%` : '0%'
+      );
+      progress.dataset.hoverActive = isFutureHover ? 'true' : 'false';
     }
 
     function mountFooterControls() {

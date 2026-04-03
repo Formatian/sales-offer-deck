@@ -329,6 +329,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .reveal .progress {
   --slide-count: 1;
   --segment-size-px: 100px;
+  --hover-start-percent: 0%;
   position: fixed;
   left: 0;
   right: 0;
@@ -356,7 +357,9 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .reveal .progress::before {
   content: "";
   position: absolute;
-  inset: 5px 0;
+  top: 5px;
+  bottom: 5px;
+  left: var(--hover-start-percent);
   width: var(--hover-fill-percent);
   pointer-events: none;
   background-image:
@@ -493,6 +496,11 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   border: 1px solid rgba(88, 212, 108, 0.26);
   background: rgba(18, 33, 36, 0.5);
   color: rgba(239, 245, 240, 0.82);
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .slide-footer .controls.footer-controls .navigate-left::before,
@@ -515,13 +523,39 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   margin-right: 3px;
 }
 
-.reveal .controls button {
-  transition: color 160ms ease, opacity 160ms ease;
-}
-
 .reveal .controls button:hover,
 .reveal .controls button:focus-visible {
   color: var(--color-accent);
+}
+
+.slide-footer .controls.footer-controls button:hover,
+.slide-footer .controls.footer-controls button:focus-visible {
+  border-color: rgba(88, 212, 108, 0.62);
+  background: rgba(88, 212, 108, 0.12);
+  box-shadow: 0 0 14px rgba(88, 212, 108, 0.16);
+}
+
+.slide-footer .controls.footer-controls button:not(.enabled),
+.slide-footer .controls.footer-controls button[disabled],
+.slide-footer .controls.footer-controls button[aria-disabled="true"] {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(18, 33, 36, 0.2);
+  color: rgba(239, 245, 240, 0.28);
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.slide-footer .controls.footer-controls button:not(.enabled):hover,
+.slide-footer .controls.footer-controls button:not(.enabled):focus-visible,
+.slide-footer .controls.footer-controls button[disabled]:hover,
+.slide-footer .controls.footer-controls button[disabled]:focus-visible,
+.slide-footer .controls.footer-controls button[aria-disabled="true"]:hover,
+.slide-footer .controls.footer-controls button[aria-disabled="true"]:focus-visible {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(18, 33, 36, 0.2);
+  color: rgba(239, 245, 240, 0.28);
+  box-shadow: none;
 }
 
 .reveal .slide-number {
@@ -683,7 +717,7 @@ body.overview-active .cover-wordmark-image,
 
 .cover-rule {
   width: 84px;
-  margin: 1.4rem auto 1.35rem;
+  margin: 1.4rem auto 2.1rem;
   border-top: 4px solid var(--color-accent);
 }
 
