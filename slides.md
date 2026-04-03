@@ -5,8 +5,9 @@
   <p class="cover-tagline">The power to know where.</p>
   <div class="cover-rule"></div>
   <h1 class="cover-title cover-title-main">Strategic Production Rollout &amp; Roadmap for Lear Corp.</h1>
-  <div class="cover-issue-date">Issued: March 31, 2026</div>
   <div class="cover-meta">
+    <span class="cover-meta-pill cover-issue-date">Issued: March 31, 2026</span>
+    <span class="meta-separator">|</span>
     <span class="cover-meta-pill">Prepared for: Timo Seber</span>
     <span class="meta-separator">|</span>
     <span class="cover-meta-pill">Offer valid for 45 days</span>
@@ -250,7 +251,7 @@
       <li>Platform billed annually in advance</li>
       <li>3-year advance commitment applies a 10% platform discount</li>
       <li>Roadmap work billed 50% upfront and 50% on completion</li>
-      <li>Bundled roadmap commitment can reduce the effective day rate to as low as <strong>€1,000 / day</strong></li>
+      <li>Bundled roadmap commitment can reduce the effective day rate to as low as €1,000 / day</li>
     </ul>
   </div>
   <div class="proposal-card">
@@ -260,7 +261,7 @@
       <li>Lear database integration support</li>
       <li>System maintenance and ongoing updates</li>
       <li>Uptime monitoring and technical support</li>
-      <li>Dedicated hosting available separately at approximately <strong>€24,000 / year</strong></li>
+      <li>Dedicated hosting available separately at approximately €24,000 / year</li>
     </ul>
   </div>
 </div>
