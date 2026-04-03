@@ -26,6 +26,14 @@
     <div class="footer-meta">
       <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a>
       <span>&copy; 2026 FORMATION GmbH</span>
+      <button type="button" class="overview-toggle" aria-label="Toggle slide overview" title="Slide overview">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.2"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.2"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.2"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.2"></rect>
+        </svg>
+      </button>
     </div>
     <span id="slide-counter"></span>
   </div>
@@ -251,6 +259,9 @@
 
     window.addEventListener('load', relayoutSoon, { once: true });
     window.addEventListener('resize', relayoutSoon);
+    document.querySelector('.overview-toggle')?.addEventListener('click', () => {
+      Reveal.toggleOverview();
+    });
     new MutationObserver(() => syncChromeSoon()).observe(document.body, {
       childList: true,
       subtree: true

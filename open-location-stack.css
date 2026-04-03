@@ -296,6 +296,39 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   gap: 0.85rem;
 }
 
+.overview-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba(88, 212, 108, 0.26);
+  background: rgba(18, 33, 36, 0.5);
+  color: rgba(239, 245, 240, 0.82);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.overview-toggle svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.overview-toggle:hover,
+.overview-toggle:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(88, 212, 108, 0.5);
+  background: rgba(24, 42, 46, 0.86);
+  color: var(--color-accent-strong);
+  outline: none;
+}
+
 .cover-shell {
   position: relative;
   display: flex;
@@ -357,6 +390,18 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.proposal-cover:not(.end-cover) .cover-title {
+  margin-top: 1.15rem;
+}
+
+.proposal-cover:not(.end-cover) .cover-issue-date {
+  margin-top: 1.45rem;
+}
+
+.proposal-cover:not(.end-cover) .cover-meta {
+  margin-top: 1.2rem;
 }
 
 .cover-end-title {
@@ -609,6 +654,17 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   position: absolute;
   left: 0.7rem;
   top: 0.35rem;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+  color: rgba(88, 212, 108, 0.8);
+}
+
+.pull-quote::after {
+  content: '"';
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.15rem;
   font-size: 2rem;
   line-height: 1;
   font-weight: 800;
