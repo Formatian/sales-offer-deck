@@ -428,7 +428,7 @@
     <div class="theme-switch" role="group" aria-label="Deck theme">
       <button type="button" class="theme-option" data-theme="xyz" aria-pressed="false">XYZ</button>
       <button type="button" class="theme-option" data-theme="formation" aria-pressed="false">FORMATION</button>
-      <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEAR</button>
+      <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEARDARK</button>
       <button type="button" class="theme-option" data-theme="lear-light" aria-pressed="false">LEAR LIGHT</button>
     </div>
   </div>
@@ -448,6 +448,10 @@
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
       de: `slides.de.md?v=${DECK_VERSION}`
+    };
+    const DECK_MARKDOWN_OPTIONS = {
+      separator: '^---$',
+      verticalSeparator: '^--$'
     };
     const CONTENT_VARIANTS = {
       offer: {
@@ -481,6 +485,7 @@
         htmlLang: 'en',
         title: 'FORMATION x Lear Corp. Production Rollout',
         slideLabel: 'Slide',
+        pageLabel: 'Page',
         ofLabel: 'of',
         deployLabel: 'Live update',
         localLabel: 'Local update',
@@ -488,12 +493,17 @@
         overviewClose: 'Close slide overview',
         overviewTitleOpen: 'Slide overview',
         overviewTitleClose: 'Close slide overview',
+        pageOverviewOpen: 'Open page overview',
+        pageOverviewClose: 'Close page overview',
+        pageOverviewTitleOpen: 'Page overview',
+        pageOverviewTitleClose: 'Close page overview',
         switchLabel: 'Presentation language'
       },
       de: {
         htmlLang: 'de',
         title: 'FORMATION x Lear Corp. Produktions-Rollout',
         slideLabel: 'Folie',
+        pageLabel: 'Seite',
         ofLabel: 'von',
         deployLabel: 'Live-Update',
         localLabel: 'Lokale Aktualisierung',
@@ -501,6 +511,10 @@
         overviewClose: 'Folienübersicht schließen',
         overviewTitleOpen: 'Folienübersicht',
         overviewTitleClose: 'Folienübersicht schließen',
+        pageOverviewOpen: 'Seitenübersicht öffnen',
+        pageOverviewClose: 'Seitenübersicht schließen',
+        pageOverviewTitleOpen: 'Seitenübersicht',
+        pageOverviewTitleClose: 'Seitenübersicht schließen',
         switchLabel: 'Sprache der Präsentation'
       }
     };
@@ -594,11 +608,11 @@
         },
         platform: {
           type: 'image',
-          url: 'assets/lear-seat.webp'
+          url: 'assets/lear-theme-dark.jpg'
         },
         roadmap: {
           type: 'image',
-          url: 'assets/lear-customer-experience.webp'
+          url: 'assets/lear-theme-innovation.jpg'
         },
         'packages-a': {
           type: 'image',
@@ -614,11 +628,11 @@
         },
         summary: {
           type: 'image',
-          url: 'assets/lear-seat.webp'
+          url: 'assets/lear-theme-dark.jpg'
         },
         closing: {
           type: 'image',
-          url: 'assets/lear-hero-3.webp'
+          url: 'assets/lear-theme-innovation.jpg'
         },
         end: {
           type: 'image',
@@ -674,7 +688,7 @@
         },
         intro: {
           type: 'image',
-          url: 'assets/lear-hero.webp'
+          url: 'assets/lear-theme-light.jpg'
         },
         platform: {
           type: 'image',
@@ -694,7 +708,7 @@
         },
         support: {
           type: 'image',
-          url: 'assets/lear-customer-experience.webp'
+          url: 'assets/lear-theme-light.jpg'
         },
         summary: {
           type: 'image',
@@ -702,7 +716,7 @@
         },
         closing: {
           type: 'image',
-          url: 'assets/lear-hero-3.webp'
+          url: 'assets/lear-theme-light.jpg'
         },
         end: {
           type: 'image',
@@ -718,6 +732,7 @@
     let contentLayers = [];
     let deployMetadata = null;
     let localUpdatedAt = '';
+    let deckContentReloadToken = 0;
 
     function normalizeLanguage(language) {
       return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
@@ -896,6 +911,18 @@
       return variant.detail?.[language] || variant.detail?.en || '';
     }
 
+    function getDeckSourceUrl(language = currentLanguage, { bustCache = false } = {}) {
+      const contentVariant = getContentVariant();
+      const sources = contentVariant.sources || DECK_SOURCES;
+      const baseUrl = sources[language] || sources.en || DECK_SOURCES[language];
+      if (!bustCache) {
+        return baseUrl;
+      }
+
+      const separator = baseUrl.includes('?') ? '&' : '?';
+      return `${baseUrl}${separator}refresh=${Date.now()}-${deckContentReloadToken + 1}`;
+    }
+
     function renderContentOptions() {
       const switcher = document.querySelector('.content-switch');
       if (!switcher) {
@@ -996,7 +1023,14 @@
         documentView.hidden = !useCustomDocumentView;
       }
 
+      if (currentView !== 'document' || !useCustomDocumentView) {
+        setDocumentOverview(false);
+      }
+
       if (currentView === 'document') {
+        if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+          Reveal.toggleOverview();
+        }
         window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
       }
 
@@ -1011,6 +1045,9 @@
           view: currentView === 'document' && !useCustomDocumentView ? 'scroll' : 'default'
         });
       }
+
+      syncDocumentPageState();
+      syncDocumentOverviewLayout();
     }
 
     function applyLanguageMetadata(language) {
@@ -1096,9 +1133,57 @@
         return;
       }
 
-      const contentVariant = getContentVariant();
-      const sources = contentVariant.sources || DECK_SOURCES;
-      slideSource.setAttribute('data-markdown', sources[language] || sources.en || DECK_SOURCES[language]);
+      slideSource.setAttribute('data-markdown', getDeckSourceUrl(language));
+    }
+
+    function scheduleDeckVisualRefresh() {
+      const runRefresh = () => {
+        syncBackgroundClasses();
+        syncChromeSoon();
+        syncProgressTicks();
+        relayoutSoon();
+      };
+
+      requestAnimationFrame(runRefresh);
+      setTimeout(runRefresh, 120);
+      setTimeout(runRefresh, 320);
+    }
+
+    async function reloadDeckContent({ resetToStart = true } = {}) {
+      const slidesRoot = document.querySelector('.reveal .slides');
+      if (!slidesRoot || typeof RevealMarkdown?.slidify !== 'function' || typeof RevealMarkdown?.convertSlides !== 'function') {
+        return;
+      }
+
+      const reloadToken = ++deckContentReloadToken;
+      const sourceUrl = getDeckSourceUrl(currentLanguage, { bustCache: true });
+      const response = await fetch(sourceUrl, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Failed to load deck content from ${sourceUrl}: ${response.status}`);
+      }
+
+      const markdown = await response.text();
+      if (reloadToken !== deckContentReloadToken) {
+        return;
+      }
+
+      slidesRoot.innerHTML = RevealMarkdown.slidify(markdown, DECK_MARKDOWN_OPTIONS);
+      await RevealMarkdown.convertSlides();
+      if (reloadToken !== deckContentReloadToken) {
+        return;
+      }
+
+      if (typeof Reveal.sync === 'function') {
+        Reveal.sync();
+      }
+
+      applyThemeBackgrounds();
+      if (resetToStart && typeof Reveal.slide === 'function') {
+        Reveal.slide(0);
+      }
+
+      updateExternalLinks(slidesRoot);
+      scheduleDeckVisualRefresh();
     }
 
     function updateLanguageLocation(language) {
@@ -1133,6 +1218,7 @@
       document.body.classList.add('theme-switching');
       applyTheme(nextTheme);
       applyThemeBackgrounds();
+      scheduleDeckVisualRefresh();
       window.setTimeout(() => {
         document.body.classList.remove('theme-switching');
       }, 180);
@@ -1148,11 +1234,8 @@
       applyView(nextView);
       closeContentModal();
       closeThemeModal();
-
-      if (nextView !== 'document') {
-        syncChromeSoon();
-        relayoutSoon();
-      }
+      syncChromeSoon();
+      relayoutSoon();
     }
 
     function addContentLayer() {
@@ -1250,15 +1333,13 @@
         const fallbackLayer = remainingLayers[Math.max(0, layerIndex - 1)] || remainingLayers[0];
         persistContent(fallbackLayer.id);
         applyContent(fallbackLayer.id);
-        applyDeckSource(currentLanguage);
-        Reveal.sync();
-        Reveal.slide(0);
-        if (currentView === 'document') {
-          applyView(currentView);
-        }
-        syncBackgroundClasses();
-        syncChromeSoon();
-        relayoutSoon();
+        reloadDeckContent({ resetToStart: true }).then(() => {
+          if (currentView === 'document') {
+            applyView(currentView);
+          }
+        }).catch(error => {
+          console.error('Failed to reload deck content after removing a content layer.', error);
+        });
         return;
       }
 
@@ -1384,7 +1465,9 @@
     }
 
     function syncChrome(slide) {
-      const isOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
+      const isRevealOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
+      const isDocOverview = isCustomDocumentViewActive() && isDocumentOverviewActive();
+      const isOverview = isRevealOverview || isDocOverview;
       const indices = Reveal.getIndices(slide);
       const totalSlides = Reveal.getTotalSlides();
       const isFirstSlide = indices.h === 0;
@@ -1410,8 +1493,13 @@
       const overviewToggle = document.querySelector('.overview-toggle');
       const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
       if (overviewToggle) {
-        overviewToggle.setAttribute('aria-label', isOverview ? copy.overviewClose : copy.overviewOpen);
-        overviewToggle.setAttribute('title', isOverview ? copy.overviewTitleClose : copy.overviewTitleOpen);
+        const openLabel = isCustomDocumentViewActive() ? (copy.pageOverviewOpen || copy.overviewOpen) : copy.overviewOpen;
+        const closeLabel = isCustomDocumentViewActive() ? (copy.pageOverviewClose || copy.overviewClose) : copy.overviewClose;
+        const openTitle = isCustomDocumentViewActive() ? (copy.pageOverviewTitleOpen || copy.overviewTitleOpen) : copy.overviewTitleOpen;
+        const closeTitle = isCustomDocumentViewActive() ? (copy.pageOverviewTitleClose || copy.overviewTitleClose) : copy.overviewTitleClose;
+        overviewToggle.setAttribute('aria-label', isOverview ? closeLabel : openLabel);
+        overviewToggle.setAttribute('title', isOverview ? closeTitle : openTitle);
+        overviewToggle.setAttribute('aria-pressed', isOverview ? 'true' : 'false');
       }
       document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', !isOverview && isVideoHero);
       document.body.classList.toggle('video-slide-active', !isOverview && isVideoHero);
@@ -1438,10 +1526,159 @@
 
     function updateSlideCount() {
       const footer = document.getElementById('slide-counter');
-      const idx = Reveal.getSlidePastCount() + 1;
-      const total = Reveal.getTotalSlides();
       const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
-      footer.textContent = `${copy.slideLabel} ${idx} ${copy.ofLabel} ${total}`;
+      let idx = Reveal.getSlidePastCount() + 1;
+      let total = Reveal.getTotalSlides();
+
+      if (isCustomDocumentViewActive()) {
+        const frames = getActiveDocumentFrames();
+        total = frames.length || total;
+        idx = Math.min(total, Math.max(1, currentDocumentPageIndex + 1));
+      }
+
+      const unitLabel = currentView === 'document' ? (copy.pageLabel || copy.slideLabel) : copy.slideLabel;
+      footer.textContent = `${unitLabel} ${idx} ${copy.ofLabel} ${total}`;
+    }
+
+    function isCustomDocumentViewActive() {
+      return currentView === 'document' && !document.body.classList.contains('document-fallback-mode') && !document.getElementById('document-view')?.hidden;
+    }
+
+    function isDocumentOverviewActive() {
+      return document.body.classList.contains('document-overview-active');
+    }
+
+    function getActiveDocumentCanvas() {
+      return document.querySelector(currentLanguage === 'de' ? '.document-canvas-de' : '.document-canvas-en');
+    }
+
+    function getActiveDocumentFrames() {
+      return Array.from(getActiveDocumentCanvas()?.querySelectorAll('.document-page-frame') || []);
+    }
+
+    function setupDocumentPageFrames() {
+      document.querySelectorAll('.document-canvas').forEach(canvas => {
+        Array.from(canvas.children).forEach((page, index) => {
+          if (!(page instanceof HTMLElement) || !page.classList.contains('document-page')) {
+            return;
+          }
+
+          let frame = page.parentElement;
+          if (!frame || !frame.classList.contains('document-page-frame')) {
+            frame = document.createElement('div');
+            frame.className = 'document-page-frame';
+            page.parentNode.insertBefore(frame, page);
+            frame.appendChild(page);
+          }
+
+          frame.dataset.pageIndex = String(index);
+          frame.dataset.pageNumber = String(index + 1);
+          frame.setAttribute('role', 'button');
+          frame.setAttribute('tabindex', '0');
+        });
+      });
+    }
+
+    let currentDocumentPageIndex = 0;
+
+    function getCurrentDocumentPageIndex() {
+      const frames = getActiveDocumentFrames();
+      if (!frames.length) {
+        return 0;
+      }
+
+      const viewportAnchor = Math.max(120, window.innerHeight * 0.22);
+      let bestIndex = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      frames.forEach((frame, index) => {
+        const rect = frame.getBoundingClientRect();
+        const intersectsViewport = rect.bottom > 0 && rect.top < window.innerHeight;
+        const distance = Math.abs(rect.top - viewportAnchor);
+        if (intersectsViewport && distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      });
+
+      if (!Number.isFinite(bestDistance)) {
+        const fallbackIndex = frames.findIndex(frame => frame.getBoundingClientRect().top >= 0);
+        return fallbackIndex === -1 ? frames.length - 1 : fallbackIndex;
+      }
+
+      return bestIndex;
+    }
+
+    function syncDocumentPageState() {
+      if (!isCustomDocumentViewActive()) {
+        return;
+      }
+
+      const frames = getActiveDocumentFrames();
+      if (!frames.length) {
+        return;
+      }
+
+      if (!isDocumentOverviewActive()) {
+        currentDocumentPageIndex = getCurrentDocumentPageIndex();
+      }
+
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      frames.forEach((frame, index) => {
+        const isCurrent = index === currentDocumentPageIndex;
+        frame.classList.toggle('is-current', isCurrent);
+        frame.setAttribute('aria-current', isCurrent ? 'page' : 'false');
+        frame.setAttribute('aria-label', `${copy.pageLabel || copy.slideLabel} ${index + 1}`);
+      });
+
+      updateSlideCount();
+    }
+
+    function syncDocumentOverviewLayout() {
+      if (!isCustomDocumentViewActive()) {
+        return;
+      }
+
+      getActiveDocumentFrames().forEach(frame => {
+        const page = frame.querySelector('.document-page');
+        if (!(page instanceof HTMLElement)) {
+          return;
+        }
+
+        const naturalWidth = page.offsetWidth || 794;
+        const frameWidth = frame.clientWidth || naturalWidth;
+        const scale = Math.max(0.16, Math.min(1, frameWidth / naturalWidth));
+        frame.style.setProperty('--document-page-scale', scale.toFixed(5));
+      });
+    }
+
+    function setDocumentOverview(active) {
+      const shouldEnable = Boolean(active) && isCustomDocumentViewActive();
+      document.documentElement.classList.toggle('document-overview-active', shouldEnable);
+      document.body.classList.toggle('document-overview-active', shouldEnable);
+      syncDocumentPageState();
+      syncDocumentOverviewLayout();
+      syncChromeSoon();
+    }
+
+    function toggleDocumentOverview() {
+      setDocumentOverview(!isDocumentOverviewActive());
+    }
+
+    function openDocumentPageFromOverview(target) {
+      const frame = target.closest('.document-page-frame');
+      if (!(frame instanceof HTMLElement)) {
+        return;
+      }
+
+      const index = Number.parseInt(frame.dataset.pageIndex || '0', 10);
+      currentDocumentPageIndex = Number.isNaN(index) ? 0 : index;
+      setDocumentOverview(false);
+      window.requestAnimationFrame(() => {
+        const top = Math.max(0, frame.offsetTop - 24);
+        window.scrollTo({ top, left: 0, behavior: 'smooth' });
+        syncDocumentPageState();
+      });
     }
 
     function formatDeployTimestamp(isoString, language) {
@@ -1683,17 +1920,34 @@
       progress.appendChild(hoverFill);
     }
 
+    function isRevealReady() {
+      return typeof Reveal !== 'undefined'
+        && typeof Reveal.getCurrentSlide === 'function'
+        && typeof Reveal.layout === 'function'
+        && typeof Reveal.getIndices === 'function'
+        && typeof Reveal.getTotalSlides === 'function'
+        && typeof Reveal.getSlidePastCount === 'function';
+    }
+
     function relayoutSoon() {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          Reveal.layout();
-          fitCurrentSlide();
+          if (isRevealReady()) {
+            Reveal.layout();
+            fitCurrentSlide();
+          }
+          syncDocumentPageState();
+          syncDocumentOverviewLayout();
           syncChromeSoon();
         });
       });
     }
 
     function syncChromeSoon() {
+      if (!isRevealReady()) {
+        return;
+      }
+
       const currentSlide = Reveal.getCurrentSlide();
       if (!currentSlide) {
         return;
@@ -2070,6 +2324,13 @@
 
     window.addEventListener('load', relayoutSoon, { once: true });
     window.addEventListener('resize', relayoutSoon);
+    window.addEventListener('scroll', () => {
+      if (!isCustomDocumentViewActive() || isDocumentOverviewActive()) {
+        return;
+      }
+
+      syncDocumentPageState();
+    }, { passive: true });
     window.addEventListener('wheel', handleOverviewWheel, { passive: false });
     window.addEventListener('mousemove', handleOverviewPointerMove, { passive: true });
     window.addEventListener('mouseleave', stopOverviewEdgeScroll, { passive: true });
@@ -2081,7 +2342,36 @@
     document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
     document.querySelector('.reveal-viewport')?.addEventListener('click', handleViewportSlideClick, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
+      if (isCustomDocumentViewActive()) {
+        toggleDocumentOverview();
+        return;
+      }
+
       Reveal.toggleOverview();
+    });
+    document.getElementById('document-view')?.addEventListener('click', event => {
+      if (!isDocumentOverviewActive()) {
+        return;
+      }
+
+      openDocumentPageFromOverview(event.target);
+    });
+    document.getElementById('document-view')?.addEventListener('keydown', event => {
+      if (!isDocumentOverviewActive()) {
+        return;
+      }
+
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !target.classList.contains('document-page-frame')) {
+        return;
+      }
+
+      event.preventDefault();
+      openDocumentPageFromOverview(target);
     });
     document.querySelectorAll('.language-option').forEach(button => {
       button.addEventListener('click', () => {
@@ -2095,7 +2385,7 @@
         closeThemeModal();
       });
     });
-    document.querySelector('.content-switch')?.addEventListener('click', event => {
+    document.querySelector('.content-switch')?.addEventListener('click', async event => {
       const renameButton = event.target.closest('[data-content-rename]');
       if (renameButton) {
         renameContentLayer(renameButton.dataset.contentRename || 'offer');
@@ -2121,16 +2411,15 @@
 
         persistContent(nextContent);
         applyContent(nextContent);
-        applyDeckSource(currentLanguage);
-        Reveal.sync();
-        Reveal.slide(0);
-        if (currentView === 'document') {
-          applyView(currentView);
+        try {
+          await reloadDeckContent({ resetToStart: true });
+          if (currentView === 'document') {
+            applyView(currentView);
+          }
+          closeContentModal();
+        } catch (error) {
+          console.error('Failed to reload deck content after switching content.', error);
         }
-        closeContentModal();
-        syncBackgroundClasses();
-        syncChromeSoon();
-        relayoutSoon();
     });
     document.querySelector('.content-layer-add')?.addEventListener('click', addContentLayer);
     document.querySelectorAll('.view-option').forEach(button => {
@@ -2165,7 +2454,11 @@
       if (event.key === 'Escape' && !document.getElementById('theme-modal')?.hidden) {
         closeThemeModal();
       }
+      if (event.key === 'Escape' && isDocumentOverviewActive()) {
+        setDocumentOverview(false);
+      }
     });
+    setupDocumentPageFrames();
     new MutationObserver(() => syncChromeSoon()).observe(document.body, {
       childList: true,
       subtree: true
