@@ -26,6 +26,8 @@
   --viewport-gradient-base: linear-gradient(180deg, #111111 0%, #080808 100%);
   --viewport-image-url: url("assets/lear-customer-experience.webp");
   --active-slide-image-url: none;
+  --active-slide-image-size: 118% auto;
+  --active-slide-image-position: center center;
   --overview-glow-primary: rgba(238, 49, 36, 0.16);
   --overview-glow-secondary: rgba(255, 255, 255, 0.08);
   --overview-glow-tertiary: rgba(255, 120, 90, 0.14);
@@ -761,7 +763,7 @@ body.image-background-active::before {
   background:
     linear-gradient(180deg, var(--image-overlay-start), var(--image-overlay-end)),
     radial-gradient(circle at top right, var(--image-overlay-glow), transparent 26%),
-    var(--active-slide-image-url) center center / cover no-repeat;
+    var(--active-slide-image-url) var(--active-slide-image-position) / var(--active-slide-image-size) no-repeat;
 }
 
 .reveal-viewport {
