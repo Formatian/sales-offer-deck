@@ -1697,7 +1697,8 @@ body.content-modal-open .content-menu-toggle {
 }
 
 .content-layer-add,
-.content-option-rename {
+.content-option-rename,
+.content-option-remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1732,6 +1733,12 @@ body.content-modal-open .content-menu-toggle {
   align-items: stretch;
 }
 
+.content-option-actions {
+  display: inline-flex;
+  gap: 0.42rem;
+  align-items: stretch;
+}
+
 .content-option {
   display: grid;
   gap: 0.15rem;
@@ -1762,7 +1769,8 @@ body.content-modal-open .content-menu-toggle {
   color: var(--color-ink);
 }
 
-.content-option-rename {
+.content-option-rename,
+.content-option-remove {
   width: 34px;
   min-width: 34px;
   padding: 0;
@@ -1772,7 +1780,9 @@ body.content-modal-open .content-menu-toggle {
 .content-layer-add:hover,
 .content-layer-add:focus-visible,
 .content-option-rename:hover,
-.content-option-rename:focus-visible {
+.content-option-rename:focus-visible,
+.content-option-remove:hover,
+.content-option-remove:focus-visible {
   transform: translateY(-1px);
   border-color: var(--control-hover-border);
   background: var(--control-hover-bg);
@@ -1781,7 +1791,8 @@ body.content-modal-open .content-menu-toggle {
   outline: none;
 }
 
-.content-option-rename svg {
+.content-option-rename svg,
+.content-option-remove svg {
   width: 14px;
   height: 14px;
   fill: none;

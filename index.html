@@ -526,12 +526,14 @@
         toggleTitle: 'Content menu',
         indicatorLabel: 'Content',
         modalTitle: 'Content Layers',
-        modalSubtitle: 'Choose, add, or rename a content layer.',
+        modalSubtitle: 'Choose, add, rename, or remove a content layer.',
         addLayer: 'Add layer',
         addLayerPrompt: 'Name for the new content layer:',
         renameLayerPrompt: 'Rename content layer:',
         fallbackDetail: 'Uses the current content source as its starting point',
-        renameLabel: 'Rename content layer'
+        renameLabel: 'Rename content layer',
+        removeLabel: 'Remove content layer',
+        removeConfirm: 'Remove this content layer?'
       },
       de: {
         switchLabel: 'Deck-Inhalt',
@@ -540,12 +542,14 @@
         toggleTitle: 'Inhaltsmenue',
         indicatorLabel: 'Inhalt',
         modalTitle: 'Inhaltsebenen',
-        modalSubtitle: 'Inhaltsebene waehlen, hinzufuegen oder umbenennen.',
+        modalSubtitle: 'Inhaltsebene waehlen, hinzufuegen, umbenennen oder entfernen.',
         addLayer: 'Ebene hinzufuegen',
         addLayerPrompt: 'Name fuer die neue Inhaltsebene:',
         renameLayerPrompt: 'Inhaltsebene umbenennen:',
         fallbackDetail: 'Verwendet die aktuelle Inhaltsquelle als Ausgangspunkt',
-        renameLabel: 'Inhaltsebene umbenennen'
+        renameLabel: 'Inhaltsebene umbenennen',
+        removeLabel: 'Inhaltsebene entfernen',
+        removeConfirm: 'Diese Inhaltsebene entfernen?'
       }
     };
     const VIEW_COPY = {
@@ -904,18 +908,35 @@
         const title = getContentLabel(layer.id, currentLanguage);
         const meta = getContentDetail(layer, currentLanguage) || contentCopy.fallbackDetail;
         const renameLabel = contentCopy.renameLabel;
+        const removeLabel = contentCopy.removeLabel;
+        const actions = layer.locked
+          ? ''
+          : `
+            <button type="button" class="content-option-remove" data-content-remove="${layer.id}" aria-label="${removeLabel}" title="${removeLabel}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 7.5h14"></path>
+                <path d="M9.5 4.75h5"></path>
+                <path d="M8.5 7.5v11"></path>
+                <path d="M15.5 7.5v11"></path>
+                <path d="M6.75 7.5 7.5 19a1 1 0 0 0 1 .94h7a1 1 0 0 0 1-.94l.75-11.5"></path>
+              </svg>
+            </button>
+          `;
         return `
           <div class="content-option-row">
             <button type="button" class="content-option${isActive ? ' is-active' : ''}" data-content="${layer.id}" aria-pressed="${isActive ? 'true' : 'false'}">
               <span class="content-option-title">${title}</span>
               <span class="content-option-meta">${meta}</span>
             </button>
-            <button type="button" class="content-option-rename" data-content-rename="${layer.id}" aria-label="${renameLabel}" title="${renameLabel}">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
-                <path d="M12.75 6.5 17.5 11.25"></path>
-              </svg>
-            </button>
+            <div class="content-option-actions">
+              <button type="button" class="content-option-rename" data-content-rename="${layer.id}" aria-label="${renameLabel}" title="${renameLabel}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
+                  <path d="M12.75 6.5 17.5 11.25"></path>
+                </svg>
+              </button>
+              ${actions}
+            </div>
           </div>
         `;
       }).join('');
@@ -1199,6 +1220,49 @@
       });
       persistContentLayers();
       applyContent(currentContent);
+    }
+
+    function removeContentLayer(contentId) {
+      const layerIndex = contentLayers.findIndex(layer => layer.id === contentId);
+      if (layerIndex === -1) {
+        return;
+      }
+
+      const layer = contentLayers[layerIndex];
+      if (layer.locked || contentLayers.length <= 1) {
+        return;
+      }
+
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      if (!window.confirm(contentCopy.removeConfirm)) {
+        return;
+      }
+
+      const remainingLayers = contentLayers.filter(entry => entry.id !== layer.id);
+      if (!remainingLayers.length) {
+        return;
+      }
+
+      contentLayers = remainingLayers;
+      persistContentLayers();
+
+      if (currentContent === layer.id) {
+        const fallbackLayer = remainingLayers[Math.max(0, layerIndex - 1)] || remainingLayers[0];
+        persistContent(fallbackLayer.id);
+        applyContent(fallbackLayer.id);
+        applyDeckSource(currentLanguage);
+        Reveal.sync();
+        Reveal.slide(0);
+        if (currentView === 'document') {
+          applyView(currentView);
+        }
+        syncBackgroundClasses();
+        syncChromeSoon();
+        relayoutSoon();
+        return;
+      }
+
+      renderContentOptions();
     }
 
     function applyThemeBackgrounds() {
@@ -2035,6 +2099,12 @@
       const renameButton = event.target.closest('[data-content-rename]');
       if (renameButton) {
         renameContentLayer(renameButton.dataset.contentRename || 'offer');
+        return;
+      }
+
+      const removeButton = event.target.closest('[data-content-remove]');
+      if (removeButton) {
+        removeContentLayer(removeButton.dataset.contentRemove || '');
         return;
       }
 
