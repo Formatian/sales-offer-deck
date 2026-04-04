@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FORMATION x Lear Corp. Production Rollout</title>
+  <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404c" />
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="slides.md?v=20260403a" data-separator="^---$" data-separator-vertical="^--$"
+        data-separator-notes="^Note:"></section>
+    </div>
+  </div>
+
+  <a class="corner-brand" href="#/" aria-label="Back to start slide">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" />
+  </a>
+
+  <div class="slide-footer">
+    <div class="footer-meta">
+      <span>&copy; 2026 FORMATION GmbH</span>
+      <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
+      <span class="footer-divider" aria-hidden="true">|</span>
+      <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
+    </div>
+    <div class="footer-nav">
+      <span id="slide-counter"></span>
+      <button type="button" class="overview-toggle" aria-label="Toggle slide overview" title="Slide overview">
+        <svg class="overview-icon overview-icon-grid" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.2"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.2"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.2"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.2"></rect>
+        </svg>
+        <svg class="overview-icon overview-icon-close" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6 18 18"></path>
+          <path d="M18 6 6 18"></path>
+        </svg>
+      </button>
+      <div class="language-switch" role="group" aria-label="Presentation language">
+        <button type="button" class="language-option is-active" data-language="en" aria-pressed="true">EN</button>
+        <button type="button" class="language-option" data-language="de" aria-pressed="false">DE</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@5.0.5/dist/reveal.js"></script>
+  <script src="https://unpkg.com/reveal.js@5.0.5/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
+
+  <script>
+    const DECK_VERSION = '20260404c';
+    const DECK_LANG_KEY = 'formation-deck-language';
+    const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
+    const DECK_SOURCES = {
+      en: `slides.md?v=${DECK_VERSION}`,
+      de: `slides.de.md?v=${DECK_VERSION}`
+    };
+    const LANGUAGE_COPY = {
+      en: {
+        htmlLang: 'en',
+        title: 'FORMATION x Lear Corp. Production Rollout',
+        slideLabel: 'Slide',
+        ofLabel: 'of',
+        deployLabel: 'Live update',
+        overviewOpen: 'Open slide overview',
+        overviewClose: 'Close slide overview',
+        overviewTitleOpen: 'Slide overview',
+        overviewTitleClose: 'Close slide overview',
+        switchLabel: 'Presentation language'
+      },
+      de: {
+        htmlLang: 'de',
+        title: 'FORMATION x Lear Corp. Produktions-Rollout',
+        slideLabel: 'Folie',
+        ofLabel: 'von',
+        deployLabel: 'Live-Update',
+        overviewOpen: 'Folienübersicht öffnen',
+        overviewClose: 'Folienübersicht schließen',
+        overviewTitleOpen: 'Folienübersicht',
+        overviewTitleClose: 'Folienübersicht schließen',
+        switchLabel: 'Sprache der Präsentation'
+      }
+    };
+
+    let currentLanguage = 'en';
+    let deployMetadata = null;
+
+    function normalizeLanguage(language) {
+      return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
+    }
+
+    function getLanguageFromLocation() {
+      const params = new URLSearchParams(window.location.search);
+      return normalizeLanguage(params.get('lang') || '');
+    }
+
+    function persistLanguage(language) {
+      try {
+        window.localStorage.setItem(DECK_LANG_KEY, language);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getPreferredLanguage() {
+      const locationLanguage = getLanguageFromLocation();
+      if (locationLanguage !== 'en' || new URLSearchParams(window.location.search).has('lang')) {
+        return locationLanguage;
+      }
+
+      try {
+        return normalizeLanguage(window.localStorage.getItem(DECK_LANG_KEY) || 'en');
+      } catch (error) {
+        return 'en';
+      }
+    }
+
+    function applyLanguageMetadata(language) {
+      const copy = LANGUAGE_COPY[language] || LANGUAGE_COPY.en;
+      document.documentElement.lang = copy.htmlLang;
+      document.title = copy.title;
+
+      const switcher = document.querySelector('.language-switch');
+      if (switcher) {
+        switcher.setAttribute('aria-label', copy.switchLabel);
+      }
+
+      document.querySelectorAll('.language-option').forEach(button => {
+        const isActive = button.dataset.language === language;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      renderDeployTimestamp();
+    }
+
+    function applyDeckSource(language) {
+      const slideSource = document.querySelector('.reveal .slides > section[data-markdown]');
+      if (!slideSource) {
+        return;
+      }
+
+      slideSource.setAttribute('data-markdown', DECK_SOURCES[language]);
+    }
+
+    function updateLanguageLocation(language) {
+      const url = new URL(window.location.href);
+      if (language === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', language);
+      }
+
+      return url.toString();
+    }
+
+    function switchDeckLanguage(language) {
+      const nextLanguage = normalizeLanguage(language);
+      if (nextLanguage === currentLanguage) {
+        return;
+      }
+
+      persistLanguage(nextLanguage);
+      document.body.classList.add('language-switching');
+      window.location.replace(updateLanguageLocation(nextLanguage));
+    }
+
+    function syncChrome(slide) {
+      const isOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
+      const indices = Reveal.getIndices(slide);
+      const totalSlides = Reveal.getTotalSlides();
+      const isFirstSlide = indices.h === 0;
+      const isLastSlide = indices.h === totalSlides - 1;
+      const isPlatformVideoSlide = slide.classList.contains('platform-video-slide');
+      const isTitle = slide.classList.contains('title-slide') || isFirstSlide || isLastSlide;
+      const keepFooterVisible = isFirstSlide || isLastSlide;
+      const isCoverSlide =
+        slide.classList.contains('proposal-cover') ||
+        slide.classList.contains('end-cover') ||
+        isFirstSlide ||
+        isLastSlide;
+      const activeBackground = document.querySelector('.backgrounds .slide-background.present');
+      const isVideoHero =
+        slide.classList.contains('hero-video-slide') ||
+        isCoverSlide ||
+        slide.hasAttribute('data-background-video') ||
+        !!activeBackground?.querySelector('video');
+      document.querySelector('.slide-footer').style.display =
+        (isTitle && !keepFooterVisible) ? 'none' : '';
+      document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
+      document.body.classList.toggle('overview-active', isOverview);
+      const overviewToggle = document.querySelector('.overview-toggle');
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      if (overviewToggle) {
+        overviewToggle.setAttribute('aria-label', isOverview ? copy.overviewClose : copy.overviewOpen);
+        overviewToggle.setAttribute('title', isOverview ? copy.overviewTitleClose : copy.overviewTitleOpen);
+      }
+      document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
+      document.body.classList.toggle('video-slide-active', isVideoHero);
+      document.body.classList.toggle('cover-slide-active', isCoverSlide);
+      document.body.classList.toggle('platform-video-active', isPlatformVideoSlide);
+      syncActiveVideoPlayback({ isPlatformVideoSlide });
+    }
+
+    function syncActiveVideoPlayback({ isPlatformVideoSlide }) {
+      const activeVideo = document.querySelector('.backgrounds .slide-background.present video');
+      if (!activeVideo) {
+        return;
+      }
+
+      activeVideo.playbackRate = isPlatformVideoSlide ? 0.58 : 1;
+      activeVideo.muted = true;
+      activeVideo.loop = true;
+
+      const playPromise = activeVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => { });
+      }
+    }
+
+    function updateSlideCount() {
+      const footer = document.getElementById('slide-counter');
+      const idx = Reveal.getSlidePastCount() + 1;
+      const total = Reveal.getTotalSlides();
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      footer.textContent = `${copy.slideLabel} ${idx} ${copy.ofLabel} ${total}`;
+    }
+
+    function formatDeployTimestamp(isoString, language) {
+      if (!isoString) {
+        return '';
+      }
+
+      const date = new Date(isoString);
+      if (Number.isNaN(date.getTime())) {
+        return isoString;
+      }
+
+      return new Intl.DateTimeFormat(language === 'de' ? 'de-DE' : 'en-GB', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Berlin',
+        timeZoneName: 'short'
+      }).format(date);
+    }
+
+    function renderDeployTimestamp() {
+      const deployLabel = document.getElementById('deploy-timestamp');
+      if (!deployLabel) {
+        return;
+      }
+
+      const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
+      const deployedAt = deployMetadata?.deployedAt;
+      if (!deployedAt) {
+        deployLabel.textContent = '';
+        return;
+      }
+
+      deployLabel.textContent = `${copy.deployLabel}: ${formatDeployTimestamp(deployedAt, currentLanguage)}`;
+    }
+
+    async function loadDeployMetadata() {
+      try {
+        const response = await fetch(DEPLOY_META_URL, { cache: 'no-store' });
+        if (!response.ok) {
+          return;
+        }
+
+        deployMetadata = await response.json();
+        renderDeployTimestamp();
+      } catch (error) {
+        // Keep the footer clean if deployment metadata is unavailable.
+      }
+    }
+
+    function syncBackgroundClasses() {
+      const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
+      const backgrounds = Array.from(document.querySelectorAll('.reveal .backgrounds > .slide-background'));
+      const sharedCount = Math.min(slides.length, backgrounds.length);
+
+      for (let i = 0; i < sharedCount; i += 1) {
+        const slide = slides[i];
+        const background = backgrounds[i];
+
+        background.classList.toggle('is-proposal-cover', slide.classList.contains('proposal-cover'));
+        background.classList.toggle('is-end-cover', slide.classList.contains('end-cover'));
+        background.classList.toggle('is-hero-video-slide', slide.classList.contains('hero-video-slide'));
+        background.classList.toggle('is-platform-video-slide', slide.classList.contains('platform-video-slide'));
+      }
+    }
+
+    function syncProgressTicks() {
+      const progress = document.querySelector('.reveal .progress');
+      const progressFill = progress?.querySelector('span:not(.progress-hover-fill)');
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
+      if (!progress) {
+        return;
+      }
+
+      const totalSlides = Math.max(1, Reveal.getTotalSlides());
+      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const segmentPercent = 100 / totalSlides;
+      const fillPercent = segmentPercent * activeSlide;
+      const segmentSizePx = progress.clientWidth / totalSlides;
+
+      progress.style.setProperty('--slide-count', String(totalSlides));
+      progress.style.setProperty('--active-slide', String(activeSlide));
+      progress.style.setProperty('--segment-percent', `${segmentPercent}%`);
+      progress.style.setProperty('--segment-size-px', `${segmentSizePx}px`);
+      progress.style.setProperty('--active-fill-percent', `${fillPercent}%`);
+      progress.style.setProperty('--hover-start-percent', `${fillPercent}%`);
+
+      if (progressFill) {
+        progressFill.style.width = `${fillPercent}%`;
+      }
+
+      if (hoverFill && (!progress.dataset.hoverActive || progress.dataset.hoverActive === 'false')) {
+        hoverFill.style.left = `${fillPercent}%`;
+        hoverFill.style.width = '0%';
+      }
+
+      if (!progress.dataset.hoverActive) {
+        progress.style.setProperty('--hover-fill-percent', '0%');
+      }
+    }
+
+    function clearProgressHover() {
+      const progress = document.querySelector('.reveal .progress');
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
+      if (!progress) {
+        return;
+      }
+
+      progress.dataset.hoverActive = 'false';
+      progress.style.setProperty('--hover-start-percent', progress.style.getPropertyValue('--active-fill-percent') || '0%');
+      progress.style.setProperty('--hover-fill-percent', '0%');
+      if (hoverFill) {
+        hoverFill.style.left = progress.style.getPropertyValue('--active-fill-percent') || '0%';
+        hoverFill.style.width = '0%';
+      }
+    }
+
+    function getProgressHoverSlide(event, progress, totalSlides) {
+      const rect = progress.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      return Math.min(totalSlides, Math.max(1, Math.floor(ratio * totalSlides) + 1));
+    }
+
+    function handleProgressHover(event) {
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      const progress = event.currentTarget;
+      const hoverFill = progress?.querySelector('.progress-hover-fill');
+      const totalSlides = Reveal.getTotalSlides();
+      if (!progress || totalSlides <= 1) {
+        return;
+      }
+
+      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const hoveredSlide = getProgressHoverSlide(event, progress, totalSlides);
+      const activeFillPercent = (activeSlide / totalSlides) * 100;
+      const hoveredFillPercent = (hoveredSlide / totalSlides) * 100;
+      const isFutureHover = hoveredSlide > activeSlide;
+
+      progress.style.setProperty('--hover-start-percent', `${activeFillPercent}%`);
+      progress.style.setProperty(
+        '--hover-fill-percent',
+        isFutureHover ? `${Math.max(0, hoveredFillPercent - activeFillPercent)}%` : '0%'
+      );
+      progress.dataset.hoverActive = isFutureHover ? 'true' : 'false';
+
+      if (hoverFill) {
+        hoverFill.style.left = `${activeFillPercent}%`;
+        hoverFill.style.width = isFutureHover ? `${Math.max(0, hoveredFillPercent - activeFillPercent)}%` : '0%';
+      }
+    }
+
+    function mountFooterControls() {
+      const controls = document.querySelector('.reveal .controls');
+      const footerNav = document.querySelector('.slide-footer .footer-nav');
+      const overviewToggle = footerNav?.querySelector('.overview-toggle');
+      if (!controls || !footerNav) {
+        return;
+      }
+
+      controls.classList.add('footer-controls');
+
+      if (overviewToggle) {
+        footerNav.insertBefore(controls, overviewToggle);
+      } else if (controls.parentElement !== footerNav) {
+        footerNav.appendChild(controls);
+      }
+
+    }
+
+    function ensureProgressHoverFill() {
+      const progress = document.querySelector('.reveal .progress');
+      if (!progress || progress.querySelector('.progress-hover-fill')) {
+        return;
+      }
+
+      const hoverFill = document.createElement('span');
+      hoverFill.className = 'progress-hover-fill';
+      hoverFill.setAttribute('aria-hidden', 'true');
+      progress.appendChild(hoverFill);
+    }
+
+    function relayoutSoon() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          Reveal.layout();
+          fitCurrentSlide();
+          syncChromeSoon();
+        });
+      });
+    }
+
+    function syncChromeSoon() {
+      const currentSlide = Reveal.getCurrentSlide();
+      if (!currentSlide) {
+        return;
+      }
+
+      syncChrome(currentSlide);
+      requestAnimationFrame(() => syncChrome(currentSlide));
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 120);
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 360);
+      setTimeout(() => syncChrome(Reveal.getCurrentSlide()), 800);
+    }
+
+    function fitSlide(slide) {
+      if (!slide || slide.classList.contains('stack')) {
+        return;
+      }
+
+      slide.style.zoom = '';
+      slide.classList.remove('is-auto-fitted');
+
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      const maxIterations = 8;
+      const minZoom = 0.48;
+      const footer = document.querySelector('.slide-footer');
+
+      for (let i = 0; i < maxIterations; i += 1) {
+        const visibleBottom =
+          footer && footer.style.display !== 'none'
+            ? footer.getBoundingClientRect().top - 8
+            : window.innerHeight - 8;
+
+        const visibleChildren = Array.from(slide.children).filter(child => {
+          const style = window.getComputedStyle(child);
+          return style.display !== 'none' && style.visibility !== 'hidden';
+        });
+
+        const contentBottom = visibleChildren.reduce((maxBottom, child) => {
+          return Math.max(maxBottom, child.getBoundingClientRect().bottom);
+        }, slide.getBoundingClientRect().top);
+
+        const overflow = contentBottom - visibleBottom;
+        if (overflow <= 2) {
+          break;
+        }
+
+        const currentZoom = Number.parseFloat(slide.style.zoom || '1');
+        const availableHeight = Math.max(1, visibleBottom - slide.getBoundingClientRect().top);
+        const contentHeight = Math.max(1, contentBottom - slide.getBoundingClientRect().top);
+        const nextZoom = Math.max(minZoom, currentZoom * (availableHeight / contentHeight));
+
+        if (Math.abs(nextZoom - currentZoom) < 0.003) {
+          break;
+        }
+
+        slide.style.zoom = nextZoom.toFixed(3);
+        slide.classList.add('is-auto-fitted');
+      }
+    }
+
+    function fitCurrentSlide() {
+      fitSlide(Reveal.getCurrentSlide());
+    }
+
+    function resetAllSlideFitting() {
+      document.querySelectorAll('.reveal .slides section').forEach(slide => {
+        if (slide.classList.contains('stack')) {
+          return;
+        }
+        slide.style.zoom = '';
+        slide.classList.remove('is-auto-fitted');
+      });
+    }
+
+    let overviewWheelAccum = 0;
+    let overviewWheelLockUntil = 0;
+    let overviewEdgeDirection = 0;
+    let overviewEdgeTickHandle = 0;
+    let overviewEdgeLastStepAt = 0;
+
+    function stopOverviewEdgeScroll() {
+      overviewEdgeDirection = 0;
+      overviewEdgeLastStepAt = 0;
+
+      if (overviewEdgeTickHandle) {
+        cancelAnimationFrame(overviewEdgeTickHandle);
+        overviewEdgeTickHandle = 0;
+      }
+    }
+
+    function runOverviewEdgeScroll(now) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview()) || overviewEdgeDirection === 0) {
+        overviewEdgeTickHandle = 0;
+        return;
+      }
+
+      if (!overviewEdgeLastStepAt || now - overviewEdgeLastStepAt >= 275) {
+        if (overviewEdgeDirection > 0) {
+          Reveal.right();
+        } else {
+          Reveal.left();
+        }
+
+        overviewEdgeLastStepAt = now;
+      }
+
+      overviewEdgeTickHandle = requestAnimationFrame(runOverviewEdgeScroll);
+    }
+
+    function startOverviewEdgeScroll(direction) {
+      if (overviewEdgeDirection === direction && overviewEdgeTickHandle) {
+        return;
+      }
+
+      overviewEdgeDirection = direction;
+      overviewEdgeLastStepAt = 0;
+
+      if (!overviewEdgeTickHandle) {
+        overviewEdgeTickHandle = requestAnimationFrame(runOverviewEdgeScroll);
+      }
+    }
+
+    function handleOverviewPointerMove(event) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview())) {
+        stopOverviewEdgeScroll();
+        return;
+      }
+
+      const edgeZone = Math.max(120, Math.round(window.innerWidth * 0.16));
+      const leftThreshold = edgeZone;
+      const rightThreshold = window.innerWidth - edgeZone;
+
+      if (event.clientX <= leftThreshold) {
+        startOverviewEdgeScroll(-1);
+        return;
+      }
+
+      if (event.clientX >= rightThreshold) {
+        startOverviewEdgeScroll(1);
+        return;
+      }
+
+      stopOverviewEdgeScroll();
+    }
+
+    function handleOverviewWheel(event) {
+      if (!(typeof Reveal.isOverview === 'function' && Reveal.isOverview())) {
+        overviewWheelAccum = 0;
+        return;
+      }
+
+      const now = Date.now();
+      if (now < overviewWheelLockUntil) {
+        event.preventDefault();
+        return;
+      }
+
+      const axisDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+          ? event.deltaX
+          : event.deltaY;
+
+      if (Math.abs(axisDelta) < 4) {
+        return;
+      }
+
+      event.preventDefault();
+      overviewWheelAccum += axisDelta;
+
+      if (Math.abs(overviewWheelAccum) < 36) {
+        return;
+      }
+
+      if (overviewWheelAccum > 0) {
+        Reveal.right();
+      } else {
+        Reveal.left();
+      }
+
+      overviewWheelAccum = 0;
+      overviewWheelLockUntil = now + 180;
+    }
+
+    function handleProgressClick(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      const progress = event.currentTarget;
+      const totalSlides = Reveal.getTotalSlides();
+      if (!progress || totalSlides <= 1) {
+        return;
+      }
+
+      const targetIndex = getProgressHoverSlide(event, progress, totalSlides) - 1;
+      Reveal.slide(targetIndex);
+    }
+
+    function handleViewportSlideClick(event) {
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      if (
+        event.target.closest(
+          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch'
+        )
+      ) {
+        return;
+      }
+
+      const activeSlide = document.querySelector('.reveal .slides section.present:not(.stack)');
+      if (!activeSlide) {
+        return;
+      }
+
+      if (event.target === activeSlide || activeSlide.contains(event.target)) {
+        return;
+      }
+
+      if (event.clientX < window.innerWidth / 2) {
+        Reveal.left();
+        return;
+      }
+
+      if (event.clientX >= window.innerWidth / 2) {
+        Reveal.right();
+      }
+    }
+
+    function updateExternalLinks(scope = document) {
+      scope.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) {
+          return;
+        }
+
+        const isExternal = /^https?:\/\//i.test(href) || /^mailto:/i.test(href);
+        if (!isExternal) {
+          return;
+        }
+
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noreferrer noopener');
+      });
+    }
+
+    function watchSlideImages(slide) {
+      slide.querySelectorAll('img').forEach(img => {
+        if (!img.complete) {
+          img.addEventListener('load', relayoutSoon, { once: true });
+          img.addEventListener('error', relayoutSoon, { once: true });
+        }
+      });
+
+      slide.querySelectorAll('video').forEach(video => {
+        if (video.readyState < 1) {
+          video.addEventListener('loadedmetadata', relayoutSoon, { once: true });
+          video.addEventListener('error', relayoutSoon, { once: true });
+        }
+      });
+    }
+
+    function resetSlideGifs(slide) {
+      if (!slide) {
+        return;
+      }
+
+      slide.querySelectorAll('img[data-reset-on-show="true"]').forEach(img => {
+        const originalSrc = img.dataset.originalSrc || img.getAttribute('src');
+        if (!originalSrc) {
+          return;
+        }
+
+        img.dataset.originalSrc = originalSrc;
+
+        const separator = originalSrc.includes('?') ? '&' : '?';
+        const resetSrc = `${originalSrc}${separator}restart=${Date.now()}`;
+        img.setAttribute('src', resetSrc);
+      });
+
+      slide.querySelectorAll('video[data-reset-on-show="true"]').forEach(video => {
+        video.currentTime = 0;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => { });
+        }
+      });
+    }
+
+    const preferredLanguage = getPreferredLanguage();
+    currentLanguage = preferredLanguage;
+    applyDeckSource(currentLanguage);
+    applyLanguageMetadata(currentLanguage);
+
+    Reveal.initialize({
+      hash: true,
+      hashOneBasedIndex: true,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      plugins: [RevealNotes, RevealMarkdown],
+      overview: true,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      center: true
+    });
+
+    Reveal.on('ready', event => {
+      syncBackgroundClasses();
+      mountFooterControls();
+      ensureProgressHoverFill();
+      loadDeployMetadata();
+      syncChromeSoon();
+      updateSlideCount();
+      syncProgressTicks();
+      updateExternalLinks();
+      resetSlideGifs(event.currentSlide);
+      watchSlideImages(event.currentSlide);
+      relayoutSoon();
+    });
+
+    Reveal.on('slidechanged', event => {
+      syncBackgroundClasses();
+      syncChromeSoon();
+      updateSlideCount();
+      syncProgressTicks();
+      updateExternalLinks(event.currentSlide);
+      resetSlideGifs(event.currentSlide);
+      watchSlideImages(event.currentSlide);
+      relayoutSoon();
+    });
+
+    Reveal.on('overviewshown', () => {
+      syncBackgroundClasses();
+      resetAllSlideFitting();
+      syncChromeSoon();
+      requestAnimationFrame(() => Reveal.layout());
+    });
+
+    Reveal.on('overviewhidden', () => {
+      stopOverviewEdgeScroll();
+      syncChromeSoon();
+      relayoutSoon();
+    });
+
+    window.addEventListener('load', relayoutSoon, { once: true });
+    window.addEventListener('resize', relayoutSoon);
+    window.addEventListener('wheel', handleOverviewWheel, { passive: false });
+    window.addEventListener('mousemove', handleOverviewPointerMove, { passive: true });
+    window.addEventListener('mouseleave', stopOverviewEdgeScroll, { passive: true });
+    window.addEventListener('blur', stopOverviewEdgeScroll);
+    document.querySelector('.reveal .progress')?.addEventListener('mousemove', handleProgressHover, true);
+    document.querySelector('.reveal .progress')?.addEventListener('pointermove', handleProgressHover, true);
+    document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
+    document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
+    document.querySelector('.reveal-viewport')?.addEventListener('click', handleViewportSlideClick, true);
+    document.querySelector('.overview-toggle')?.addEventListener('click', () => {
+      Reveal.toggleOverview();
+    });
+    document.querySelectorAll('.language-option').forEach(button => {
+      button.addEventListener('click', () => {
+        switchDeckLanguage(button.dataset.language || 'en');
+      });
+    });
+    new MutationObserver(() => syncChromeSoon()).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+  </script>
+
+</body>
+
+</html>

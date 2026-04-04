@@ -6,14 +6,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FORMATION x Lear Corp. Production Rollout</title>
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404c" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404ag" />
+  <script src="https://use.typekit.net/dae1bou.js"></script>
+  <script>
+    try { Typekit.load(); } catch (error) { }
+  </script>
 </head>
 
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260403a" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260404ag" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -24,6 +31,16 @@
 
   <div class="slide-footer">
     <div class="footer-meta">
+      <button type="button" class="theme-menu-toggle" aria-label="Open theme menu" aria-haspopup="dialog"
+        aria-expanded="false" aria-controls="theme-modal" title="Theme menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 14.2 7.8 19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2Z"></path>
+          <circle cx="18.2" cy="5.8" r="1.6"></circle>
+        </svg>
+      </button>
+      <button type="button" class="theme-modal-close" aria-label="Close theme menu" title="Close theme menu">
+        <span aria-hidden="true">&times;</span>
+      </button>
       <span>&copy; 2026 FORMATION GmbH</span>
       <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
       <span class="footer-divider" aria-hidden="true">|</span>
@@ -50,13 +67,22 @@
     </div>
   </div>
 
+  <div class="theme-modal-backdrop" id="theme-modal-backdrop" hidden></div>
+  <div class="theme-modal" id="theme-modal" role="dialog" aria-modal="true" aria-label="Deck theme" hidden>
+    <div class="theme-switch" role="group" aria-label="Deck theme">
+      <button type="button" class="theme-option" data-theme="formation" aria-pressed="false">FORMATION</button>
+      <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEAR</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/reveal.js@5.0.5/dist/reveal.js"></script>
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/notes/notes.js"></script>
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404c';
+    const DECK_VERSION = '20260404ag';
     const DECK_LANG_KEY = 'formation-deck-language';
+    const DECK_THEME_KEY = 'formation-deck-theme';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
@@ -69,6 +95,7 @@
         slideLabel: 'Slide',
         ofLabel: 'of',
         deployLabel: 'Live update',
+        localLabel: 'Local update',
         overviewOpen: 'Open slide overview',
         overviewClose: 'Close slide overview',
         overviewTitleOpen: 'Slide overview',
@@ -81,6 +108,7 @@
         slideLabel: 'Folie',
         ofLabel: 'von',
         deployLabel: 'Live-Update',
+        localLabel: 'Lokale Aktualisierung',
         overviewOpen: 'Folienübersicht öffnen',
         overviewClose: 'Folienübersicht schließen',
         overviewTitleOpen: 'Folienübersicht',
@@ -88,9 +116,87 @@
         switchLabel: 'Sprache der Präsentation'
       }
     };
+    const THEME_COPY = {
+      en: {
+        switchLabel: 'Deck theme',
+        openLabel: 'Open theme menu',
+        closeLabel: 'Close theme menu',
+        toggleTitle: 'Theme menu'
+      },
+      de: {
+        switchLabel: 'Deck-Stil',
+        openLabel: 'Stilmenü öffnen',
+        closeLabel: 'Stilmenü schließen',
+        toggleTitle: 'Stilmenü'
+      }
+    };
+    const THEME_BACKGROUNDS = {
+      formation: {
+        cover: {
+          type: 'video',
+          url: 'https://tryformation.com/video/army-formation.mp4'
+        },
+        platform: {
+          type: 'video',
+          url: 'https://tryformation.com/video/army-formation.mp4'
+        },
+        roadmap: {
+          type: 'video',
+          url: 'https://tryformation.com/video/army-formation.mp4'
+        },
+        end: {
+          type: 'video',
+          url: 'https://tryformation.com/video/army-formation.mp4'
+        }
+      },
+      lear: {
+        cover: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        intro: {
+          type: 'image',
+          url: 'assets/lear-hero.webp'
+        },
+        platform: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        roadmap: {
+          type: 'image',
+          url: 'assets/lear-customer-experience.webp'
+        },
+        'packages-a': {
+          type: 'image',
+          url: 'assets/lear-hero-3.webp'
+        },
+        'packages-b': {
+          type: 'image',
+          url: 'assets/lear-hero.webp'
+        },
+        support: {
+          type: 'image',
+          url: 'assets/lear-customer-experience.webp'
+        },
+        summary: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        closing: {
+          type: 'image',
+          url: 'assets/lear-hero-3.webp'
+        },
+        end: {
+          type: 'image',
+          url: 'assets/panattoni-park-bremen-6.jpg'
+        }
+      }
+    };
 
     let currentLanguage = 'en';
+    let currentTheme = 'lear';
     let deployMetadata = null;
+    let localUpdatedAt = '';
 
     function normalizeLanguage(language) {
       return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
@@ -122,6 +228,43 @@
       }
     }
 
+    function normalizeTheme(theme) {
+      return theme === 'formation' || theme === 'lear' ? theme : 'lear';
+    }
+
+    function persistTheme(theme) {
+      try {
+        window.localStorage.setItem(DECK_THEME_KEY, theme);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getPreferredTheme() {
+      try {
+        return normalizeTheme(window.localStorage.getItem(DECK_THEME_KEY) || 'lear');
+      } catch (error) {
+        return 'lear';
+      }
+    }
+
+    function applyTheme(theme) {
+      currentTheme = normalizeTheme(theme);
+      document.body.setAttribute('data-theme', currentTheme);
+
+      const switcher = document.querySelector('.theme-switch');
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      if (switcher) {
+        switcher.setAttribute('aria-label', copy.switchLabel);
+      }
+
+      document.querySelectorAll('.theme-option').forEach(button => {
+        const isActive = button.dataset.theme === currentTheme;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
     function applyLanguageMetadata(language) {
       const copy = LANGUAGE_COPY[language] || LANGUAGE_COPY.en;
       document.documentElement.lang = copy.htmlLang;
@@ -130,6 +273,24 @@
       const switcher = document.querySelector('.language-switch');
       if (switcher) {
         switcher.setAttribute('aria-label', copy.switchLabel);
+      }
+
+      const themeSwitcher = document.querySelector('.theme-switch');
+      const themeCopy = THEME_COPY[language] || THEME_COPY.en;
+      if (themeSwitcher) {
+        themeSwitcher.setAttribute('aria-label', themeCopy.switchLabel);
+      }
+
+      const themeMenuToggle = document.querySelector('.theme-menu-toggle');
+      if (themeMenuToggle) {
+        themeMenuToggle.setAttribute('aria-label', themeCopy.openLabel);
+        themeMenuToggle.setAttribute('title', themeCopy.toggleTitle);
+      }
+
+      const themeModalClose = document.querySelector('.theme-modal-close');
+      if (themeModalClose) {
+        themeModalClose.setAttribute('aria-label', themeCopy.closeLabel);
+        themeModalClose.setAttribute('title', themeCopy.closeLabel);
       }
 
       document.querySelectorAll('.language-option').forEach(button => {
@@ -172,13 +333,109 @@
       window.location.replace(updateLanguageLocation(nextLanguage));
     }
 
+    function switchDeckTheme(theme) {
+      const nextTheme = normalizeTheme(theme);
+      if (nextTheme === currentTheme) {
+        return;
+      }
+
+      persistTheme(nextTheme);
+      document.body.classList.add('theme-switching');
+      applyTheme(nextTheme);
+      applyThemeBackgrounds();
+      window.setTimeout(() => {
+        document.body.classList.remove('theme-switching');
+      }, 180);
+    }
+
+    function applyThemeBackgrounds() {
+      const slides = Array.from(document.querySelectorAll('.reveal .slides section[data-theme-background]'));
+      if (!slides.length) {
+        return;
+      }
+
+      const backgroundConfig = THEME_BACKGROUNDS[currentTheme] || THEME_BACKGROUNDS.lear;
+
+      slides.forEach(slide => {
+        const key = slide.dataset.themeBackground;
+        const config = backgroundConfig[key];
+        slide.removeAttribute('data-background-image');
+        slide.removeAttribute('data-background-video');
+        slide.removeAttribute('data-background-video-loop');
+        slide.removeAttribute('data-background-video-muted');
+        slide.removeAttribute('data-background-size');
+        slide.removeAttribute('data-background-position');
+
+        if (!config) {
+          return;
+        }
+
+        if (config.type === 'video') {
+          slide.setAttribute('data-background-video', config.url);
+          slide.setAttribute('data-background-video-loop', 'true');
+          slide.setAttribute('data-background-video-muted', 'true');
+          return;
+        }
+
+        slide.setAttribute('data-background-image', config.url);
+        slide.setAttribute('data-background-size', 'cover');
+        slide.setAttribute('data-background-position', 'center center');
+      });
+
+      if (typeof Reveal.sync === 'function') {
+        Reveal.sync();
+      }
+
+      window.requestAnimationFrame(() => {
+        syncBackgroundClasses();
+        syncChromeSoon();
+        relayoutSoon();
+      });
+    }
+
+    function openThemeModal() {
+      const modal = document.getElementById('theme-modal');
+      const backdrop = document.getElementById('theme-modal-backdrop');
+      const toggle = document.querySelector('.theme-menu-toggle');
+      if (!modal || !backdrop) {
+        return;
+      }
+
+      modal.hidden = false;
+      backdrop.hidden = false;
+      document.body.classList.add('theme-modal-open');
+      toggle?.setAttribute('aria-expanded', 'true');
+      window.requestAnimationFrame(() => {
+        modal.classList.add('is-open');
+        backdrop.classList.add('is-open');
+      });
+    }
+
+    function closeThemeModal() {
+      const modal = document.getElementById('theme-modal');
+      const backdrop = document.getElementById('theme-modal-backdrop');
+      const toggle = document.querySelector('.theme-menu-toggle');
+      if (!modal || !backdrop) {
+        return;
+      }
+
+      modal.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+      document.body.classList.remove('theme-modal-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      window.setTimeout(() => {
+        modal.hidden = true;
+        backdrop.hidden = true;
+      }, 160);
+    }
+
     function syncChrome(slide) {
       const isOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
       const indices = Reveal.getIndices(slide);
       const totalSlides = Reveal.getTotalSlides();
       const isFirstSlide = indices.h === 0;
       const isLastSlide = indices.h === totalSlides - 1;
-      const isPlatformVideoSlide = slide.classList.contains('platform-video-slide');
+      const hasSlideBackgroundVideo = slide.hasAttribute('data-background-video');
       const isTitle = slide.classList.contains('title-slide') || isFirstSlide || isLastSlide;
       const keepFooterVisible = isFirstSlide || isLastSlide;
       const isCoverSlide =
@@ -187,11 +444,11 @@
         isFirstSlide ||
         isLastSlide;
       const activeBackground = document.querySelector('.backgrounds .slide-background.present');
-      const isVideoHero =
-        slide.classList.contains('hero-video-slide') ||
-        isCoverSlide ||
-        slide.hasAttribute('data-background-video') ||
-        !!activeBackground?.querySelector('video');
+      const activeBackgroundHasVideo = !!activeBackground?.querySelector('video');
+      const isVideoHero = hasSlideBackgroundVideo || activeBackgroundHasVideo;
+      const isPlatformVideoSlide =
+        slide.classList.contains('platform-video-slide') &&
+        (hasSlideBackgroundVideo || activeBackgroundHasVideo);
       document.querySelector('.slide-footer').style.display =
         (isTitle && !keepFooterVisible) ? 'none' : '';
       document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
@@ -254,6 +511,11 @@
       }).format(date);
     }
 
+    function isLocalPreview() {
+      const { hostname, protocol } = window.location;
+      return protocol === 'file:' || hostname === 'localhost' || hostname === '127.0.0.1';
+    }
+
     function renderDeployTimestamp() {
       const deployLabel = document.getElementById('deploy-timestamp');
       if (!deployLabel) {
@@ -261,16 +523,21 @@
       }
 
       const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
-      const deployedAt = deployMetadata?.deployedAt;
-      if (!deployedAt) {
+      const timestamp = isLocalPreview() ? localUpdatedAt : deployMetadata?.deployedAt;
+      const label = isLocalPreview() ? copy.localLabel : copy.deployLabel;
+      if (!timestamp) {
         deployLabel.textContent = '';
         return;
       }
 
-      deployLabel.textContent = `${copy.deployLabel}: ${formatDeployTimestamp(deployedAt, currentLanguage)}`;
+      deployLabel.textContent = `${label}: ${formatDeployTimestamp(timestamp, currentLanguage)}`;
     }
 
     async function loadDeployMetadata() {
+      if (isLocalPreview()) {
+        return;
+      }
+
       try {
         const response = await fetch(DEPLOY_META_URL, { cache: 'no-store' });
         if (!response.ok) {
@@ -284,6 +551,47 @@
       }
     }
 
+    async function loadLocalUpdateTimestamp() {
+      if (!isLocalPreview()) {
+        return;
+      }
+
+      const sources = [
+        `index.html?v=${DECK_VERSION}`,
+        `open-location-stack.css?v=${DECK_VERSION}`,
+        DECK_SOURCES.en,
+        DECK_SOURCES.de
+      ];
+
+      try {
+        const responses = await Promise.all(
+          sources.map(async source => {
+            try {
+              const response = await fetch(source, {
+                method: 'HEAD',
+                cache: 'no-store'
+              });
+              return response.ok ? response.headers.get('Last-Modified') || '' : '';
+            } catch (error) {
+              return '';
+            }
+          })
+        );
+
+        const latest = responses
+          .map(value => new Date(value))
+          .filter(date => !Number.isNaN(date.getTime()))
+          .sort((a, b) => b.getTime() - a.getTime())[0];
+
+        if (latest) {
+          localUpdatedAt = latest.toISOString();
+          renderDeployTimestamp();
+        }
+      } catch (error) {
+        // Keep the footer clean if local timestamp probing fails.
+      }
+    }
+
     function syncBackgroundClasses() {
       const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
       const backgrounds = Array.from(document.querySelectorAll('.reveal .backgrounds > .slide-background'));
@@ -292,11 +600,14 @@
       for (let i = 0; i < sharedCount; i += 1) {
         const slide = slides[i];
         const background = backgrounds[i];
+        const hasBackgroundVideo = slide.hasAttribute('data-background-video');
+        const hasBackgroundImage = slide.hasAttribute('data-background-image');
 
         background.classList.toggle('is-proposal-cover', slide.classList.contains('proposal-cover'));
         background.classList.toggle('is-end-cover', slide.classList.contains('end-cover'));
-        background.classList.toggle('is-hero-video-slide', slide.classList.contains('hero-video-slide'));
-        background.classList.toggle('is-platform-video-slide', slide.classList.contains('platform-video-slide'));
+        background.classList.toggle('is-image-background', hasBackgroundImage);
+        background.classList.toggle('is-hero-video-slide', slide.classList.contains('hero-video-slide') && hasBackgroundVideo);
+        background.classList.toggle('is-platform-video-slide', slide.classList.contains('platform-video-slide') && hasBackgroundVideo);
       }
     }
 
@@ -650,7 +961,7 @@
 
       if (
         event.target.closest(
-          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch'
+          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal'
         )
       ) {
         return;
@@ -736,7 +1047,10 @@
     }
 
     const preferredLanguage = getPreferredLanguage();
+    const preferredTheme = getPreferredTheme();
     currentLanguage = preferredLanguage;
+    currentTheme = preferredTheme;
+    applyTheme(currentTheme);
     applyDeckSource(currentLanguage);
     applyLanguageMetadata(currentLanguage);
 
@@ -754,10 +1068,12 @@
     });
 
     Reveal.on('ready', event => {
+      applyThemeBackgrounds();
       syncBackgroundClasses();
       mountFooterControls();
       ensureProgressHoverFill();
       loadDeployMetadata();
+      loadLocalUpdateTimestamp();
       syncChromeSoon();
       updateSlideCount();
       syncProgressTicks();
@@ -809,6 +1125,28 @@
       button.addEventListener('click', () => {
         switchDeckLanguage(button.dataset.language || 'en');
       });
+    });
+
+    document.querySelectorAll('.theme-option').forEach(button => {
+      button.addEventListener('click', () => {
+        switchDeckTheme(button.dataset.theme || 'lear');
+        closeThemeModal();
+      });
+    });
+    document.querySelector('.theme-menu-toggle')?.addEventListener('click', () => {
+      const modal = document.getElementById('theme-modal');
+      if (modal?.hidden) {
+        openThemeModal();
+      } else {
+        closeThemeModal();
+      }
+    });
+    document.querySelector('.theme-modal-close')?.addEventListener('click', closeThemeModal);
+    document.getElementById('theme-modal-backdrop')?.addEventListener('click', closeThemeModal);
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !document.getElementById('theme-modal')?.hidden) {
+        closeThemeModal();
+      }
     });
     new MutationObserver(() => syncChromeSoon()).observe(document.body, {
       childList: true,

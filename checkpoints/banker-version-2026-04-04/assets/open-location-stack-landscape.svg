@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Open Location Stack ecosystem around indoor mapping</title>
+  <desc id="desc">A central indoor map connected to venue operations, RTLS hub, hardware, enterprise workflows and applications.</desc>
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <g stroke="#d1d5db" stroke-width="4" fill="none">
+    <line x1="640" y1="360" x2="260" y2="180"/>
+    <line x1="640" y1="360" x2="1010" y2="180"/>
+    <line x1="640" y1="360" x2="210" y2="540"/>
+    <line x1="640" y1="360" x2="1070" y2="540"/>
+    <line x1="640" y1="360" x2="640" y2="120"/>
+  </g>
+
+  <rect x="450" y="250" width="380" height="220" rx="34" fill="#111111"/>
+  <text x="640" y="334" text-anchor="middle" fill="#ffffff" font-size="42" font-family="Avenir Next, Avenir, sans-serif" font-weight="700">Indoor map</text>
+  <text x="640" y="384" text-anchor="middle" fill="#d1d5db" font-size="28" font-family="Avenir Next, Avenir, sans-serif">IMDF, validation, rendering, maintenance</text>
+
+  <g font-family="Avenir Next, Avenir, sans-serif" text-anchor="middle">
+    <rect x="140" y="110" width="240" height="120" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+    <text x="260" y="162" fill="#0a0a0a" font-size="30" font-weight="600">Venue operations</text>
+    <text x="260" y="198" fill="#4b5563" font-size="22">Facilities and site updates</text>
+
+    <rect x="890" y="110" width="240" height="120" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+    <text x="1010" y="162" fill="#0a0a0a" font-size="30" font-weight="600">RTLS hub</text>
+    <text x="1010" y="198" fill="#4b5563" font-size="22">OMLOX and live location data</text>
+
+    <rect x="90" y="480" width="240" height="120" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+    <text x="210" y="532" fill="#0a0a0a" font-size="30" font-weight="600">Hardware vendors</text>
+    <text x="210" y="568" fill="#4b5563" font-size="22">Anchors, tags, sensors</text>
+
+    <rect x="950" y="480" width="240" height="120" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+    <text x="1070" y="532" fill="#0a0a0a" font-size="30" font-weight="600">Applications</text>
+    <text x="1070" y="568" fill="#4b5563" font-size="22">Wayfinding, ops, analytics</text>
+
+    <rect x="500" y="60" width="280" height="110" rx="28" fill="#ffffff" stroke="#e5e7eb" stroke-width="3"/>
+    <text x="640" y="108" fill="#0a0a0a" font-size="30" font-weight="600">Enterprise workflows</text>
+    <text x="640" y="142" fill="#4b5563" font-size="22">Events, MQTT, integration logic</text>
+  </g>
+</svg>

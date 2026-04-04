@@ -1,4 +1,107 @@
 :root {
+  --color-bg: #111111;
+  --color-bg-2: #1a1a1a;
+  --color-panel: rgba(26, 26, 26, 0.8);
+  --color-panel-strong: rgba(18, 18, 18, 0.94);
+  --color-line: rgba(238, 49, 36, 0.18);
+  --color-ink: #f7f4ef;
+  --color-muted: rgba(235, 232, 227, 0.82);
+  --color-accent: #ee3124;
+  --color-accent-strong: #ff5a4f;
+  --color-shadow: rgba(0, 0, 0, 0.34);
+  --selection-ink: #fff5f2;
+  --video-overlay-start: rgba(8, 8, 8, 0.62);
+  --video-overlay-end: rgba(8, 8, 8, 0.76);
+  --video-overlay-glow: rgba(238, 49, 36, 0.12);
+  --platform-overlay-start: rgba(8, 8, 8, 0.76);
+  --platform-overlay-end: rgba(8, 8, 8, 0.86);
+  --platform-overlay-glow: rgba(238, 49, 36, 0.1);
+  --cover-overlay-start: rgba(8, 8, 8, 0.46);
+  --cover-overlay-end: rgba(8, 8, 8, 0.62);
+  --cover-overlay-glow: rgba(238, 49, 36, 0.12);
+  --viewport-overlay-start: rgba(8, 8, 8, 0.72);
+  --viewport-overlay-end: rgba(8, 8, 8, 0.82);
+  --viewport-glow-primary: rgba(238, 49, 36, 0.14);
+  --viewport-glow-secondary: rgba(255, 255, 255, 0.06);
+  --viewport-gradient-base: linear-gradient(180deg, #111111 0%, #080808 100%);
+  --viewport-image-url: url("assets/lear-customer-experience.webp");
+  --overview-glow-primary: rgba(238, 49, 36, 0.16);
+  --overview-glow-secondary: rgba(255, 255, 255, 0.08);
+  --overview-gradient-base: linear-gradient(180deg, #1a1a1a 0%, #101010 100%);
+  --overview-slide-overlay-start: rgba(8, 8, 8, 0.62);
+  --overview-slide-overlay-end: rgba(8, 8, 8, 0.76);
+  --overview-slide-overlay-glow: rgba(238, 49, 36, 0.12);
+  --overview-cover-overlay-start: rgba(8, 8, 8, 0.36);
+  --overview-cover-overlay-end: rgba(8, 8, 8, 0.5);
+  --overview-cover-overlay-glow: rgba(238, 49, 36, 0.16);
+  --media-filter: brightness(0.42) saturate(0.2) contrast(1.01);
+  --table-head-bg: rgba(238, 49, 36, 0.84);
+  --progress-track-bg: rgba(12, 12, 12, 0.68);
+  --progress-track-border: rgba(255, 255, 255, 0.1);
+  --progress-track-hover-bg: rgba(20, 20, 20, 0.82);
+  --progress-segment-shade: rgba(12, 12, 12, 0.18);
+  --progress-hover-segment-shade: rgba(12, 12, 12, 0.08);
+  --progress-hover-gradient: linear-gradient(90deg, #ff5a4f, #ee3124);
+  --progress-hover-glow: 0 0 24px rgba(238, 49, 36, 0.4);
+  --progress-fill-gradient: linear-gradient(90deg, #ee3124, #ee3124);
+  --progress-fill-glow: 0 0 18px rgba(238, 49, 36, 0.34);
+  --footer-bg: rgba(12, 12, 12, 0.58);
+  --footer-ink: rgba(247, 244, 239, 0.8);
+  --control-border: rgba(238, 49, 36, 0.26);
+  --control-bg: rgba(18, 18, 18, 0.56);
+  --control-hover-border: rgba(238, 49, 36, 0.62);
+  --control-hover-bg: rgba(238, 49, 36, 0.14);
+  --control-hover-glow: 0 0 14px rgba(238, 49, 36, 0.14);
+  --switch-border: rgba(238, 49, 36, 0.18);
+  --switch-bg: rgba(18, 18, 18, 0.46);
+  --switch-hover-bg: rgba(238, 49, 36, 0.12);
+  --switch-active-ink: #fff5f2;
+  --overview-toggle-hover-bg: rgba(30, 16, 16, 0.88);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(238, 49, 36, 0.08), rgba(238, 49, 36, 0.9), rgba(238, 49, 36, 0.08));
+  --cover-divider-glow: 0 0 16px rgba(238, 49, 36, 0.18);
+  --cover-meta-color: rgba(235, 232, 227, 0.62);
+  --cover-meta-separator: rgba(235, 232, 227, 0.22);
+  --cover-meta-pill-border: rgba(238, 49, 36, 0.24);
+  --cover-meta-pill-bg: rgba(18, 18, 18, 0.56);
+  --card-bg: linear-gradient(180deg, rgba(26, 26, 26, 0.92), rgba(20, 20, 20, 0.92));
+  --card-hover-border: rgba(238, 49, 36, 0.24);
+  --card-hover-bg: linear-gradient(180deg, rgba(32, 24, 24, 0.94), rgba(24, 18, 18, 0.94));
+  --table-bg: rgba(18, 18, 18, 0.94);
+  --table-row-hover-bg: rgba(238, 49, 36, 0.08);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(238, 49, 36, 0.18);
+  --summary-border: rgba(238, 49, 36, 0.22);
+  --summary-bg: rgba(18, 18, 18, 0.9);
+  --blockquote-border: rgba(238, 49, 36, 0.22);
+  --blockquote-bg: rgba(20, 20, 20, 0.9);
+  --quote-mark-color: rgba(238, 49, 36, 0.8);
+  --portrait-border: rgba(238, 49, 36, 0.24);
+  --linkedin-bg: rgba(26, 26, 26, 0.58);
+  --font-body: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-cover-title: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-ui: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-heading: "aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Vollkorn", Georgia, serif;
+  --control-radius: 6px;
+  --switch-radius: 7px;
+  --switch-option-radius: 4px;
+  --modal-radius: 14px;
+  --image-overlay-start: rgba(8, 8, 8, 0.62);
+  --image-overlay-end: rgba(8, 8, 8, 0.76);
+  --image-overlay-glow: rgba(238, 49, 36, 0.07);
+  --cover-image-overlay-start: rgba(8, 8, 8, 0.58);
+  --cover-image-overlay-end: rgba(8, 8, 8, 0.7);
+  --cover-image-overlay-glow: rgba(238, 49, 36, 0.08);
+
+  --r-background-color: var(--color-bg);
+  --r-main-color: var(--color-ink);
+  --r-heading-color: var(--color-ink);
+  --r-link-color: var(--color-accent-strong);
+  --r-link-color-dark: var(--color-accent);
+  --r-selection-background-color: var(--color-accent);
+  --r-selection-color: var(--selection-ink);
+}
+
+body[data-theme="formation"] {
   --color-bg: #14272b;
   --color-bg-2: #1c3438;
   --color-panel: rgba(22, 38, 42, 0.76);
@@ -9,18 +112,92 @@
   --color-accent: #58d46c;
   --color-accent-strong: #6dea7f;
   --color-shadow: rgba(0, 0, 0, 0.3);
-
-  --r-background-color: var(--color-bg);
-  --r-main-color: var(--color-ink);
-  --r-heading-color: var(--color-ink);
-  --r-link-color: var(--color-accent-strong);
-  --r-link-color-dark: var(--color-accent);
-  --r-selection-background-color: var(--color-accent);
-  --r-selection-color: #0d1718;
+  --selection-ink: #0d1718;
+  --video-overlay-start: rgba(7, 15, 17, 0.58);
+  --video-overlay-end: rgba(7, 15, 17, 0.68);
+  --video-overlay-glow: rgba(88, 212, 108, 0.1);
+  --platform-overlay-start: rgba(6, 12, 14, 0.72);
+  --platform-overlay-end: rgba(6, 12, 14, 0.82);
+  --platform-overlay-glow: rgba(88, 212, 108, 0.08);
+  --cover-overlay-start: rgba(7, 15, 17, 0.58);
+  --cover-overlay-end: rgba(7, 15, 17, 0.68);
+  --cover-overlay-glow: rgba(88, 212, 108, 0.1);
+  --viewport-overlay-start: rgba(8, 17, 18, 0.8);
+  --viewport-overlay-end: rgba(8, 17, 18, 0.84);
+  --viewport-glow-primary: rgba(88, 212, 108, 0.12);
+  --viewport-glow-secondary: rgba(88, 212, 108, 0.08);
+  --viewport-gradient-base: linear-gradient(180deg, #14272b 0%, #0f1f22 100%);
+  --viewport-image-url: url("assets/tracked-welding-equipment-2.webp");
+  --overview-glow-primary: rgba(109, 234, 127, 0.16);
+  --overview-glow-secondary: rgba(88, 212, 108, 0.12);
+  --overview-gradient-base: linear-gradient(180deg, #173238 0%, #12292d 100%);
+  --overview-slide-overlay-start: rgba(7, 15, 17, 0.58);
+  --overview-slide-overlay-end: rgba(7, 15, 17, 0.68);
+  --overview-slide-overlay-glow: rgba(88, 212, 108, 0.1);
+  --overview-cover-overlay-start: rgba(7, 15, 17, 0.3);
+  --overview-cover-overlay-end: rgba(7, 15, 17, 0.42);
+  --overview-cover-overlay-glow: rgba(88, 212, 108, 0.14);
+  --media-filter: brightness(0.52) saturate(0.8);
+  --table-head-bg: rgba(88, 212, 108, 0.8);
+  --progress-track-bg: rgba(9, 16, 18, 0.62);
+  --progress-track-border: rgba(109, 234, 127, 0.22);
+  --progress-track-hover-bg: rgba(12, 24, 27, 0.82);
+  --progress-segment-shade: rgba(9, 16, 18, 0.16);
+  --progress-hover-segment-shade: rgba(9, 16, 18, 0.08);
+  --progress-hover-gradient: linear-gradient(90deg, #7ef590, #58d46c);
+  --progress-hover-glow: 0 0 24px rgba(88, 212, 108, 0.42);
+  --progress-fill-gradient: linear-gradient(90deg, #58d46c, #58d46c);
+  --progress-fill-glow: 0 0 18px rgba(88, 212, 108, 0.34);
+  --footer-bg: rgba(9, 16, 18, 0.46);
+  --footer-ink: rgba(239, 245, 240, 0.78);
+  --control-border: rgba(88, 212, 108, 0.26);
+  --control-bg: rgba(18, 33, 36, 0.5);
+  --control-hover-border: rgba(88, 212, 108, 0.62);
+  --control-hover-bg: rgba(88, 212, 108, 0.12);
+  --control-hover-glow: 0 0 14px rgba(88, 212, 108, 0.16);
+  --switch-border: rgba(88, 212, 108, 0.2);
+  --switch-bg: rgba(18, 33, 36, 0.4);
+  --switch-hover-bg: rgba(88, 212, 108, 0.12);
+  --switch-active-ink: #0d1718;
+  --overview-toggle-hover-bg: rgba(24, 42, 46, 0.86);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(88, 212, 108, 0.1), rgba(88, 212, 108, 0.82), rgba(88, 212, 108, 0.1));
+  --cover-divider-glow: 0 0 16px rgba(88, 212, 108, 0.2);
+  --cover-meta-color: rgba(234, 241, 236, 0.58);
+  --cover-meta-separator: rgba(234, 241, 236, 0.22);
+  --cover-meta-pill-border: rgba(88, 212, 108, 0.3);
+  --cover-meta-pill-bg: rgba(18, 33, 36, 0.5);
+  --card-bg: linear-gradient(180deg, rgba(22, 38, 42, 0.78), rgba(22, 38, 42, 0.78));
+  --card-hover-border: rgba(88, 212, 108, 0.22);
+  --card-hover-bg: linear-gradient(180deg, rgba(24, 42, 46, 0.9), rgba(24, 42, 46, 0.9));
+  --table-bg: rgba(20, 35, 38, 0.92);
+  --table-row-hover-bg: rgba(88, 212, 108, 0.08);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(88, 212, 108, 0.18);
+  --summary-border: rgba(88, 212, 108, 0.3);
+  --summary-bg: rgba(18, 33, 36, 0.88);
+  --blockquote-border: rgba(88, 212, 108, 0.22);
+  --blockquote-bg: rgba(18, 33, 36, 0.86);
+  --quote-mark-color: rgba(88, 212, 108, 0.8);
+  --portrait-border: rgba(88, 212, 108, 0.24);
+  --linkedin-bg: rgba(22, 38, 42, 0.52);
+  --font-body: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+  --font-cover-title: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+  --font-heading: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --control-radius: 0px;
+  --switch-radius: 0px;
+  --switch-option-radius: 0px;
+  --modal-radius: 0px;
+  --image-overlay-start: rgba(7, 15, 17, 0.38);
+  --image-overlay-end: rgba(7, 15, 17, 0.54);
+  --image-overlay-glow: rgba(88, 212, 108, 0.08);
+  --cover-image-overlay-start: rgba(7, 15, 17, 0.48);
+  --cover-image-overlay-end: rgba(7, 15, 17, 0.62);
+  --cover-image-overlay-glow: rgba(88, 212, 108, 0.08);
 }
 
 body {
-  font-family: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+  font-family: var(--font-body);
   color: var(--color-ink);
   background: var(--color-bg);
 }
@@ -50,8 +227,8 @@ body.video-slide-active::before {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(7, 15, 17, 0.58), rgba(7, 15, 17, 0.68)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
+    linear-gradient(180deg, var(--video-overlay-start), var(--video-overlay-end)),
+    radial-gradient(circle at top right, var(--video-overlay-glow), transparent 24%);
 }
 
 body.platform-video-active::before {
@@ -61,8 +238,8 @@ body.platform-video-active::before {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(6, 12, 14, 0.72), rgba(6, 12, 14, 0.82)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.08), transparent 24%);
+    linear-gradient(180deg, var(--platform-overlay-start), var(--platform-overlay-end)),
+    radial-gradient(circle at top right, var(--platform-overlay-glow), transparent 24%);
 }
 
 body.cover-slide-active::before {
@@ -72,30 +249,30 @@ body.cover-slide-active::before {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(7, 15, 17, 0.58), rgba(7, 15, 17, 0.68)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
+    linear-gradient(180deg, var(--cover-overlay-start), var(--cover-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-overlay-glow), transparent 24%);
 }
 
 .reveal-viewport {
   background:
-    linear-gradient(180deg, rgba(8, 17, 18, 0.8), rgba(8, 17, 18, 0.84)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.12), transparent 22%),
-    radial-gradient(circle at 20% 85%, rgba(88, 212, 108, 0.08), transparent 20%),
-    url("assets/tracked-welding-equipment-2.webp") center center / cover no-repeat,
-    linear-gradient(180deg, #14272b 0%, #0f1f22 100%);
+    linear-gradient(180deg, var(--viewport-overlay-start), var(--viewport-overlay-end)),
+    radial-gradient(circle at top right, var(--viewport-glow-primary), transparent 22%),
+    radial-gradient(circle at 16% 84%, var(--viewport-glow-secondary), transparent 20%),
+    var(--viewport-image-url) center center / cover no-repeat,
+    var(--viewport-gradient-base);
 }
 
 .reveal-viewport.video-slide-active {
-  background: #0f1f22;
+  background: var(--color-bg-2);
 }
 
 body.overview-active .reveal-viewport,
 .reveal.overview .reveal-viewport,
 .reveal-viewport:has(.reveal.overview) {
   background:
-    radial-gradient(circle at top right, rgba(109, 234, 127, 0.16), transparent 24%),
-    radial-gradient(circle at 18% 82%, rgba(88, 212, 108, 0.12), transparent 22%),
-    linear-gradient(180deg, #173238 0%, #12292d 100%);
+    radial-gradient(circle at top right, var(--overview-glow-primary), transparent 24%),
+    radial-gradient(circle at 18% 82%, var(--overview-glow-secondary), transparent 22%),
+    var(--overview-gradient-base);
   background-size: 154% 154%, 148% 148%, 100% 100%;
   animation: overviewAmbientDrift 12s ease-in-out infinite;
 }
@@ -173,11 +350,11 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 
 .reveal.overview .slides section:not(.hero-video-slide):not(.platform-video-slide):not(.proposal-cover):not(.end-cover):not([data-background-video]):not([data-background-image]):not([data-background-iframe]) {
   background:
-    linear-gradient(180deg, rgba(8, 17, 18, 0.8), rgba(8, 17, 18, 0.84)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.12), transparent 22%),
-    radial-gradient(circle at 20% 85%, rgba(88, 212, 108, 0.08), transparent 20%),
-    url("assets/tracked-welding-equipment-2.webp") center center / cover no-repeat,
-    linear-gradient(180deg, #14272b 0%, #0f1f22 100%);
+    linear-gradient(180deg, var(--viewport-overlay-start), var(--viewport-overlay-end)),
+    radial-gradient(circle at top right, var(--viewport-glow-primary), transparent 22%),
+    radial-gradient(circle at 16% 84%, var(--viewport-glow-secondary), transparent 20%),
+    var(--viewport-image-url) center center / cover no-repeat,
+    var(--viewport-gradient-base);
   background-clip: padding-box;
 }
 
@@ -192,21 +369,38 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(7, 15, 17, 0.58), rgba(7, 15, 17, 0.68)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.1), transparent 24%);
+    linear-gradient(180deg, var(--overview-slide-overlay-start), var(--overview-slide-overlay-end)),
+    radial-gradient(circle at top right, var(--overview-slide-overlay-glow), transparent 24%);
 }
 
 .reveal.overview .backgrounds .slide-background.is-proposal-cover::after,
 .reveal.overview .backgrounds .slide-background.is-end-cover::after {
   background:
-    linear-gradient(180deg, rgba(7, 15, 17, 0.3), rgba(7, 15, 17, 0.42)),
-    radial-gradient(circle at top right, rgba(88, 212, 108, 0.14), transparent 26%);
+    linear-gradient(180deg, var(--overview-cover-overlay-start), var(--overview-cover-overlay-end)),
+    radial-gradient(circle at top right, var(--overview-cover-overlay-glow), transparent 26%);
 }
 
 .reveal.overview .backgrounds .slide-background video,
 .reveal.overview .backgrounds .slide-background iframe,
 .reveal.overview .backgrounds .slide-background[data-background-image] {
-  filter: brightness(0.52) saturate(0.8);
+  filter: var(--media-filter);
+}
+
+.backgrounds .slide-background.is-image-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--image-overlay-start), var(--image-overlay-end)),
+    radial-gradient(circle at top right, var(--image-overlay-glow), transparent 26%);
+}
+
+.backgrounds .slide-background.is-image-background.is-proposal-cover::after,
+.backgrounds .slide-background.is-image-background.is-end-cover::after {
+  background:
+    linear-gradient(180deg, var(--cover-image-overlay-start), var(--cover-image-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-image-overlay-glow), transparent 28%);
 }
 
 .reveal.overview .backgrounds .slide-background.is-proposal-cover video,
@@ -235,8 +429,9 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .reveal h4 {
   margin: 0;
   color: var(--color-ink);
+  font-family: var(--font-heading);
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   text-transform: none;
 }
 
@@ -244,6 +439,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   font-size: 2.3rem;
   margin-bottom: 0.85rem;
   text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .reveal h3 {
@@ -284,10 +480,10 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   width: 100%;
   margin: 0.9rem 0 0;
   padding: 0.75rem 0.95rem;
-  border: 1px solid rgba(88, 212, 108, 0.2);
+  border: 1px solid var(--blockquote-border);
   border-left: 4px solid var(--color-accent);
   border-radius: 0;
-  background: rgba(18, 33, 36, 0.88);
+  background: var(--blockquote-bg);
   box-shadow: 0 18px 42px var(--color-shadow);
 }
 
@@ -320,8 +516,8 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #f7fff7;
-  background: rgba(88, 212, 108, 0.8);
+  color: #fbf7f2;
+  background: var(--table-head-bg);
 }
 
 .reveal td {
@@ -338,32 +534,33 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   left: 0;
   right: 0;
   bottom: calc(40px + 1.44rem + 8px);
-  height: 7px;
-  padding: 5px 0;
+  height: 8px;
+  padding: 4px 0;
   z-index: 60;
   overflow: hidden;
   isolation: isolate;
   background-clip: content-box;
   box-sizing: content-box;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: var(--progress-track-bg);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 0 0 1px rgba(0, 0, 0, 0.14);
+    inset 0 0 0 1px var(--progress-track-border),
+    0 0 0 1px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.16);
   transition:
     background-color 140ms ease,
     box-shadow 140ms ease;
 }
 
 .reveal .progress[data-hover-active="true"] {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--progress-track-hover-bg);
 }
 
 .reveal .progress .progress-hover-fill {
   display: block;
   position: absolute;
-  top: 5px;
-  bottom: 5px;
+  top: 4px;
+  bottom: 4px;
   left: 0;
   width: 0;
   z-index: 3;
@@ -373,13 +570,13 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
       90deg,
       transparent 0,
       transparent calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.62) calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.62) var(--segment-size-px)
+      var(--progress-hover-segment-shade) calc(var(--segment-size-px) - 4px),
+      var(--progress-hover-segment-shade) var(--segment-size-px)
     ),
-    linear-gradient(90deg, rgba(126, 245, 144, 0.96), rgba(88, 212, 108, 0.72));
+    var(--progress-hover-gradient);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
-    0 0 18px rgba(88, 212, 108, 0.34);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    var(--progress-hover-glow);
   opacity: 0;
   transition:
     left 120ms ease,
@@ -389,7 +586,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .reveal .progress[data-hover-active="true"] .progress-hover-fill {
-  opacity: 0.95;
+  opacity: 1;
 }
 
 .reveal .progress > span {
@@ -402,16 +599,25 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
       90deg,
       transparent 0,
       transparent calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.92) calc(var(--segment-size-px) - 4px),
-      rgba(9, 16, 18, 0.92) var(--segment-size-px)
+      var(--progress-segment-shade) calc(var(--segment-size-px) - 4px),
+      var(--progress-segment-shade) var(--segment-size-px)
     ),
-    linear-gradient(90deg, rgba(88, 212, 108, 0.98), rgba(88, 212, 108, 0.84));
+    var(--progress-fill-gradient);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 0 12px rgba(88, 212, 108, 0.24);
-  transition: width 180ms ease;
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    var(--progress-fill-glow);
+  transition:
+    width 180ms ease,
+    box-shadow 140ms ease;
   transform: none !important;
   transform-origin: left center;
+}
+
+.reveal .progress:hover > span,
+.reveal .progress[data-hover-active="true"] > span {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    var(--progress-fill-glow);
 }
 
 .slide-footer {
@@ -427,8 +633,8 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   height: 40px;
   padding: 0.72rem 1.3rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(9, 16, 18, 0.46);
-  color: rgba(239, 245, 240, 0.78);
+  background: var(--footer-bg);
+  color: var(--footer-ink);
   font-size: 0.84rem;
   backdrop-filter: blur(6px);
 }
@@ -505,9 +711,11 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   width: 30px;
   height: 30px;
   margin: 0;
-  border: 1px solid rgba(88, 212, 108, 0.26);
-  background: rgba(18, 33, 36, 0.5);
-  color: rgba(239, 245, 240, 0.82);
+  border: 1px solid var(--control-border);
+  border-radius: var(--control-radius);
+  background: var(--control-bg);
+  color: rgba(247, 244, 239, 0.82);
+  font-family: var(--font-ui);
   transition:
     color 160ms ease,
     border-color 160ms ease,
@@ -542,9 +750,9 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 
 .slide-footer .controls.footer-controls button:hover,
 .slide-footer .controls.footer-controls button:focus-visible {
-  border-color: rgba(88, 212, 108, 0.62);
-  background: rgba(88, 212, 108, 0.12);
-  box-shadow: 0 0 14px rgba(88, 212, 108, 0.16);
+  border-color: var(--control-hover-border);
+  background: var(--control-hover-bg);
+  box-shadow: var(--control-hover-glow);
 }
 
 .slide-footer .controls.footer-controls button:not(.enabled),
@@ -590,20 +798,24 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   display: inline-flex;
   align-items: center;
   padding: 2px;
-  border: 1px solid rgba(88, 212, 108, 0.2);
-  background: rgba(18, 33, 36, 0.4);
+  border: 1px solid var(--switch-border);
+  border-radius: var(--switch-radius);
+  background: var(--switch-bg);
 }
 
-.language-option {
+.language-option,
+.theme-option {
   min-width: 38px;
   height: 26px;
   padding: 0 0.55rem;
   border: 0;
+  border-radius: var(--switch-option-radius);
   background: transparent;
   color: rgba(239, 245, 240, 0.72);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
+  font-family: var(--font-ui);
   cursor: pointer;
   transition:
     background-color 160ms ease,
@@ -612,17 +824,21 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .language-option:hover,
-.language-option:focus-visible {
+.language-option:focus-visible,
+.theme-option:hover,
+.theme-option:focus-visible {
   color: rgba(239, 245, 240, 0.96);
-  background: rgba(88, 212, 108, 0.12);
+  background: var(--switch-hover-bg);
 }
 
-.language-option.is-active {
+.language-option.is-active,
+.theme-option.is-active {
   background: var(--color-accent);
-  color: #0d1718;
+  color: var(--switch-active-ink);
 }
 
-body.language-switching .language-option {
+body.language-switching .language-option,
+body.theme-switching .theme-option {
   opacity: 0.65;
   pointer-events: none;
 }
@@ -634,8 +850,9 @@ body.language-switching .language-option {
   width: 30px;
   height: 30px;
   padding: 0;
-  border: 1px solid rgba(88, 212, 108, 0.26);
-  background: rgba(18, 33, 36, 0.5);
+  border: 1px solid var(--control-border);
+  border-radius: var(--control-radius);
+  background: var(--control-bg);
   color: rgba(239, 245, 240, 0.82);
   cursor: pointer;
   transition:
@@ -674,10 +891,134 @@ body.overview-active .overview-icon-close {
 .overview-toggle:hover,
 .overview-toggle:focus-visible {
   transform: translateY(-1px);
-  border-color: rgba(88, 212, 108, 0.5);
-  background: rgba(24, 42, 46, 0.86);
+  border-color: var(--control-hover-border);
+  background: var(--overview-toggle-hover-bg);
   color: var(--color-accent-strong);
   outline: none;
+}
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--switch-border);
+  border-radius: var(--switch-radius);
+  background: var(--switch-bg);
+}
+
+.theme-menu-toggle,
+.theme-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--control-border);
+  border-radius: var(--control-radius);
+  background: var(--control-bg);
+  color: rgba(247, 244, 239, 0.84);
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.footer-meta .theme-modal-close {
+  display: none;
+}
+
+body.theme-modal-open .footer-meta .theme-menu-toggle {
+  display: none;
+}
+
+body.theme-modal-open .footer-meta .theme-modal-close {
+  display: inline-flex;
+}
+
+.theme-menu-toggle:hover,
+.theme-menu-toggle:focus-visible,
+.theme-modal-close:hover,
+.theme-modal-close:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--control-hover-border);
+  background: var(--control-hover-bg);
+  box-shadow: var(--control-hover-glow);
+  color: var(--color-accent-strong);
+  outline: none;
+}
+
+.theme-menu-toggle svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.theme-modal-close span {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+  color: currentColor;
+  transform: translateY(-1px);
+}
+
+.theme-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(7, 8, 9, 0.52);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.theme-modal-backdrop.is-open {
+  opacity: 1;
+}
+
+.theme-modal {
+  position: fixed;
+  left: 1.3rem;
+  bottom: calc(40px + 1.1rem);
+  z-index: 95;
+  width: min(12.5rem, calc(100vw - 2rem));
+  min-height: 7.6rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--modal-radius);
+  background: linear-gradient(180deg, var(--color-panel-strong), var(--color-panel));
+  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.36);
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.theme-modal.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.theme-modal .theme-switch {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.34rem;
+  width: 100%;
+  padding: 3px;
+  margin-top: 0;
+}
+
+.theme-modal .theme-option {
+  min-width: 0;
+  height: 38px;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
 }
 
 .cover-shell {
@@ -736,8 +1077,8 @@ body.overview-active .cover-shell,
 .cover-brand-divider {
   width: 1px;
   height: 54px;
-  background: linear-gradient(180deg, rgba(88, 212, 108, 0.1), rgba(88, 212, 108, 0.82), rgba(88, 212, 108, 0.1));
-  box-shadow: 0 0 16px rgba(88, 212, 108, 0.2);
+  background: var(--cover-divider-gradient);
+  box-shadow: var(--cover-divider-glow);
 }
 
 .cover-intro {
@@ -778,12 +1119,14 @@ body.overview-active .cover-brand-mark-lear,
 .cover-tagline {
   margin: 1.15rem 0 0;
   font-size: 1.5rem;
+  font-family: var(--font-heading);
   color: var(--color-accent) !important;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
 }
 
 .cover-tagline-secondary {
+  font-family: var(--font-heading);
   color: rgba(248, 250, 248, 0.96) !important;
 }
 
@@ -802,7 +1145,7 @@ body.overview-active .cover-brand-mark-lear,
   width: 100%;
   max-width: 940px;
   margin: 0 auto;
-  font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-cover-title);
   font-size: 1.02rem !important;
   font-weight: 800;
   letter-spacing: 0.045em !important;
@@ -835,18 +1178,18 @@ body.overview-active .cover-title,
   gap: 0.7rem;
   font-size: 0.6rem;
   letter-spacing: 0.12em;
-  color: rgba(234, 241, 236, 0.58);
+  color: var(--cover-meta-color);
 }
 
 .proposal-cover:not(.end-cover) .meta-separator {
-  color: rgba(234, 241, 236, 0.22);
+  color: var(--cover-meta-separator);
 }
 
 .proposal-cover:not(.end-cover) .cover-meta-pill {
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgba(239, 245, 240, 0.72);
+  color: rgba(247, 244, 239, 0.74);
   border-radius: 0;
 }
 
@@ -891,9 +1234,9 @@ body.overview-active .cover-title,
 
 .cover-meta-pill {
   padding: 0.28rem 0.62rem;
-  border: 1px solid rgba(88, 212, 108, 0.3);
+  border: 1px solid var(--cover-meta-pill-border);
   border-radius: 999px;
-  background: rgba(18, 33, 36, 0.5);
+  background: var(--cover-meta-pill-bg);
   color: rgba(245, 247, 245, 0.9);
 }
 
@@ -910,6 +1253,7 @@ body.overview-active .cover-title,
   display: inline-block;
   margin-bottom: 0.38rem;
   font-size: 0.66rem;
+  font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -942,9 +1286,9 @@ body.overview-active .cover-title,
 .timeline-card {
   box-sizing: border-box;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0;
-  background: rgba(22, 38, 42, 0.78);
+  background: var(--card-bg);
   box-shadow: 0 18px 42px var(--color-shadow);
   transition:
     transform 180ms ease,
@@ -957,8 +1301,8 @@ body.overview-active .cover-title,
 .metric-card:hover,
 .timeline-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(88, 212, 108, 0.22);
-  background: rgba(24, 42, 46, 0.9);
+  border-color: var(--card-hover-border);
+  background: var(--card-hover-bg);
   box-shadow: 0 26px 52px rgba(0, 0, 0, 0.36);
 }
 
@@ -988,6 +1332,7 @@ body.overview-active .cover-title,
 
 .minor-heading {
   color: var(--color-accent) !important;
+  font-family: var(--font-heading);
   font-size: 0.78rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.06em !important;
@@ -1009,7 +1354,7 @@ body.overview-active .cover-title,
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0;
   overflow: hidden;
-  background: rgba(20, 35, 38, 0.92);
+  background: var(--table-bg);
   box-shadow: 0 20px 44px var(--color-shadow);
 }
 
@@ -1022,8 +1367,8 @@ body.overview-active .cover-title,
 
 .proposal-table tbody tr:hover {
   transform: translateY(-4px);
-  background: rgba(88, 212, 108, 0.08);
-  box-shadow: inset 0 0 0 1px rgba(88, 212, 108, 0.18);
+  background: var(--table-row-hover-bg);
+  box-shadow: var(--table-row-hover-shadow);
 }
 
 .pricing-table tbody tr:last-child td,
@@ -1048,9 +1393,9 @@ body.overview-active .cover-title,
   width: 100%;
   margin-top: 1rem;
   padding: 0;
-  border: 1px solid rgba(88, 212, 108, 0.3);
+  border: 1px solid var(--summary-border);
   border-radius: 0;
-  background: rgba(18, 33, 36, 0.88);
+  background: var(--summary-bg);
   box-shadow: 0 18px 42px var(--color-shadow);
 }
 
@@ -1085,6 +1430,7 @@ body.overview-active .cover-title,
   position: relative;
   padding: 1rem 1.2rem 1rem 1.35rem !important;
   border-left-width: 5px !important;
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.34;
   text-align: center;
@@ -1100,7 +1446,7 @@ body.overview-active .cover-title,
   line-height: 1;
   font-weight: 800;
   font-family: "Arial Black", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
-  color: rgba(88, 212, 108, 0.8);
+  color: var(--quote-mark-color);
 }
 
 .pull-quote::after {
@@ -1112,7 +1458,7 @@ body.overview-active .cover-title,
   line-height: 1;
   font-weight: 800;
   font-family: "Arial Black", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
-  color: rgba(88, 212, 108, 0.8);
+  color: var(--quote-mark-color);
 }
 
 .closing-card p {
@@ -1152,7 +1498,7 @@ body.overview-active .cover-title,
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
-  border: 1px solid rgba(88, 212, 108, 0.24);
+  border: 1px solid var(--portrait-border);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
 }
 
@@ -1173,7 +1519,7 @@ body.overview-active .cover-title,
   padding: 0.72rem 0.82rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  background: rgba(22, 38, 42, 0.52);
+  background: var(--linkedin-bg);
 }
 
 .linkedin-preview-avatar {
@@ -1292,6 +1638,13 @@ body.overview-active .cover-title,
   .cover-intro {
     font-size: 0.66rem;
     letter-spacing: 0.16em;
+  }
+
+  .theme-modal {
+    right: 1rem;
+    left: 1rem;
+    bottom: calc(40px + 1.4rem);
+    width: auto;
   }
 }
 

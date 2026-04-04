@@ -1,4 +1,4 @@
-<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
 
 <section class="cover-shell">
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
@@ -15,6 +15,7 @@
 </section>
 
 ---
+<!-- .slide: data-theme-background="intro" -->
 ## Validierter POC, bereit für den Rollout
 
 <p class="slide-lead">Dieses Angebot überführt den in 2025/2026 validierten POC in einen produktionsreifen, standortübergreifenden Rollout-Plan mit kommerziellen Konditionen, die die Kosten der Skalierung senken.</p>
@@ -59,7 +60,7 @@
 </div>
 
 ---
-<!-- .slide: class="hero-video-slide platform-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="hero-video-slide platform-video-slide" data-theme-background="platform" -->
 ## Plattform-Konditionen
 
 <p class="slide-lead">Wiederkehrende Kernplattform-Preise für <strong>10 Nutzer</strong>, <strong>1 Admin</strong> und <strong>1.000 getrackte Assets</strong>.</p>
@@ -116,7 +117,7 @@
 <blockquote class="pricing-callout">Bei einer dreijährigen Verpflichtung mit Vorauszahlung reduziert sich der Plattformpreis um 10 % auf <strong>1.926 € / Monat</strong> bzw. <strong>69.336 € gesamt</strong> für die vollen 36 Monate.</blockquote>
 
 ---
-<!-- .slide: class="hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="hero-video-slide" data-theme-background="roadmap" -->
 ## Roadmap-Scope auf einen Blick
 
 <p class="slide-lead">Der Lieferplan schafft die Grundlage für einen sicheren, enterprise-tauglichen Rollout über weitere Lear-Standorte hinweg.</p>
@@ -155,6 +156,7 @@
 </div>
 
 ---
+<!-- .slide: data-theme-background="packages-a" -->
 ## Arbeitspakete 1 bis 4
 
 <table class="proposal-table roadmap-table">
@@ -195,6 +197,7 @@
 </table>
 
 ---
+<!-- .slide: data-theme-background="packages-b" -->
 ## Arbeitspakete 5 bis 9
 
 <table class="proposal-table roadmap-table">
@@ -241,6 +244,7 @@
 </table>
 
 ---
+<!-- .slide: data-theme-background="support" -->
 ## Kommerzielle Struktur &amp; Support
 
 <div class="proposal-grid two-up">
@@ -269,6 +273,7 @@
 <blockquote class="pull-quote">Das kommerzielle Ziel ist nicht die kurzfristige Kostenminimierung. Es ist eine stabile, risikoarme Produktions-Rollout-Struktur für den langfristigen Betrieb in Live-Produktionsumgebungen.</blockquote>
 
 ---
+<!-- .slide: data-theme-background="summary" -->
 ## Drei-Jahres-Kostenzusammenfassung
 
 <div class="metric-strip two-up">
@@ -306,6 +311,7 @@
 </div>
 
 ---
+<!-- .slide: data-theme-background="closing" -->
 ## Abschluss
 
 <p class="closing-summary">Das Rollout-Angebot ist so aufgebaut, dass Plattform-Weiterentwicklung, Lear-spezifische Anforderungen und eine risikoarme Einführung in den Produktivbetrieb ausgewogen zusammenkommen. Kurzfristig liefert es die operativen Effizienzgewinne, die typischerweise mit RTLS-Systemen verbunden sind. Gleichzeitig legt es die Grundlage für ein erweitertes Produktionsbetriebsmodell: eine gemeinsame Arbeitsumgebung für Menschen und Robotik, getragen von einer einheitlichen operativen Ebene für alle Akteure im Produktionsumfeld.</p>
@@ -319,7 +325,7 @@
 </div>
 
 ---
-<!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />

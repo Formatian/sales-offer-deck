@@ -1,4 +1,4 @@
-<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
 
 <section class="cover-shell">
   <div class="cover-brand-row">
@@ -22,6 +22,7 @@
 </section>
 
 ---
+<!-- .slide: data-theme-background="intro" -->
 ## Validated POC, Ready For Rollout
 
 <p class="slide-lead">This offer converts the 2025/2026 validated POC into a production-ready, multi-site rollout plan with commercial terms designed to reduce the cost of scale.</p>
@@ -66,7 +67,7 @@
 </div>
 
 ---
-<!-- .slide: class="hero-video-slide platform-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="hero-video-slide platform-video-slide" data-theme-background="platform" -->
 ## Platform Commercials
 
 <p class="slide-lead">Core recurring platform pricing for <strong>10 users</strong>, <strong>1 admin</strong>, and <strong>1,000 tracked assets</strong>.</p>
@@ -123,7 +124,7 @@
 <blockquote class="pricing-callout">With a 3-year commitment billed in advance, platform pricing reduces by 10% to <strong>€1,926 / month</strong> or <strong>€69,336 total</strong> for the full 36-month term.</blockquote>
 
 ---
-<!-- .slide: class="hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="hero-video-slide" data-theme-background="roadmap" -->
 ## Roadmap Scope At A Glance
 
 <p class="slide-lead">The delivery plan establishes the foundation for secure, enterprise-grade rollout across additional Lear sites.</p>
@@ -162,6 +163,7 @@
 </div>
 
 ---
+<!-- .slide: data-theme-background="packages-a" -->
 ## Work Packages 1 To 4
 
 <table class="proposal-table roadmap-table">
@@ -202,6 +204,7 @@
 </table>
 
 ---
+<!-- .slide: data-theme-background="packages-b" -->
 ## Work Packages 5 To 9
 
 <table class="proposal-table roadmap-table">
@@ -248,6 +251,7 @@
 </table>
 
 ---
+<!-- .slide: data-theme-background="support" -->
 ## Commercial Structure &amp; Support
 
 <div class="proposal-grid two-up">
@@ -276,6 +280,7 @@
 <blockquote class="pull-quote">The commercial goal is not short-term cost minimization. It is a stable, low-risk production rollout structure for long-term operation in live manufacturing environments.</blockquote>
 
 ---
+<!-- .slide: data-theme-background="summary" -->
 ## Three-Year Cost Summary
 
 <div class="metric-strip two-up">
@@ -313,6 +318,7 @@
 </div>
 
 ---
+<!-- .slide: data-theme-background="closing" -->
 ## Closing
 
 <p class="closing-summary">The rollout proposal is structured to balance platform evolution, Lear-specific requirements, and low-risk deployment into production environments. In the short term, it delivers the operational efficiencies typically associated with RTLS systems. In parallel, it lays the foundation for a broader industrial operating model: a shared human-robotic workplace supported by a common operational layer for all actors across the production environment.</p>
@@ -345,7 +351,7 @@
 </div>
 
 ---
-<!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
+<!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
   <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Indoor mapping stack</title>
+  <desc id="desc">A layered diagram showing indoor mapping as the foundation for RTLS applications.</desc>
+  <rect width="1280" height="720" rx="32" fill="#ffffff"/>
+  <rect x="80" y="72" width="1120" height="110" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+  <rect x="80" y="220" width="1120" height="110" rx="28" fill="#ffffff" stroke="#e5e7eb" stroke-width="3"/>
+  <rect x="80" y="368" width="1120" height="110" rx="28" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+  <rect x="80" y="516" width="1120" height="110" rx="28" fill="#111111" stroke="#111111" stroke-width="3"/>
+
+  <text x="640" y="120" text-anchor="middle" fill="#0a0a0a" font-size="38" font-family="Avenir Next, Avenir, sans-serif" font-weight="600">Applications and user workflows</text>
+  <text x="640" y="268" text-anchor="middle" fill="#0a0a0a" font-size="38" font-family="Avenir Next, Avenir, sans-serif" font-weight="600">RTLS hubs, integrations, and operational events</text>
+  <text x="640" y="416" text-anchor="middle" fill="#0a0a0a" font-size="38" font-family="Avenir Next, Avenir, sans-serif" font-weight="600">Map rendering, validation, and authoring tooling</text>
+  <text x="640" y="564" text-anchor="middle" fill="#ffffff" font-size="42" font-family="Avenir Next, Avenir, sans-serif" font-weight="700">OGC IMDF indoor map foundation</text>
+
+  <text x="640" y="612" text-anchor="middle" fill="#d1d5db" font-size="24" font-family="Avenir Next, Avenir, sans-serif">Shared spatial context for places, levels, routes, zones, and assets</text>
+</svg>
