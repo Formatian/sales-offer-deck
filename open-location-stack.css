@@ -200,6 +200,134 @@ body[data-theme="formation"] {
   --cover-image-overlay-glow: rgba(88, 212, 108, 0.08);
 }
 
+body[data-theme="lear-light"] {
+  --color-bg: #f6efe8;
+  --color-bg-2: #efe4db;
+  --color-panel: rgba(250, 243, 237, 0.84);
+  --color-panel-strong: rgba(255, 249, 245, 0.95);
+  --color-line: rgba(238, 49, 36, 0.14);
+  --color-ink: #261d19;
+  --color-muted: rgba(57, 41, 35, 0.76);
+  --color-accent: #ee3124;
+  --color-accent-strong: #ff5a4f;
+  --color-shadow: rgba(68, 42, 32, 0.14);
+  --selection-ink: #fff8f5;
+  --video-overlay-start: rgba(248, 239, 233, 0.5);
+  --video-overlay-end: rgba(244, 234, 228, 0.72);
+  --video-overlay-glow: rgba(238, 49, 36, 0.1);
+  --platform-overlay-start: rgba(249, 241, 235, 0.72);
+  --platform-overlay-end: rgba(244, 235, 229, 0.82);
+  --platform-overlay-glow: rgba(238, 49, 36, 0.08);
+  --cover-overlay-start: rgba(252, 246, 242, 0.46);
+  --cover-overlay-end: rgba(246, 237, 231, 0.66);
+  --cover-overlay-glow: rgba(238, 49, 36, 0.1);
+  --viewport-overlay-start: rgba(248, 240, 235, 0.88);
+  --viewport-overlay-end: rgba(243, 234, 228, 0.94);
+  --viewport-glow-primary: rgba(238, 49, 36, 0.16);
+  --viewport-glow-secondary: rgba(255, 196, 168, 0.12);
+  --viewport-gradient-base: linear-gradient(180deg, #f8f1eb 0%, #efe4db 100%);
+  --viewport-image-url: url("assets/lear-customer-experience.webp");
+  --overview-glow-primary: rgba(238, 49, 36, 0.18);
+  --overview-glow-secondary: rgba(255, 197, 162, 0.14);
+  --overview-glow-tertiary: rgba(255, 141, 104, 0.16);
+  --overview-glow-quaternary: rgba(255, 230, 214, 0.22);
+  --overview-gradient-base: linear-gradient(180deg, #fbf6f1 0%, #f0e4db 100%);
+  --overview-slide-overlay-start: rgba(249, 241, 235, 0.44);
+  --overview-slide-overlay-end: rgba(244, 235, 229, 0.58);
+  --overview-slide-overlay-glow: rgba(238, 49, 36, 0.1);
+  --overview-cover-overlay-start: rgba(252, 247, 243, 0.24);
+  --overview-cover-overlay-end: rgba(245, 236, 230, 0.4);
+  --overview-cover-overlay-glow: rgba(238, 49, 36, 0.14);
+  --media-filter: brightness(0.9) saturate(0.48) contrast(0.94);
+  --table-head-bg: rgba(238, 49, 36, 0.94);
+  --progress-track-bg: rgba(255, 255, 255, 0.78);
+  --progress-track-border: rgba(99, 69, 58, 0.12);
+  --progress-track-hover-bg: rgba(255, 247, 242, 0.92);
+  --progress-segment-shade: rgba(112, 84, 72, 0.09);
+  --progress-hover-segment-shade: rgba(112, 84, 72, 0.06);
+  --progress-hover-gradient: linear-gradient(90deg, #ff7668, #ee3124);
+  --progress-hover-glow: 0 0 22px rgba(238, 49, 36, 0.22);
+  --progress-fill-gradient: linear-gradient(90deg, #ee3124, #ee3124);
+  --progress-fill-glow: 0 0 16px rgba(238, 49, 36, 0.18);
+  --footer-bg: rgba(249, 241, 235, 0.82);
+  --footer-ink: rgba(38, 29, 25, 0.82);
+  --control-border: rgba(238, 49, 36, 0.18);
+  --control-bg: rgba(255, 251, 248, 0.78);
+  --control-hover-border: rgba(238, 49, 36, 0.42);
+  --control-hover-bg: rgba(238, 49, 36, 0.08);
+  --control-hover-glow: 0 0 14px rgba(238, 49, 36, 0.1);
+  --switch-border: rgba(238, 49, 36, 0.14);
+  --switch-bg: rgba(255, 250, 246, 0.86);
+  --switch-hover-bg: rgba(238, 49, 36, 0.08);
+  --switch-active-ink: #fff8f5;
+  --overview-toggle-hover-bg: rgba(255, 243, 236, 0.96);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(238, 49, 36, 0.06), rgba(238, 49, 36, 0.82), rgba(238, 49, 36, 0.06));
+  --cover-divider-glow: 0 0 16px rgba(238, 49, 36, 0.12);
+  --cover-meta-color: rgba(57, 41, 35, 0.62);
+  --cover-meta-separator: rgba(57, 41, 35, 0.22);
+  --cover-meta-pill-border: rgba(238, 49, 36, 0.18);
+  --cover-meta-pill-bg: rgba(255, 250, 246, 0.78);
+  --card-bg: linear-gradient(180deg, rgba(255, 251, 248, 0.94), rgba(249, 241, 235, 0.94));
+  --card-hover-border: rgba(238, 49, 36, 0.18);
+  --card-hover-bg: linear-gradient(180deg, rgba(255, 248, 244, 0.98), rgba(247, 238, 232, 0.98));
+  --table-bg: rgba(255, 250, 247, 0.94);
+  --table-row-hover-bg: rgba(238, 49, 36, 0.05);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(238, 49, 36, 0.12);
+  --summary-border: rgba(238, 49, 36, 0.16);
+  --summary-bg: rgba(255, 250, 246, 0.9);
+  --blockquote-border: rgba(238, 49, 36, 0.16);
+  --blockquote-bg: rgba(255, 249, 245, 0.88);
+  --quote-mark-color: rgba(238, 49, 36, 0.78);
+  --portrait-border: rgba(238, 49, 36, 0.16);
+  --linkedin-bg: rgba(255, 250, 246, 0.76);
+  --font-body: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-cover-title: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-ui: "Helvetica Neue", "Avenir Next", Arial, sans-serif;
+  --font-heading: "aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Vollkorn", Georgia, serif;
+  --control-radius: 6px;
+  --switch-radius: 7px;
+  --switch-option-radius: 4px;
+  --modal-radius: 14px;
+  --image-overlay-start: rgba(252, 246, 241, 0.44);
+  --image-overlay-end: rgba(245, 236, 231, 0.68);
+  --image-overlay-glow: rgba(238, 49, 36, 0.08);
+  --cover-image-overlay-start: rgba(252, 247, 243, 0.3);
+  --cover-image-overlay-end: rgba(245, 236, 230, 0.52);
+  --cover-image-overlay-glow: rgba(238, 49, 36, 0.08);
+}
+
+body[data-theme="lear-light"] .cover-tagline-secondary,
+body[data-theme="lear-light"] .cover-title,
+body[data-theme="lear-light"] .cover-end-title,
+body[data-theme="lear-light"] .closing-summary,
+body[data-theme="lear-light"] .pull-quote,
+body[data-theme="lear-light"] .cover-meta-pill,
+body[data-theme="lear-light"] .metric-card strong,
+body[data-theme="lear-light"] .proposal-card h3,
+body[data-theme="lear-light"] .proposal-table td,
+body[data-theme="lear-light"] .proposal-table th,
+body[data-theme="lear-light"] .linkedin-preview-body strong,
+body[data-theme="lear-light"] .linkedin-preview-body span,
+body[data-theme="lear-light"] .closing-card a,
+body[data-theme="lear-light"] .slide-lead {
+  color: var(--color-ink) !important;
+}
+
+body[data-theme="lear-light"] .proposal-table th {
+  color: #fff7f3 !important;
+}
+
+body[data-theme="lear-light"] .cover-tagline {
+  color: var(--color-accent) !important;
+}
+
+body[data-theme="lear-light"] .cover-brand-mark,
+body[data-theme="lear-light"] .cover-wordmark-image,
+body[data-theme="lear-light"] .corner-brand img {
+  filter: brightness(0) saturate(100%);
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-ink);
@@ -701,13 +829,13 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-divider {
-  color: rgba(239, 245, 240, 0.34);
+  color: color-mix(in srgb, var(--footer-ink) 44%, transparent);
   font-size: 0.72rem;
   line-height: 1;
 }
 
 .deploy-timestamp {
-  color: rgba(239, 245, 240, 0.56);
+  color: color-mix(in srgb, var(--footer-ink) 68%, transparent);
   font-size: 0.74rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -728,7 +856,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .slide-footer a {
-  color: rgba(239, 245, 240, 0.78);
+  color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
   text-decoration: none;
   transition:
     color 160ms ease,
@@ -774,7 +902,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   border: 1px solid var(--control-border);
   border-radius: var(--control-radius);
   background: var(--control-bg);
-  color: rgba(247, 244, 239, 0.82);
+  color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
   font-family: var(--font-ui);
   transition:
     color 160ms ease,
@@ -820,7 +948,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .slide-footer .controls.footer-controls button[aria-disabled="true"] {
   border-color: rgba(255, 255, 255, 0.12);
   background: rgba(18, 33, 36, 0.2);
-  color: rgba(239, 245, 240, 0.28);
+  color: color-mix(in srgb, var(--footer-ink) 36%, transparent);
   box-shadow: none;
   cursor: default;
   pointer-events: none;
@@ -871,7 +999,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   border: 0;
   border-radius: var(--switch-option-radius);
   background: transparent;
-  color: rgba(239, 245, 240, 0.72);
+  color: color-mix(in srgb, var(--footer-ink) 88%, transparent);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -887,7 +1015,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .language-option:focus-visible,
 .theme-option:hover,
 .theme-option:focus-visible {
-  color: rgba(239, 245, 240, 0.96);
+  color: var(--color-ink);
   background: var(--switch-hover-bg);
 }
 
@@ -913,7 +1041,7 @@ body.theme-switching .theme-option {
   border: 1px solid var(--control-border);
   border-radius: var(--control-radius);
   background: var(--control-bg);
-  color: rgba(239, 245, 240, 0.82);
+  color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
   cursor: pointer;
   transition:
     transform 160ms ease,
@@ -977,7 +1105,7 @@ body.overview-active .overview-icon-close {
   border: 1px solid var(--control-border);
   border-radius: var(--control-radius);
   background: var(--control-bg);
-  color: rgba(247, 244, 239, 0.84);
+  color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
   font-family: var(--font-ui);
   cursor: pointer;
   transition:
@@ -1046,7 +1174,7 @@ body.theme-modal-open .footer-meta .theme-modal-close {
   left: 1.3rem;
   bottom: calc(40px + 1.1rem);
   z-index: 95;
-  width: min(12.5rem, calc(100vw - 2rem));
+  width: min(14rem, calc(100vw - 2rem));
   min-height: 7.6rem;
   padding: 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1077,8 +1205,8 @@ body.theme-modal-open .footer-meta .theme-modal-close {
 .theme-modal .theme-option {
   min-width: 0;
   height: 38px;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
 }
 
 .cover-shell {

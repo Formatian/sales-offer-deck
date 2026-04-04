@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404av" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404ax" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260404av" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260404ax" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -72,6 +72,7 @@
     <div class="theme-switch" role="group" aria-label="Deck theme">
       <button type="button" class="theme-option" data-theme="formation" aria-pressed="false">FORMATION</button>
       <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEAR</button>
+      <button type="button" class="theme-option" data-theme="lear-light" aria-pressed="false">LEAR LIGHT</button>
     </div>
   </div>
 
@@ -80,7 +81,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404av';
+    const DECK_VERSION = '20260404ax';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
@@ -190,6 +191,48 @@
           type: 'image',
           url: 'assets/panattoni-park-bremen-6.jpg'
         }
+      },
+      'lear-light': {
+        cover: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        intro: {
+          type: 'image',
+          url: 'assets/lear-hero.webp'
+        },
+        platform: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        roadmap: {
+          type: 'image',
+          url: 'assets/lear-customer-experience.webp'
+        },
+        'packages-a': {
+          type: 'image',
+          url: 'assets/lear-hero-3.webp'
+        },
+        'packages-b': {
+          type: 'image',
+          url: 'assets/lear-hero.webp'
+        },
+        support: {
+          type: 'image',
+          url: 'assets/lear-customer-experience.webp'
+        },
+        summary: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        closing: {
+          type: 'image',
+          url: 'assets/lear-hero-3.webp'
+        },
+        end: {
+          type: 'image',
+          url: 'assets/panattoni-park-bremen-6.jpg'
+        }
       }
     };
 
@@ -229,7 +272,7 @@
     }
 
     function normalizeTheme(theme) {
-      return theme === 'formation' || theme === 'lear' ? theme : 'lear';
+      return theme === 'formation' || theme === 'lear' || theme === 'lear-light' ? theme : 'lear';
     }
 
     function persistTheme(theme) {
