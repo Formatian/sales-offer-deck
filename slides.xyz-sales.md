@@ -216,7 +216,7 @@
 </div>
 
 ---
-<!-- .slide: data-theme-background="summary" -->
+<!-- .slide: class="xyz-delta-campus-slide" data-theme-background="summary" -->
 ## Delta Campus Is Part Of The Story
 
 <p class="slide-lead">XYZ is not an abstract internet business. It has a concrete operating base in Berlin, and the map itself becomes another proof surface: where the team is, how to reach it, and how place can be part of the brand.</p>

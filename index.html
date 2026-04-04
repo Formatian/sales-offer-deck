@@ -909,14 +909,84 @@
     };
     const BUILTIN_THEME_OPTIONS = [
       { id: 'xyz', baseTheme: 'xyz', locked: true, name: { en: 'XYZ', de: 'XYZ' } },
-      { id: 'formation', baseTheme: 'formation', locked: true, name: { en: 'FORMATION', de: 'FORMATION' } },
-      { id: 'lear', baseTheme: 'lear', locked: true, name: { en: 'LEARDARK', de: 'LEARDARK' } },
-      { id: 'lear-light', baseTheme: 'lear-light', locked: true, name: { en: 'LEAR LIGHT', de: 'LEAR LIGHT' } },
+      { id: 'formation', baseTheme: 'formation', locked: true, name: { en: 'FORMATION', de: 'FORMATION' } }
+    ];
+    const SEEDED_CUSTOM_THEMES = [
+      {
+        id: 'lear',
+        baseTheme: 'lear',
+        locked: false,
+        name: { en: 'LearDark', de: 'LearDark' },
+        references: {
+          urls: ['https://www.lear.com/', 'https://www.lear.com/innovation'],
+          notes: 'Seeded Lear dark style using repo Lear brand assets and imagery.',
+          files: [
+            { name: 'lear-logo.svg', type: 'image/svg+xml', size: 0 },
+            { name: 'lear-theme-dark.jpg', type: 'image/jpeg', size: 0 },
+            { name: 'lear-theme-innovation.jpg', type: 'image/jpeg', size: 0 },
+            { name: 'lear-hero.webp', type: 'image/webp', size: 0 }
+          ]
+        },
+        generated: {
+          accent: '#ee3124',
+          accentStrong: '#ff5a4f',
+          line: 'rgba(238, 49, 36, 0.18)',
+          hover: 'rgba(238, 49, 36, 0.12)',
+          quote: 'rgba(238, 49, 36, 0.8)',
+          fontHeading: '"aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Helvetica Neue", "Avenir Next", Arial, sans-serif',
+          radiusMode: 'sharp',
+          imageMode: 'dark',
+          baseTheme: 'lear'
+        }
+      },
+      {
+        id: 'lear-light',
+        baseTheme: 'lear-light',
+        locked: false,
+        name: { en: 'LearLight', de: 'LearLight' },
+        references: {
+          urls: ['https://www.lear.com/', 'https://www.lear.com/innovation'],
+          notes: 'Seeded Lear light style using repo Lear brand assets and brighter imagery.',
+          files: [
+            { name: 'lear-logo.svg', type: 'image/svg+xml', size: 0 },
+            { name: 'lear-theme-light.jpg', type: 'image/jpeg', size: 0 },
+            { name: 'lear-seat.webp', type: 'image/webp', size: 0 },
+            { name: 'lear-customer-experience.webp', type: 'image/webp', size: 0 }
+          ]
+        },
+        generated: {
+          accent: '#ee3124',
+          accentStrong: '#ff5a4f',
+          line: 'rgba(238, 49, 36, 0.16)',
+          hover: 'rgba(238, 49, 36, 0.08)',
+          quote: 'rgba(238, 49, 36, 0.76)',
+          fontHeading: '"aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Helvetica Neue", "Avenir Next", Arial, sans-serif',
+          radiusMode: 'sharp',
+          imageMode: 'bright',
+          baseTheme: 'lear-light'
+        }
+      },
       {
         id: 'berlin-partner',
         baseTheme: 'berlin-partner',
-        locked: true,
+        locked: false,
         name: { en: 'BerlinPartner', de: 'BerlinPartner' },
+        references: {
+          urls: [
+            'https://www.berlin-partner.de/en/',
+            'https://www.berlin-partner.de/en/about-us/who-we-are',
+            'https://www.berlin-partner.de/en/business-services'
+          ],
+          notes: 'Seeded Berlin Partner style using official logo and local background captures from the Berlin Partner site.',
+          files: [
+            { name: 'berlin-partner-about.png', type: 'image/png', size: 0 },
+            { name: 'berlin-partner-business-services.png', type: 'image/png', size: 0 },
+            { name: 'berlin-partner-home.png', type: 'image/png', size: 0 },
+            { name: 'Logomobile.svg', type: 'image/svg+xml', size: 0 }
+          ]
+        },
         generated: {
           accent: '#d81f2a',
           accentStrong: '#f04a52',
@@ -1924,20 +1994,56 @@
     }
 
     function loadCustomThemes() {
+      const mergeSeededThemes = (themes) => {
+        const sanitizedThemes = themes.map((entry, index) => sanitizeCustomTheme(entry, index)).filter(Boolean);
+        const seededIds = new Set(SEEDED_CUSTOM_THEMES.map(theme => theme.id));
+        const mergedThemes = [...sanitizedThemes];
+
+        SEEDED_CUSTOM_THEMES.forEach((seededTheme, index) => {
+          const existingIndex = mergedThemes.findIndex(theme => theme.id === seededTheme.id);
+          const sanitizedSeed = sanitizeCustomTheme(seededTheme, index);
+          if (!sanitizedSeed) {
+            return;
+          }
+
+          if (existingIndex === -1) {
+            mergedThemes.push(sanitizedSeed);
+            return;
+          }
+
+          const existingTheme = mergedThemes[existingIndex];
+          mergedThemes[existingIndex] = {
+            ...existingTheme,
+            id: sanitizedSeed.id,
+            baseTheme: sanitizedSeed.baseTheme,
+            managedByContentId: existingTheme.managedByContentId || '',
+            references: {
+              urls: sanitizedSeed.references.urls,
+              notes: sanitizedSeed.references.notes,
+              files: sanitizedSeed.references.files
+            },
+            generated: sanitizedSeed.generated,
+            locked: false
+          };
+        });
+
+        return mergedThemes.filter(theme => !theme.locked || !seededIds.has(theme.id));
+      };
+
       try {
         const raw = window.localStorage.getItem(DECK_CUSTOM_THEMES_KEY);
         if (!raw) {
-          return [];
+          return mergeSeededThemes([]);
         }
 
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) {
-          return [];
+          return mergeSeededThemes([]);
         }
 
-        return parsed.map((entry, index) => sanitizeCustomTheme(entry, index)).filter(Boolean);
+        return mergeSeededThemes(parsed);
       } catch (error) {
-        return [];
+        return mergeSeededThemes([]);
       }
     }
 
