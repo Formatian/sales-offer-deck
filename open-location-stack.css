@@ -1241,6 +1241,21 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   height: auto;
 }
 
+.corner-partner-brand {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  z-index: 35;
+  opacity: 0.86;
+}
+
+.corner-partner-brand img {
+  display: block;
+  width: var(--cover-brand-secondary-width, 148px);
+  max-width: min(18vw, 168px);
+  height: auto;
+}
+
 .slide-footer a {
   color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
   text-decoration: none;
@@ -2222,6 +2237,7 @@ body.document-mode .reveal-viewport {
 
 body.document-mode:not(.document-fallback-mode) .reveal,
 body.document-mode .corner-brand,
+body.document-mode .corner-partner-brand,
 body.document-mode .reveal .progress,
 body.document-mode #slide-counter {
   display: none !important;

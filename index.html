@@ -354,6 +354,9 @@
   <a class="corner-brand" href="#/" aria-label="Back to start slide">
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" />
   </a>
+  <div class="corner-partner-brand" aria-hidden="true">
+    <img src="assets/lear-logo.svg" alt="Lear Corporation" />
+  </div>
 
   <div class="slide-footer">
     <div class="footer-meta">
@@ -1876,12 +1879,27 @@
 
     function syncThemeBranding(themeId = currentTheme) {
       const logo = getThemeBrandLogo(themeId);
+      const formationLogoUrl = 'assets/formation-logo-text-white.png';
+      const formationLogoAlt = 'FORMATION';
 
       const cornerBrandImage = document.querySelector('.corner-brand img');
       if (cornerBrandImage instanceof HTMLImageElement) {
-        cornerBrandImage.src = logo.url;
-        cornerBrandImage.alt = logo.alt;
+        cornerBrandImage.src = formationLogoUrl;
+        cornerBrandImage.alt = formationLogoAlt;
       }
+
+      const cornerPartnerImage = document.querySelector('.corner-partner-brand img');
+      if (cornerPartnerImage instanceof HTMLImageElement) {
+        cornerPartnerImage.src = logo.url;
+        cornerPartnerImage.alt = logo.alt;
+      }
+
+      document.querySelectorAll('.cover-brand-mark-formation, .document-brand-formation').forEach(image => {
+        if (image instanceof HTMLImageElement) {
+          image.src = formationLogoUrl;
+          image.alt = formationLogoAlt;
+        }
+      });
 
       document.querySelectorAll('.cover-brand-mark-lear, .document-brand-lear').forEach(image => {
         if (image instanceof HTMLImageElement) {
@@ -2467,6 +2485,10 @@
       document.querySelector('.slide-footer').style.display =
         (isTitle && !keepFooterVisible) ? 'none' : '';
       document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
+      const cornerPartnerBrand = document.querySelector('.corner-partner-brand');
+      if (cornerPartnerBrand) {
+        cornerPartnerBrand.style.display = isTitle || isOverview ? 'none' : '';
+      }
       document.body.classList.toggle('overview-active', isOverview);
       const overviewToggle = document.querySelector('.overview-toggle');
       const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
