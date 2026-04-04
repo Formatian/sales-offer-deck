@@ -8,9 +8,9 @@
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404bg" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404bh" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260404bg" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260404bh" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -413,24 +413,14 @@
 
   <div class="content-modal-backdrop" id="content-modal-backdrop" hidden></div>
   <div class="content-modal" id="content-modal" role="dialog" aria-modal="true" aria-label="Deck content" hidden>
-    <div class="content-switch" role="listbox" aria-label="Deck content">
-      <button type="button" class="content-option is-active" data-content="offer" aria-pressed="true">
-        <span class="content-option-title">Offer</span>
-        <span class="content-option-meta">Current Lear offer deck</span>
-      </button>
-      <button type="button" class="content-option" data-content="xyz-sales" aria-pressed="false" disabled>
-        <span class="content-option-title">XYZ Sales Deck</span>
-        <span class="content-option-meta">Slot ready, content not added yet</span>
-      </button>
-      <button type="button" class="content-option" data-content="formation-sales" aria-pressed="false" disabled>
-        <span class="content-option-title">FORMATION Sales Deck</span>
-        <span class="content-option-meta">Slot ready, content not added yet</span>
-      </button>
-      <button type="button" class="content-option" data-content="invoice" aria-pressed="false" disabled>
-        <span class="content-option-title">Invoice</span>
-        <span class="content-option-meta">Slot ready, content not added yet</span>
-      </button>
+    <div class="content-modal-toolbar">
+      <div class="content-modal-heading">
+        <span class="content-modal-title">Content Layers</span>
+        <span class="content-modal-subtitle">Choose, add, or rename a content layer.</span>
+      </div>
+      <button type="button" class="content-layer-add" title="Add content layer">Add layer</button>
     </div>
+    <div class="content-switch" role="listbox" aria-label="Deck content"></div>
   </div>
 
   <div class="theme-modal-backdrop" id="theme-modal-backdrop" hidden></div>
@@ -448,11 +438,12 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404bg';
+    const DECK_VERSION = '20260404bh';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
     const DECK_CONTENT_KEY = 'formation-deck-content';
+    const DECK_CONTENT_LAYERS_KEY = 'formation-deck-content-layers';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
@@ -460,34 +451,31 @@
     };
     const CONTENT_VARIANTS = {
       offer: {
-        available: true,
-        labels: { en: 'Offer', de: 'Angebot' },
         detail: { en: 'Current Lear offer deck', de: 'Aktuelles Lear-Angebot' },
         sources: DECK_SOURCES
       },
       'xyz-sales': {
-        available: true,
-        labels: { en: 'XYZ Sales Deck', de: 'XYZ Sales Deck' },
         detail: { en: 'Website-structured XYZ sales story', de: 'Website-strukturierte XYZ Sales Story' },
-        hasDocument: false,
         sources: {
           en: `slides.xyz-sales.md?v=${DECK_VERSION}`,
           de: `slides.xyz-sales.de.md?v=${DECK_VERSION}`
         }
-      },
-      'formation-sales': {
-        available: false,
-        labels: { en: 'FORMATION Sales Deck', de: 'FORMATION Sales Deck' },
-        detail: { en: 'Slot ready, content not added yet', de: 'Slot vorbereitet, Inhalte noch nicht hinzugefuegt' },
-        hasDocument: false
-      },
-      invoice: {
-        available: false,
-        labels: { en: 'Invoice', de: 'Rechnung' },
-        detail: { en: 'Slot ready, content not added yet', de: 'Slot vorbereitet, Inhalte noch nicht hinzugefuegt' },
-        hasDocument: false
       }
     };
+    const DEFAULT_CONTENT_LAYERS = [
+      {
+        id: 'offer',
+        variantId: 'offer',
+        name: { en: 'Offer', de: 'Angebot' },
+        locked: true
+      },
+      {
+        id: 'xyz-sales',
+        variantId: 'xyz-sales',
+        name: { en: 'XYZ Sales Deck', de: 'XYZ Sales Deck' },
+        locked: true
+      }
+    ];
     const LANGUAGE_COPY = {
       en: {
         htmlLang: 'en',
@@ -536,14 +524,28 @@
         openLabel: 'Open content menu',
         closeLabel: 'Close content menu',
         toggleTitle: 'Content menu',
-        indicatorLabel: 'Content'
+        indicatorLabel: 'Content',
+        modalTitle: 'Content Layers',
+        modalSubtitle: 'Choose, add, or rename a content layer.',
+        addLayer: 'Add layer',
+        addLayerPrompt: 'Name for the new content layer:',
+        renameLayerPrompt: 'Rename content layer:',
+        fallbackDetail: 'Uses the current content source as its starting point',
+        renameLabel: 'Rename content layer'
       },
       de: {
         switchLabel: 'Deck-Inhalt',
         openLabel: 'Inhaltsmenue oeffnen',
         closeLabel: 'Inhaltsmenue schliessen',
         toggleTitle: 'Inhaltsmenue',
-        indicatorLabel: 'Inhalt'
+        indicatorLabel: 'Inhalt',
+        modalTitle: 'Inhaltsebenen',
+        modalSubtitle: 'Inhaltsebene waehlen, hinzufuegen oder umbenennen.',
+        addLayer: 'Ebene hinzufuegen',
+        addLayerPrompt: 'Name fuer die neue Inhaltsebene:',
+        renameLayerPrompt: 'Inhaltsebene umbenennen:',
+        fallbackDetail: 'Verwendet die aktuelle Inhaltsquelle als Ausgangspunkt',
+        renameLabel: 'Inhaltsebene umbenennen'
       }
     };
     const VIEW_COPY = {
@@ -709,6 +711,7 @@
     let currentTheme = 'lear';
     let currentView = 'slides';
     let currentContent = 'offer';
+    let contentLayers = [];
     let deployMetadata = null;
     let localUpdatedAt = '';
 
@@ -751,11 +754,71 @@
     }
 
     function normalizeContent(content) {
-      if (!content || !Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, content)) {
+      const validIds = contentLayers.map(layer => layer.id);
+      if (!content || !validIds.includes(content)) {
         return 'offer';
       }
+      return content;
+    }
 
-      return CONTENT_VARIANTS[content].available ? content : 'offer';
+    function sanitizeContentLayer(layer, index = 0) {
+      if (!layer || typeof layer !== 'object') {
+        return null;
+      }
+
+      const variantId = Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, layer.variantId) ? layer.variantId : 'offer';
+      const defaultLayer = DEFAULT_CONTENT_LAYERS.find(entry => entry.id === layer.id) || DEFAULT_CONTENT_LAYERS[index] || DEFAULT_CONTENT_LAYERS[0];
+      const defaultName = defaultLayer?.name || { en: 'Offer', de: 'Angebot' };
+      const id = typeof layer.id === 'string' && layer.id ? layer.id : `${variantId}-${index + 1}`;
+      const englishName = typeof layer.name?.en === 'string' && layer.name.en.trim() ? layer.name.en.trim() : defaultName.en;
+      const germanName = typeof layer.name?.de === 'string' && layer.name.de.trim() ? layer.name.de.trim() : englishName;
+
+      return {
+        id,
+        variantId,
+        name: {
+          en: englishName,
+          de: germanName
+        },
+        locked: !!layer.locked
+      };
+    }
+
+    function loadContentLayers() {
+      try {
+        const raw = window.localStorage.getItem(DECK_CONTENT_LAYERS_KEY);
+        if (!raw) {
+          return DEFAULT_CONTENT_LAYERS.map(layer => sanitizeContentLayer(layer)).filter(Boolean);
+        }
+
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || !parsed.length) {
+          return DEFAULT_CONTENT_LAYERS.map(layer => sanitizeContentLayer(layer)).filter(Boolean);
+        }
+
+        const sanitized = parsed.map((layer, index) => sanitizeContentLayer(layer, index)).filter(Boolean);
+        const hasOffer = sanitized.some(layer => layer.id === 'offer');
+        const hasXyzSales = sanitized.some(layer => layer.id === 'xyz-sales');
+
+        if (!hasOffer) {
+          sanitized.unshift(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[0], 0));
+        }
+        if (!hasXyzSales) {
+          sanitized.push(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[1], 1));
+        }
+
+        return sanitized;
+      } catch (error) {
+        return DEFAULT_CONTENT_LAYERS.map(layer => sanitizeContentLayer(layer)).filter(Boolean);
+      }
+    }
+
+    function persistContentLayers() {
+      try {
+        window.localStorage.setItem(DECK_CONTENT_LAYERS_KEY, JSON.stringify(contentLayers));
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
     }
 
     function persistTheme(theme) {
@@ -807,7 +870,55 @@
     }
 
     function getContentVariant(content = currentContent) {
-      return CONTENT_VARIANTS[normalizeContent(content)] || CONTENT_VARIANTS.offer;
+      const layer = getContentLayer(content);
+      return CONTENT_VARIANTS[layer?.variantId || 'offer'] || CONTENT_VARIANTS.offer;
+    }
+
+    function getContentLayer(content = currentContent) {
+      return contentLayers.find(layer => layer.id === normalizeContent(content)) || contentLayers[0] || sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[0], 0);
+    }
+
+    function getContentLabel(content = currentContent, language = currentLanguage) {
+      const layer = getContentLayer(content);
+      return layer?.name?.[language] || layer?.name?.en || 'Offer';
+    }
+
+    function getContentDetail(layer, language = currentLanguage) {
+      if (!layer) {
+        return '';
+      }
+
+      const variant = CONTENT_VARIANTS[layer.variantId] || CONTENT_VARIANTS.offer;
+      return variant.detail?.[language] || variant.detail?.en || '';
+    }
+
+    function renderContentOptions() {
+      const switcher = document.querySelector('.content-switch');
+      if (!switcher) {
+        return;
+      }
+
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      switcher.innerHTML = contentLayers.map(layer => {
+        const isActive = layer.id === currentContent;
+        const title = getContentLabel(layer.id, currentLanguage);
+        const meta = getContentDetail(layer, currentLanguage) || contentCopy.fallbackDetail;
+        const renameLabel = contentCopy.renameLabel;
+        return `
+          <div class="content-option-row">
+            <button type="button" class="content-option${isActive ? ' is-active' : ''}" data-content="${layer.id}" aria-pressed="${isActive ? 'true' : 'false'}">
+              <span class="content-option-title">${title}</span>
+              <span class="content-option-meta">${meta}</span>
+            </button>
+            <button type="button" class="content-option-rename" data-content-rename="${layer.id}" aria-label="${renameLabel}" title="${renameLabel}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
+                <path d="M12.75 6.5 17.5 11.25"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+      }).join('');
     }
 
     function applyTheme(theme) {
@@ -816,13 +927,8 @@
 
       const footerSiteLink = document.getElementById('footer-site-link');
       if (footerSiteLink) {
-        if (currentTheme === 'xyz') {
-          footerSiteLink.href = 'https://formationxyz.com';
-          footerSiteLink.textContent = 'FORMATIONXYZ.COM';
-        } else {
-          footerSiteLink.href = 'https://tryformation.com';
-          footerSiteLink.textContent = 'TRYFORMATION.COM';
-        }
+        footerSiteLink.href = 'https://tryformation.com';
+        footerSiteLink.textContent = 'TRYFORMATION.COM';
       }
 
       const switcher = document.querySelector('.theme-switch');
@@ -842,60 +948,31 @@
       currentContent = normalizeContent(content);
       document.body.setAttribute('data-content', currentContent);
 
-      const contentVariant = getContentVariant(currentContent);
       const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
       const contentIndicator = document.getElementById('content-indicator');
       if (contentIndicator) {
-        contentIndicator.textContent = (contentVariant.labels?.[currentLanguage] || contentVariant.labels?.en || 'Offer').toUpperCase();
+        contentIndicator.textContent = getContentLabel(currentContent, currentLanguage).toUpperCase();
       }
 
       const contentSwitcher = document.querySelector('.content-switch');
       if (contentSwitcher) {
         contentSwitcher.setAttribute('aria-label', contentCopy.switchLabel);
       }
-
-      document.querySelectorAll('.content-option').forEach(button => {
-        const variant = CONTENT_VARIANTS[button.dataset.content || 'offer'];
-        const isActive = button.dataset.content === currentContent;
-        button.classList.toggle('is-active', isActive);
-        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        button.disabled = !(variant?.available);
-
-        const title = button.querySelector('.content-option-title');
-        const meta = button.querySelector('.content-option-meta');
-        if (title) {
-          title.textContent = variant?.labels?.[currentLanguage] || variant?.labels?.en || '';
-        }
-        if (meta) {
-          meta.textContent = variant?.detail?.[currentLanguage] || variant?.detail?.en || '';
-        }
-      });
-
-      const documentButton = document.querySelector('.view-option[data-view="document"]');
-      const hasDocument = contentVariant.hasDocument !== false;
-      if (documentButton) {
-        documentButton.disabled = !hasDocument;
-        documentButton.setAttribute('aria-disabled', hasDocument ? 'false' : 'true');
-        documentButton.classList.toggle('is-disabled', !hasDocument);
-        documentButton.title = hasDocument ? '' : 'Document view not available for this content';
-      }
-
-      if (!hasDocument && currentView === 'document') {
-        persistView('slides');
-        applyView('slides');
-      }
+      renderContentOptions();
     }
 
     function applyView(view) {
       currentView = normalizeView(view);
+      const useCustomDocumentView = currentView === 'document' && getContentLayer().variantId === 'offer';
       document.documentElement.classList.toggle('document-mode', currentView === 'document');
       document.documentElement.classList.toggle('slides-mode', currentView !== 'document');
       document.body.classList.toggle('document-mode', currentView === 'document');
+      document.body.classList.toggle('document-fallback-mode', currentView === 'document' && !useCustomDocumentView);
       document.body.classList.toggle('slides-mode', currentView !== 'document');
 
       const documentView = document.getElementById('document-view');
       if (documentView) {
-        documentView.hidden = currentView !== 'document';
+        documentView.hidden = !useCustomDocumentView;
       }
 
       if (currentView === 'document') {
@@ -907,6 +984,12 @@
         button.classList.toggle('is-active', isActive);
         button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
+
+      if (typeof Reveal.configure === 'function') {
+        Reveal.configure({
+          view: currentView === 'document' && !useCustomDocumentView ? 'scroll' : 'default'
+        });
+      }
     }
 
     function applyLanguageMetadata(language) {
@@ -944,10 +1027,26 @@
         contentSwitcher.setAttribute('aria-label', contentCopy.switchLabel);
       }
 
+      const contentModalTitle = document.querySelector('.content-modal-title');
+      if (contentModalTitle) {
+        contentModalTitle.textContent = contentCopy.modalTitle;
+      }
+
+      const contentModalSubtitle = document.querySelector('.content-modal-subtitle');
+      if (contentModalSubtitle) {
+        contentModalSubtitle.textContent = contentCopy.modalSubtitle;
+      }
+
       const contentMenuToggle = document.querySelector('.content-menu-toggle');
       if (contentMenuToggle) {
         contentMenuToggle.setAttribute('aria-label', contentCopy.openLabel);
         contentMenuToggle.setAttribute('title', contentCopy.toggleTitle);
+      }
+
+      const contentLayerAdd = document.querySelector('.content-layer-add');
+      if (contentLayerAdd) {
+        contentLayerAdd.textContent = contentCopy.addLayer;
+        contentLayerAdd.setAttribute('title', contentCopy.addLayer);
       }
 
       const viewSwitcher = document.querySelector('.view-switch');
@@ -1033,6 +1132,73 @@
         syncChromeSoon();
         relayoutSoon();
       }
+    }
+
+    function addContentLayer() {
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      const proposedName = window.prompt(contentCopy.addLayerPrompt, `${getContentLabel(currentContent, currentLanguage)} Copy`);
+      if (!proposedName) {
+        return;
+      }
+
+      const trimmedName = proposedName.trim();
+      if (!trimmedName) {
+        return;
+      }
+
+      const sourceLayer = getContentLayer();
+      const uniqueId = `layer-${Date.now().toString(36)}`;
+      contentLayers.push({
+        id: uniqueId,
+        variantId: sourceLayer.variantId,
+        name: {
+          en: trimmedName,
+          de: trimmedName
+        },
+        locked: false
+      });
+      persistContentLayers();
+      persistContent(uniqueId);
+      applyContent(uniqueId);
+      closeContentModal();
+      openContentModal();
+    }
+
+    function renameContentLayer(contentId) {
+      const layer = getContentLayer(contentId);
+      if (!layer) {
+        return;
+      }
+
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      const currentName = getContentLabel(contentId, currentLanguage);
+      const proposedName = window.prompt(contentCopy.renameLayerPrompt, currentName);
+      if (!proposedName) {
+        return;
+      }
+
+      const trimmedName = proposedName.trim();
+      if (!trimmedName) {
+        return;
+      }
+
+      contentLayers = contentLayers.map(entry => {
+        if (entry.id !== layer.id) {
+          return entry;
+        }
+
+        return {
+          ...entry,
+          name: {
+            ...entry.name,
+            [currentLanguage]: trimmedName,
+            ...(entry.name?.en ? {} : { en: trimmedName }),
+            ...(entry.name?.de ? {} : { de: trimmedName })
+          }
+        };
+      });
+      persistContentLayers();
+      applyContent(currentContent);
     }
 
     function applyThemeBackgrounds() {
@@ -1773,6 +1939,7 @@
     const preferredLanguage = getPreferredLanguage();
     const preferredTheme = getPreferredTheme();
     const preferredView = getPreferredView();
+    contentLayers = loadContentLayers();
     const preferredContent = getPreferredContent();
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
@@ -1864,9 +2031,19 @@
         closeThemeModal();
       });
     });
-    document.querySelectorAll('.content-option').forEach(button => {
-      button.addEventListener('click', () => {
-        const nextContent = normalizeContent(button.dataset.content || 'offer');
+    document.querySelector('.content-switch')?.addEventListener('click', event => {
+      const renameButton = event.target.closest('[data-content-rename]');
+      if (renameButton) {
+        renameContentLayer(renameButton.dataset.contentRename || 'offer');
+        return;
+      }
+
+      const optionButton = event.target.closest('[data-content]');
+      if (!optionButton) {
+        return;
+      }
+
+      const nextContent = normalizeContent(optionButton.dataset.content || 'offer');
         if (nextContent === currentContent) {
           closeContentModal();
           return;
@@ -1877,12 +2054,15 @@
         applyDeckSource(currentLanguage);
         Reveal.sync();
         Reveal.slide(0);
+        if (currentView === 'document') {
+          applyView(currentView);
+        }
         closeContentModal();
         syncBackgroundClasses();
         syncChromeSoon();
         relayoutSoon();
-      });
     });
+    document.querySelector('.content-layer-add')?.addEventListener('click', addContentLayer);
     document.querySelectorAll('.view-option').forEach(button => {
       button.addEventListener('click', () => {
         switchDeckView(button.dataset.view || 'slides');
