@@ -415,10 +415,15 @@
   <div class="content-modal" id="content-modal" role="dialog" aria-modal="true" aria-label="Deck content" hidden>
     <div class="content-modal-toolbar">
       <div class="content-modal-heading">
-        <span class="content-modal-title">Content Layers</span>
-        <span class="content-modal-subtitle">Choose, add, or rename a content layer.</span>
+        <span class="content-modal-title">Content</span>
+        <span class="content-modal-subtitle">Choose or edit deck content.</span>
       </div>
-      <button type="button" class="content-layer-add" title="Add content layer">Add layer</button>
+      <button type="button" class="content-layer-add" aria-label="Add content layer" title="Add content layer">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
+        </svg>
+      </button>
     </div>
     <div class="content-switch" role="listbox" aria-label="Deck content"></div>
   </div>
@@ -539,8 +544,8 @@
         closeLabel: 'Close content menu',
         toggleTitle: 'Content menu',
         indicatorLabel: 'Content',
-        modalTitle: 'Content Layers',
-        modalSubtitle: 'Choose, add, rename, or remove a content layer.',
+        modalTitle: 'Content',
+        modalSubtitle: 'Choose or edit deck content.',
         addLayer: 'Add layer',
         addLayerPrompt: 'Name for the new content layer:',
         renameLayerPrompt: 'Rename content layer:',
@@ -555,8 +560,8 @@
         closeLabel: 'Inhaltsmenue schliessen',
         toggleTitle: 'Inhaltsmenue',
         indicatorLabel: 'Inhalt',
-        modalTitle: 'Inhaltsebenen',
-        modalSubtitle: 'Inhaltsebene waehlen, hinzufuegen, umbenennen oder entfernen.',
+        modalTitle: 'Inhalt',
+        modalSubtitle: 'Deck-Inhalt waehlen oder bearbeiten.',
         addLayer: 'Ebene hinzufuegen',
         addLayerPrompt: 'Name fuer die neue Inhaltsebene:',
         renameLayerPrompt: 'Inhaltsebene umbenennen:',
@@ -640,46 +645,9 @@
         }
       },
       xyz: {
-        cover: {
-          type: 'video',
-          url: 'https://formationxyz.com/site-assets/home/hero-video-5.mp4'
-        },
-        intro: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/hero-wide-light.webp'
-        },
-        platform: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/hero-tubemap-darktmode.webp'
-        },
-        roadmap: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/chatmaps/chatmaps-map1.webp'
-        },
-        'packages-a': {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/services/openclaw24_hu_e65f10eac09369f9.webp'
-        },
-        'packages-b': {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/services/nanobot13_hu_13eea662cd1b6895.webp'
-        },
-        support: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/xyz-neon-wall-light.webp'
-        },
-        summary: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/why-choose-xyz-neon.webp'
-        },
-        closing: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/deltacampus.webp'
-        },
-        end: {
-          type: 'image',
-          url: 'https://formationxyz.com/site-assets/home/hero-video-poster.webp'
-        }
+        // Keep XYZ on a restrained neutral stage.
+        // The slides already contain screenshots, cards, and proof blocks;
+        // extra wallpaper behind every slide makes the deck noisy.
       },
       'lear-light': {
         cover: {
@@ -1103,7 +1071,7 @@
 
       const contentLayerAdd = document.querySelector('.content-layer-add');
       if (contentLayerAdd) {
-        contentLayerAdd.textContent = contentCopy.addLayer;
+        contentLayerAdd.setAttribute('aria-label', contentCopy.addLayer);
         contentLayerAdd.setAttribute('title', contentCopy.addLayer);
       }
 
