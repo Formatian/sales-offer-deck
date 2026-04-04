@@ -367,14 +367,14 @@
           <path d="M8.5 17h4.5"></path>
         </svg>
       </button>
-      <button type="button" class="theme-menu-toggle" aria-label="Open theme menu" aria-haspopup="dialog"
-        aria-expanded="false" aria-controls="theme-modal" title="Theme menu">
+      <button type="button" class="theme-menu-toggle" aria-label="Open style menu" aria-haspopup="dialog"
+        aria-expanded="false" aria-controls="theme-modal" title="Style menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3 14.2 7.8 19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2Z"></path>
           <circle cx="18.2" cy="5.8" r="1.6"></circle>
         </svg>
       </button>
-      <button type="button" class="theme-modal-close" aria-label="Close theme menu" title="Close theme menu">
+      <button type="button" class="theme-modal-close" aria-label="Close style menu" title="Close style menu">
         <span aria-hidden="true">&times;</span>
       </button>
       <span>&copy; 2026 FORMATION GmbH</span>
@@ -386,8 +386,8 @@
     </div>
     <div class="footer-center">
       <div class="view-switch" role="group" aria-label="View mode">
-        <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">SLIDES</button>
-        <button type="button" class="view-option" data-view="document" aria-pressed="false">DOCUMENT</button>
+        <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">DECK</button>
+        <button type="button" class="view-option" data-view="document" aria-pressed="false">DOC</button>
       </div>
     </div>
     <div class="footer-nav">
@@ -429,13 +429,43 @@
   </div>
 
   <div class="theme-modal-backdrop" id="theme-modal-backdrop" hidden></div>
-  <div class="theme-modal" id="theme-modal" role="dialog" aria-modal="true" aria-label="Deck theme" hidden>
-    <div class="theme-switch" role="group" aria-label="Deck theme">
-      <button type="button" class="theme-option" data-theme="xyz" aria-pressed="false">XYZ</button>
-      <button type="button" class="theme-option" data-theme="formation" aria-pressed="false">FORMATION</button>
-      <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEARDARK</button>
-      <button type="button" class="theme-option" data-theme="lear-light" aria-pressed="false">LEAR LIGHT</button>
+  <div class="theme-modal" id="theme-modal" role="dialog" aria-modal="true" aria-label="Deck style" hidden>
+    <div class="theme-modal-toolbar">
+      <div class="theme-modal-heading">
+        <span class="theme-modal-title">Teams</span>
+        <span class="theme-modal-subtitle">Choose a team theme or create a new one.</span>
+      </div>
+      <button type="button" class="theme-team-add" aria-label="Create a new team" title="Create a new team">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
+        </svg>
+      </button>
     </div>
+    <div class="theme-switch" role="listbox" aria-label="Deck style"></div>
+    <form class="theme-create-panel" id="theme-create-panel" hidden>
+      <label class="theme-field">
+        <span class="theme-field-label">Team Name</span>
+        <input type="text" name="theme_name" class="theme-field-input" maxlength="80" placeholder="Acme Corp" required />
+      </label>
+      <label class="theme-field">
+        <span class="theme-field-label">Website / Reference URLs</span>
+        <textarea name="theme_urls" class="theme-field-input theme-field-textarea" placeholder="https://client.com&#10;https://brand-portal.com"></textarea>
+      </label>
+      <label class="theme-field">
+        <span class="theme-field-label">Description / Notes</span>
+        <textarea name="theme_notes" class="theme-field-input theme-field-textarea" placeholder="Brand cues, positioning, audience, visual direction, source notes."></textarea>
+      </label>
+      <label class="theme-field">
+        <span class="theme-field-label">Reference Files</span>
+        <input type="file" id="theme-reference-files" class="theme-field-input theme-field-file" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.txt,.md" />
+      </label>
+      <div class="theme-reference-files" id="theme-reference-files-list">No files selected.</div>
+      <div class="theme-create-actions">
+        <button type="submit" class="theme-create-submit">Create Team</button>
+        <button type="button" class="theme-create-cancel">Cancel</button>
+      </div>
+    </form>
   </div>
 
   <script src="https://unpkg.com/reveal.js@5.0.5/dist/reveal.js"></script>
@@ -449,6 +479,7 @@
     const DECK_VIEW_KEY = 'formation-deck-view';
     const DECK_CONTENT_KEY = 'formation-deck-content';
     const DECK_CONTENT_LAYERS_KEY = 'formation-deck-content-layers';
+    const DECK_CUSTOM_THEMES_KEY = 'formation-deck-custom-themes';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
@@ -525,18 +556,168 @@
     };
     const THEME_COPY = {
       en: {
-        switchLabel: 'Deck theme',
-        openLabel: 'Open theme menu',
-        closeLabel: 'Close theme menu',
-        toggleTitle: 'Theme menu'
+        switchLabel: 'Deck style',
+        openLabel: 'Open style menu',
+        closeLabel: 'Close style menu',
+        toggleTitle: 'Style menu',
+        modalTitle: 'Styles',
+        modalSubtitle: 'Choose a style or create a new one.',
+        addTeam: 'Create a new style',
+        nameLabel: 'Style Name',
+        namePlaceholder: 'Acme Corp',
+        urlsLabel: 'Website / Reference URLs',
+        urlsPlaceholder: 'https://client.com\nhttps://brand-portal.com',
+        notesLabel: 'Description / Notes',
+        notesPlaceholder: 'Brand cues, positioning, audience, visual direction, source notes.',
+        filesLabel: 'Reference Files',
+        noFiles: 'No files selected.',
+        saveTeam: 'Create Style',
+        saveEdit: 'Save Style',
+        cancelTeam: 'Cancel',
+        builtInMeta: 'Built-in style',
+        basedOnLabel: 'Based on',
+        editLabel: 'Edit style',
+        duplicateLabel: 'Duplicate style',
+        deleteLabel: 'Delete style',
+        deleteLockedLabel: 'Built-in style cannot be deleted',
+        deleteLockedMessage: 'This built-in style cannot be deleted.',
+        deleteConfirm: 'Delete this style?',
+        duplicatePrompt: 'Name for the duplicated style:',
+        urlsCount: 'URLs',
+        filesCount: 'files'
       },
       de: {
         switchLabel: 'Deck-Stil',
-        openLabel: 'Stilmenü öffnen',
-        closeLabel: 'Stilmenü schließen',
-        toggleTitle: 'Stilmenü'
+        openLabel: 'Stil-Menue oeffnen',
+        closeLabel: 'Stil-Menue schliessen',
+        toggleTitle: 'Stil-Menue',
+        modalTitle: 'Stile',
+        modalSubtitle: 'Stil waehlen oder neuen Stil anlegen.',
+        addTeam: 'Neuen Stil anlegen',
+        nameLabel: 'Stil-Name',
+        namePlaceholder: 'Acme Corp',
+        urlsLabel: 'Website- / Referenz-URLs',
+        urlsPlaceholder: 'https://client.com\nhttps://brand-portal.com',
+        notesLabel: 'Beschreibung / Notizen',
+        notesPlaceholder: 'Brand-Hinweise, Positionierung, Zielgruppe, visuelle Richtung, Quellnotizen.',
+        filesLabel: 'Referenzdateien',
+        noFiles: 'Keine Dateien ausgewaehlt.',
+        saveTeam: 'Stil anlegen',
+        saveEdit: 'Stil speichern',
+        cancelTeam: 'Abbrechen',
+        builtInMeta: 'Integrierter Stil',
+        basedOnLabel: 'Basiert auf',
+        editLabel: 'Stil bearbeiten',
+        duplicateLabel: 'Stil duplizieren',
+        deleteLabel: 'Stil loeschen',
+        deleteLockedLabel: 'Integrierter Stil kann nicht geloescht werden',
+        deleteLockedMessage: 'Dieser integrierte Stil kann nicht geloescht werden.',
+        deleteConfirm: 'Diesen Stil loeschen?',
+        duplicatePrompt: 'Name fuer den duplizierten Stil:',
+        urlsCount: 'URLs',
+        filesCount: 'Dateien'
       }
     };
+    const BUILTIN_THEME_OPTIONS = [
+      { id: 'xyz', baseTheme: 'xyz', locked: true, name: { en: 'XYZ', de: 'XYZ' } },
+      { id: 'formation', baseTheme: 'formation', locked: true, name: { en: 'FORMATION', de: 'FORMATION' } },
+      { id: 'lear', baseTheme: 'lear', locked: true, name: { en: 'LEARDARK', de: 'LEARDARK' } },
+      { id: 'lear-light', baseTheme: 'lear-light', locked: true, name: { en: 'LEAR LIGHT', de: 'LEAR LIGHT' } }
+    ];
+    const CUSTOM_STYLE_PALETTES = [
+      { accent: '#ee3124', accentStrong: '#ff5a4f', line: 'rgba(238, 49, 36, 0.18)', hover: 'rgba(238, 49, 36, 0.12)', quote: 'rgba(238, 49, 36, 0.8)' },
+      { accent: '#58d46c', accentStrong: '#6dea7f', line: 'rgba(88, 212, 108, 0.18)', hover: 'rgba(88, 212, 108, 0.12)', quote: 'rgba(88, 212, 108, 0.8)' },
+      { accent: '#92f0a2', accentStrong: '#b6ffc1', line: 'rgba(146, 240, 162, 0.18)', hover: 'rgba(146, 240, 162, 0.12)', quote: 'rgba(146, 240, 162, 0.8)' },
+      { accent: '#4d74ff', accentStrong: '#7896ff', line: 'rgba(77, 116, 255, 0.18)', hover: 'rgba(77, 116, 255, 0.12)', quote: 'rgba(77, 116, 255, 0.8)' },
+      { accent: '#f39c3d', accentStrong: '#ffbf73', line: 'rgba(243, 156, 61, 0.18)', hover: 'rgba(243, 156, 61, 0.12)', quote: 'rgba(243, 156, 61, 0.8)' },
+      { accent: '#d861ff', accentStrong: '#e58cff', line: 'rgba(216, 97, 255, 0.18)', hover: 'rgba(216, 97, 255, 0.12)', quote: 'rgba(216, 97, 255, 0.8)' }
+    ];
+    const BRAND_STYLE_PROFILES = [
+      {
+        id: 'cavea',
+        match: ['cavea.net', 'cavea', 'bornemann', 'wirepas', 'omlox', 'rtls', 'iiot', 'smart factory', 'smart warehouse'],
+        generated: {
+          accent: '#2d86c9',
+          accentStrong: '#4ea4e4',
+          line: 'rgba(45, 134, 201, 0.18)',
+          hover: 'rgba(45, 134, 201, 0.1)',
+          quote: 'rgba(45, 134, 201, 0.82)',
+          fontHeading: '"aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Avenir Next", Avenir, "Helvetica Neue", sans-serif',
+          radiusMode: 'sharp',
+          imageMode: 'bright',
+          baseTheme: 'lear-light',
+          colorBg: '#f3f7fb',
+          colorBg2: '#e9f0f6',
+          colorPanel: 'rgba(255, 255, 255, 0.86)',
+          colorPanelStrong: 'rgba(255, 255, 255, 0.96)',
+          colorInk: '#163040',
+          colorMuted: 'rgba(22, 48, 64, 0.72)',
+          tableHeadBg: 'rgba(45, 134, 201, 0.9)',
+          footerBg: 'rgba(247, 250, 253, 0.88)',
+          footerInk: 'rgba(22, 48, 64, 0.78)',
+          controlBg: 'rgba(255, 255, 255, 0.84)',
+          switchBg: 'rgba(255, 255, 255, 0.88)',
+          cardBg: 'linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(244, 248, 252, 0.97))',
+          tableBg: 'rgba(255, 255, 255, 0.94)',
+          summaryBg: 'rgba(255, 255, 255, 0.92)',
+          blockquoteBg: 'rgba(249, 252, 255, 0.92)',
+          documentBg: '#ecf3f9',
+          documentPaper: '#ffffff',
+          documentInk: '#173140',
+          documentLine: '#d7e3ee',
+          documentAccent: '#2d86c9',
+          documentAccentSoft: '#e5f1fb',
+          documentAccentWash: 'rgba(45, 134, 201, 0.08)',
+          coverBrandPrimaryWidth: 'min(31vw, 330px)',
+          coverBrandSecondaryWidth: 'min(22vw, 232px)',
+          logoUrl: 'https://cavea.net/wp-content/uploads/2025/01/cavea-logo.svg',
+          logoAlt: 'Cavea GmbH',
+          themeBackgrounds: {
+            cover: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/02/cavea-share.jpg'
+            },
+            intro: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-order-tracking.jpg'
+            },
+            platform: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-asset-tracking.jpg'
+            },
+            roadmap: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-material-replenishment.jpg'
+            },
+            'packages-a': {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-quality-control.jpg'
+            },
+            'packages-b': {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-advanced-analysis.jpg'
+            },
+            support: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-asset-tracking.jpg'
+            },
+            summary: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-order-tracking.jpg'
+            },
+            closing: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/07/smart-factory-quality-control.jpg'
+            },
+            end: {
+              type: 'image',
+              url: 'https://cavea.net/wp-content/uploads/2025/02/cavea-share.jpg'
+            }
+          }
+        }
+      }
+    ];
     const CONTENT_COPY = {
       en: {
         switchLabel: 'Deck content',
@@ -549,9 +730,13 @@
         addLayer: 'Add layer',
         addLayerPrompt: 'Name for the new content layer:',
         renameLayerPrompt: 'Rename content layer:',
+        duplicateLayerPrompt: 'Name for the duplicated content layer:',
         fallbackDetail: 'Uses the current content source as its starting point',
         renameLabel: 'Rename content layer',
+        duplicateLabel: 'Duplicate content layer',
         removeLabel: 'Remove content layer',
+        removeLockedLabel: 'Built-in content layer cannot be removed',
+        removeLockedMessage: 'This default content layer is built in and cannot be removed.',
         removeConfirm: 'Remove this content layer?'
       },
       de: {
@@ -565,22 +750,26 @@
         addLayer: 'Ebene hinzufuegen',
         addLayerPrompt: 'Name fuer die neue Inhaltsebene:',
         renameLayerPrompt: 'Inhaltsebene umbenennen:',
+        duplicateLayerPrompt: 'Name fuer die duplizierte Inhaltsebene:',
         fallbackDetail: 'Verwendet die aktuelle Inhaltsquelle als Ausgangspunkt',
         renameLabel: 'Inhaltsebene umbenennen',
+        duplicateLabel: 'Inhaltsebene duplizieren',
         removeLabel: 'Inhaltsebene entfernen',
+        removeLockedLabel: 'Integrierte Inhaltsebene kann nicht entfernt werden',
+        removeLockedMessage: 'Diese Standard-Inhaltsebene ist integriert und kann nicht entfernt werden.',
         removeConfirm: 'Diese Inhaltsebene entfernen?'
       }
     };
     const VIEW_COPY = {
       en: {
         switchLabel: 'View mode',
-        slides: 'SLIDES',
-        document: 'DOCUMENT'
+        slides: 'DECK',
+        document: 'DOC'
       },
       de: {
         switchLabel: 'Ansicht',
-        slides: 'FOLIEN',
-        document: 'DOKUMENT'
+        slides: 'DECK',
+        document: 'DOC'
       }
     };
     const THEME_BACKGROUNDS = {
@@ -698,9 +887,12 @@
     let currentView = 'slides';
     let currentContent = 'offer';
     let contentLayers = [];
+    let customThemes = [];
     let deployMetadata = null;
     let localUpdatedAt = '';
     let deckContentReloadToken = 0;
+    let pendingThemeReferenceFiles = [];
+    let editingThemeId = null;
 
     function normalizeLanguage(language) {
       return Object.prototype.hasOwnProperty.call(DECK_SOURCES, language) ? language : 'en';
@@ -733,7 +925,8 @@
     }
 
     function normalizeTheme(theme) {
-      return theme === 'xyz' || theme === 'formation' || theme === 'lear' || theme === 'lear-light' ? theme : 'lear';
+      const validIds = [...BUILTIN_THEME_OPTIONS, ...customThemes].map(entry => entry.id);
+      return validIds.includes(theme) ? theme : 'lear';
     }
 
     function normalizeView(view) {
@@ -824,6 +1017,708 @@
       }
     }
 
+    function sanitizeCustomTheme(theme, index = 0) {
+      if (!theme || typeof theme !== 'object') {
+        return null;
+      }
+
+      const baseTheme = ['xyz', 'formation', 'lear', 'lear-light'].includes(theme.baseTheme) ? theme.baseTheme : 'xyz';
+      const fallbackName = `Custom Style ${index + 1}`;
+      const name = typeof theme.name === 'object'
+        ? {
+            en: typeof theme.name.en === 'string' && theme.name.en.trim() ? theme.name.en.trim() : fallbackName,
+            de: typeof theme.name.de === 'string' && theme.name.de.trim() ? theme.name.de.trim() : (typeof theme.name.en === 'string' && theme.name.en.trim() ? theme.name.en.trim() : fallbackName)
+          }
+        : {
+            en: typeof theme.name === 'string' && theme.name.trim() ? theme.name.trim() : fallbackName,
+            de: typeof theme.name === 'string' && theme.name.trim() ? theme.name.trim() : fallbackName
+          };
+
+      const urls = Array.isArray(theme.references?.urls)
+        ? theme.references.urls.filter(value => typeof value === 'string' && value.trim()).map(value => value.trim())
+        : [];
+      const notes = typeof theme.references?.notes === 'string' ? theme.references.notes.trim() : '';
+      const files = Array.isArray(theme.references?.files)
+        ? theme.references.files
+            .filter(file => file && typeof file === 'object')
+            .map(file => ({
+              name: typeof file.name === 'string' ? file.name : 'reference',
+              type: typeof file.type === 'string' ? file.type : '',
+              size: Number.isFinite(file.size) ? file.size : 0
+            }))
+        : [];
+      const generated = theme.generated && typeof theme.generated === 'object'
+        ? {
+            accent: typeof theme.generated.accent === 'string' ? theme.generated.accent : '',
+            accentStrong: typeof theme.generated.accentStrong === 'string' ? theme.generated.accentStrong : '',
+            line: typeof theme.generated.line === 'string' ? theme.generated.line : '',
+            hover: typeof theme.generated.hover === 'string' ? theme.generated.hover : '',
+            quote: typeof theme.generated.quote === 'string' ? theme.generated.quote : '',
+            fontHeading: typeof theme.generated.fontHeading === 'string' ? theme.generated.fontHeading : '',
+            fontBody: typeof theme.generated.fontBody === 'string' ? theme.generated.fontBody : '',
+            radiusMode: theme.generated.radiusMode === 'soft' ? 'soft' : 'sharp',
+            imageMode: theme.generated.imageMode === 'bright' ? 'bright' : 'dark',
+            baseTheme: ['xyz', 'formation', 'lear', 'lear-light'].includes(theme.generated.baseTheme) ? theme.generated.baseTheme : baseTheme,
+            colorBg: typeof theme.generated.colorBg === 'string' ? theme.generated.colorBg : '',
+            colorBg2: typeof theme.generated.colorBg2 === 'string' ? theme.generated.colorBg2 : '',
+            colorPanel: typeof theme.generated.colorPanel === 'string' ? theme.generated.colorPanel : '',
+            colorPanelStrong: typeof theme.generated.colorPanelStrong === 'string' ? theme.generated.colorPanelStrong : '',
+            colorInk: typeof theme.generated.colorInk === 'string' ? theme.generated.colorInk : '',
+            colorMuted: typeof theme.generated.colorMuted === 'string' ? theme.generated.colorMuted : '',
+            tableHeadBg: typeof theme.generated.tableHeadBg === 'string' ? theme.generated.tableHeadBg : '',
+            footerBg: typeof theme.generated.footerBg === 'string' ? theme.generated.footerBg : '',
+            footerInk: typeof theme.generated.footerInk === 'string' ? theme.generated.footerInk : '',
+            controlBg: typeof theme.generated.controlBg === 'string' ? theme.generated.controlBg : '',
+            switchBg: typeof theme.generated.switchBg === 'string' ? theme.generated.switchBg : '',
+            cardBg: typeof theme.generated.cardBg === 'string' ? theme.generated.cardBg : '',
+            tableBg: typeof theme.generated.tableBg === 'string' ? theme.generated.tableBg : '',
+            summaryBg: typeof theme.generated.summaryBg === 'string' ? theme.generated.summaryBg : '',
+            blockquoteBg: typeof theme.generated.blockquoteBg === 'string' ? theme.generated.blockquoteBg : '',
+            documentBg: typeof theme.generated.documentBg === 'string' ? theme.generated.documentBg : '',
+            documentPaper: typeof theme.generated.documentPaper === 'string' ? theme.generated.documentPaper : '',
+            documentInk: typeof theme.generated.documentInk === 'string' ? theme.generated.documentInk : '',
+            documentLine: typeof theme.generated.documentLine === 'string' ? theme.generated.documentLine : '',
+            documentAccent: typeof theme.generated.documentAccent === 'string' ? theme.generated.documentAccent : '',
+            documentAccentSoft: typeof theme.generated.documentAccentSoft === 'string' ? theme.generated.documentAccentSoft : '',
+            documentAccentWash: typeof theme.generated.documentAccentWash === 'string' ? theme.generated.documentAccentWash : '',
+            coverBrandPrimaryWidth: typeof theme.generated.coverBrandPrimaryWidth === 'string' ? theme.generated.coverBrandPrimaryWidth : '',
+            coverBrandSecondaryWidth: typeof theme.generated.coverBrandSecondaryWidth === 'string' ? theme.generated.coverBrandSecondaryWidth : '',
+            logoUrl: typeof theme.generated.logoUrl === 'string' ? theme.generated.logoUrl : '',
+            logoAlt: typeof theme.generated.logoAlt === 'string' ? theme.generated.logoAlt : '',
+            themeBackgrounds: theme.generated.themeBackgrounds && typeof theme.generated.themeBackgrounds === 'object'
+              ? Object.fromEntries(
+                  Object.entries(theme.generated.themeBackgrounds)
+                    .filter(([key, value]) => typeof key === 'string' && value && typeof value === 'object' && typeof value.url === 'string')
+                    .map(([key, value]) => [
+                      key,
+                      {
+                        type: value.type === 'video' ? 'video' : 'image',
+                        url: value.url
+                      }
+                    ])
+                )
+              : null
+          }
+        : null;
+      const shouldRegenerate = urls.length > 0 || Boolean(notes) || files.length > 0;
+      const derivedGenerated = shouldRegenerate
+        ? deriveCustomThemeStyle({
+            name: name.en,
+            urls,
+            notes,
+            files
+          })
+        : generated;
+
+      return {
+        id: typeof theme.id === 'string' && theme.id.trim() ? theme.id.trim() : `custom-theme-${index + 1}`,
+        baseTheme,
+        locked: false,
+        name,
+        references: { urls, notes, files },
+        generated: derivedGenerated
+      };
+    }
+
+    function hashString(value) {
+      let hash = 0;
+      for (let i = 0; i < value.length; i += 1) {
+        hash = ((hash << 5) - hash + value.charCodeAt(i)) | 0;
+      }
+      return Math.abs(hash);
+    }
+
+    function buildThemeSignals({ name = '', urls = [], notes = '', files = [] }) {
+      return [
+        String(name).toLowerCase(),
+        String(notes).toLowerCase(),
+        ...urls.map(url => {
+          try {
+            return new URL(url).hostname.replace(/^www\./, '').toLowerCase();
+          } catch (error) {
+            return String(url).toLowerCase();
+          }
+        }),
+        ...files.map(file => `${file.name} ${file.type}`.toLowerCase())
+      ].join(' ');
+    }
+
+    function findBrandStyleProfile({ name = '', urls = [], notes = '', files = [] }) {
+      const signals = buildThemeSignals({ name, urls, notes, files });
+      return BRAND_STYLE_PROFILES.find(profile => profile.match.some(token => signals.includes(token))) || null;
+    }
+
+    function deriveThemeBaseFromReferences({ name = '', urls, notes, files }) {
+      const matchedProfile = findBrandStyleProfile({ name, urls, notes, files });
+      if (matchedProfile?.generated?.baseTheme) {
+        return matchedProfile.generated.baseTheme;
+      }
+
+      const signals = buildThemeSignals({ name, urls, notes, files });
+
+      const score = (tokens) => tokens.reduce((total, token) => total + (signals.includes(token) ? 1 : 0), 0);
+      const xyzScore = score(['xyz', 'podcast', 'maps', 'geospatial', 'startup', 'product', 'media']);
+      const formationScore = score(['formation', 'tryformation', 'formationxyz', 'consulting', 'proposal', 'offer']);
+      const learScore = score(['lear', 'automotive', 'manufacturing', 'industrial', 'factory', 'production', 'supply']);
+      const lightScore = score(['light', 'bright', 'clean', 'white', 'minimal']);
+
+      if (learScore > Math.max(xyzScore, formationScore)) {
+        return lightScore > 0 ? 'lear-light' : 'lear';
+      }
+      if (formationScore > xyzScore) {
+        return 'formation';
+      }
+      return 'xyz';
+    }
+
+    function deriveCustomThemeStyle({ name = '', urls, notes, files }) {
+      const matchedProfile = findBrandStyleProfile({ name, urls, notes, files });
+      if (matchedProfile?.generated) {
+        return { ...matchedProfile.generated };
+      }
+
+      const baseTheme = deriveThemeBaseFromReferences({ name, urls, notes, files });
+      const normalizedUrls = urls.map(url => {
+        try {
+          return new URL(url).hostname.replace(/^www\./, '');
+        } catch (error) {
+          return url;
+        }
+      });
+      const seed = [name, baseTheme, ...normalizedUrls, notes, ...files.map(file => `${file.name}:${file.type}:${file.size}`)].join('|');
+      const palette = CUSTOM_STYLE_PALETTES[hashString(seed) % CUSTOM_STYLE_PALETTES.length];
+      const signals = buildThemeSignals({ name, urls, notes, files });
+      const countSignals = (tokens) => tokens.reduce((count, token) => count + (signals.includes(token) ? 1 : 0), 0);
+      const softScore = countSignals(['friendly', 'consumer', 'soft', 'rounded', 'warm', 'community', 'lifestyle']);
+      const sharpScore = countSignals(['enterprise', 'industrial', 'bank', 'legal', 'security', 'corporate', 'infrastructure', 'manufacturing', 'rtls', 'iiot', 'factory', 'warehouse']);
+      const brightScore = countSignals(['light', 'bright', 'clean', 'white', 'open']);
+      const darkScore = countSignals(['dark', 'black', 'premium', 'serious', 'dramatic']);
+      const serifScore = countSignals(['editorial', 'luxury', 'heritage', 'premium']);
+      const geometricScore = countSignals(['tech', 'software', 'startup', 'product', 'digital', 'automation', 'platform', 'rtls', 'iiot']);
+
+      return {
+        ...palette,
+        fontHeading: serifScore > geometricScore
+          ? '"Vollkorn", Georgia, serif'
+          : '"aktiv-grotesk-extended", "Helvetica Neue", Arial, sans-serif',
+        fontBody: geometricScore > serifScore
+          ? '"Avenir Next", Avenir, "Helvetica Neue", sans-serif'
+          : '"Helvetica Neue", "Avenir Next", Arial, sans-serif',
+        radiusMode: softScore > sharpScore ? 'soft' : 'sharp',
+        imageMode: brightScore > darkScore ? 'bright' : 'dark',
+        baseTheme
+      };
+    }
+
+    function clearCustomThemeOverrides() {
+      [
+        '--color-accent',
+        '--color-accent-strong',
+        '--color-line',
+        '--control-hover-border',
+        '--control-hover-bg',
+        '--switch-border',
+        '--switch-hover-bg',
+        '--table-row-hover-bg',
+        '--quote-mark-color',
+        '--card-hover-border',
+        '--summary-border',
+        '--blockquote-border',
+        '--portrait-border',
+        '--font-heading',
+        '--font-body',
+        '--font-ui',
+        '--control-radius',
+        '--switch-radius',
+        '--switch-option-radius',
+        '--modal-radius',
+        '--media-filter',
+        '--color-bg',
+        '--color-bg-2',
+        '--color-panel',
+        '--color-panel-strong',
+        '--color-ink',
+        '--color-muted',
+        '--table-head-bg',
+        '--footer-bg',
+        '--footer-ink',
+        '--control-bg',
+        '--switch-bg',
+        '--card-bg',
+        '--table-bg',
+        '--summary-bg',
+        '--blockquote-bg',
+        '--document-bg',
+        '--document-paper',
+        '--document-ink',
+        '--document-line',
+        '--document-accent',
+        '--document-accent-soft',
+        '--document-accent-wash',
+        '--cover-brand-primary-width',
+        '--cover-brand-secondary-width'
+      ].forEach(key => document.body.style.removeProperty(key));
+    }
+
+    function applyCustomThemeOverrides(themeId = currentTheme) {
+      clearCustomThemeOverrides();
+      const theme = getThemeDefinition(themeId);
+      if (!theme || theme.locked || !theme.generated) {
+        return;
+      }
+
+      document.body.style.setProperty('--color-accent', theme.generated.accent);
+      document.body.style.setProperty('--color-accent-strong', theme.generated.accentStrong);
+      document.body.style.setProperty('--color-line', theme.generated.line);
+      document.body.style.setProperty('--control-hover-border', theme.generated.line);
+      document.body.style.setProperty('--control-hover-bg', theme.generated.hover);
+      document.body.style.setProperty('--switch-border', theme.generated.line);
+      document.body.style.setProperty('--switch-hover-bg', theme.generated.hover);
+      document.body.style.setProperty('--table-row-hover-bg', theme.generated.hover);
+      document.body.style.setProperty('--quote-mark-color', theme.generated.quote);
+      document.body.style.setProperty('--card-hover-border', theme.generated.line);
+      document.body.style.setProperty('--summary-border', theme.generated.line);
+      document.body.style.setProperty('--blockquote-border', theme.generated.line);
+      document.body.style.setProperty('--portrait-border', theme.generated.line);
+      document.body.style.setProperty('--font-heading', theme.generated.fontHeading);
+      document.body.style.setProperty('--font-body', theme.generated.fontBody);
+      document.body.style.setProperty('--font-ui', theme.generated.fontBody);
+      document.body.style.setProperty('--media-filter', theme.generated.imageMode === 'bright' ? 'brightness(0.78) saturate(0.82)' : 'brightness(0.42) saturate(0.2) contrast(1.01)');
+      if (theme.generated.colorBg) document.body.style.setProperty('--color-bg', theme.generated.colorBg);
+      if (theme.generated.colorBg2) document.body.style.setProperty('--color-bg-2', theme.generated.colorBg2);
+      if (theme.generated.colorPanel) document.body.style.setProperty('--color-panel', theme.generated.colorPanel);
+      if (theme.generated.colorPanelStrong) document.body.style.setProperty('--color-panel-strong', theme.generated.colorPanelStrong);
+      if (theme.generated.colorInk) document.body.style.setProperty('--color-ink', theme.generated.colorInk);
+      if (theme.generated.colorMuted) document.body.style.setProperty('--color-muted', theme.generated.colorMuted);
+      if (theme.generated.tableHeadBg) document.body.style.setProperty('--table-head-bg', theme.generated.tableHeadBg);
+      if (theme.generated.footerBg) document.body.style.setProperty('--footer-bg', theme.generated.footerBg);
+      if (theme.generated.footerInk) document.body.style.setProperty('--footer-ink', theme.generated.footerInk);
+      if (theme.generated.controlBg) document.body.style.setProperty('--control-bg', theme.generated.controlBg);
+      if (theme.generated.switchBg) document.body.style.setProperty('--switch-bg', theme.generated.switchBg);
+      if (theme.generated.cardBg) document.body.style.setProperty('--card-bg', theme.generated.cardBg);
+      if (theme.generated.tableBg) document.body.style.setProperty('--table-bg', theme.generated.tableBg);
+      if (theme.generated.summaryBg) document.body.style.setProperty('--summary-bg', theme.generated.summaryBg);
+      if (theme.generated.blockquoteBg) document.body.style.setProperty('--blockquote-bg', theme.generated.blockquoteBg);
+      if (theme.generated.documentBg) document.body.style.setProperty('--document-bg', theme.generated.documentBg);
+      if (theme.generated.documentPaper) document.body.style.setProperty('--document-paper', theme.generated.documentPaper);
+      if (theme.generated.documentInk) document.body.style.setProperty('--document-ink', theme.generated.documentInk);
+      if (theme.generated.documentLine) document.body.style.setProperty('--document-line', theme.generated.documentLine);
+      if (theme.generated.documentAccent) document.body.style.setProperty('--document-accent', theme.generated.documentAccent);
+      if (theme.generated.documentAccentSoft) document.body.style.setProperty('--document-accent-soft', theme.generated.documentAccentSoft);
+      if (theme.generated.documentAccentWash) document.body.style.setProperty('--document-accent-wash', theme.generated.documentAccentWash);
+      if (theme.generated.coverBrandPrimaryWidth) document.body.style.setProperty('--cover-brand-primary-width', theme.generated.coverBrandPrimaryWidth);
+      if (theme.generated.coverBrandSecondaryWidth) document.body.style.setProperty('--cover-brand-secondary-width', theme.generated.coverBrandSecondaryWidth);
+
+      if (theme.generated.radiusMode === 'soft') {
+        document.body.style.setProperty('--control-radius', '12px');
+        document.body.style.setProperty('--switch-radius', '14px');
+        document.body.style.setProperty('--switch-option-radius', '10px');
+        document.body.style.setProperty('--modal-radius', '20px');
+      } else {
+        document.body.style.setProperty('--control-radius', '6px');
+        document.body.style.setProperty('--switch-radius', '7px');
+        document.body.style.setProperty('--switch-option-radius', '4px');
+        document.body.style.setProperty('--modal-radius', '14px');
+      }
+    }
+
+    function loadCustomThemes() {
+      try {
+        const raw = window.localStorage.getItem(DECK_CUSTOM_THEMES_KEY);
+        if (!raw) {
+          return [];
+        }
+
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) {
+          return [];
+        }
+
+        return parsed.map((entry, index) => sanitizeCustomTheme(entry, index)).filter(Boolean);
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function persistCustomThemes() {
+      try {
+        window.localStorage.setItem(DECK_CUSTOM_THEMES_KEY, JSON.stringify(customThemes));
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getThemeDefinitions() {
+      return [...BUILTIN_THEME_OPTIONS, ...customThemes];
+    }
+
+    function getThemeDefinition(themeId = currentTheme) {
+      return getThemeDefinitions().find(entry => entry.id === themeId) || BUILTIN_THEME_OPTIONS.find(entry => entry.id === 'lear') || BUILTIN_THEME_OPTIONS[0];
+    }
+
+    function getThemeDisplayName(themeId = currentTheme, language = currentLanguage) {
+      const theme = getThemeDefinition(themeId);
+      return theme?.name?.[language] || theme?.name?.en || 'Style';
+    }
+
+    function getThemeBaseTheme(themeId = currentTheme) {
+      const theme = getThemeDefinition(themeId);
+      return theme?.generated?.baseTheme || theme?.baseTheme || 'lear';
+    }
+
+    function getThemeBrandLogo(themeId = currentTheme) {
+      const theme = getThemeDefinition(themeId);
+      if (theme?.generated?.logoUrl) {
+        return {
+          url: theme.generated.logoUrl,
+          alt: theme.generated.logoAlt || getThemeDisplayName(themeId, currentLanguage)
+        };
+      }
+
+      return {
+        url: 'assets/lear-logo.svg',
+        alt: 'Lear Corporation'
+      };
+    }
+
+    function getThemeBackgroundConfig(themeId = currentTheme) {
+      const theme = getThemeDefinition(themeId);
+      if (theme?.generated?.themeBackgrounds && Object.keys(theme.generated.themeBackgrounds).length) {
+        return theme.generated.themeBackgrounds;
+      }
+
+      return THEME_BACKGROUNDS[getThemeBaseTheme(themeId)] || THEME_BACKGROUNDS.xyz;
+    }
+
+    function getThemeMeta(theme, language = currentLanguage) {
+      const copy = THEME_COPY[language] || THEME_COPY.en;
+      if (!theme || theme.locked) {
+        return copy.builtInMeta;
+      }
+
+      const urlCount = theme.references?.urls?.length || 0;
+      const fileCount = theme.references?.files?.length || 0;
+      const parts = [`${copy.basedOnLabel} ${getThemeDisplayName(theme.baseTheme, language)}`];
+      if (urlCount) {
+        parts.push(`${urlCount} ${copy.urlsCount}`);
+      }
+      if (fileCount) {
+        parts.push(`${fileCount} ${copy.filesCount}`);
+      }
+      return parts.join(' • ');
+    }
+
+    function renderThemeOptions() {
+      const switcher = document.querySelector('.theme-switch');
+      if (!switcher) {
+        return;
+      }
+
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      switcher.innerHTML = getThemeDefinitions().map(theme => {
+        const isActive = theme.id === currentTheme;
+        const deleteLabel = theme.locked ? copy.deleteLockedLabel : copy.deleteLabel;
+        return `
+          <div class="theme-option-row">
+            <button type="button" class="theme-option${isActive ? ' is-active' : ''}" data-theme="${theme.id}" aria-pressed="${isActive ? 'true' : 'false'}">
+              <span class="theme-option-title">${getThemeDisplayName(theme.id, currentLanguage)}</span>
+              <span class="theme-option-meta">${getThemeMeta(theme, currentLanguage)}</span>
+            </button>
+            <div class="theme-option-actions">
+              <button type="button" class="theme-option-edit" data-theme-edit="${theme.id}" aria-label="${copy.editLabel}" title="${copy.editLabel}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
+                  <path d="M12.75 6.5 17.5 11.25"></path>
+                </svg>
+              </button>
+              <button type="button" class="theme-option-duplicate" data-theme-duplicate="${theme.id}" aria-label="${copy.duplicateLabel}" title="${copy.duplicateLabel}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="10" height="10" rx="1.8"></rect>
+                  <path d="M6 14H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1"></path>
+                </svg>
+              </button>
+              <button type="button" class="theme-option-delete${theme.locked ? ' is-disabled' : ''}" data-theme-delete="${theme.id}" aria-label="${deleteLabel}" title="${deleteLabel}" ${theme.locked ? 'aria-disabled="true"' : ''}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 7.5h14"></path>
+                  <path d="M9.5 4.75h5"></path>
+                  <path d="M8.5 7.5v11"></path>
+                  <path d="M15.5 7.5v11"></path>
+                  <path d="M6.75 7.5 7.5 19a1 1 0 0 0 1 .94h7a1 1 0 0 0 1-.94l.75-11.5"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      switcher.setAttribute('aria-label', copy.switchLabel);
+    }
+
+    function renderThemeReferenceFiles() {
+      const filesList = document.getElementById('theme-reference-files-list');
+      if (!filesList) {
+        return;
+      }
+
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      if (!pendingThemeReferenceFiles.length) {
+        filesList.textContent = copy.noFiles;
+        return;
+      }
+
+      filesList.innerHTML = pendingThemeReferenceFiles
+        .map(file => `<span class="theme-reference-file">${file.name}</span>`)
+        .join('');
+    }
+
+    function resetThemeCreateForm() {
+      const form = document.getElementById('theme-create-panel');
+      const filesInput = document.getElementById('theme-reference-files');
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      form.reset();
+      editingThemeId = null;
+      pendingThemeReferenceFiles = [];
+      if (filesInput) {
+        filesInput.value = '';
+      }
+      form.dataset.mode = 'create';
+      renderThemeReferenceFiles();
+      syncThemeCreatePanelCopy();
+    }
+
+    function openThemeCreatePanel() {
+      const panel = document.getElementById('theme-create-panel');
+      if (!panel) {
+        return;
+      }
+
+      panel.hidden = false;
+      requestAnimationFrame(() => {
+        panel.classList.add('is-open');
+        panel.querySelector('input[name="theme_name"]')?.focus();
+      });
+    }
+
+    function populateThemeCreateForm(theme, { mode = 'edit' } = {}) {
+      const panel = document.getElementById('theme-create-panel');
+      if (!(panel instanceof HTMLFormElement) || !theme) {
+        return;
+      }
+
+      const nameInput = panel.elements.namedItem('theme_name');
+      const urlsInput = panel.elements.namedItem('theme_urls');
+      const notesInput = panel.elements.namedItem('theme_notes');
+
+      if (nameInput instanceof HTMLInputElement) {
+        nameInput.value = theme.name?.en || '';
+      }
+      if (urlsInput instanceof HTMLTextAreaElement) {
+        urlsInput.value = (theme.references?.urls || []).join('\n');
+      }
+      if (notesInput instanceof HTMLTextAreaElement) {
+        notesInput.value = theme.references?.notes || '';
+      }
+
+      editingThemeId = mode === 'edit' ? theme.id : null;
+      panel.dataset.mode = mode;
+      const storedFiles = theme.references?.files || [];
+      pendingThemeReferenceFiles = [...storedFiles];
+      const filesList = document.getElementById('theme-reference-files-list');
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      if (filesList) {
+        filesList.innerHTML = storedFiles.length
+          ? storedFiles.map(file => `<span class="theme-reference-file">${file.name}</span>`).join('')
+          : copy.noFiles;
+      }
+      syncThemeCreatePanelCopy();
+    }
+
+    function closeThemeCreatePanel({ reset = false } = {}) {
+      const panel = document.getElementById('theme-create-panel');
+      if (!panel) {
+        return;
+      }
+
+      panel.classList.remove('is-open');
+      if (reset) {
+        resetThemeCreateForm();
+      }
+      window.setTimeout(() => {
+        panel.hidden = true;
+      }, 120);
+    }
+
+    function handleThemeReferenceFiles(event) {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement)) {
+        return;
+      }
+
+      pendingThemeReferenceFiles = Array.from(input.files || []);
+      renderThemeReferenceFiles();
+    }
+
+    function createCustomTheme(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const nameInput = form.elements.namedItem('theme_name');
+      const urlsInput = form.elements.namedItem('theme_urls');
+      const notesInput = form.elements.namedItem('theme_notes');
+      if (!(nameInput instanceof HTMLInputElement) || !(urlsInput instanceof HTMLTextAreaElement) || !(notesInput instanceof HTMLTextAreaElement)) {
+        return;
+      }
+
+      const trimmedName = nameInput.value.trim();
+      if (!trimmedName) {
+        nameInput.focus();
+        return;
+      }
+
+      const urls = urlsInput.value
+        .split('\n')
+        .map(value => value.trim())
+        .filter(Boolean);
+      const notes = notesInput.value.trim();
+      const fileRefs = pendingThemeReferenceFiles.map(file => ({
+        name: file.name,
+        type: file.type,
+        size: file.size
+      }));
+      const generated = deriveCustomThemeStyle({
+        name: trimmedName,
+        urls,
+        notes,
+        files: fileRefs
+      });
+
+      const nextTheme = {
+        id: editingThemeId || `style-${Date.now().toString(36)}`,
+        baseTheme: generated.baseTheme,
+        locked: false,
+        name: {
+          en: trimmedName,
+          de: trimmedName
+        },
+        references: {
+          urls,
+          notes,
+          files: fileRefs
+        },
+        generated
+      };
+
+      if (editingThemeId) {
+        customThemes = customThemes.map(theme => (theme.id === editingThemeId ? nextTheme : theme));
+      } else {
+        customThemes.push(nextTheme);
+      }
+      persistCustomThemes();
+      persistTheme(nextTheme.id);
+      applyTheme(nextTheme.id);
+      closeThemeCreatePanel({ reset: true });
+    }
+
+    function editCustomTheme(themeId) {
+      const theme = getThemeDefinition(themeId);
+      if (!theme) {
+        return;
+      }
+
+      populateThemeCreateForm(theme, { mode: theme.locked ? 'create' : 'edit' });
+      openThemeCreatePanel();
+    }
+
+    function duplicateTheme(themeId) {
+      const theme = getThemeDefinition(themeId);
+      if (!theme) {
+        return;
+      }
+
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      const proposedName = window.prompt(copy.duplicatePrompt, `${getThemeDisplayName(themeId, currentLanguage)} Copy`);
+      if (!proposedName) {
+        return;
+      }
+
+      const trimmedName = proposedName.trim();
+      if (!trimmedName) {
+        return;
+      }
+
+      const themeCopy = {
+        id: `style-${Date.now().toString(36)}`,
+        baseTheme: getThemeBaseTheme(theme.id),
+        locked: false,
+        name: {
+          en: trimmedName,
+          de: trimmedName
+        },
+        references: {
+          urls: [...(theme.references?.urls || [])],
+          notes: theme.references?.notes || '',
+          files: [...(theme.references?.files || [])]
+        },
+        generated: theme.generated
+          ? { ...theme.generated }
+          : deriveCustomThemeStyle({
+              name: trimmedName,
+              urls: theme.references?.urls || [],
+              notes: theme.references?.notes || '',
+              files: theme.references?.files || []
+            })
+      };
+
+      customThemes.push(themeCopy);
+      persistCustomThemes();
+      persistTheme(themeCopy.id);
+      applyTheme(themeCopy.id);
+    }
+
+    function deleteTheme(themeId) {
+      const theme = getThemeDefinition(themeId);
+      if (!theme || theme.locked) {
+        return;
+      }
+
+      const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+      if (!window.confirm(copy.deleteConfirm)) {
+        return;
+      }
+
+      customThemes = customThemes.filter(entry => entry.id !== themeId);
+      persistCustomThemes();
+
+      if (editingThemeId === themeId) {
+        closeThemeCreatePanel({ reset: true });
+      }
+
+      if (currentTheme === themeId) {
+        persistTheme(theme.baseTheme || 'lear');
+        applyTheme(theme.baseTheme || 'lear');
+      } else {
+        renderThemeOptions();
+      }
+    }
+
+    function syncThemeCreatePanelCopy(language = currentLanguage) {
+      const panel = document.getElementById('theme-create-panel');
+      if (!(panel instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const copy = THEME_COPY[language] || THEME_COPY.en;
+      const submitButton = panel.querySelector('.theme-create-submit');
+      if (submitButton) {
+        submitButton.textContent = panel.dataset.mode === 'edit' ? copy.saveEdit : copy.saveTeam;
+      }
+    }
+
     function persistView(view) {
       try {
         window.localStorage.setItem(DECK_VIEW_KEY, view);
@@ -903,11 +1798,10 @@
         const title = getContentLabel(layer.id, currentLanguage);
         const meta = getContentDetail(layer, currentLanguage) || contentCopy.fallbackDetail;
         const renameLabel = contentCopy.renameLabel;
+        const duplicateLabel = contentCopy.duplicateLabel;
         const removeLabel = contentCopy.removeLabel;
-        const actions = layer.locked
-          ? ''
-          : `
-            <button type="button" class="content-option-remove" data-content-remove="${layer.id}" aria-label="${removeLabel}" title="${removeLabel}">
+        const removeAction = `
+            <button type="button" class="content-option-remove${layer.locked ? ' is-disabled' : ''}" data-content-remove="${layer.id}" aria-label="${layer.locked ? contentCopy.removeLockedLabel : removeLabel}" title="${layer.locked ? contentCopy.removeLockedLabel : removeLabel}" ${layer.locked ? 'aria-disabled="true"' : ''}>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 7.5h14"></path>
                 <path d="M9.5 4.75h5"></path>
@@ -924,13 +1818,19 @@
               <span class="content-option-meta">${meta}</span>
             </button>
             <div class="content-option-actions">
+              <button type="button" class="content-option-duplicate" data-content-duplicate="${layer.id}" aria-label="${duplicateLabel}" title="${duplicateLabel}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="10" height="10" rx="1.8"></rect>
+                  <path d="M6 14H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1"></path>
+                </svg>
+              </button>
               <button type="button" class="content-option-rename" data-content-rename="${layer.id}" aria-label="${renameLabel}" title="${renameLabel}">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
                   <path d="M12.75 6.5 17.5 11.25"></path>
                 </svg>
               </button>
-              ${actions}
+              ${removeAction}
             </div>
           </div>
         `;
@@ -939,7 +1839,7 @@
 
     function applyTheme(theme) {
       currentTheme = normalizeTheme(theme);
-      document.body.setAttribute('data-theme', currentTheme);
+      document.body.setAttribute('data-theme', getThemeBaseTheme(currentTheme));
 
       const footerSiteLink = document.getElementById('footer-site-link');
       if (footerSiteLink) {
@@ -952,12 +1852,9 @@
       if (switcher) {
         switcher.setAttribute('aria-label', copy.switchLabel);
       }
-
-      document.querySelectorAll('.theme-option').forEach(button => {
-        const isActive = button.dataset.theme === currentTheme;
-        button.classList.toggle('is-active', isActive);
-        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      });
+      applyCustomThemeOverrides(currentTheme);
+      syncThemeBranding(currentTheme);
+      renderThemeOptions();
     }
 
     function applyContent(content) {
@@ -977,7 +1874,25 @@
       renderContentOptions();
     }
 
+    function syncThemeBranding(themeId = currentTheme) {
+      const logo = getThemeBrandLogo(themeId);
+
+      const cornerBrandImage = document.querySelector('.corner-brand img');
+      if (cornerBrandImage instanceof HTMLImageElement) {
+        cornerBrandImage.src = logo.url;
+        cornerBrandImage.alt = logo.alt;
+      }
+
+      document.querySelectorAll('.cover-brand-mark-lear, .document-brand-lear').forEach(image => {
+        if (image instanceof HTMLImageElement) {
+          image.src = logo.url;
+          image.alt = logo.alt;
+        }
+      });
+    }
+
     function applyView(view) {
+      const previousView = currentView;
       currentView = normalizeView(view);
       const useCustomDocumentView = currentView === 'document' && getContentLayer().variantId === 'offer';
       document.documentElement.classList.toggle('document-mode', currentView === 'document');
@@ -1014,6 +1929,11 @@
         });
       }
 
+      if (previousView === 'document' && currentView !== 'document') {
+        applyThemeBackgrounds();
+        scheduleDeckVisualRefresh();
+      }
+
       syncDocumentPageState();
       syncDocumentOverviewLayout();
     }
@@ -1035,6 +1955,16 @@
         themeSwitcher.setAttribute('aria-label', themeCopy.switchLabel);
       }
 
+      const themeModalTitle = document.querySelector('.theme-modal-title');
+      if (themeModalTitle) {
+        themeModalTitle.textContent = themeCopy.modalTitle;
+      }
+
+      const themeModalSubtitle = document.querySelector('.theme-modal-subtitle');
+      if (themeModalSubtitle) {
+        themeModalSubtitle.textContent = themeCopy.modalSubtitle;
+      }
+
       const themeMenuToggle = document.querySelector('.theme-menu-toggle');
       if (themeMenuToggle) {
         themeMenuToggle.setAttribute('aria-label', themeCopy.openLabel);
@@ -1045,6 +1975,44 @@
       if (themeModalClose) {
         themeModalClose.setAttribute('aria-label', themeCopy.closeLabel);
         themeModalClose.setAttribute('title', themeCopy.closeLabel);
+      }
+
+      const themeTeamAdd = document.querySelector('.theme-team-add');
+      if (themeTeamAdd) {
+        themeTeamAdd.setAttribute('aria-label', themeCopy.addTeam);
+        themeTeamAdd.setAttribute('title', themeCopy.addTeam);
+      }
+
+      const themeCreatePanel = document.getElementById('theme-create-panel');
+      if (themeCreatePanel instanceof HTMLFormElement) {
+        const nameInput = themeCreatePanel.elements.namedItem('theme_name');
+        const urlsInput = themeCreatePanel.elements.namedItem('theme_urls');
+        const notesInput = themeCreatePanel.elements.namedItem('theme_notes');
+        if (nameInput instanceof HTMLInputElement) {
+          const label = nameInput.closest('.theme-field')?.querySelector('.theme-field-label');
+          if (label) label.textContent = themeCopy.nameLabel;
+          nameInput.placeholder = themeCopy.namePlaceholder;
+        }
+        if (urlsInput instanceof HTMLTextAreaElement) {
+          const label = urlsInput.closest('.theme-field')?.querySelector('.theme-field-label');
+          if (label) label.textContent = themeCopy.urlsLabel;
+          urlsInput.placeholder = themeCopy.urlsPlaceholder;
+        }
+        if (notesInput instanceof HTMLTextAreaElement) {
+          const label = notesInput.closest('.theme-field')?.querySelector('.theme-field-label');
+          if (label) label.textContent = themeCopy.notesLabel;
+          notesInput.placeholder = themeCopy.notesPlaceholder;
+        }
+        const filesInput = document.getElementById('theme-reference-files');
+        if (filesInput instanceof HTMLInputElement) {
+          const label = filesInput.closest('.theme-field')?.querySelector('.theme-field-label');
+          if (label) label.textContent = themeCopy.filesLabel;
+        }
+        syncThemeCreatePanelCopy(language);
+        const cancelButton = themeCreatePanel.querySelector('.theme-create-cancel');
+        if (cancelButton) {
+          cancelButton.textContent = themeCopy.cancelTeam;
+        }
       }
 
       const contentSwitcher = document.querySelector('.content-switch');
@@ -1091,6 +2059,8 @@
         button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
 
+      renderThemeOptions();
+      renderThemeReferenceFiles();
       applyContent(currentContent);
       renderDeployTimestamp();
     }
@@ -1145,6 +2115,7 @@
         Reveal.sync();
       }
 
+      syncThemeBranding(currentTheme);
       applyThemeBackgrounds();
       if (resetToStart && typeof Reveal.slide === 'function') {
         Reveal.slide(0);
@@ -1219,6 +2190,43 @@
       }
 
       const sourceLayer = getContentLayer();
+      const uniqueId = `layer-${Date.now().toString(36)}`;
+      contentLayers.push({
+        id: uniqueId,
+        variantId: sourceLayer.variantId,
+        name: {
+          en: trimmedName,
+          de: trimmedName
+        },
+        locked: false
+      });
+      persistContentLayers();
+      persistContent(uniqueId);
+      applyContent(uniqueId);
+      closeContentModal();
+      openContentModal();
+    }
+
+    function duplicateContentLayer(contentId) {
+      const sourceLayer = getContentLayer(contentId);
+      if (!sourceLayer) {
+        return;
+      }
+
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      const proposedName = window.prompt(
+        contentCopy.duplicateLayerPrompt,
+        `${getContentLabel(contentId, currentLanguage)} Copy`
+      );
+      if (!proposedName) {
+        return;
+      }
+
+      const trimmedName = proposedName.trim();
+      if (!trimmedName) {
+        return;
+      }
+
       const uniqueId = `layer-${Date.now().toString(36)}`;
       contentLayers.push({
         id: uniqueId,
@@ -1320,7 +2328,7 @@
         return;
       }
 
-      const backgroundConfig = THEME_BACKGROUNDS[currentTheme] || THEME_BACKGROUNDS.xyz;
+      const backgroundConfig = getThemeBackgroundConfig(currentTheme);
 
       slides.forEach(slide => {
         const key = slide.dataset.themeBackground;
@@ -1448,6 +2456,8 @@
         slide.classList.contains('end-cover') ||
         isFirstSlide ||
         isLastSlide;
+      const activeImageBackground = slide.getAttribute('data-background-image') || '';
+      const hasFullViewportImageBackground = Boolean(activeImageBackground) && !isCoverSlide && !hasSlideBackgroundVideo;
       const activeBackground = document.querySelector('.backgrounds .slide-background.present');
       const activeBackgroundHasVideo = !!activeBackground?.querySelector('video');
       const isVideoHero = hasSlideBackgroundVideo || activeBackgroundHasVideo;
@@ -1473,6 +2483,11 @@
       document.body.classList.toggle('video-slide-active', !isOverview && isVideoHero);
       document.body.classList.toggle('cover-slide-active', !isOverview && isCoverSlide);
       document.body.classList.toggle('platform-video-active', !isOverview && isPlatformVideoSlide);
+      document.body.classList.toggle('image-background-active', !isOverview && hasFullViewportImageBackground);
+      document.body.style.setProperty(
+        '--active-slide-image-url',
+        !isOverview && hasFullViewportImageBackground ? `url("${activeImageBackground}")` : 'none'
+      );
       syncActiveVideoPlayback({ isPlatformVideoSlide: !isOverview && isPlatformVideoSlide });
     }
 
@@ -2222,6 +3237,7 @@
       });
     }
 
+    customThemes = loadCustomThemes();
     const preferredLanguage = getPreferredLanguage();
     const preferredTheme = getPreferredTheme();
     const preferredView = getPreferredView();
@@ -2251,6 +3267,7 @@
     });
 
     Reveal.on('ready', event => {
+      syncThemeBranding(currentTheme);
       applyThemeBackgrounds();
       syncBackgroundClasses();
       mountFooterControls();
@@ -2347,13 +3364,67 @@
       });
     });
 
-    document.querySelectorAll('.theme-option').forEach(button => {
-      button.addEventListener('click', () => {
-        switchDeckTheme(button.dataset.theme || 'lear');
-        closeThemeModal();
-      });
+    document.querySelector('.theme-switch')?.addEventListener('click', event => {
+      const disabledDeleteButton = event.target.closest('.theme-option-delete.is-disabled');
+      if (disabledDeleteButton) {
+        const themeCopy = THEME_COPY[currentLanguage] || THEME_COPY.en;
+        window.alert(themeCopy.deleteLockedMessage);
+        return;
+      }
+
+      const editButton = event.target.closest('[data-theme-edit]');
+      if (editButton) {
+        editCustomTheme(editButton.dataset.themeEdit || '');
+        return;
+      }
+
+      const duplicateButton = event.target.closest('[data-theme-duplicate]');
+      if (duplicateButton) {
+        duplicateTheme(duplicateButton.dataset.themeDuplicate || '');
+        return;
+      }
+
+      const deleteButton = event.target.closest('[data-theme-delete]');
+      if (deleteButton) {
+        deleteTheme(deleteButton.dataset.themeDelete || '');
+        return;
+      }
+
+      const button = event.target.closest('[data-theme]');
+      if (!(button instanceof HTMLElement)) {
+        return;
+      }
+
+      switchDeckTheme(button.dataset.theme || 'lear');
+      closeThemeModal();
+    });
+    document.querySelector('.theme-team-add')?.addEventListener('click', () => {
+      const panel = document.getElementById('theme-create-panel');
+      if (panel?.hidden) {
+        openThemeCreatePanel();
+      } else {
+        closeThemeCreatePanel({ reset: true });
+      }
+    });
+    document.getElementById('theme-reference-files')?.addEventListener('change', handleThemeReferenceFiles);
+    document.getElementById('theme-create-panel')?.addEventListener('submit', createCustomTheme);
+    document.querySelector('.theme-create-cancel')?.addEventListener('click', () => {
+      closeThemeCreatePanel({ reset: true });
     });
     document.querySelector('.content-switch')?.addEventListener('click', async event => {
+      const disabledRemoveButton = event.target.closest('.content-option-remove.is-disabled');
+      if (disabledRemoveButton) {
+        const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+        window.alert(contentCopy.removeLockedMessage);
+        return;
+      }
+
+      const duplicateButton = event.target.closest('[data-content-duplicate]');
+      if (duplicateButton) {
+        duplicateContentLayer(duplicateButton.dataset.contentDuplicate || '');
+        return;
+      }
+
       const renameButton = event.target.closest('[data-content-rename]');
       if (renameButton) {
         renameContentLayer(renameButton.dataset.contentRename || 'offer');
@@ -2372,22 +3443,15 @@
       }
 
       const nextContent = normalizeContent(optionButton.dataset.content || 'offer');
-        if (nextContent === currentContent) {
-          closeContentModal();
-          return;
-        }
+      if (nextContent === currentContent) {
+        closeContentModal();
+        return;
+      }
 
-        persistContent(nextContent);
-        applyContent(nextContent);
-        try {
-          await reloadDeckContent({ resetToStart: true });
-          if (currentView === 'document') {
-            applyView(currentView);
-          }
-          closeContentModal();
-        } catch (error) {
-          console.error('Failed to reload deck content after switching content.', error);
-        }
+      persistContent(nextContent);
+      applyContent(nextContent);
+      closeContentModal();
+      window.location.reload();
     });
     document.querySelector('.content-layer-add')?.addEventListener('click', addContentLayer);
     document.querySelectorAll('.view-option').forEach(button => {
