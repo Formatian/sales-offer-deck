@@ -354,7 +354,11 @@
 <!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
-  <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
+  <div class="cover-brand-row">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+    <span class="cover-brand-divider" aria-hidden="true"></span>
+    <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
+  </div>
   <p class="cover-tagline">The power of knowing where</p>
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Thank You</h2>

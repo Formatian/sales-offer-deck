@@ -534,8 +534,8 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   left: 0;
   right: 0;
   bottom: calc(40px + 1.44rem + 8px);
-  height: 8px;
-  padding: 4px 0;
+  height: 10px;
+  padding: 5px 0;
   z-index: 60;
   overflow: hidden;
   isolation: isolate;
@@ -559,13 +559,20 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .reveal .progress .progress-hover-fill {
   display: block;
   position: absolute;
-  top: 4px;
-  bottom: 4px;
+  top: 0;
+  bottom: 0;
   left: 0;
   width: 0;
   z-index: 3;
   pointer-events: none;
   background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0,
+      rgba(255, 255, 255, 0.2) 10px,
+      rgba(255, 255, 255, 0) 10px,
+      rgba(255, 255, 255, 0) 20px
+    ),
     repeating-linear-gradient(
       90deg,
       transparent 0,
@@ -578,6 +585,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
     inset 0 0 0 1px rgba(255, 255, 255, 0.28),
     var(--progress-hover-glow);
   opacity: 0;
+  will-change: left, width, opacity;
   transition:
     left 120ms ease,
     width 120ms ease,
@@ -587,9 +595,10 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 
 .reveal .progress[data-hover-active="true"] .progress-hover-fill {
   opacity: 1;
+  animation: progress-hover-sheen 900ms linear infinite;
 }
 
-.reveal .progress > span {
+.reveal .progress > span:not(.progress-hover-fill) {
   display: block;
   position: relative;
   z-index: 2;
@@ -613,11 +622,27 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   transform-origin: left center;
 }
 
-.reveal .progress:hover > span,
-.reveal .progress[data-hover-active="true"] > span {
+.reveal .progress:hover > span:not(.progress-hover-fill),
+.reveal .progress[data-hover-active="true"] > span:not(.progress-hover-fill) {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.18),
     var(--progress-fill-glow);
+}
+
+@keyframes progress-hover-sheen {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      28px 0,
+      0 0,
+      0 0;
+  }
 }
 
 .slide-footer {
@@ -676,11 +701,17 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 .slide-footer a {
   color: rgba(239, 245, 240, 0.78);
   text-decoration: none;
+  transition:
+    color 160ms ease,
+    text-shadow 160ms ease;
 }
 
 .slide-footer a:hover,
 .slide-footer a:focus-visible {
+  color: var(--color-accent);
   text-decoration: none;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--color-accent) 34%, transparent);
+  outline: none;
 }
 
 .reveal .controls {
@@ -1131,7 +1162,9 @@ body.overview-active .cover-brand-mark-lear,
 }
 
 .cover-tagline-secondary:last-of-type {
+  font-size: 1.28rem;
   font-weight: 800;
+  letter-spacing: 0.05em;
 }
 
 .cover-rule {
@@ -1238,6 +1271,21 @@ body.overview-active .cover-title,
   border-radius: 999px;
   background: var(--cover-meta-pill-bg);
   color: rgba(245, 247, 245, 0.9);
+}
+
+.end-cover .cover-meta a[href="https://tryformation.com"] {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    text-shadow 160ms ease;
+}
+
+.end-cover .cover-meta a[href="https://tryformation.com"]:hover,
+.end-cover .cover-meta a[href="https://tryformation.com"]:focus-visible {
+  color: var(--color-accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--color-accent) 34%, transparent);
+  outline: none;
 }
 
 .slide-lead {
@@ -1509,6 +1557,16 @@ body.overview-active .cover-title,
 
 .closing-card a[href^="mailto:"] {
   color: var(--color-ink);
+  transition:
+    color 160ms ease,
+    text-shadow 160ms ease;
+}
+
+.closing-card a[href^="mailto:"]:hover,
+.closing-card a[href^="mailto:"]:focus-visible {
+  color: var(--color-accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--color-accent) 34%, transparent);
+  outline: none;
 }
 
 .linkedin-preview {

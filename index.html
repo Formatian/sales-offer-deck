@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404ag" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404aq" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260404ag" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260404aq" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -80,7 +80,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404ag';
+    const DECK_VERSION = '20260404aq';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
@@ -459,11 +459,11 @@
         overviewToggle.setAttribute('aria-label', isOverview ? copy.overviewClose : copy.overviewOpen);
         overviewToggle.setAttribute('title', isOverview ? copy.overviewTitleClose : copy.overviewTitleOpen);
       }
-      document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', isVideoHero);
-      document.body.classList.toggle('video-slide-active', isVideoHero);
-      document.body.classList.toggle('cover-slide-active', isCoverSlide);
-      document.body.classList.toggle('platform-video-active', isPlatformVideoSlide);
-      syncActiveVideoPlayback({ isPlatformVideoSlide });
+      document.querySelector('.reveal-viewport')?.classList.toggle('video-slide-active', !isOverview && isVideoHero);
+      document.body.classList.toggle('video-slide-active', !isOverview && isVideoHero);
+      document.body.classList.toggle('cover-slide-active', !isOverview && isCoverSlide);
+      document.body.classList.toggle('platform-video-active', !isOverview && isPlatformVideoSlide);
+      syncActiveVideoPlayback({ isPlatformVideoSlide: !isOverview && isPlatformVideoSlide });
     }
 
     function syncActiveVideoPlayback({ isPlatformVideoSlide }) {
@@ -723,7 +723,7 @@
         return;
       }
 
-      const hoverFill = document.createElement('span');
+      const hoverFill = document.createElement('div');
       hoverFill.className = 'progress-hover-fill';
       hoverFill.setAttribute('aria-hidden', 'true');
       progress.appendChild(hoverFill);
@@ -1113,6 +1113,7 @@
     window.addEventListener('mousemove', handleOverviewPointerMove, { passive: true });
     window.addEventListener('mouseleave', stopOverviewEdgeScroll, { passive: true });
     window.addEventListener('blur', stopOverviewEdgeScroll);
+    document.querySelector('.reveal .progress')?.addEventListener('mouseenter', handleProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('mousemove', handleProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('pointermove', handleProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
