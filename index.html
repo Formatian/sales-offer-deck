@@ -392,6 +392,10 @@
         <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">DECK</button>
         <button type="button" class="view-option" data-view="document" aria-pressed="false">DOC</button>
       </div>
+      <div class="document-color-switch" role="group" aria-label="Document color mode" hidden>
+        <button type="button" class="document-color-option is-active" data-document-color-mode="color" aria-pressed="true">Color</button>
+        <button type="button" class="document-color-option" data-document-color-mode="grayscale" aria-pressed="false">B/W</button>
+      </div>
     </div>
     <div class="footer-nav">
       <span id="slide-counter"></span>
@@ -428,6 +432,29 @@
         </svg>
       </button>
     </div>
+    <form class="content-create-panel" id="content-create-panel" hidden>
+      <label class="content-field">
+        <span class="content-field-label">Content Source Name</span>
+        <input type="text" name="content_name" class="content-field-input" maxlength="80" placeholder="Q2 Strategy Pack" required />
+      </label>
+      <label class="content-field">
+        <span class="content-field-label">Reference URLs</span>
+        <textarea name="content_urls" class="content-field-input content-field-textarea" placeholder="https://example.com&#10;https://docs.example.com/brief"></textarea>
+      </label>
+      <label class="content-field">
+        <span class="content-field-label">Notes / Brief</span>
+        <textarea name="content_notes" class="content-field-input content-field-textarea" placeholder="Upload source material and add a short note about what this content source should become."></textarea>
+      </label>
+      <label class="content-field">
+        <span class="content-field-label">Reference Files</span>
+        <input type="file" id="content-reference-files" class="content-field-input content-field-file" multiple accept=".md,.markdown,.txt,.rtf,.pdf,.doc,.docx,.ppt,.pptx,image/*" />
+      </label>
+      <div class="content-reference-files" id="content-reference-files-list">No files selected.</div>
+      <div class="content-create-actions">
+        <button type="submit" class="content-create-submit">Create Content Source</button>
+        <button type="button" class="content-create-cancel">Cancel</button>
+      </div>
+    </form>
     <div class="content-switch" role="listbox" aria-label="Deck content"></div>
   </div>
 
@@ -480,6 +507,7 @@
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
+    const DECK_DOC_COLOR_MODE_KEY = 'formation-deck-doc-color-mode';
     const DECK_CONTENT_KEY = 'formation-deck-content';
     const DECK_CONTENT_LAYERS_KEY = 'formation-deck-content-layers';
     const DECK_CUSTOM_THEMES_KEY = 'formation-deck-custom-themes';
@@ -519,6 +547,54 @@
         locked: true
       }
     ];
+    const DOCUMENT_FOOTER_COPY = {
+      en: {
+        columns: [
+          [
+            'FORMATION GmbH',
+            'Workplace Technologies',
+            'Urbanstraße 71',
+            'D-10967 Berlin'
+          ],
+          [
+            'Registered office: Berlin',
+            'Charlottenburg Local Court',
+            'Commercial Register: HRB 218133',
+            'Managing Director: Ian Hannigan'
+          ],
+          [
+            'Commerzbank',
+            'BIC: COBA DE FF XXX',
+            'IBAN: DE92 1004 0000 0808 9898 00',
+            'VAT ID: DE332537362'
+          ]
+        ],
+        pageLabel: 'Page'
+      },
+      de: {
+        columns: [
+          [
+            'FORMATION GmbH',
+            'Workplace Technologies',
+            'Urbanstraße 71',
+            'D-10967 Berlin'
+          ],
+          [
+            'Sitz der Gesellschaft: Berlin',
+            'Amtsgericht Charlottenburg',
+            'Handelsregisternummer: HRB 218133',
+            'Geschäftsführer: Ian Hannigan'
+          ],
+          [
+            'Commerzbank',
+            'BIC: COBA DE FF XXX',
+            'IBAN: DE92 1004 0000 0808 9898 00',
+            'USt.-ID: DE332537362'
+          ]
+        ],
+        pageLabel: 'Seite'
+      }
+    };
     const LANGUAGE_COPY = {
       en: {
         htmlLang: 'en',
@@ -536,7 +612,10 @@
         pageOverviewClose: 'Close page overview',
         pageOverviewTitleOpen: 'Page overview',
         pageOverviewTitleClose: 'Close page overview',
-        switchLabel: 'Presentation language'
+        switchLabel: 'Presentation language',
+        documentColorLabel: 'Document color mode',
+        documentColor: 'Color',
+        documentGrayscale: 'B/W'
       },
       de: {
         htmlLang: 'de',
@@ -554,7 +633,10 @@
         pageOverviewClose: 'Seitenübersicht schließen',
         pageOverviewTitleOpen: 'Seitenübersicht',
         pageOverviewTitleClose: 'Seitenübersicht schließen',
-        switchLabel: 'Sprache der Präsentation'
+        switchLabel: 'Sprache der Präsentation',
+        documentColorLabel: 'Dokument-Farbmodus',
+        documentColor: 'Farbe',
+        documentGrayscale: 'S/W'
       }
     };
     const THEME_COPY = {
@@ -730,8 +812,18 @@
         indicatorLabel: 'Content',
         modalTitle: 'Content',
         modalSubtitle: 'Choose or edit deck content.',
-        addLayer: 'Add layer',
-        addLayerPrompt: 'Name for the new content layer:',
+        addLayer: 'Add content source',
+        nameLabel: 'Content Source Name',
+        namePlaceholder: 'Q2 Strategy Pack',
+        urlsLabel: 'Reference URLs',
+        urlsPlaceholder: 'https://example.com\nhttps://docs.example.com/brief',
+        notesLabel: 'Notes / Brief',
+        notesPlaceholder: 'Upload source material and add a short note about what this content source should become.',
+        filesLabel: 'Reference Files',
+        noFiles: 'No files selected.',
+        saveLayer: 'Create Content Source',
+        cancelLayer: 'Cancel',
+        sourcedFromLabel: 'Seeded from',
         renameLayerPrompt: 'Rename content layer:',
         duplicateLayerPrompt: 'Name for the duplicated content layer:',
         fallbackDetail: 'Uses the current content source as its starting point',
@@ -740,7 +832,9 @@
         removeLabel: 'Remove content layer',
         removeLockedLabel: 'Built-in content layer cannot be removed',
         removeLockedMessage: 'This default content layer is built in and cannot be removed.',
-        removeConfirm: 'Remove this content layer?'
+        removeConfirm: 'Remove this content layer?',
+        urlsCount: 'URLs',
+        filesCount: 'files'
       },
       de: {
         switchLabel: 'Deck-Inhalt',
@@ -750,8 +844,18 @@
         indicatorLabel: 'Inhalt',
         modalTitle: 'Inhalt',
         modalSubtitle: 'Deck-Inhalt waehlen oder bearbeiten.',
-        addLayer: 'Ebene hinzufuegen',
-        addLayerPrompt: 'Name fuer die neue Inhaltsebene:',
+        addLayer: 'Inhaltsquelle anlegen',
+        nameLabel: 'Name der Inhaltsquelle',
+        namePlaceholder: 'Q2 Strategy Pack',
+        urlsLabel: 'Referenz-URLs',
+        urlsPlaceholder: 'https://example.com\nhttps://docs.example.com/brief',
+        notesLabel: 'Notizen / Briefing',
+        notesPlaceholder: 'Quelldateien hochladen und kurz beschreiben, was aus dieser Inhaltsquelle werden soll.',
+        filesLabel: 'Referenzdateien',
+        noFiles: 'Keine Dateien ausgewaehlt.',
+        saveLayer: 'Inhaltsquelle anlegen',
+        cancelLayer: 'Abbrechen',
+        sourcedFromLabel: 'Ausgangsbasis',
         renameLayerPrompt: 'Inhaltsebene umbenennen:',
         duplicateLayerPrompt: 'Name fuer die duplizierte Inhaltsebene:',
         fallbackDetail: 'Verwendet die aktuelle Inhaltsquelle als Ausgangspunkt',
@@ -760,7 +864,9 @@
         removeLabel: 'Inhaltsebene entfernen',
         removeLockedLabel: 'Integrierte Inhaltsebene kann nicht entfernt werden',
         removeLockedMessage: 'Diese Standard-Inhaltsebene ist integriert und kann nicht entfernt werden.',
-        removeConfirm: 'Diese Inhaltsebene entfernen?'
+        removeConfirm: 'Diese Inhaltsebene entfernen?',
+        urlsCount: 'URLs',
+        filesCount: 'Dateien'
       }
     };
     const VIEW_COPY = {
@@ -888,12 +994,14 @@
     let currentLanguage = 'en';
     let currentTheme = 'lear';
     let currentView = 'slides';
+    let currentDocumentColorMode = 'color';
     let currentContent = 'offer';
     let contentLayers = [];
     let customThemes = [];
     let deployMetadata = null;
     let localUpdatedAt = '';
     let deckContentReloadToken = 0;
+    let pendingContentReferenceFiles = [];
     let pendingThemeReferenceFiles = [];
     let editingThemeId = null;
 
@@ -936,6 +1044,10 @@
       return view === 'document' ? 'document' : 'slides';
     }
 
+    function normalizeDocumentColorMode(mode) {
+      return mode === 'grayscale' ? 'grayscale' : 'color';
+    }
+
     function normalizeContent(content) {
       const validIds = contentLayers.map(layer => layer.id);
       if (!content || !validIds.includes(content)) {
@@ -955,6 +1067,30 @@
       const id = typeof layer.id === 'string' && layer.id ? layer.id : `${variantId}-${index + 1}`;
       const englishName = typeof layer.name?.en === 'string' && layer.name.en.trim() ? layer.name.en.trim() : defaultName.en;
       const germanName = typeof layer.name?.de === 'string' && layer.name.de.trim() ? layer.name.de.trim() : englishName;
+      const urls = Array.isArray(layer.references?.urls)
+        ? layer.references.urls.map(value => (typeof value === 'string' ? value.trim() : '')).filter(Boolean)
+        : [];
+      const notes = typeof layer.references?.notes === 'string' ? layer.references.notes.trim() : '';
+      const files = Array.isArray(layer.references?.files)
+        ? layer.references.files
+            .map(file => {
+              if (!file || typeof file !== 'object') {
+                return null;
+              }
+
+              const name = typeof file.name === 'string' ? file.name.trim() : '';
+              if (!name) {
+                return null;
+              }
+
+              return {
+                name,
+                type: typeof file.type === 'string' ? file.type : '',
+                size: Number.isFinite(file.size) ? file.size : 0
+              };
+            })
+            .filter(Boolean)
+        : [];
 
       return {
         id,
@@ -963,7 +1099,12 @@
           en: englishName,
           de: germanName
         },
-        locked: !!layer.locked
+        locked: !!layer.locked,
+        references: {
+          urls,
+          notes,
+          files
+        }
       };
     }
 
@@ -1730,11 +1871,27 @@
       }
     }
 
+    function persistDocumentColorMode(mode) {
+      try {
+        window.localStorage.setItem(DECK_DOC_COLOR_MODE_KEY, mode);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
     function getPreferredView() {
       try {
         return normalizeView(window.localStorage.getItem(DECK_VIEW_KEY) || 'slides');
       } catch (error) {
         return 'slides';
+      }
+    }
+
+    function getPreferredDocumentColorMode() {
+      try {
+        return normalizeDocumentColorMode(window.localStorage.getItem(DECK_DOC_COLOR_MODE_KEY) || 'color');
+      } catch (error) {
+        return 'color';
       }
     }
 
@@ -1773,8 +1930,149 @@
         return '';
       }
 
+      const contentCopy = CONTENT_COPY[language] || CONTENT_COPY.en;
+      const urls = Array.isArray(layer.references?.urls) ? layer.references.urls.filter(Boolean) : [];
+      const files = Array.isArray(layer.references?.files) ? layer.references.files.filter(Boolean) : [];
+      if (urls.length || files.length) {
+        const sourceLabel = getContentLabel(layer.id, language);
+        const counts = [];
+        if (urls.length) {
+          counts.push(`${urls.length} ${contentCopy.urlsCount}`);
+        }
+        if (files.length) {
+          counts.push(`${files.length} ${contentCopy.filesCount}`);
+        }
+        const suffix = counts.length ? ` • ${counts.join(' • ')}` : '';
+        return `${contentCopy.sourcedFromLabel} ${sourceLabel}${suffix}`;
+      }
+
       const variant = CONTENT_VARIANTS[layer.variantId] || CONTENT_VARIANTS.offer;
       return variant.detail?.[language] || variant.detail?.en || '';
+    }
+
+    function renderContentReferenceFiles() {
+      const filesList = document.getElementById('content-reference-files-list');
+      if (!filesList) {
+        return;
+      }
+
+      const copy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      if (!pendingContentReferenceFiles.length) {
+        filesList.textContent = copy.noFiles;
+        return;
+      }
+
+      filesList.innerHTML = pendingContentReferenceFiles
+        .map(file => `<span class="content-reference-file">${file.name}</span>`)
+        .join('');
+    }
+
+    function resetContentCreateForm() {
+      const form = document.getElementById('content-create-panel');
+      const filesInput = document.getElementById('content-reference-files');
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      form.reset();
+      pendingContentReferenceFiles = [];
+      if (filesInput instanceof HTMLInputElement) {
+        filesInput.value = '';
+      }
+      renderContentReferenceFiles();
+    }
+
+    function openContentCreatePanel() {
+      const panel = document.getElementById('content-create-panel');
+      if (!(panel instanceof HTMLFormElement)) {
+        return;
+      }
+
+      panel.hidden = false;
+      window.requestAnimationFrame(() => {
+        panel.classList.add('is-open');
+        panel.querySelector('input[name="content_name"]')?.focus();
+      });
+    }
+
+    function closeContentCreatePanel({ reset = false } = {}) {
+      const panel = document.getElementById('content-create-panel');
+      if (!(panel instanceof HTMLFormElement)) {
+        return;
+      }
+
+      panel.classList.remove('is-open');
+      if (reset) {
+        resetContentCreateForm();
+      }
+      window.setTimeout(() => {
+        panel.hidden = true;
+      }, 120);
+    }
+
+    function handleContentReferenceFiles(event) {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement)) {
+        return;
+      }
+
+      pendingContentReferenceFiles = Array.from(input.files || []);
+      renderContentReferenceFiles();
+    }
+
+    function createContentLayer(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!(form instanceof HTMLFormElement)) {
+        return;
+      }
+
+      const nameInput = form.elements.namedItem('content_name');
+      const urlsInput = form.elements.namedItem('content_urls');
+      const notesInput = form.elements.namedItem('content_notes');
+      if (!(nameInput instanceof HTMLInputElement) || !(urlsInput instanceof HTMLTextAreaElement) || !(notesInput instanceof HTMLTextAreaElement)) {
+        return;
+      }
+
+      const trimmedName = nameInput.value.trim();
+      if (!trimmedName) {
+        nameInput.focus();
+        return;
+      }
+
+      const urls = urlsInput.value
+        .split('\n')
+        .map(value => value.trim())
+        .filter(Boolean);
+      const notes = notesInput.value.trim();
+      const files = pendingContentReferenceFiles.map(file => ({
+        name: file.name,
+        type: file.type,
+        size: file.size
+      }));
+      const sourceLayer = getContentLayer();
+      const uniqueId = `layer-${Date.now().toString(36)}`;
+
+      contentLayers.push({
+        id: uniqueId,
+        variantId: sourceLayer.variantId,
+        name: {
+          en: trimmedName,
+          de: trimmedName
+        },
+        locked: false,
+        references: {
+          urls,
+          notes,
+          files
+        }
+      });
+      persistContentLayers();
+      persistContent(uniqueId);
+      applyContent(uniqueId);
+      closeContentCreatePanel({ reset: true });
+      closeContentModal();
+      openContentModal();
     }
 
     function getDeckSourceUrl(language = currentLanguage, { bustCache = false } = {}) {
@@ -1954,6 +2252,28 @@
 
       syncDocumentPageState();
       syncDocumentOverviewLayout();
+      syncDocumentColorModeControls();
+    }
+
+    function applyDocumentColorMode(mode) {
+      currentDocumentColorMode = normalizeDocumentColorMode(mode);
+      document.body.setAttribute('data-document-color-mode', currentDocumentColorMode);
+      syncDocumentColorModeControls();
+    }
+
+    function syncDocumentColorModeControls() {
+      const switcher = document.querySelector('.document-color-switch');
+      const shouldShow = currentView === 'document' && !document.body.classList.contains('document-fallback-mode');
+      if (switcher) {
+        switcher.hidden = !shouldShow;
+        switcher.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+      }
+
+      document.querySelectorAll('.document-color-option').forEach(button => {
+        const isActive = button.dataset.documentColorMode === currentDocumentColorMode;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
     }
 
     function applyLanguageMetadata(language) {
@@ -1965,6 +2285,11 @@
       const switcher = document.querySelector('.language-switch');
       if (switcher) {
         switcher.setAttribute('aria-label', copy.switchLabel);
+      }
+
+      const documentColorSwitcher = document.querySelector('.document-color-switch');
+      if (documentColorSwitcher) {
+        documentColorSwitcher.setAttribute('aria-label', copy.documentColorLabel);
       }
 
       const themeSwitcher = document.querySelector('.theme-switch');
@@ -2061,6 +2386,41 @@
         contentLayerAdd.setAttribute('title', contentCopy.addLayer);
       }
 
+      const contentCreatePanel = document.getElementById('content-create-panel');
+      if (contentCreatePanel instanceof HTMLFormElement) {
+        const nameInput = contentCreatePanel.elements.namedItem('content_name');
+        const urlsInput = contentCreatePanel.elements.namedItem('content_urls');
+        const notesInput = contentCreatePanel.elements.namedItem('content_notes');
+        if (nameInput instanceof HTMLInputElement) {
+          const label = nameInput.closest('.content-field')?.querySelector('.content-field-label');
+          if (label) label.textContent = contentCopy.nameLabel;
+          nameInput.placeholder = contentCopy.namePlaceholder;
+        }
+        if (urlsInput instanceof HTMLTextAreaElement) {
+          const label = urlsInput.closest('.content-field')?.querySelector('.content-field-label');
+          if (label) label.textContent = contentCopy.urlsLabel;
+          urlsInput.placeholder = contentCopy.urlsPlaceholder;
+        }
+        if (notesInput instanceof HTMLTextAreaElement) {
+          const label = notesInput.closest('.content-field')?.querySelector('.content-field-label');
+          if (label) label.textContent = contentCopy.notesLabel;
+          notesInput.placeholder = contentCopy.notesPlaceholder;
+        }
+        const filesInput = document.getElementById('content-reference-files');
+        if (filesInput instanceof HTMLInputElement) {
+          const label = filesInput.closest('.content-field')?.querySelector('.content-field-label');
+          if (label) label.textContent = contentCopy.filesLabel;
+        }
+        const submitButton = contentCreatePanel.querySelector('.content-create-submit');
+        if (submitButton) {
+          submitButton.textContent = contentCopy.saveLayer;
+        }
+        const cancelButton = contentCreatePanel.querySelector('.content-create-cancel');
+        if (cancelButton) {
+          cancelButton.textContent = contentCopy.cancelLayer;
+        }
+      }
+
       const viewSwitcher = document.querySelector('.view-switch');
       const viewCopy = VIEW_COPY[language] || VIEW_COPY.en;
       if (viewSwitcher) {
@@ -2071,6 +2431,10 @@
         button.textContent = button.dataset.view === 'document' ? viewCopy.document : viewCopy.slides;
       });
 
+      document.querySelectorAll('.document-color-option').forEach(button => {
+        button.textContent = button.dataset.documentColorMode === 'grayscale' ? copy.documentGrayscale : copy.documentColor;
+      });
+
       document.querySelectorAll('.language-option').forEach(button => {
         const isActive = button.dataset.language === language;
         button.classList.toggle('is-active', isActive);
@@ -2079,8 +2443,46 @@
 
       renderThemeOptions();
       renderThemeReferenceFiles();
+      renderContentReferenceFiles();
+      populateDocumentFooters();
       applyContent(currentContent);
+      syncDocumentColorModeControls();
       renderDeployTimestamp();
+    }
+
+    function populateDocumentFooters() {
+      document.querySelectorAll('.document-canvas').forEach(canvas => {
+        const language = canvas.classList.contains('document-canvas-de') ? 'de' : 'en';
+        const footerCopy = DOCUMENT_FOOTER_COPY[language] || DOCUMENT_FOOTER_COPY.en;
+        const pages = Array.from(canvas.querySelectorAll('.document-page'));
+        const pageCount = pages.length;
+
+        pages.forEach((page, index) => {
+          if (!(page instanceof HTMLElement)) {
+            return;
+          }
+
+          let footer = page.querySelector('.document-page-footer');
+          if (!(footer instanceof HTMLElement)) {
+            footer = document.createElement('footer');
+            footer.className = 'document-page-footer';
+            page.appendChild(footer);
+          }
+
+          const columnsMarkup = footerCopy.columns.map(column => `
+            <div class="document-page-footer-column">
+              ${column.map(line => `<span>${line}</span>`).join('')}
+            </div>
+          `).join('');
+
+          footer.innerHTML = `
+            <div class="document-page-footer-meta">
+              ${columnsMarkup}
+            </div>
+            <div class="document-page-footer-page">${footerCopy.pageLabel} ${index + 1} ${language === 'de' ? 'von' : 'of'} ${pageCount}</div>
+          `;
+        });
+      });
     }
 
     function applyDeckSource(language) {
@@ -2196,33 +2598,12 @@
     }
 
     function addContentLayer() {
-      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
-      const proposedName = window.prompt(contentCopy.addLayerPrompt, `${getContentLabel(currentContent, currentLanguage)} Copy`);
-      if (!proposedName) {
-        return;
+      const panel = document.getElementById('content-create-panel');
+      if (panel?.hidden) {
+        openContentCreatePanel();
+      } else {
+        closeContentCreatePanel({ reset: true });
       }
-
-      const trimmedName = proposedName.trim();
-      if (!trimmedName) {
-        return;
-      }
-
-      const sourceLayer = getContentLayer();
-      const uniqueId = `layer-${Date.now().toString(36)}`;
-      contentLayers.push({
-        id: uniqueId,
-        variantId: sourceLayer.variantId,
-        name: {
-          en: trimmedName,
-          de: trimmedName
-        },
-        locked: false
-      });
-      persistContentLayers();
-      persistContent(uniqueId);
-      applyContent(uniqueId);
-      closeContentModal();
-      openContentModal();
     }
 
     function duplicateContentLayer(contentId) {
@@ -2253,7 +2634,12 @@
           en: trimmedName,
           de: trimmedName
         },
-        locked: false
+        locked: false,
+        references: {
+          urls: [...(sourceLayer.references?.urls || [])],
+          notes: sourceLayer.references?.notes || '',
+          files: [...(sourceLayer.references?.files || [])]
+        }
       });
       persistContentLayers();
       persistContent(uniqueId);
@@ -3263,14 +3649,17 @@
     const preferredLanguage = getPreferredLanguage();
     const preferredTheme = getPreferredTheme();
     const preferredView = getPreferredView();
+    const preferredDocumentColorMode = getPreferredDocumentColorMode();
     contentLayers = loadContentLayers();
     const preferredContent = getPreferredContent();
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
     currentView = preferredView;
+    currentDocumentColorMode = preferredDocumentColorMode;
     currentContent = preferredContent;
     applyContent(currentContent);
     applyTheme(currentTheme);
+    applyDocumentColorMode(currentDocumentColorMode);
     applyView(currentView);
     applyDeckSource(currentLanguage);
     applyLanguageMetadata(currentLanguage);
@@ -3476,9 +3865,21 @@
       window.location.reload();
     });
     document.querySelector('.content-layer-add')?.addEventListener('click', addContentLayer);
+    document.getElementById('content-reference-files')?.addEventListener('change', handleContentReferenceFiles);
+    document.getElementById('content-create-panel')?.addEventListener('submit', createContentLayer);
+    document.querySelector('.content-create-cancel')?.addEventListener('click', () => {
+      closeContentCreatePanel({ reset: true });
+    });
     document.querySelectorAll('.view-option').forEach(button => {
       button.addEventListener('click', () => {
         switchDeckView(button.dataset.view || 'slides');
+      });
+    });
+    document.querySelectorAll('.document-color-option').forEach(button => {
+      button.addEventListener('click', () => {
+        const nextMode = normalizeDocumentColorMode(button.dataset.documentColorMode || 'color');
+        persistDocumentColorMode(nextMode);
+        applyDocumentColorMode(nextMode);
       });
     });
     document.querySelector('.content-menu-toggle')?.addEventListener('click', () => {
