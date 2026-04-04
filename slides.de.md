@@ -1,15 +1,21 @@
 <!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
 
 <section class="cover-shell">
-  <div class="cover-brand-row">
-    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+  <div class="cover-brand-row cover-brand-row-xyz-offer">
+    <div class="xyz-offer-lockup">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+        <span>BY FORMATION</span>
+      </div>
+    </div>
     <span class="cover-brand-divider" aria-hidden="true"></span>
     <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
-  <p class="cover-tagline">The power of knowing where</p>
+  <p class="cover-tagline">AI Operations trifft Produktions-Rollout</p>
   <div class="cover-rule"></div>
   <p class="cover-tagline cover-tagline-secondary">Angebot</p>
-  <p class="cover-tagline cover-tagline-secondary">Produktions-Rollout &amp; kundenspezifische Entwicklung</p>
+  <p class="cover-tagline cover-tagline-secondary">Produktions-Rollout &amp; kundenspezifische Entwicklung fuer Lear Corp.</p>
   <div class="cover-meta">
     <span class="cover-meta-pill cover-issue-date">Ausgestellt: 31. März 2026</span>
     <span class="meta-separator">|</span>
@@ -277,6 +283,20 @@
   </div>
 </div>
 
+<div class="xyz-trust-strip">
+  <div class="xyz-trust-chip">
+    <img src="assets/xyz-gdpr.webp" alt="GDPR badge" />
+    <span>Datenschutzbewusste Delivery</span>
+  </div>
+  <div class="xyz-trust-chip">
+    <img src="assets/xyz-ssl.webp" alt="SSL badge" />
+    <span>Sicherer gehosteter Betrieb</span>
+  </div>
+  <div class="xyz-trust-chip">
+    <span class="xyz-trust-chip-text">Berliner Team, direkte Umsetzung, keine Weitergabe in Ketten</span>
+  </div>
+</div>
+
 <blockquote class="pull-quote">Das kommerzielle Ziel ist nicht die kurzfristige Kostenminimierung. Es ist eine stabile, risikoarme Produktions-Rollout-Struktur für den langfristigen Betrieb in Live-Produktionsumgebungen.</blockquote>
 
 ---
@@ -293,6 +313,15 @@
     <span class="metric-label">Mit 3 Jahren Voraus-Verpflichtung</span>
     <strong>172.836 €</strong>
     <p>Enthält den rabattierten Plattformgesamtbetrag von <strong>69.336 €</strong></p>
+  </div>
+</div>
+
+<div class="xyz-location-card">
+  <img src="assets/xyz-deltacampus.webp" alt="Delta Campus Berlin" class="xyz-location-image" />
+  <div class="xyz-location-body">
+    <p class="eyebrow">XYZ By FORMATION</p>
+    <h3>Delivery und Strategie aus Berlin</h3>
+    <p>Delta Campus, Donaustrasse 44, 12043 Berlin. Entwickelt von FORMATION GmbH mit einem praktischen, umsetzungsorientierten Delivery-Modell.</p>
   </div>
 </div>
 
@@ -348,21 +377,37 @@
     </a>
     <p><br /><a href="mailto:jvg@tryformation.com">jvg@tryformation.com</a></p>
   </div>
+  <div class="proposal-card closing-card closing-card-prepared closing-card-xyz">
+    <p class="eyebrow">XYZ Kontakt</p>
+    <img src="assets/formation-logo-text-black-site.svg" alt="FORMATION GmbH" class="closing-formation-mark" />
+    <p class="closing-contact-note">XYZ ist eine Division der FORMATION GmbH mit Fokus auf AI Operations, agentische Systeme und praktische Produkt-Ventures fuer kleine Teams.</p>
+    <div class="closing-badge-row">
+      <img src="assets/xyz-gdpr.webp" alt="GDPR badge" />
+      <img src="assets/xyz-ssl.webp" alt="SSL badge" />
+    </div>
+    <p><a href="https://formationxyz.com" target="_blank" rel="noreferrer noopener">formationxyz.com</a></p>
+    <p><a href="mailto:info@tryformation.com">info@tryformation.com</a></p>
+    <p>Delta Campus, Donaustrasse 44, 12043 Berlin</p>
+  </div>
 </div>
 
 ---
 <!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
-  <div class="cover-brand-row">
-    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
-    <span class="cover-brand-divider" aria-hidden="true"></span>
-    <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
+  <div class="cover-brand-row cover-brand-row-xyz-outro">
+    <div class="xyz-offer-lockup">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+        <span>BY FORMATION</span>
+      </div>
+    </div>
   </div>
-  <p class="cover-tagline">The power of knowing where</p>
+  <p class="cover-tagline">Operate at lightspeed</p>
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Vielen Dank</h2>
   <div class="cover-meta">
-    <span class="cover-meta-pill"><a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a></span>
+    <span class="cover-meta-pill"><a href="https://formationxyz.com" target="_blank" rel="noreferrer noopener">formationxyz.com</a></span>
   </div>
 </section>

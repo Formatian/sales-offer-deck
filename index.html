@@ -8,9 +8,9 @@
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404ax" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404bg" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,8 +20,334 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260404ax" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260404bg" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
+    </div>
+  </div>
+
+  <div class="document-view" id="document-view" hidden>
+    <div class="document-canvas document-canvas-en">
+      <article class="document-page document-page-cover">
+        <div class="document-brand-row">
+          <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
+          <span class="document-brand-divider" aria-hidden="true"></span>
+          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
+        </div>
+        <div class="document-cover-body">
+          <p class="document-kicker">Offer</p>
+          <h1>Lear Corp. FORMATION Offer</h1>
+          <p class="document-subtitle">Platform, support and roadmap for production rollout</p>
+          <div class="document-meta-row">
+            <span><strong>Attention:</strong> Timo Seber</span>
+            <span><strong>Date:</strong> 31.03.2026</span>
+            <span><strong>Offer valid for:</strong> 45 days</span>
+          </div>
+          <p class="document-intro">Dear Timo, following the successful completion of our joint POC 2025/2026 and the validation of the system in your facilities, we are pleased to present an updated offer for wider rollout based on the validated POC and current scope definition. The roadmap and estimates reflect our current understanding and will be refined as requirements are finalised.</p>
+        </div>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>1. Platform (Core System)</h2>
+          <p class="document-section-label">Pricing</p>
+          <p>We applied <strong>a 33% reduction to asset pricing (€1.50 to €1.00 per asset /mo)</strong> on the tracked assets. This significantly reduces the cost of scaling the system across additional assets &amp; sites.</p>
+          <p>Base platform access includes Admin Area, Team Management, Task Management, Zone Triggering and alerts, Rich Content, Wayfinding, Search &amp; Tagging, Spatial Insights Suite, access to Open Location Hub and IMDF map creation/editing tools, Asset ID management, and multi-tenant hosting with managed hosting available.</p>
+          <table class="document-table document-table-pricing">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Users</td><td>10</td><td>€99 / mo</td><td>€990 / mo</td></tr>
+              <tr><td>Admin (Insight Suite)</td><td>1</td><td>€150 / mo</td><td>€150 / mo</td></tr>
+              <tr><td>Tracked Assets</td><td>1000</td><td>€1.00 / mo</td><td>€1,000 / mo</td></tr>
+              <tr class="document-total-row"><td>Total (Monthly)</td><td></td><td></td><td>€2,140</td></tr>
+              <tr class="document-total-row"><td>Total (Yearly)</td><td></td><td></td><td>€25,680</td></tr>
+              <tr class="document-total-row"><td>Total (3 Yrs / 36 Months)</td><td></td><td></td><td>€77,040</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>2. Detailed Roadmap Scope &amp; Estimates</h2>
+          <p>This roadmap represents the transition from pilot setup to a scalable production system and establishes the foundation for standardised rollout across additional sites. It includes enterprise features, workflow capabilities, and system stabilisation required for multi-site rollout.</p>
+          <p><strong>The estimates reflect our current understanding of scope and exact requirements based on available information, we have therefore estimated conservatively.</strong> In the meantime we seek clarification on the requirements and will update estimates accordingly. The time estimates include the expected contributions across our team.</p>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <table class="document-table document-table-roadmap">
+            <thead>
+              <tr><th>Feature</th><th>~Days</th><th>Cost (€)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. Custom Geofencing &amp; System Integration with Lear Database</strong> Implementation of custom geofencing areas integrated with Lear systems via defined API interfaces and Omlox integration via Open Location Hub. Scope includes object creation, tag assignment workflows, and synchronisation with external systems.</td><td>8</td><td>€12,000</td></tr>
+              <tr><td><strong>2. Object &amp; User Messaging (Chat Functionality)</strong> User messaging capability associated with tracked objects or users, enabling improved operational communication within the platform. Notification will be in the app and by email.</td><td>4</td><td>€6,000</td></tr>
+              <tr><td><strong>3. Tag Grouping &amp; Containerisation of Multiple Tags</strong> Functionality to group multiple tags under a single logical container, enabling structured asset tracking and management.</td><td>10</td><td>€15,000</td></tr>
+              <tr><td><strong>4. Task Assignment Directly on Objects</strong> Task templates can be used to create different task types for a tracked object with assignees, status, and dashboard monitoring.</td><td>4</td><td>€6,000</td></tr>
+              <tr><td><strong>5. Object History &amp; Reporting - Auto-Archiving</strong> Auto-archive assets that have not moved in an agreed period while preserving search, recovery, and unarchive flows.</td><td>2</td><td>€3,000</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <table class="document-table document-table-roadmap document-table-roadmap-cont">
+            <thead>
+              <tr><th>Feature</th><th>~Days</th><th>Cost (€)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>6. Zone Behaviour Enhancements re Filters</strong> Filtering objects currently also hides zones. We will treat zones as part of the base map for this use case.</td><td>1</td><td>€1,500</td></tr>
+              <tr><td><strong>7. Business Unit Access Control</strong> Role- and business-unit-based access control within a shared workspace, ensuring appropriate data visibility and operational separation.</td><td>10</td><td>€15,000</td></tr>
+              <tr><td><strong>8. Microsoft SSO Integration</strong> Microsoft-based authentication using standard OpenID protocols, aligned with enterprise IT requirements.</td><td>5</td><td>€7,500</td></tr>
+              <tr><td><strong>9. Event-Based Notifications</strong> Zone-triggered email and app notifications when assets appear inside a zone / tracked area, including related edge-case handling.</td><td>5</td><td>€7,500</td></tr>
+              <tr class="document-total-row"><td>Total for all roadmap items</td><td>49</td><td>€73,500</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>Payment Terms</h2>
+          <ol class="document-numbered-list">
+            <li><strong>Annual billing in advance.</strong> With commitment to a 3 years / 36-month period in advance we will apply a <strong>10% discount</strong>, resulting in <strong>€1,926 /mo</strong> or <strong>€69,336 total</strong> for all 3 years.</li>
+            <li><strong>Roadmap Implementation (Development Work).</strong> Standard Development Rate: <strong>€1,500 per day</strong>. 50% upfront with 50% paid upon completion. For committed roadmap delivery, effective rates can go as low as <strong>€1,000 / day</strong>.</li>
+          </ol>
+        </section>
+
+        <section class="document-section">
+          <h2>3. Integration &amp; Support</h2>
+          <p><strong>Optional Support &amp; Maintenance (recommended for production operation)</strong></p>
+          <p>Includes full Lear Database integration and upfront setup plus ongoing maintenance, uptime monitoring, technical support and all future updates.</p>
+          <p class="document-callout-price">€10K / year</p>
+          <div class="document-two-up">
+            <div>
+              <p class="document-section-label">Includes</p>
+              <ul class="document-list">
+                <li>Lear database integration support</li>
+                <li>System maintenance &amp; updates</li>
+                <li>Uptime monitoring &amp; technical support</li>
+              </ul>
+            </div>
+            <div>
+              <p class="document-section-label">Not Included (but available)</p>
+              <p>Dedicated Hosting @ approx 24K per year.</p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>4. Cost Summary</h2>
+          <div class="document-summary-grid">
+            <div class="document-summary-card">
+              <h3>Platform</h3>
+              <p><strong>3-Year Platform:</strong> €77,040</p>
+              <p><strong>Equivalent:</strong> €25,680 / year and €2,140 / mo</p>
+              <p><strong>With 3-year payment commitment:</strong> €69,336</p>
+              <p><strong>Discounted equivalent:</strong> €23,112 / year and €1,926 / mo</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Support &amp; Maintenance</h3>
+              <p><strong>€10,000 / year</strong></p>
+              <p>€833 / mo equivalent</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Roadmap Development</h3>
+              <p><strong>One-time:</strong> €73,500</p>
+              <p>49 days</p>
+            </div>
+          </div>
+          <div class="document-total-band">
+            <span>Total (3-year horizon)</span>
+            <strong>Without discount: €180,540</strong>
+            <strong>With upfront discount: €172,836</strong>
+          </div>
+        </section>
+
+        <section class="document-section">
+          <h2>5. Closing</h2>
+          <p>The focus of this proposal is not short-term cost optimization, but establishing a robust, scalable system that can be reliably rolled out and operated over the long term. This is particularly important in production environments where <strong>system reliability and operational continuity</strong> are critical.</p>
+          <p>This structure provides a clear and low-risk path to production rollout while maintaining flexibility for future expansion. If we structure the roadmap as a committed delivery block, we can optimize both pricing and delivery efficiency, while accelerating the rollout timeline. We are happy to align on a co-creation approach that balances platform evolution and Lear-specific requirements.</p>
+          <div class="document-signoff">
+            <p>Yours sincerely,</p>
+            <img src="assets/ian-signature.png" alt="Ian Hannigan signature" class="document-signature-image" />
+            <p class="document-signature-name">Ian Hannigan</p>
+            <p>Geschäftsführer</p>
+            <p>FORMATION GmbH</p>
+            <div class="document-signature-line"></div>
+            <p>Berlin, 31.03.2026</p>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <div class="document-canvas document-canvas-de">
+      <article class="document-page document-page-cover">
+        <div class="document-brand-row">
+          <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
+          <span class="document-brand-divider" aria-hidden="true"></span>
+          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
+        </div>
+        <div class="document-cover-body">
+          <p class="document-kicker">Angebot</p>
+          <h1>Lear Corp. FORMATION Angebot</h1>
+          <p class="document-subtitle">Plattform, Support und Roadmap für den Produktions-Rollout</p>
+          <div class="document-meta-row">
+            <span><strong>Zu Händen:</strong> Timo Seber</span>
+            <span><strong>Datum:</strong> 31.03.2026</span>
+            <span><strong>Angebot gültig für:</strong> 45 Tage</span>
+          </div>
+          <p class="document-intro">Sehr geehrter Timo, nach dem erfolgreichen Abschluss unseres gemeinsamen POC 2025/2026 und der Validierung des Systems in Ihren Standorten freuen wir uns, Ihnen ein aktualisiertes Angebot für den breiteren Rollout auf Basis des validierten POC und der aktuellen Scope-Definition vorzulegen. Roadmap und Schätzungen spiegeln unseren aktuellen Kenntnisstand wider und werden weiter präzisiert, sobald die Anforderungen finalisiert sind.</p>
+        </div>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>1. Plattform (Kernsystem)</h2>
+          <p class="document-section-label">Preisgestaltung</p>
+          <p>Wir haben <strong>eine Reduktion von 33 % auf die Asset-Preisgestaltung (von 1,50 € auf 1,00 € pro Asset / Monat)</strong> für die getrackten Assets angewendet. Dadurch sinken die Kosten für die Skalierung des Systems über zusätzliche Assets und Standorte deutlich.</p>
+          <p>Der Basiszugang zur Plattform umfasst Admin Area, Team Management, Task Management, Zone Triggering und Alerts, Rich Content, Wayfinding, Search &amp; Tagging, Spatial Insights Suite, Zugang zum Open Location Hub und zu IMDF-Map-Erstellungs- und Bearbeitungstools, Asset-ID-Management sowie Multi-Tenant-Hosting; Managed Hosting ist ebenfalls verfügbar.</p>
+          <table class="document-table document-table-pricing">
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Menge</th>
+                <th>Einzelpreis</th>
+                <th>Gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Nutzer</td><td>10</td><td>€99 / Monat</td><td>€990 / Monat</td></tr>
+              <tr><td>Admin (Insight Suite)</td><td>1</td><td>€150 / Monat</td><td>€150 / Monat</td></tr>
+              <tr><td>Getrackte Assets</td><td>1000</td><td>€1,00 / Monat</td><td>€1.000 / Monat</td></tr>
+              <tr class="document-total-row"><td>Gesamt (monatlich)</td><td></td><td></td><td>€2.140</td></tr>
+              <tr class="document-total-row"><td>Gesamt (jährlich)</td><td></td><td></td><td>€25.680</td></tr>
+              <tr class="document-total-row"><td>Gesamt (3 Jahre / 36 Monate)</td><td></td><td></td><td>€77.040</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>2. Detaillierter Roadmap-Umfang &amp; Schätzungen</h2>
+          <p>Diese Roadmap beschreibt den Übergang vom Pilot-Setup zu einem skalierbaren Produktionssystem und schafft die Grundlage für einen standardisierten Rollout über weitere Standorte. Sie umfasst Enterprise-Funktionen, Workflow-Fähigkeiten und Systemstabilisierung, die für einen Multi-Site-Rollout erforderlich sind.</p>
+          <p><strong>Die Schätzungen spiegeln unseren aktuellen Scope-Stand und die exakten Anforderungen auf Basis der verfügbaren Informationen wider; deshalb haben wir konservativ kalkuliert.</strong> Parallel dazu suchen wir weitere Klärung der Anforderungen und werden die Schätzungen entsprechend aktualisieren. Die Zeitangaben beinhalten die erwarteten Beiträge unseres Teams.</p>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <table class="document-table document-table-roadmap">
+            <thead>
+              <tr><th>Feature</th><th>~Tage</th><th>Kosten (€)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. Custom Geofencing &amp; Systemintegration mit der Lear-Datenbank</strong> Implementierung kundenspezifischer Geofencing-Bereiche mit Integration in Lear-Systeme über definierte API-Schnittstellen sowie Omlox-Integration über den Open Location Hub. Der Umfang beinhaltet Objektanlage, Tag-Zuweisungsworkflows und die Synchronisierung mit externen Systemen.</td><td>8</td><td>€12.000</td></tr>
+              <tr><td><strong>2. Objekt- &amp; User-Messaging (Chat-Funktionalität)</strong> Messaging-Funktion für getrackte Objekte oder Nutzer zur Verbesserung der operativen Kommunikation innerhalb der Plattform. Benachrichtigungen erfolgen in der App und per E-Mail.</td><td>4</td><td>€6.000</td></tr>
+              <tr><td><strong>3. Tag-Gruppierung &amp; Containerisierung mehrerer Tags</strong> Funktionalität zur Gruppierung mehrerer Tags unter einem logischen Container für strukturiertes Asset-Tracking und Management.</td><td>10</td><td>€15.000</td></tr>
+              <tr><td><strong>4. Aufgaben direkt auf Objekten zuweisen</strong> Über Task-Templates können unterschiedliche Aufgabentypen für ein getracktes Objekt mit Zuständigkeiten, Status und Dashboard-Monitoring erstellt werden.</td><td>4</td><td>€6.000</td></tr>
+              <tr><td><strong>5. Objekthistorie &amp; Reporting - Auto-Archivierung</strong> Automatische Archivierung von Assets, die sich über einen abgestimmten Zeitraum nicht bewegt haben, inklusive Search-, Recovery- und Unarchive-Flows.</td><td>2</td><td>€3.000</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <table class="document-table document-table-roadmap document-table-roadmap-cont">
+            <thead>
+              <tr><th>Feature</th><th>~Tage</th><th>Kosten (€)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>6. Verbesserungen des Zonenverhaltens in Bezug auf Filter</strong> Beim Filtern von Objekten werden aktuell auch Zonen ausgeblendet. Für diesen Use Case behandeln wir Zonen als Teil der Basiskarte.</td><td>1</td><td>€1.500</td></tr>
+              <tr><td><strong>7. Business-Unit-Zugriffskontrolle</strong> Rollen- und Business-Unit-basierte Zugriffskontrolle innerhalb eines gemeinsamen Workspaces, um angemessene Daten-Sichtbarkeit und operative Trennung sicherzustellen.</td><td>10</td><td>€15.000</td></tr>
+              <tr><td><strong>8. Microsoft SSO Integration</strong> Microsoft-basierte Authentifizierung über Standard-OpenID-Protokolle, abgestimmt auf Enterprise-IT-Anforderungen.</td><td>5</td><td>€7.500</td></tr>
+              <tr><td><strong>9. Ereignisbasierte Benachrichtigungen</strong> Zonengetriggerte E-Mail- und App-Benachrichtigungen, wenn Assets in einer Zone / einem getrackten Bereich erscheinen, inklusive relevanter Edge Cases.</td><td>5</td><td>€7.500</td></tr>
+              <tr class="document-total-row"><td>Gesamt für alle Roadmap-Positionen</td><td>49</td><td>€73.500</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>Zahlungsbedingungen</h2>
+          <ol class="document-numbered-list">
+            <li><strong>Jährliche Abrechnung im Voraus.</strong> Bei einer Verpflichtung für einen Zeitraum von 3 Jahren / 36 Monaten im Voraus gewähren wir einen <strong>Rabatt von 10 %</strong>. Daraus ergeben sich <strong>€1.926 / Monat</strong> bzw. <strong>€69.336 gesamt</strong> für alle 3 Jahre.</li>
+            <li><strong>Roadmap-Umsetzung (Entwicklungsarbeit).</strong> Standard-Tagessatz Entwicklung: <strong>€1.500 pro Tag</strong>. 50 % upfront, 50 % bei Abschluss. Bei verbindlicher Roadmap-Lieferung kann der effektive Satz auf <strong>€1.000 / Tag</strong> sinken.</li>
+          </ol>
+        </section>
+
+        <section class="document-section">
+          <h2>3. Integration &amp; Support</h2>
+          <p><strong>Optionaler Support &amp; Maintenance (empfohlen für den Produktionsbetrieb)</strong></p>
+          <p>Enthält die vollständige Lear-Datenbankintegration und das initiale Setup sowie laufende Wartung, Uptime-Monitoring, technischen Support und alle zukünftigen Updates.</p>
+          <p class="document-callout-price">€10K / Jahr</p>
+          <div class="document-two-up">
+            <div>
+              <p class="document-section-label">Enthalten</p>
+              <ul class="document-list">
+                <li>Support für die Lear-Datenbankintegration</li>
+                <li>Systemwartung &amp; Updates</li>
+                <li>Uptime-Monitoring &amp; technischer Support</li>
+              </ul>
+            </div>
+            <div>
+              <p class="document-section-label">Nicht enthalten (aber verfügbar)</p>
+              <p>Dediziertes Hosting zu ca. 24K pro Jahr.</p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>4. Kostenzusammenfassung</h2>
+          <div class="document-summary-grid">
+            <div class="document-summary-card">
+              <h3>Plattform</h3>
+              <p><strong>3-Jahres-Plattform:</strong> €77.040</p>
+              <p><strong>Entspricht:</strong> €25.680 / Jahr und €2.140 / Monat</p>
+              <p><strong>Mit 3-Jahres-Zahlungsverpflichtung:</strong> €69.336</p>
+              <p><strong>Diskontiertes Äquivalent:</strong> €23.112 / Jahr und €1.926 / Monat</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Support &amp; Maintenance</h3>
+              <p><strong>€10.000 / Jahr</strong></p>
+              <p>€833 / Monat äquivalent</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Roadmap-Entwicklung</h3>
+              <p><strong>Einmalig:</strong> €73.500</p>
+              <p>49 Tage</p>
+            </div>
+          </div>
+          <div class="document-total-band">
+            <span>Gesamt (3-Jahres-Horizont)</span>
+            <strong>Ohne Rabatt: €180.540</strong>
+            <strong>Mit Vorauszahlungsrabatt: €172.836</strong>
+          </div>
+        </section>
+
+        <section class="document-section">
+          <h2>5. Abschluss</h2>
+          <p>Der Fokus dieses Angebots liegt nicht auf kurzfristiger Kostenoptimierung, sondern auf dem Aufbau eines robusten, skalierbaren Systems, das über einen langen Zeitraum zuverlässig ausgerollt und betrieben werden kann. Das ist insbesondere in Produktionsumgebungen wichtig, in denen <strong>Systemzuverlässigkeit und operative Kontinuität</strong> kritisch sind.</p>
+          <p>Diese Struktur bietet einen klaren und risikoarmen Weg in den Produktions-Rollout und erhält zugleich die Flexibilität für zukünftige Erweiterungen. Wenn wir die Roadmap als verbindlichen Delivery-Block strukturieren, können wir sowohl Preisgestaltung als auch Delivery-Effizienz optimieren und den Rollout beschleunigen. Wir stimmen uns gerne auf einen Co-Creation-Ansatz ab, der die Weiterentwicklung der Plattform und Lear-spezifische Anforderungen ausbalanciert.</p>
+          <div class="document-signoff">
+            <p>Mit freundlichen Grüßen,</p>
+            <img src="assets/ian-signature.png" alt="Unterschrift Ian Hannigan" class="document-signature-image" />
+            <p class="document-signature-name">Ian Hannigan</p>
+            <p>Geschäftsführer</p>
+            <p>FORMATION GmbH</p>
+            <div class="document-signature-line"></div>
+            <p>Berlin, 31.03.2026</p>
+          </div>
+        </section>
+      </article>
     </div>
   </div>
 
@@ -31,6 +357,16 @@
 
   <div class="slide-footer">
     <div class="footer-meta">
+      <button type="button" class="content-menu-toggle" aria-label="Open content menu" aria-haspopup="dialog"
+        aria-expanded="false" aria-controls="content-modal" title="Content menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7.5 3.5Z"></path>
+          <path d="M14 3.5V7h3"></path>
+          <path d="M8.5 10h7"></path>
+          <path d="M8.5 13.5h7"></path>
+          <path d="M8.5 17h4.5"></path>
+        </svg>
+      </button>
       <button type="button" class="theme-menu-toggle" aria-label="Open theme menu" aria-haspopup="dialog"
         aria-expanded="false" aria-controls="theme-modal" title="Theme menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -42,9 +378,17 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <span>&copy; 2026 FORMATION GmbH</span>
-      <a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
+      <a id="footer-site-link" href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
+      <span class="footer-divider" aria-hidden="true">|</span>
+      <span id="content-indicator" class="content-indicator">OFFER</span>
       <span class="footer-divider" aria-hidden="true">|</span>
       <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
+    </div>
+    <div class="footer-center">
+      <div class="view-switch" role="group" aria-label="View mode">
+        <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">SLIDES</button>
+        <button type="button" class="view-option" data-view="document" aria-pressed="false">DOCUMENT</button>
+      </div>
     </div>
     <div class="footer-nav">
       <span id="slide-counter"></span>
@@ -67,9 +411,32 @@
     </div>
   </div>
 
+  <div class="content-modal-backdrop" id="content-modal-backdrop" hidden></div>
+  <div class="content-modal" id="content-modal" role="dialog" aria-modal="true" aria-label="Deck content" hidden>
+    <div class="content-switch" role="listbox" aria-label="Deck content">
+      <button type="button" class="content-option is-active" data-content="offer" aria-pressed="true">
+        <span class="content-option-title">Offer</span>
+        <span class="content-option-meta">Current Lear offer deck</span>
+      </button>
+      <button type="button" class="content-option" data-content="xyz-sales" aria-pressed="false" disabled>
+        <span class="content-option-title">XYZ Sales Deck</span>
+        <span class="content-option-meta">Slot ready, content not added yet</span>
+      </button>
+      <button type="button" class="content-option" data-content="formation-sales" aria-pressed="false" disabled>
+        <span class="content-option-title">FORMATION Sales Deck</span>
+        <span class="content-option-meta">Slot ready, content not added yet</span>
+      </button>
+      <button type="button" class="content-option" data-content="invoice" aria-pressed="false" disabled>
+        <span class="content-option-title">Invoice</span>
+        <span class="content-option-meta">Slot ready, content not added yet</span>
+      </button>
+    </div>
+  </div>
+
   <div class="theme-modal-backdrop" id="theme-modal-backdrop" hidden></div>
   <div class="theme-modal" id="theme-modal" role="dialog" aria-modal="true" aria-label="Deck theme" hidden>
     <div class="theme-switch" role="group" aria-label="Deck theme">
+      <button type="button" class="theme-option" data-theme="xyz" aria-pressed="false">XYZ</button>
       <button type="button" class="theme-option" data-theme="formation" aria-pressed="false">FORMATION</button>
       <button type="button" class="theme-option is-active" data-theme="lear" aria-pressed="true">LEAR</button>
       <button type="button" class="theme-option" data-theme="lear-light" aria-pressed="false">LEAR LIGHT</button>
@@ -81,13 +448,45 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404ax';
+    const DECK_VERSION = '20260404bg';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
+    const DECK_VIEW_KEY = 'formation-deck-view';
+    const DECK_CONTENT_KEY = 'formation-deck-content';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
       de: `slides.de.md?v=${DECK_VERSION}`
+    };
+    const CONTENT_VARIANTS = {
+      offer: {
+        available: true,
+        labels: { en: 'Offer', de: 'Angebot' },
+        detail: { en: 'Current Lear offer deck', de: 'Aktuelles Lear-Angebot' },
+        sources: DECK_SOURCES
+      },
+      'xyz-sales': {
+        available: true,
+        labels: { en: 'XYZ Sales Deck', de: 'XYZ Sales Deck' },
+        detail: { en: 'Website-structured XYZ sales story', de: 'Website-strukturierte XYZ Sales Story' },
+        hasDocument: false,
+        sources: {
+          en: `slides.xyz-sales.md?v=${DECK_VERSION}`,
+          de: `slides.xyz-sales.de.md?v=${DECK_VERSION}`
+        }
+      },
+      'formation-sales': {
+        available: false,
+        labels: { en: 'FORMATION Sales Deck', de: 'FORMATION Sales Deck' },
+        detail: { en: 'Slot ready, content not added yet', de: 'Slot vorbereitet, Inhalte noch nicht hinzugefuegt' },
+        hasDocument: false
+      },
+      invoice: {
+        available: false,
+        labels: { en: 'Invoice', de: 'Rechnung' },
+        detail: { en: 'Slot ready, content not added yet', de: 'Slot vorbereitet, Inhalte noch nicht hinzugefuegt' },
+        hasDocument: false
+      }
     };
     const LANGUAGE_COPY = {
       en: {
@@ -129,6 +528,34 @@
         openLabel: 'Stilmenü öffnen',
         closeLabel: 'Stilmenü schließen',
         toggleTitle: 'Stilmenü'
+      }
+    };
+    const CONTENT_COPY = {
+      en: {
+        switchLabel: 'Deck content',
+        openLabel: 'Open content menu',
+        closeLabel: 'Close content menu',
+        toggleTitle: 'Content menu',
+        indicatorLabel: 'Content'
+      },
+      de: {
+        switchLabel: 'Deck-Inhalt',
+        openLabel: 'Inhaltsmenue oeffnen',
+        closeLabel: 'Inhaltsmenue schliessen',
+        toggleTitle: 'Inhaltsmenue',
+        indicatorLabel: 'Inhalt'
+      }
+    };
+    const VIEW_COPY = {
+      en: {
+        switchLabel: 'View mode',
+        slides: 'SLIDES',
+        document: 'DOCUMENT'
+      },
+      de: {
+        switchLabel: 'Ansicht',
+        slides: 'FOLIEN',
+        document: 'DOKUMENT'
       }
     };
     const THEME_BACKGROUNDS = {
@@ -192,6 +619,48 @@
           url: 'assets/panattoni-park-bremen-6.jpg'
         }
       },
+      xyz: {
+        cover: {
+          type: 'video',
+          url: 'https://formationxyz.com/site-assets/home/hero-video-5.mp4'
+        },
+        intro: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/hero-wide-light.webp'
+        },
+        platform: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/hero-tubemap-darktmode.webp'
+        },
+        roadmap: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/chatmaps/chatmaps-map1.webp'
+        },
+        'packages-a': {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/services/openclaw24_hu_e65f10eac09369f9.webp'
+        },
+        'packages-b': {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/services/nanobot13_hu_13eea662cd1b6895.webp'
+        },
+        support: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/xyz-neon-wall-light.webp'
+        },
+        summary: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/why-choose-xyz-neon.webp'
+        },
+        closing: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/deltacampus.webp'
+        },
+        end: {
+          type: 'image',
+          url: 'https://formationxyz.com/site-assets/home/hero-video-poster.webp'
+        }
+      },
       'lear-light': {
         cover: {
           type: 'image',
@@ -238,6 +707,8 @@
 
     let currentLanguage = 'en';
     let currentTheme = 'lear';
+    let currentView = 'slides';
+    let currentContent = 'offer';
     let deployMetadata = null;
     let localUpdatedAt = '';
 
@@ -272,7 +743,19 @@
     }
 
     function normalizeTheme(theme) {
-      return theme === 'formation' || theme === 'lear' || theme === 'lear-light' ? theme : 'lear';
+      return theme === 'xyz' || theme === 'formation' || theme === 'lear' || theme === 'lear-light' ? theme : 'lear';
+    }
+
+    function normalizeView(view) {
+      return view === 'document' ? 'document' : 'slides';
+    }
+
+    function normalizeContent(content) {
+      if (!content || !Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, content)) {
+        return 'offer';
+      }
+
+      return CONTENT_VARIANTS[content].available ? content : 'offer';
     }
 
     function persistTheme(theme) {
@@ -291,9 +774,56 @@
       }
     }
 
+    function persistView(view) {
+      try {
+        window.localStorage.setItem(DECK_VIEW_KEY, view);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getPreferredView() {
+      try {
+        return normalizeView(window.localStorage.getItem(DECK_VIEW_KEY) || 'slides');
+      } catch (error) {
+        return 'slides';
+      }
+    }
+
+    function persistContent(content) {
+      try {
+        window.localStorage.setItem(DECK_CONTENT_KEY, content);
+      } catch (error) {
+        // Ignore localStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function getPreferredContent() {
+      try {
+        return normalizeContent(window.localStorage.getItem(DECK_CONTENT_KEY) || 'offer');
+      } catch (error) {
+        return 'offer';
+      }
+    }
+
+    function getContentVariant(content = currentContent) {
+      return CONTENT_VARIANTS[normalizeContent(content)] || CONTENT_VARIANTS.offer;
+    }
+
     function applyTheme(theme) {
       currentTheme = normalizeTheme(theme);
       document.body.setAttribute('data-theme', currentTheme);
+
+      const footerSiteLink = document.getElementById('footer-site-link');
+      if (footerSiteLink) {
+        if (currentTheme === 'xyz') {
+          footerSiteLink.href = 'https://formationxyz.com';
+          footerSiteLink.textContent = 'FORMATIONXYZ.COM';
+        } else {
+          footerSiteLink.href = 'https://tryformation.com';
+          footerSiteLink.textContent = 'TRYFORMATION.COM';
+        }
+      }
 
       const switcher = document.querySelector('.theme-switch');
       const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
@@ -308,10 +838,82 @@
       });
     }
 
+    function applyContent(content) {
+      currentContent = normalizeContent(content);
+      document.body.setAttribute('data-content', currentContent);
+
+      const contentVariant = getContentVariant(currentContent);
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      const contentIndicator = document.getElementById('content-indicator');
+      if (contentIndicator) {
+        contentIndicator.textContent = (contentVariant.labels?.[currentLanguage] || contentVariant.labels?.en || 'Offer').toUpperCase();
+      }
+
+      const contentSwitcher = document.querySelector('.content-switch');
+      if (contentSwitcher) {
+        contentSwitcher.setAttribute('aria-label', contentCopy.switchLabel);
+      }
+
+      document.querySelectorAll('.content-option').forEach(button => {
+        const variant = CONTENT_VARIANTS[button.dataset.content || 'offer'];
+        const isActive = button.dataset.content === currentContent;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        button.disabled = !(variant?.available);
+
+        const title = button.querySelector('.content-option-title');
+        const meta = button.querySelector('.content-option-meta');
+        if (title) {
+          title.textContent = variant?.labels?.[currentLanguage] || variant?.labels?.en || '';
+        }
+        if (meta) {
+          meta.textContent = variant?.detail?.[currentLanguage] || variant?.detail?.en || '';
+        }
+      });
+
+      const documentButton = document.querySelector('.view-option[data-view="document"]');
+      const hasDocument = contentVariant.hasDocument !== false;
+      if (documentButton) {
+        documentButton.disabled = !hasDocument;
+        documentButton.setAttribute('aria-disabled', hasDocument ? 'false' : 'true');
+        documentButton.classList.toggle('is-disabled', !hasDocument);
+        documentButton.title = hasDocument ? '' : 'Document view not available for this content';
+      }
+
+      if (!hasDocument && currentView === 'document') {
+        persistView('slides');
+        applyView('slides');
+      }
+    }
+
+    function applyView(view) {
+      currentView = normalizeView(view);
+      document.documentElement.classList.toggle('document-mode', currentView === 'document');
+      document.documentElement.classList.toggle('slides-mode', currentView !== 'document');
+      document.body.classList.toggle('document-mode', currentView === 'document');
+      document.body.classList.toggle('slides-mode', currentView !== 'document');
+
+      const documentView = document.getElementById('document-view');
+      if (documentView) {
+        documentView.hidden = currentView !== 'document';
+      }
+
+      if (currentView === 'document') {
+        window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+      }
+
+      document.querySelectorAll('.view-option').forEach(button => {
+        const isActive = button.dataset.view === currentView;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
     function applyLanguageMetadata(language) {
       const copy = LANGUAGE_COPY[language] || LANGUAGE_COPY.en;
       document.documentElement.lang = copy.htmlLang;
       document.title = copy.title;
+      document.body.setAttribute('data-language', language);
 
       const switcher = document.querySelector('.language-switch');
       if (switcher) {
@@ -336,12 +938,35 @@
         themeModalClose.setAttribute('title', themeCopy.closeLabel);
       }
 
+      const contentSwitcher = document.querySelector('.content-switch');
+      const contentCopy = CONTENT_COPY[language] || CONTENT_COPY.en;
+      if (contentSwitcher) {
+        contentSwitcher.setAttribute('aria-label', contentCopy.switchLabel);
+      }
+
+      const contentMenuToggle = document.querySelector('.content-menu-toggle');
+      if (contentMenuToggle) {
+        contentMenuToggle.setAttribute('aria-label', contentCopy.openLabel);
+        contentMenuToggle.setAttribute('title', contentCopy.toggleTitle);
+      }
+
+      const viewSwitcher = document.querySelector('.view-switch');
+      const viewCopy = VIEW_COPY[language] || VIEW_COPY.en;
+      if (viewSwitcher) {
+        viewSwitcher.setAttribute('aria-label', viewCopy.switchLabel);
+      }
+
+      document.querySelectorAll('.view-option').forEach(button => {
+        button.textContent = button.dataset.view === 'document' ? viewCopy.document : viewCopy.slides;
+      });
+
       document.querySelectorAll('.language-option').forEach(button => {
         const isActive = button.dataset.language === language;
         button.classList.toggle('is-active', isActive);
         button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
 
+      applyContent(currentContent);
       renderDeployTimestamp();
     }
 
@@ -351,7 +976,9 @@
         return;
       }
 
-      slideSource.setAttribute('data-markdown', DECK_SOURCES[language]);
+      const contentVariant = getContentVariant();
+      const sources = contentVariant.sources || DECK_SOURCES;
+      slideSource.setAttribute('data-markdown', sources[language] || sources.en || DECK_SOURCES[language]);
     }
 
     function updateLanguageLocation(language) {
@@ -391,13 +1018,30 @@
       }, 180);
     }
 
+    function switchDeckView(view) {
+      const nextView = normalizeView(view);
+      if (nextView === currentView) {
+        return;
+      }
+
+      persistView(nextView);
+      applyView(nextView);
+      closeContentModal();
+      closeThemeModal();
+
+      if (nextView !== 'document') {
+        syncChromeSoon();
+        relayoutSoon();
+      }
+    }
+
     function applyThemeBackgrounds() {
       const slides = Array.from(document.querySelectorAll('.reveal .slides section[data-theme-background]'));
       if (!slides.length) {
         return;
       }
 
-      const backgroundConfig = THEME_BACKGROUNDS[currentTheme] || THEME_BACKGROUNDS.lear;
+      const backgroundConfig = THEME_BACKGROUNDS[currentTheme] || THEME_BACKGROUNDS.xyz;
 
       slides.forEach(slide => {
         const key = slide.dataset.themeBackground;
@@ -452,6 +1096,43 @@
         modal.classList.add('is-open');
         backdrop.classList.add('is-open');
       });
+    }
+
+    function openContentModal() {
+      const modal = document.getElementById('content-modal');
+      const backdrop = document.getElementById('content-modal-backdrop');
+      const toggle = document.querySelector('.content-menu-toggle');
+      if (!modal || !backdrop) {
+        return;
+      }
+
+      closeThemeModal();
+      modal.hidden = false;
+      backdrop.hidden = false;
+      document.body.classList.add('content-modal-open');
+      toggle?.setAttribute('aria-expanded', 'true');
+      window.requestAnimationFrame(() => {
+        modal.classList.add('is-open');
+        backdrop.classList.add('is-open');
+      });
+    }
+
+    function closeContentModal() {
+      const modal = document.getElementById('content-modal');
+      const backdrop = document.getElementById('content-modal-backdrop');
+      const toggle = document.querySelector('.content-menu-toggle');
+      if (!modal || !backdrop) {
+        return;
+      }
+
+      modal.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+      document.body.classList.remove('content-modal-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      window.setTimeout(() => {
+        modal.hidden = true;
+        backdrop.hidden = true;
+      }, 160);
     }
 
     function closeThemeModal() {
@@ -1004,7 +1685,7 @@
 
       if (
         event.target.closest(
-          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal'
+          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
         )
       ) {
         return;
@@ -1091,9 +1772,15 @@
 
     const preferredLanguage = getPreferredLanguage();
     const preferredTheme = getPreferredTheme();
+    const preferredView = getPreferredView();
+    const preferredContent = getPreferredContent();
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
+    currentView = preferredView;
+    currentContent = preferredContent;
+    applyContent(currentContent);
     applyTheme(currentTheme);
+    applyView(currentView);
     applyDeckSource(currentLanguage);
     applyLanguageMetadata(currentLanguage);
 
@@ -1177,9 +1864,43 @@
         closeThemeModal();
       });
     });
+    document.querySelectorAll('.content-option').forEach(button => {
+      button.addEventListener('click', () => {
+        const nextContent = normalizeContent(button.dataset.content || 'offer');
+        if (nextContent === currentContent) {
+          closeContentModal();
+          return;
+        }
+
+        persistContent(nextContent);
+        applyContent(nextContent);
+        applyDeckSource(currentLanguage);
+        Reveal.sync();
+        Reveal.slide(0);
+        closeContentModal();
+        syncBackgroundClasses();
+        syncChromeSoon();
+        relayoutSoon();
+      });
+    });
+    document.querySelectorAll('.view-option').forEach(button => {
+      button.addEventListener('click', () => {
+        switchDeckView(button.dataset.view || 'slides');
+      });
+    });
+    document.querySelector('.content-menu-toggle')?.addEventListener('click', () => {
+      const modal = document.getElementById('content-modal');
+      if (modal?.hidden) {
+        openContentModal();
+      } else {
+        closeContentModal();
+      }
+    });
+    document.getElementById('content-modal-backdrop')?.addEventListener('click', closeContentModal);
     document.querySelector('.theme-menu-toggle')?.addEventListener('click', () => {
       const modal = document.getElementById('theme-modal');
       if (modal?.hidden) {
+        closeContentModal();
         openThemeModal();
       } else {
         closeThemeModal();
@@ -1188,6 +1909,9 @@
     document.querySelector('.theme-modal-close')?.addEventListener('click', closeThemeModal);
     document.getElementById('theme-modal-backdrop')?.addEventListener('click', closeThemeModal);
     window.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !document.getElementById('content-modal')?.hidden) {
+        closeContentModal();
+      }
       if (event.key === 'Escape' && !document.getElementById('theme-modal')?.hidden) {
         closeThemeModal();
       }
