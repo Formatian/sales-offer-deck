@@ -1,14 +1,21 @@
 <!-- .slide: class="title-slide proposal-cover hero-video-slide" data-background-video="https://tryformation.com/video/army-formation.mp4" data-background-video-loop="true" data-background-video-muted="true" -->
 
 <section class="cover-shell">
-  <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-wordmark-image" />
+  <div class="cover-brand-row">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+    <span class="cover-brand-divider" aria-hidden="true"></span>
+    <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
+  </div>
   <p class="cover-tagline">The power of knowing where</p>
   <div class="cover-rule"></div>
-  <h1 class="cover-title cover-title-main">Offer: Production Rollout &amp; Roadmap Development for Lear Corp.</h1>
+  <p class="cover-tagline cover-tagline-secondary">Offer</p>
+  <p class="cover-tagline cover-tagline-secondary">Production Rollout &amp; Custom Development</p>
   <div class="cover-meta">
     <span class="cover-meta-pill cover-issue-date">Issued: March 31, 2026</span>
     <span class="meta-separator">|</span>
-    <span class="cover-meta-pill">Prepared for: Timo Seber</span>
+    <span class="cover-meta-pill">Version 1.0</span>
+    <span class="meta-separator">|</span>
+    <span class="cover-meta-pill">Presented to: Timo Seber</span>
     <span class="meta-separator">|</span>
     <span class="cover-meta-pill">Offer valid for 45 days</span>
   </div>
@@ -312,9 +319,28 @@
 
 <div class="closing-layout">
   <div class="proposal-card closing-card closing-card-prepared">
-    <p class="eyebrow">Prepared By</p>
-    <h3 class="minor-heading">Ian Hannigan</h3>
-    <p>Founder and CEO<br />FORMATION GmbH<br />Berlin, March 31, 2026</p>
+    <p class="eyebrow">Presented By</p>
+    <a class="linkedin-preview" href="https://www.linkedin.com/in/ianhannigan/" target="_blank" rel="noreferrer noopener">
+      <img src="assets/founder-jilles-van-gurp-linkedin.jpg" alt="Ian Hannigan" class="linkedin-preview-avatar" />
+      <span class="linkedin-preview-body">
+        <strong>Ian Hannigan</strong>
+        <span>Founder and CEO at FORMATION GmbH</span>
+        <span>linkedin.com/in/ianhannigan</span>
+      </span>
+    </a>
+    <p><br /><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></p>
+  </div>
+  <div class="proposal-card closing-card closing-card-prepared">
+    <p class="eyebrow">Presented By</p>
+    <a class="linkedin-preview" href="https://www.linkedin.com/in/jillesvangurp/" target="_blank" rel="noreferrer noopener">
+      <img src="assets/founder-jilles-van-gurp.webp" alt="Dr. Jilles Van Gurp" class="linkedin-preview-avatar" />
+      <span class="linkedin-preview-body">
+        <strong>Dr. Jilles Van Gurp</strong>
+        <span>CTO and Founder at FORMATION GmbH</span>
+        <span>linkedin.com/in/jillesvangurp</span>
+      </span>
+    </a>
+    <p><br /><a href="mailto:jvg@tryformation.com">jvg@tryformation.com</a></p>
   </div>
 </div>
 
@@ -327,8 +353,6 @@
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Thank You</h2>
   <div class="cover-meta">
-    <span class="cover-meta-pill"><a href="mailto:ih@tryformation.com">ih@tryformation.com</a></span>
-    <span class="meta-separator">|</span>
     <span class="cover-meta-pill"><a href="https://tryformation.com" target="_blank" rel="noreferrer noopener">tryformation.com</a></span>
   </div>
 </section>

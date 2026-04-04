@@ -7,7 +7,7 @@
   <title>FORMATION x Lear Corp. Production Rollout</title>
   <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260403c" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260404c" />
 </head>
 
 <body>
@@ -55,7 +55,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260403c';
+    const DECK_VERSION = '20260404c';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
@@ -632,6 +632,49 @@
       Reveal.slide(targetIndex);
     }
 
+    function handleViewportSlideClick(event) {
+      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        return;
+      }
+
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      if (
+        event.target.closest(
+          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch'
+        )
+      ) {
+        return;
+      }
+
+      const activeSlide = document.querySelector('.reveal .slides section.present:not(.stack)');
+      if (!activeSlide) {
+        return;
+      }
+
+      if (event.target === activeSlide || activeSlide.contains(event.target)) {
+        return;
+      }
+
+      if (event.clientX < window.innerWidth / 2) {
+        Reveal.left();
+        return;
+      }
+
+      if (event.clientX >= window.innerWidth / 2) {
+        Reveal.right();
+      }
+    }
+
     function updateExternalLinks(scope = document) {
       scope.querySelectorAll('a[href]').forEach(link => {
         const href = link.getAttribute('href');
@@ -758,6 +801,7 @@
     document.querySelector('.reveal .progress')?.addEventListener('pointermove', handleProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
+    document.querySelector('.reveal-viewport')?.addEventListener('click', handleViewportSlideClick, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       Reveal.toggleOverview();
     });
