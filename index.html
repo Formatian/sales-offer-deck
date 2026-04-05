@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FORMATION x Lear Corp. Production Rollout</title>
-  <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
+  <title>FORMATION x noBaxx Production Rollout</title>
+  <link rel="icon" type="image/png" href="assets/nobaxx-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -31,7 +31,7 @@
         <div class="document-brand-row">
           <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
           <span class="document-brand-divider" aria-hidden="true"></span>
-          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
+          <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" class="document-brand document-brand-lear" />
         </div>
         <div class="document-cover-body">
           <p class="document-kicker">Offer</p>
@@ -193,7 +193,7 @@
         <div class="document-brand-row">
           <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
           <span class="document-brand-divider" aria-hidden="true"></span>
-          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
+          <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" class="document-brand document-brand-lear" />
         </div>
         <div class="document-cover-body">
           <p class="document-kicker">Angebot</p>
@@ -709,7 +709,7 @@
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" />
   </a>
   <div class="corner-partner-brand" aria-hidden="true">
-    <img src="assets/lear-logo.svg" alt="Lear Corporation" />
+    <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" />
   </div>
 
   <div class="slide-footer">
@@ -1225,6 +1225,58 @@
             end: { type: 'image', url: 'assets/berlin-partner-home.png' }
           }
         }
+      },
+      {
+        id: 'nobaxx',
+        baseTheme: 'formation',
+        locked: false,
+        name: { en: 'noBaxx', de: 'noBaxx' },
+        references: {
+          urls: ['https://www.nobaxx.gmbh/'],
+          notes: 'Seeded noBaxx style using the official website logo and inferred green service-brand palette.',
+          files: [
+            { name: 'nobaxx-logo.png', type: 'image/png', size: 0 },
+            { name: 'nobaxx-favicon.png', type: 'image/png', size: 0 }
+          ]
+        },
+        generated: {
+          accent: '#9dbc3c',
+          accentStrong: '#bdd85a',
+          line: 'rgba(157, 188, 60, 0.2)',
+          hover: 'rgba(157, 188, 60, 0.12)',
+          quote: 'rgba(157, 188, 60, 0.82)',
+          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
+          radiusMode: 'soft',
+          imageMode: 'dark',
+          baseTheme: 'formation',
+          colorBg: '#112724',
+          colorBg2: '#17322e',
+          colorPanel: 'rgba(16, 37, 34, 0.8)',
+          colorPanelStrong: 'rgba(18, 42, 38, 0.93)',
+          colorInk: '#f3f7ef',
+          colorMuted: 'rgba(225, 234, 221, 0.78)',
+          tableHeadBg: 'rgba(157, 188, 60, 0.9)',
+          footerBg: 'rgba(11, 26, 24, 0.62)',
+          footerInk: 'rgba(233, 239, 230, 0.76)',
+          controlBg: 'rgba(17, 38, 35, 0.56)',
+          switchBg: 'rgba(17, 38, 35, 0.5)',
+          cardBg: 'linear-gradient(180deg, rgba(20, 43, 39, 0.92), rgba(15, 34, 31, 0.92))',
+          tableBg: 'rgba(18, 40, 36, 0.94)',
+          summaryBg: 'rgba(18, 40, 36, 0.9)',
+          blockquoteBg: 'rgba(18, 40, 36, 0.88)',
+          documentBg: '#e2eadc',
+          documentPaper: '#fbfdf8',
+          documentInk: '#17211d',
+          documentLine: '#c7d4c1',
+          documentAccent: '#7f9930',
+          documentAccentSoft: '#ebf2df',
+          documentAccentWash: 'rgba(157, 188, 60, 0.08)',
+          coverBrandPrimaryWidth: 'min(28vw, 290px)',
+          coverBrandSecondaryWidth: 'min(24vw, 252px)',
+          logoUrl: 'assets/nobaxx-logo.png',
+          logoAlt: 'noBaxx GmbH'
+        }
       }
     ];
     const CUSTOM_STYLE_PALETTES = [
@@ -1391,6 +1443,48 @@
             }
           }
         }
+      },
+      {
+        id: 'nobaxx',
+        match: ['nobaxx.gmbh', 'nobaxx', 'no baxx', 'schaedlingsbekaempfung', 'schädlingsbekämpfung', 'pest control'],
+        generated: {
+          accent: '#9dbc3c',
+          accentStrong: '#bdd85a',
+          line: 'rgba(157, 188, 60, 0.2)',
+          hover: 'rgba(157, 188, 60, 0.12)',
+          quote: 'rgba(157, 188, 60, 0.82)',
+          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
+          radiusMode: 'soft',
+          imageMode: 'dark',
+          baseTheme: 'formation',
+          colorBg: '#112724',
+          colorBg2: '#17322e',
+          colorPanel: 'rgba(16, 37, 34, 0.8)',
+          colorPanelStrong: 'rgba(18, 42, 38, 0.93)',
+          colorInk: '#f3f7ef',
+          colorMuted: 'rgba(225, 234, 221, 0.78)',
+          tableHeadBg: 'rgba(157, 188, 60, 0.9)',
+          footerBg: 'rgba(11, 26, 24, 0.62)',
+          footerInk: 'rgba(233, 239, 230, 0.76)',
+          controlBg: 'rgba(17, 38, 35, 0.56)',
+          switchBg: 'rgba(17, 38, 35, 0.5)',
+          cardBg: 'linear-gradient(180deg, rgba(20, 43, 39, 0.92), rgba(15, 34, 31, 0.92))',
+          tableBg: 'rgba(18, 40, 36, 0.94)',
+          summaryBg: 'rgba(18, 40, 36, 0.9)',
+          blockquoteBg: 'rgba(18, 40, 36, 0.88)',
+          documentBg: '#e2eadc',
+          documentPaper: '#fbfdf8',
+          documentInk: '#17211d',
+          documentLine: '#c7d4c1',
+          documentAccent: '#7f9930',
+          documentAccentSoft: '#ebf2df',
+          documentAccentWash: 'rgba(157, 188, 60, 0.08)',
+          coverBrandPrimaryWidth: 'min(28vw, 290px)',
+          coverBrandSecondaryWidth: 'min(24vw, 252px)',
+          logoUrl: 'assets/nobaxx-logo.png',
+          logoAlt: 'noBaxx GmbH'
+        }
       }
     ];
     const CONTENT_COPY = {
@@ -1496,6 +1590,13 @@
         domains: ['berlin-partner.de'],
         url: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
         alt: 'Berlin Partner'
+      },
+      {
+        id: 'nobaxx',
+        aliases: ['nobaxx', 'no baxx'],
+        domains: ['nobaxx.gmbh'],
+        url: 'assets/nobaxx-logo.png',
+        alt: 'noBaxx GmbH'
       }
     ];
     const THEME_BACKGROUNDS = {
@@ -1646,7 +1747,7 @@
     };
 
     let currentLanguage = 'en';
-    let currentTheme = 'lear';
+    let currentTheme = 'nobaxx';
     let currentView = 'slides';
     let currentDocumentColorMode = 'color';
     let currentContent = 'offer';
@@ -2600,7 +2701,7 @@
   <div class="cover-brand-row">
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
     <span class="cover-brand-divider" aria-hidden="true"></span>
-    <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+    <img src="assets/nobaxx-logo.png" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
   <p class="cover-tagline">${copy.kicker}</p>
   <div class="cover-rule"></div>
@@ -2737,7 +2838,7 @@ ${lineItemRows}
             <div class="cover-brand-row">
               <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
               <span class="cover-brand-divider" aria-hidden="true"></span>
-              <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+              <img src="assets/nobaxx-logo.png" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${copy.kicker}</p>
             <div class="cover-rule"></div>
@@ -2881,7 +2982,7 @@ ${lineItemRows}
   <div class="cover-brand-row">
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
     <span class="cover-brand-divider" aria-hidden="true"></span>
-    <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+    <img src="assets/nobaxx-logo.png" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
   <p class="cover-tagline">${labels.kicker}</p>
   <div class="cover-rule"></div>
@@ -3046,7 +3147,7 @@ ${excerptCards}
             <div class="cover-brand-row">
               <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
               <span class="cover-brand-divider" aria-hidden="true"></span>
-              <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+              <img src="assets/nobaxx-logo.png" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${labels.kicker}</p>
             <div class="cover-rule"></div>
@@ -3463,7 +3564,7 @@ ${excerptCards}
           <div class="document-brand-row">
             <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
             <span class="document-brand-divider" aria-hidden="true"></span>
-            <img src="assets/lear-logo.svg" alt="${title}" class="document-brand document-brand-lear" />
+            <img src="assets/nobaxx-logo.png" alt="${title}" class="document-brand document-brand-lear" />
           </div>
           <div class="document-cover-body">
             <p class="document-kicker">${labels.kicker}</p>
@@ -4068,8 +4169,8 @@ ${excerptCards}
       }
 
       return {
-        url: 'assets/lear-logo.svg',
-        alt: 'Lear Corporation'
+        url: 'assets/nobaxx-logo.png',
+        alt: 'noBaxx GmbH'
       };
     }
 
