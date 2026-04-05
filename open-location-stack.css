@@ -2105,6 +2105,13 @@ body.content-modal-open .content-menu-toggle {
   padding: 0.5rem 0.6rem;
 }
 
+.content-import-note {
+  margin: -0.15rem 0 0;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--footer-ink) 78%, transparent);
+}
+
 .content-reference-files {
   display: flex;
   flex-wrap: wrap;
@@ -2664,7 +2671,7 @@ body[data-theme="xyz"] .document-page::before {
 }
 
 .document-page-cover {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .document-page-body {
@@ -2677,6 +2684,7 @@ body[data-theme="xyz"] .document-page::before {
   flex-direction: column;
   justify-content: space-between;
   flex: 1 1 auto;
+  min-height: 0;
 }
 
 body.document-overview-active .document-view {
@@ -3253,6 +3261,356 @@ body[data-theme="xyz"] .document-total-band {
   font-size: 0.56rem;
   line-height: 1.32;
   color: color-mix(in srgb, var(--document-ink) 78%, white 14%);
+}
+
+body[data-content="nobaxx"] .document-view {
+  background:
+    linear-gradient(180deg, #d8d1c7 0%, #cfc7bd 100%);
+}
+
+body[data-content="nobaxx"] .document-page {
+  background: #fffdfb;
+  border-color: rgba(108, 98, 90, 0.18);
+  box-shadow: 0 24px 46px rgba(54, 45, 39, 0.16);
+}
+
+body[data-content="nobaxx"] .document-page::before {
+  display: none;
+}
+
+.nobaxx-document-page {
+  padding: 10mm 12mm 10mm;
+}
+
+.nobaxx-document-page .invoice-document-company-line {
+  color: rgba(37, 33, 30, 0.72);
+}
+
+.nobaxx-document-page .invoice-document-header {
+  margin-bottom: 9mm;
+}
+
+.nobaxx-document-page .invoice-document-parties {
+  margin-bottom: 7mm;
+}
+
+.nobaxx-document-page .invoice-document-meta-grid {
+  margin-bottom: 7mm;
+  border-top: 1px solid #d5cec6;
+  border-bottom: 1px solid #d5cec6;
+  padding: 0.45rem 0;
+}
+
+.nobaxx-document-page .invoice-document-meta-grid span {
+  color: rgba(37, 33, 30, 0.66);
+  font-size: 0.67rem;
+  letter-spacing: 0.01em;
+}
+
+.nobaxx-document-page .invoice-document-meta-grid strong {
+  font-weight: 600;
+  color: #231d19;
+}
+
+.nobaxx-document-page h1 {
+  font-size: 1.28rem;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.nobaxx-document-page .invoice-document-greeting,
+.nobaxx-document-page .invoice-document-intro,
+.nobaxx-document-page .invoice-document-payment,
+.nobaxx-document-page .invoice-document-signoff {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.nobaxx-document-page .invoice-document-table {
+  margin-top: 0.25rem;
+}
+
+.nobaxx-document-page .invoice-document-table th {
+  background: #ece8e3;
+  font-size: 0.63rem;
+  letter-spacing: 0.04em;
+}
+
+.nobaxx-document-page .invoice-document-table td,
+.nobaxx-document-page .invoice-document-table th {
+  padding: 0.38rem 0.38rem;
+  border-color: #cfc7be;
+}
+
+.nobaxx-document-page .invoice-document-totals {
+  width: min(100%, 92mm);
+  margin-top: 0.15rem;
+}
+
+.nobaxx-document-page .invoice-document-totals div {
+  padding: 0.22rem 0;
+  border-bottom-color: #cfc7be;
+}
+
+.nobaxx-document-page .invoice-document-totals .is-grand-total {
+  font-weight: 800;
+}
+
+.nobaxx-document-page .invoice-document-signoff {
+  margin-top: 0.55rem;
+}
+
+.nobaxx-document-page .invoice-document-signoff .document-signature-image {
+  width: 118px;
+  filter: grayscale(1) contrast(1.03);
+}
+
+.nobaxx-document-page .document-page-footer {
+  margin-top: auto;
+  padding-top: 5mm;
+}
+
+.nobaxx-slide {
+  color: #171311;
+}
+
+body[data-content="nobaxx"] .proposal-card,
+body[data-content="nobaxx"] .metric-card,
+body[data-content="nobaxx"] .summary-band,
+body[data-content="nobaxx"] .pricing-callout {
+  color: #171311;
+  border-color: #d7cdc3;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 238, 0.94));
+  box-shadow: 0 16px 30px rgba(42, 34, 30, 0.07);
+}
+
+body[data-content="nobaxx"] .proposal-card::before,
+body[data-content="nobaxx"] .metric-card::before {
+  opacity: 0.18;
+}
+
+body[data-content="nobaxx"] .proposal-card h3,
+body[data-content="nobaxx"] .proposal-card p,
+body[data-content="nobaxx"] .proposal-card li,
+body[data-content="nobaxx"] .proposal-card a,
+body[data-content="nobaxx"] .proposal-card strong,
+body[data-content="nobaxx"] .metric-card p,
+body[data-content="nobaxx"] .metric-card strong,
+body[data-content="nobaxx"] .summary-band span,
+body[data-content="nobaxx"] .summary-band strong,
+body[data-content="nobaxx"] .pricing-callout,
+body[data-content="nobaxx"] .pricing-callout strong {
+  color: #171311;
+}
+
+body[data-content="nobaxx"] .proposal-card .eyebrow,
+body[data-content="nobaxx"] .metric-card .metric-label,
+body[data-content="nobaxx"] .summary-band .metric-label {
+  color: #7f120c;
+}
+
+.nobaxx-slide h2,
+.nobaxx-slide .slide-lead,
+.nobaxx-slide p,
+.nobaxx-slide li,
+.nobaxx-slide a,
+.nobaxx-slide strong {
+  color: inherit;
+}
+
+.nobaxx-slide h2 {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.7rem, 2.3vw, 2.25rem);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.nobaxx-slide .slide-lead {
+  max-width: 980px;
+  color: rgba(23, 19, 17, 0.74);
+}
+
+.nobaxx-offer-shell {
+  display: grid;
+  gap: 1.4rem;
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: 0.6rem 0 0.2rem;
+}
+
+.nobaxx-offer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nobaxx-company-line {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(23, 19, 17, 0.62);
+}
+
+.nobaxx-wordmark {
+  width: 170px;
+  height: auto;
+  object-fit: contain;
+}
+
+.nobaxx-offer-cover-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.9fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.nobaxx-party-block {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid #d6cec6;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 28px rgba(40, 32, 28, 0.06);
+}
+
+.nobaxx-party-block p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.nobaxx-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid #d2c8bf;
+  border-bottom: 1px solid #d2c8bf;
+}
+
+.nobaxx-meta-grid div {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.nobaxx-meta-grid span {
+  font-size: 0.78rem;
+  color: rgba(23, 19, 17, 0.58);
+}
+
+.nobaxx-meta-grid strong {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.nobaxx-offer-title-block {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 940px;
+}
+
+.nobaxx-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7f120c;
+}
+
+.nobaxx-offer-title-block h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.nobaxx-card {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid #d9d0c7;
+  box-shadow: 0 16px 30px rgba(42, 34, 30, 0.06);
+}
+
+.nobaxx-card .eyebrow {
+  color: #7f120c;
+}
+
+.nobaxx-card-price {
+  margin-top: 0.75rem !important;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.nobaxx-summary-grid {
+  margin-top: 1rem;
+}
+
+.nobaxx-pricing-table {
+  border-color: #cfc7be;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.nobaxx-pricing-table th {
+  background: #e9e4de;
+  color: #171311;
+}
+
+.nobaxx-pricing-table td,
+.nobaxx-pricing-table th {
+  border-color: #cfc7be;
+}
+
+.nobaxx-totals-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 1rem;
+  border: 1px solid #cfc7be;
+  background: rgba(248, 245, 241, 0.98);
+}
+
+.nobaxx-totals-band div {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.85rem 0.95rem;
+  border-right: 1px solid #cfc7be;
+}
+
+.nobaxx-totals-band div:last-child {
+  border-right: 0;
+}
+
+.nobaxx-totals-band span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(23, 19, 17, 0.58);
+}
+
+.nobaxx-totals-band strong {
+  font-size: 1rem;
+}
+
+.nobaxx-callout {
+  background: rgba(255, 253, 250, 0.88);
+  border-color: #d1c7bd;
+  color: #2a231e;
+}
+
+@media screen and (max-width: 960px) {
+  .nobaxx-offer-cover-grid,
+  .nobaxx-meta-grid,
+  .nobaxx-totals-band {
+    grid-template-columns: 1fr;
+  }
+
+  .nobaxx-offer-header {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .nobaxx-wordmark {
+    width: 140px;
+  }
 }
 
 @media screen and (max-width: 960px) {
