@@ -697,6 +697,7 @@
     const DECK_CONTENT_KEY = 'formation-deck-content';
     const DECK_CONTENT_LAYERS_KEY = 'formation-deck-content-layers';
     const DECK_CUSTOM_THEMES_KEY = 'formation-deck-custom-themes';
+    const DECK_RESET_POSITION_KEY = 'formation-deck-reset-position';
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
@@ -3831,6 +3832,26 @@ ${excerptCards}
       }
     }
 
+    function queuePresentationPositionReset() {
+      try {
+        window.sessionStorage.setItem(DECK_RESET_POSITION_KEY, 'true');
+      } catch (error) {
+        // Ignore sessionStorage access failures and continue with in-memory state.
+      }
+    }
+
+    function consumeQueuedPresentationPositionReset() {
+      try {
+        const shouldReset = window.sessionStorage.getItem(DECK_RESET_POSITION_KEY) === 'true';
+        if (shouldReset) {
+          window.sessionStorage.removeItem(DECK_RESET_POSITION_KEY);
+        }
+        return shouldReset;
+      } catch (error) {
+        return false;
+      }
+    }
+
     function persistDocumentColorMode(mode) {
       try {
         window.localStorage.setItem(DECK_DOC_COLOR_MODE_KEY, mode);
@@ -4308,6 +4329,13 @@ ${excerptCards}
       syncActiveDocumentCanvas();
 
       if (previousView === 'document' && currentView !== 'document') {
+        if (typeof Reveal.sync === 'function') {
+          Reveal.sync();
+        }
+        if (typeof Reveal.getIndices === 'function' && typeof Reveal.slide === 'function') {
+          const indices = Reveal.getIndices() || {};
+          Reveal.slide(indices.h || 0, indices.v || 0, Number.isInteger(indices.f) ? indices.f : undefined);
+        }
         applyThemeBackgrounds();
         scheduleDeckVisualRefresh();
       }
@@ -4621,6 +4649,16 @@ ${excerptCards}
       }
 
       const reloadToken = ++deckContentReloadToken;
+      const currentIndices = typeof Reveal?.getIndices === 'function'
+        ? Reveal.getIndices()
+        : { h: 0, v: 0, f: undefined };
+      const targetIndices = resetToStart
+        ? { h: 0, v: 0, f: undefined }
+        : {
+            h: Number.isInteger(currentIndices?.h) ? currentIndices.h : 0,
+            v: Number.isInteger(currentIndices?.v) ? currentIndices.v : 0,
+            f: Number.isInteger(currentIndices?.f) ? currentIndices.f : undefined
+          };
       const generatedSlidesHtml = hasGeneratedSourceExperience() ? buildGeneratedDeckSectionsHtml(getContentLayer(), currentLanguage) : '';
       if (generatedSlidesHtml) {
         slidesRoot.innerHTML = generatedSlidesHtml;
@@ -4634,8 +4672,10 @@ ${excerptCards}
 
         syncThemeBranding(currentTheme);
         applyThemeBackgrounds();
-        if (resetToStart && typeof Reveal.slide === 'function') {
-          Reveal.slide(0);
+        if (typeof Reveal.slide === 'function') {
+          Reveal.slide(targetIndices.h, targetIndices.v, targetIndices.f);
+        } else if (typeof Reveal.layout === 'function') {
+          Reveal.layout();
         }
 
         updateExternalLinks(slidesRoot);
@@ -4670,8 +4710,10 @@ ${excerptCards}
 
       syncThemeBranding(currentTheme);
       applyThemeBackgrounds();
-      if (resetToStart && typeof Reveal.slide === 'function') {
-        Reveal.slide(0);
+      if (typeof Reveal.slide === 'function') {
+        Reveal.slide(targetIndices.h, targetIndices.v, targetIndices.f);
+      } else if (typeof Reveal.layout === 'function') {
+        Reveal.layout();
       }
 
       updateExternalLinks(slidesRoot);
@@ -4706,9 +4748,17 @@ ${excerptCards}
         return;
       }
 
+      queuePresentationPositionReset();
       persistTheme(nextTheme);
       document.body.classList.add('theme-switching');
       applyTheme(nextTheme);
+      if (currentView === 'document') {
+        currentDocumentPageIndex = 0;
+        setDocumentOverview(false);
+        window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+      } else if (typeof Reveal.slide === 'function') {
+        Reveal.slide(0, 0);
+      }
       applyThemeBackgrounds();
       scheduleDeckVisualRefresh();
       window.setTimeout(() => {
@@ -5794,6 +5844,7 @@ ${excerptCards}
     const preferredLanguage = getPreferredLanguage();
     const preferredView = getPreferredView();
     const preferredDocumentColorMode = getPreferredDocumentColorMode();
+    const shouldResetPresentationPosition = consumeQueuedPresentationPositionReset();
     contentLayers = loadContentLayers();
     syncManagedThemesForContentLayers();
     persistCustomThemes();
@@ -5839,6 +5890,15 @@ ${excerptCards}
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
       relayoutSoon();
+      if (shouldResetPresentationPosition) {
+        if (currentView === 'document') {
+          currentDocumentPageIndex = 0;
+          setDocumentOverview(false);
+          window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+        } else if (typeof Reveal.slide === 'function') {
+          Reveal.slide(0, 0);
+        }
+      }
       reloadDeckContent({ resetToStart: false }).catch(error => {
         console.error('Failed to inject source material into deck content.', error);
       });
@@ -6009,6 +6069,7 @@ ${excerptCards}
         return;
       }
 
+      queuePresentationPositionReset();
       persistContent(nextContent);
       applyContent(nextContent);
       closeContentModal();
