@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FORMATION x noBaxx Production Rollout</title>
-  <link rel="icon" type="image/png" href="assets/nobaxx-favicon.png" />
+  <title>FORMATION x Lear Corp. Production Rollout</title>
+  <link rel="icon" type="image/svg+xml" href="assets/open-location-stack-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -31,7 +31,7 @@
         <div class="document-brand-row">
           <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
           <span class="document-brand-divider" aria-hidden="true"></span>
-          <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" class="document-brand document-brand-lear" />
+          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
         </div>
         <div class="document-cover-body">
           <p class="document-kicker">Offer</p>
@@ -193,7 +193,7 @@
         <div class="document-brand-row">
           <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
           <span class="document-brand-divider" aria-hidden="true"></span>
-          <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" class="document-brand document-brand-lear" />
+          <img src="assets/lear-logo.svg" alt="Lear Corporation" class="document-brand document-brand-lear" />
         </div>
         <div class="document-cover-body">
           <p class="document-kicker">Angebot</p>
@@ -709,7 +709,7 @@
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" />
   </a>
   <div class="corner-partner-brand" aria-hidden="true">
-    <img src="assets/nobaxx-logo.png" alt="noBaxx GmbH" />
+    <img src="assets/lear-logo.svg" alt="Lear Corporation" />
   </div>
 
   <div class="slide-footer">
@@ -724,6 +724,9 @@
           <path d="M8.5 17h4.5"></path>
         </svg>
       </button>
+      <button type="button" class="content-modal-close" aria-label="Close content menu" title="Close content menu">
+        <span aria-hidden="true">&times;</span>
+      </button>
       <button type="button" class="theme-menu-toggle" aria-label="Open style menu" aria-haspopup="dialog"
         aria-expanded="false" aria-controls="theme-modal" title="Style menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -734,21 +737,21 @@
       <button type="button" class="theme-modal-close" aria-label="Close style menu" title="Close style menu">
         <span aria-hidden="true">&times;</span>
       </button>
-      <span>&copy; 2026 FORMATION GmbH</span>
-      <a id="footer-site-link" href="https://tryformation.com" target="_blank" rel="noreferrer noopener">TRYFORMATION.COM</a>
-      <span class="footer-divider" aria-hidden="true">|</span>
-      <span id="content-indicator" class="content-indicator">OFFER / LEAR</span>
-      <span class="footer-divider" aria-hidden="true">|</span>
-      <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
-    </div>
-    <div class="footer-center">
       <div class="view-switch" role="group" aria-label="View mode">
         <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">DECK</button>
         <button type="button" class="view-option" data-view="document" aria-pressed="false">DOC</button>
       </div>
-      <div class="document-color-switch" role="group" aria-label="Document color mode" hidden>
-        <button type="button" class="document-color-option is-active" data-document-color-mode="color" aria-pressed="true">Color</button>
-        <button type="button" class="document-color-option" data-document-color-mode="grayscale" aria-pressed="false">B/W</button>
+      <div class="language-switch" role="group" aria-label="Presentation language">
+        <button type="button" class="language-option is-active" data-language="en" aria-pressed="true">EN</button>
+        <button type="button" class="language-option" data-language="de" aria-pressed="false">DE</button>
+      </div>
+    </div>
+    <div class="footer-center">
+      <span class="footer-company">&copy; 2026 FORMATION GmbH</span>
+      <div class="footer-center-meta">
+        <span id="content-indicator" class="content-indicator">OFFER / LEAR</span>
+        <span class="footer-divider" aria-hidden="true">|</span>
+        <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
       </div>
     </div>
     <div class="footer-nav">
@@ -765,10 +768,6 @@
           <path d="M18 6 6 18"></path>
         </svg>
       </button>
-      <div class="language-switch" role="group" aria-label="Presentation language">
-        <button type="button" class="language-option is-active" data-language="en" aria-pressed="true">EN</button>
-        <button type="button" class="language-option" data-language="de" aria-pressed="false">DE</button>
-      </div>
     </div>
   </div>
 
@@ -893,7 +892,7 @@
         }
       },
       nobaxx: {
-        partnerBrandMode: 'content-only',
+        partnerBrandMode: 'theme-only',
         detail: { en: 'Nobaxx NoWay commercial offer in invoice format', de: 'Nobaxx NoWay Angebot im Rechnungsformat' },
         sources: {
           en: `slides.nobaxx.md?v=${DECK_VERSION}`,
@@ -996,7 +995,7 @@
         pageLabel: 'Page',
         ofLabel: 'of',
         deployLabel: 'Live update',
-        localLabel: 'Local update',
+        localLabel: 'Updated',
         overviewOpen: 'Open slide overview',
         overviewClose: 'Close slide overview',
         overviewTitleOpen: 'Slide overview',
@@ -1747,7 +1746,7 @@
     };
 
     let currentLanguage = 'en';
-    let currentTheme = 'nobaxx';
+    let currentTheme = 'lear';
     let currentView = 'slides';
     let currentDocumentColorMode = 'color';
     let currentContent = 'offer';
@@ -2701,7 +2700,7 @@
   <div class="cover-brand-row">
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
     <span class="cover-brand-divider" aria-hidden="true"></span>
-    <img src="assets/nobaxx-logo.png" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+    <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
   <p class="cover-tagline">${copy.kicker}</p>
   <div class="cover-rule"></div>
@@ -2838,7 +2837,7 @@ ${lineItemRows}
             <div class="cover-brand-row">
               <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
               <span class="cover-brand-divider" aria-hidden="true"></span>
-              <img src="assets/nobaxx-logo.png" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+              <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${copy.kicker}</p>
             <div class="cover-rule"></div>
@@ -2982,7 +2981,7 @@ ${lineItemRows}
   <div class="cover-brand-row">
     <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
     <span class="cover-brand-divider" aria-hidden="true"></span>
-    <img src="assets/nobaxx-logo.png" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+    <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
   <p class="cover-tagline">${labels.kicker}</p>
   <div class="cover-rule"></div>
@@ -3147,7 +3146,7 @@ ${excerptCards}
             <div class="cover-brand-row">
               <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
               <span class="cover-brand-divider" aria-hidden="true"></span>
-              <img src="assets/nobaxx-logo.png" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+              <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${labels.kicker}</p>
             <div class="cover-rule"></div>
@@ -3564,7 +3563,7 @@ ${excerptCards}
           <div class="document-brand-row">
             <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
             <span class="document-brand-divider" aria-hidden="true"></span>
-            <img src="assets/nobaxx-logo.png" alt="${title}" class="document-brand document-brand-lear" />
+            <img src="assets/lear-logo.svg" alt="${title}" class="document-brand document-brand-lear" />
           </div>
           <div class="document-cover-body">
             <p class="document-kicker">${labels.kicker}</p>
@@ -4169,8 +4168,8 @@ ${excerptCards}
       }
 
       return {
-        url: 'assets/nobaxx-logo.png',
-        alt: 'noBaxx GmbH'
+        url: 'assets/lear-logo.svg',
+        alt: 'Lear Corporation'
       };
     }
 
@@ -4239,6 +4238,9 @@ ${excerptCards}
       const contentBrand = resolveContentPartnerBrand(contentId);
       if (mode === 'content-only') {
         return contentBrand;
+      }
+      if (mode === 'theme-only') {
+        return getThemeBrandLogo(themeId);
       }
       return contentBrand || getThemeBrandLogo(themeId);
     }
@@ -5000,12 +5002,6 @@ ${excerptCards}
       currentTheme = normalizeTheme(theme);
       document.body.setAttribute('data-theme', getThemeBaseTheme(currentTheme));
 
-      const footerSiteLink = document.getElementById('footer-site-link');
-      if (footerSiteLink) {
-        footerSiteLink.href = 'https://tryformation.com';
-        footerSiteLink.textContent = 'TRYFORMATION.COM';
-      }
-
       const switcher = document.querySelector('.theme-switch');
       const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
       if (switcher) {
@@ -5282,6 +5278,12 @@ ${excerptCards}
       if (contentMenuToggle) {
         contentMenuToggle.setAttribute('aria-label', contentCopy.openLabel);
         contentMenuToggle.setAttribute('title', contentCopy.toggleTitle);
+      }
+
+      const contentModalClose = document.querySelector('.content-modal-close');
+      if (contentModalClose) {
+        contentModalClose.setAttribute('aria-label', contentCopy.closeLabel);
+        contentModalClose.setAttribute('title', contentCopy.closeLabel);
       }
 
       const contentLayerAdd = document.querySelector('.content-layer-add');
@@ -6913,6 +6915,7 @@ ${excerptCards}
         closeContentModal();
       }
     });
+    document.querySelector('.content-modal-close')?.addEventListener('click', closeContentModal);
     document.getElementById('content-modal-backdrop')?.addEventListener('click', closeContentModal);
     document.querySelector('.theme-menu-toggle')?.addEventListener('click', () => {
       const modal = document.getElementById('theme-modal');
