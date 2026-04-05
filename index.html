@@ -2922,9 +2922,14 @@
 
     function syncThemeBranding(themeId = currentTheme) {
       const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId);
-      const isXyzTheme = getThemeBaseTheme(themeId) === 'xyz';
+      const baseTheme = getThemeBaseTheme(themeId);
+      const isXyzTheme = baseTheme === 'xyz';
+      const usesDarkFormationLogo = isXyzTheme || baseTheme === 'lear-light';
       const logo = getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId);
-      const formationLogoUrl = isXyzTheme
+      const cornerPartnerLogoUrl = baseTheme === 'lear-light' && logo.url === 'assets/lear-logo.svg'
+        ? 'assets/lear-logo-dark.svg'
+        : logo.url;
+      const formationLogoUrl = usesDarkFormationLogo
         ? 'assets/formation-logo-text-black.png'
         : 'assets/formation-logo-text-white.png';
       const formationLogoAlt = 'FORMATION';
@@ -2944,7 +2949,7 @@
 
       const cornerPartnerImage = cornerPartnerBrand?.querySelector('img');
       if (cornerPartnerImage instanceof HTMLImageElement) {
-        cornerPartnerImage.src = logo.url;
+        cornerPartnerImage.src = cornerPartnerLogoUrl;
         cornerPartnerImage.alt = logo.alt;
       }
 
@@ -4370,18 +4375,13 @@
 
       if (
         event.target.closest(
-          'a, button, input, select, textarea, summary, details, video, iframe, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
+          'a, button, input, select, textarea, summary, details, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
         )
       ) {
         return;
       }
 
-      const activeSlide = document.querySelector('.reveal .slides section.present:not(.stack)');
-      if (!activeSlide) {
-        return;
-      }
-
-      if (event.target === activeSlide || activeSlide.contains(event.target)) {
+      if (event.target.closest('.reveal .slides video, .reveal .slides iframe')) {
         return;
       }
 

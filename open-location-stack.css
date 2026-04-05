@@ -759,8 +759,13 @@ body[data-theme="lear-light"] .cover-tagline {
 
 body[data-theme="lear-light"] .cover-brand-mark,
 body[data-theme="lear-light"] .cover-wordmark-image,
-body[data-theme="lear-light"] .corner-brand img {
+body[data-theme="lear-light"] .corner-brand img,
+body[data-theme="lear-light"] .corner-partner-brand img {
   filter: brightness(0) saturate(100%);
+}
+
+body[data-theme="lear-light"] .corner-partner-brand img[src$="lear-logo-dark.svg"] {
+  filter: none;
 }
 
 body {
