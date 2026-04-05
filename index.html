@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260405c" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260405f" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -4708,11 +4708,12 @@ ${excerptCards}
     function syncFooterDeckLabel() {
       const contentIndicator = document.getElementById('content-indicator');
       const themeIndicator = document.getElementById('theme-indicator');
+      const fixedLabel = 'ANGEBOT LEAR 2026';
       if (contentIndicator) {
-        contentIndicator.textContent = getContentLabel(currentContent, currentLanguage).toUpperCase();
+        contentIndicator.textContent = fixedLabel;
       }
       if (themeIndicator) {
-        themeIndicator.textContent = getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
+        themeIndicator.textContent = fixedLabel;
       }
     }
 
@@ -5732,7 +5733,7 @@ ${excerptCards}
     }
 
     function applyThemeBackgrounds() {
-      const slides = Array.from(document.querySelectorAll('.reveal .slides section[data-theme-background]'));
+      const slides = Array.from(document.querySelectorAll('.reveal .slides > section[data-theme-background]'));
       if (!slides.length) {
         return;
       }

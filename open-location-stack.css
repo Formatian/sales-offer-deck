@@ -960,37 +960,30 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   text-align: left;
 }
 
-.reveal .slides section {
+.reveal .slides > section {
   box-sizing: border-box;
   transform-origin: top center;
 }
 
-.reveal .slides section:not(.stack) {
+.reveal .slides > section:not(.stack) {
   padding: 2.2rem 0 3rem;
 }
 
-.reveal.overview .slides section.present {
+.reveal.overview .slides > section.present {
   outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-.reveal.overview .slides section {
-  display: block !important;
-  position: relative;
-  width: 100% !important;
-  min-height: 100% !important;
-  height: 100% !important;
+.reveal.overview .slides > section {
+  box-sizing: border-box;
   overflow: hidden;
+  padding: 2.2rem 2rem 3rem !important;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: none !important;
   outline: none;
 }
 
-.reveal.overview .slides section:not(.stack) {
-  padding: 2.2rem 0 3rem !important;
-}
-
-.reveal.overview .slides section:not(.hero-video-slide):not(.platform-video-slide):not(.proposal-cover):not(.end-cover):not([data-background-video]):not([data-background-image]):not([data-background-iframe]) {
+.reveal.overview .slides > section:not(.hero-video-slide):not(.platform-video-slide):not(.proposal-cover):not(.end-cover):not([data-background-video]):not([data-background-image]):not([data-background-iframe]) {
   background:
     linear-gradient(180deg, var(--viewport-overlay-start), var(--viewport-overlay-end)),
     radial-gradient(circle at top right, var(--viewport-glow-primary), transparent 22%),
@@ -1052,17 +1045,23 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   filter: brightness(0.72) saturate(0.92);
 }
 
-.reveal.overview .slides section.proposal-cover,
-.reveal.overview .slides section.end-cover,
-.reveal.overview .slides section.hero-video-slide,
-.reveal.overview .slides section.platform-video-slide,
-.reveal.overview .slides section[data-background-video] {
-  background: transparent !important;
-  background-color: transparent !important;
+.reveal .slides > section.is-auto-fitted {
+  will-change: zoom;
 }
 
-.reveal .slides section.is-auto-fitted {
-  will-change: zoom;
+.reveal.overview .proposal-card:hover,
+.reveal.overview .metric-card:hover,
+.reveal.overview .timeline-card:hover,
+.reveal.overview .proposal-table tbody tr:hover {
+  transform: none;
+  box-shadow: inherit;
+}
+
+.reveal.overview .cover-shell {
+  min-height: 100%;
+  height: 100%;
+  width: 100%;
+  padding: 0 8%;
 }
 
 .reveal h1,
