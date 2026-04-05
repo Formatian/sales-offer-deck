@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Theme Check</title>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const theme = params.get('theme') || 'formation';
+    const lang = params.get('lang') || 'en';
+    const view = params.get('view') || 'slides';
+    const content = params.get('content') || 'offer';
+    const target = params.get('target') || `/?lang=${lang}`;
+    localStorage.setItem('formation-deck-theme', theme);
+    localStorage.setItem('formation-deck-language', lang);
+    localStorage.setItem('formation-deck-view', view);
+    localStorage.setItem('formation-deck-content', content);
+    localStorage.setItem('formation-deck-doc-color-mode', 'color');
+    location.replace(target);
+  </script>
+</body>
+</html>

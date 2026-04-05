@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260404bi" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260405a" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -689,7 +689,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260404bh';
+    const DECK_VERSION = '20260405a';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -1355,9 +1355,46 @@
         }
       },
       xyz: {
-        // Keep XYZ on a restrained neutral stage.
-        // The slides already contain screenshots, cards, and proof blocks;
-        // extra wallpaper behind every slide makes the deck noisy.
+        cover: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        intro: {
+          type: 'image',
+          url: 'assets/lear-theme-light.jpg'
+        },
+        platform: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        roadmap: {
+          type: 'image',
+          url: 'assets/lear-customer-experience.webp'
+        },
+        'packages-a': {
+          type: 'image',
+          url: 'assets/lear-hero-3.webp'
+        },
+        'packages-b': {
+          type: 'image',
+          url: 'assets/lear-hero.webp'
+        },
+        support: {
+          type: 'image',
+          url: 'assets/lear-theme-light.jpg'
+        },
+        summary: {
+          type: 'image',
+          url: 'assets/lear-seat.webp'
+        },
+        closing: {
+          type: 'image',
+          url: 'assets/lear-theme-light.jpg'
+        },
+        end: {
+          type: 'image',
+          url: 'assets/panattoni-park-bremen-6.jpg'
+        }
       },
       'lear-light': {
         cover: {
@@ -1669,7 +1706,7 @@
               : null
           }
         : null;
-      const shouldRegenerate = urls.length > 0 || Boolean(notes) || files.length > 0;
+      const shouldRegenerate = !generated && (urls.length > 0 || Boolean(notes) || files.length > 0);
       const derivedGenerated = shouldRegenerate
         ? deriveCustomThemeStyle({
             name: name.en,
@@ -2887,9 +2924,11 @@
       const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId);
       const isXyzTheme = getThemeBaseTheme(themeId) === 'xyz';
       const logo = getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId);
-      const formationLogoUrl = 'assets/formation-logo-text-white.png';
+      const formationLogoUrl = isXyzTheme
+        ? 'assets/formation-logo-text-black.png'
+        : 'assets/formation-logo-text-white.png';
       const formationLogoAlt = 'FORMATION';
-      const xyzCornerLogoUrl = 'assets/xyz-logo-transparent.webp';
+      const xyzCornerLogoUrl = 'assets/xyz-by-formation-light.svg';
       const xyzCornerLogoAlt = 'XYZ';
 
       const cornerBrandImage = document.querySelector('.corner-brand img');
@@ -3158,10 +3197,36 @@
       renderThemeOptions();
       renderThemeReferenceFiles();
       renderContentReferenceFiles();
+      prepareDocumentPages();
       populateDocumentFooters();
       applyContent(currentContent);
       syncDocumentColorModeControls();
       renderDeployTimestamp();
+    }
+
+    function prepareDocumentPages() {
+      document.querySelectorAll('.document-page').forEach(page => {
+        if (!(page instanceof HTMLElement)) {
+          return;
+        }
+
+        let body = page.querySelector(':scope > .document-page-body');
+        if (!(body instanceof HTMLElement)) {
+          body = document.createElement('div');
+          body.className = 'document-page-body';
+
+          const children = Array.from(page.children);
+          children.forEach(child => {
+            if (!(child instanceof HTMLElement) || child.classList.contains('document-page-footer')) {
+              return;
+            }
+
+            body.appendChild(child);
+          });
+
+          page.insertBefore(body, page.querySelector(':scope > .document-page-footer'));
+        }
+      });
     }
 
     function populateDocumentFooters() {
