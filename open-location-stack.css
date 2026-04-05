@@ -1316,13 +1316,14 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-center {
-  display: grid;
-  justify-items: center;
-  align-content: center;
-  gap: 0.14rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
   min-width: 0;
   justify-self: center;
   text-align: center;
+  white-space: nowrap;
 }
 
 .footer-company {
@@ -1337,6 +1338,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
   align-items: center;
   gap: 0.45rem;
   min-width: 0;
+  white-space: nowrap;
 }
 
 .footer-divider {
@@ -1602,12 +1604,18 @@ body.theme-switching .theme-option {
 }
 
 .content-indicator {
+  display: inline-flex;
+  align-items: center;
   color: color-mix(in srgb, var(--footer-ink) 80%, transparent);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   font-family: var(--font-ui);
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.theme-indicator {
+  margin-right: 0.2rem;
 }
 
 .overview-toggle {
@@ -2503,6 +2511,10 @@ body.content-modal-open .content-menu-toggle {
 }
 
 .view-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.36rem;
   min-width: 52px;
   height: 26px;
   padding: 0 0.6rem;
@@ -2519,6 +2531,37 @@ body.content-modal-open .content-menu-toggle {
     background-color 160ms ease,
     color 160ms ease,
     opacity 160ms ease;
+}
+
+.view-option-icon {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  border: 1.6px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.92;
+}
+
+.view-option-icon::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-top: 1px solid currentColor;
+  opacity: 0.42;
+}
+
+.view-option-icon-landscape {
+  width: 14px;
+  height: 9px;
+}
+
+.view-option-icon-portrait {
+  width: 9px;
+  height: 14px;
+}
+
+.view-option-label {
+  line-height: 1;
 }
 
 .view-option:hover,
@@ -2567,8 +2610,7 @@ body.document-mode .reveal-viewport {
 body.document-mode:not(.document-fallback-mode) .reveal,
 body.document-mode .corner-brand,
 body.document-mode .corner-partner-brand,
-body.document-mode .reveal .progress,
-body.document-mode #slide-counter {
+body.document-mode .reveal .progress {
   display: none !important;
 }
 

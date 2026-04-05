@@ -727,6 +727,7 @@
       <button type="button" class="content-modal-close" aria-label="Close content menu" title="Close content menu">
         <span aria-hidden="true">&times;</span>
       </button>
+      <span id="content-indicator" class="content-indicator">OFFER LEAR 2026</span>
       <button type="button" class="theme-menu-toggle" aria-label="Open style menu" aria-haspopup="dialog"
         aria-expanded="false" aria-controls="theme-modal" title="Style menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -737,9 +738,16 @@
       <button type="button" class="theme-modal-close" aria-label="Close style menu" title="Close style menu">
         <span aria-hidden="true">&times;</span>
       </button>
+      <span id="theme-indicator" class="content-indicator theme-indicator">LEAR DARK</span>
       <div class="view-switch" role="group" aria-label="View mode">
-        <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">DECK</button>
-        <button type="button" class="view-option" data-view="document" aria-pressed="false">DOC</button>
+        <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">
+          <span class="view-option-icon view-option-icon-landscape" aria-hidden="true"></span>
+          <span class="view-option-label">DECK</span>
+        </button>
+        <button type="button" class="view-option" data-view="document" aria-pressed="false">
+          <span class="view-option-icon view-option-icon-portrait" aria-hidden="true"></span>
+          <span class="view-option-label">DOC</span>
+        </button>
       </div>
       <div class="language-switch" role="group" aria-label="Presentation language">
         <button type="button" class="language-option is-active" data-language="en" aria-pressed="true">EN</button>
@@ -749,7 +757,6 @@
     <div class="footer-center">
       <span class="footer-company">&copy; 2026 FORMATION GmbH</span>
       <div class="footer-center-meta">
-        <span id="content-indicator" class="content-indicator">OFFER / LEAR</span>
         <span class="footer-divider" aria-hidden="true">|</span>
         <span id="deploy-timestamp" class="deploy-timestamp" aria-live="polite"></span>
       </div>
@@ -4698,18 +4705,15 @@ ${excerptCards}
         .trim();
     }
 
-    function getFooterDeckLabel(content = currentContent, themeId = currentTheme, language = currentLanguage) {
-      const contentLabel = getContentLabel(content, language);
-      const themeLabel = getShortThemeLabel(themeId, language);
-      return themeLabel ? `${contentLabel} / ${themeLabel}` : contentLabel;
-    }
-
     function syncFooterDeckLabel() {
       const contentIndicator = document.getElementById('content-indicator');
-      if (!contentIndicator) {
-        return;
+      const themeIndicator = document.getElementById('theme-indicator');
+      if (contentIndicator) {
+        contentIndicator.textContent = getContentLabel(currentContent, currentLanguage).toUpperCase();
       }
-      contentIndicator.textContent = getFooterDeckLabel(currentContent, currentTheme, currentLanguage).toUpperCase();
+      if (themeIndicator) {
+        themeIndicator.textContent = getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
+      }
     }
 
     function shouldHidePartnerBrand(content = currentContent, themeId = currentTheme) {
@@ -5138,6 +5142,7 @@ ${excerptCards}
       syncDocumentPageState();
       syncDocumentOverviewLayout();
       syncDocumentColorModeControls();
+      updateSlideCount();
     }
 
     function applyDocumentColorMode(mode) {
@@ -5331,7 +5336,13 @@ ${excerptCards}
       }
 
       document.querySelectorAll('.view-option').forEach(button => {
-        button.textContent = button.dataset.view === 'document' ? viewCopy.document : viewCopy.slides;
+        const label = button.querySelector('.view-option-label');
+        const nextLabel = button.dataset.view === 'document' ? viewCopy.document : viewCopy.slides;
+        if (label) {
+          label.textContent = nextLabel;
+        } else {
+          button.textContent = nextLabel;
+        }
       });
 
       document.querySelectorAll('.document-color-option').forEach(button => {
@@ -5923,6 +5934,7 @@ ${excerptCards}
 
       const unitLabel = currentView === 'document' ? (copy.pageLabel || copy.slideLabel) : copy.slideLabel;
       footer.textContent = `${unitLabel} ${idx} ${copy.ofLabel} ${total}`;
+      syncFooterPageControls();
     }
 
     function getRevealActiveSlideNumber() {
@@ -6038,6 +6050,7 @@ ${excerptCards}
       });
 
       updateSlideCount();
+      syncFooterPageControls();
     }
 
     function syncDocumentOverviewLayout() {
@@ -6085,6 +6098,75 @@ ${excerptCards}
         window.scrollTo({ top, left: 0, behavior: 'smooth' });
         syncDocumentPageState();
       });
+    }
+
+    function goToDocumentPage(index, behavior = 'smooth') {
+      const frames = getActiveDocumentFrames();
+      if (!frames.length) {
+        return;
+      }
+
+      const nextIndex = Math.max(0, Math.min(frames.length - 1, index));
+      const frame = frames[nextIndex];
+      if (!(frame instanceof HTMLElement)) {
+        return;
+      }
+
+      currentDocumentPageIndex = nextIndex;
+      setDocumentOverview(false);
+      window.requestAnimationFrame(() => {
+        const top = Math.max(0, frame.offsetTop - 24);
+        window.scrollTo({ top, left: 0, behavior });
+        syncDocumentPageState();
+      });
+    }
+
+    function stepDocumentPage(direction) {
+      if (!isCustomDocumentViewActive() || isDocumentOverviewActive()) {
+        return false;
+      }
+
+      const frames = getActiveDocumentFrames();
+      if (!frames.length) {
+        return false;
+      }
+
+      const nextIndex = Math.max(0, Math.min(frames.length - 1, currentDocumentPageIndex + direction));
+      if (nextIndex === currentDocumentPageIndex) {
+        return false;
+      }
+
+      goToDocumentPage(nextIndex);
+      return true;
+    }
+
+    function syncFooterPageControls() {
+      const previousButton = document.querySelector('.slide-footer .controls .navigate-left');
+      const nextButton = document.querySelector('.slide-footer .controls .navigate-right');
+      if (!(previousButton instanceof HTMLButtonElement) || !(nextButton instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      if (!isCustomDocumentViewActive() || isDocumentOverviewActive()) {
+        previousButton.disabled = false;
+        nextButton.disabled = false;
+        previousButton.classList.remove('enabled');
+        nextButton.classList.remove('enabled');
+        previousButton.removeAttribute('aria-disabled');
+        nextButton.removeAttribute('aria-disabled');
+        return;
+      }
+
+      const frames = getActiveDocumentFrames();
+      const hasPrevious = currentDocumentPageIndex > 0;
+      const hasNext = currentDocumentPageIndex < frames.length - 1;
+
+      previousButton.disabled = !hasPrevious;
+      nextButton.disabled = !hasNext;
+      previousButton.classList.toggle('enabled', hasPrevious);
+      nextButton.classList.toggle('enabled', hasNext);
+      previousButton.setAttribute('aria-disabled', hasPrevious ? 'false' : 'true');
+      nextButton.setAttribute('aria-disabled', hasNext ? 'false' : 'true');
     }
 
     function formatDeployTimestamp(isoString, language) {
@@ -6311,7 +6393,25 @@ ${excerptCards}
       } else if (controls.parentElement !== footerNav) {
         footerNav.appendChild(controls);
       }
+      controls.querySelector('.navigate-left')?.addEventListener('click', event => {
+        if (!isCustomDocumentViewActive()) {
+          return;
+        }
 
+        event.preventDefault();
+        event.stopPropagation();
+        stepDocumentPage(-1);
+      }, true);
+      controls.querySelector('.navigate-right')?.addEventListener('click', event => {
+        if (!isCustomDocumentViewActive()) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        stepDocumentPage(1);
+      }, true);
+      syncFooterPageControls();
     }
 
     function ensureProgressHoverFill() {
