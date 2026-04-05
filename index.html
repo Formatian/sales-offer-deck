@@ -729,6 +729,11 @@
           en: `slides.xyz-sales.md?v=${DECK_VERSION}`,
           de: `slides.xyz-sales.de.md?v=${DECK_VERSION}`
         }
+      },
+      'generated-source': {
+        partnerBrandMode: 'theme',
+        detail: { en: 'Generated from uploaded source material', de: 'Aus hochgeladenem Material generiert' },
+        sources: DECK_SOURCES
       }
     };
     const DEFAULT_CONTENT_LAYERS = [
@@ -1228,14 +1233,20 @@
         duplicateLayerPrompt: 'Name for the duplicated content layer:',
         fallbackDetail: 'Uses the current content source as its starting point',
         editLabel: 'Edit content layer',
-        renameLabel: 'Rename content layer',
         duplicateLabel: 'Duplicate content layer',
         removeLabel: 'Remove content layer',
         removeLockedLabel: 'Built-in content layer cannot be removed',
         removeLockedMessage: 'This default content layer is built in and cannot be removed.',
         removeConfirm: 'Remove this content layer?',
         urlsCount: 'URLs',
-        filesCount: 'files'
+        filesCount: 'files',
+        documentUnavailable: 'DOC is only available for content sources that have a document template.',
+        variantNames: {
+          offer: 'Offer Lear 2026',
+          'xyz-sales': 'XYZ Sales Deck',
+          'hoffest-2025': 'Offer Hoffest 2025',
+          'generated-source': 'Uploaded Source'
+        }
       },
       de: {
         switchLabel: 'Deck-Inhalt',
@@ -1262,14 +1273,20 @@
         duplicateLayerPrompt: 'Name fuer die duplizierte Inhaltsebene:',
         fallbackDetail: 'Verwendet die aktuelle Inhaltsquelle als Ausgangspunkt',
         editLabel: 'Inhaltsebene bearbeiten',
-        renameLabel: 'Inhaltsebene umbenennen',
         duplicateLabel: 'Inhaltsebene duplizieren',
         removeLabel: 'Inhaltsebene entfernen',
         removeLockedLabel: 'Integrierte Inhaltsebene kann nicht entfernt werden',
         removeLockedMessage: 'Diese Standard-Inhaltsebene ist integriert und kann nicht entfernt werden.',
         removeConfirm: 'Diese Inhaltsebene entfernen?',
         urlsCount: 'URLs',
-        filesCount: 'Dateien'
+        filesCount: 'Dateien',
+        documentUnavailable: 'DOC ist nur fuer Inhaltsquellen mit eigener Dokumentvorlage verfuegbar.',
+        variantNames: {
+          offer: 'Angebot Lear 2026',
+          'xyz-sales': 'XYZ Sales Deck',
+          'hoffest-2025': 'Angebot Hoffest 2025',
+          'generated-source': 'Hochgeladene Quelle'
+        }
       }
     };
     const VIEW_COPY = {
@@ -1507,13 +1524,19 @@
       return content;
     }
 
+    function normalizeContentVariant(variantId) {
+      return Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, variantId) ? variantId : 'generated-source';
+    }
+
     function sanitizeContentLayer(layer, index = 0) {
       if (!layer || typeof layer !== 'object') {
         return null;
       }
 
       const isLockedDefault = !!layer.locked && DEFAULT_CONTENT_LAYERS.some(entry => entry.id === layer.id);
-      const variantId = Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, layer.variantId) ? layer.variantId : 'offer';
+      const variantId = isLockedDefault
+        ? (Object.prototype.hasOwnProperty.call(CONTENT_VARIANTS, layer.variantId) ? layer.variantId : 'offer')
+        : 'generated-source';
       const defaultLayer = DEFAULT_CONTENT_LAYERS.find(entry => entry.id === layer.id) || DEFAULT_CONTENT_LAYERS[index] || DEFAULT_CONTENT_LAYERS[0];
       const defaultName = defaultLayer?.name || { en: 'Offer', de: 'Angebot' };
       const id = typeof layer.id === 'string' && layer.id ? layer.id : `${variantId}-${index + 1}`;
@@ -1551,7 +1574,7 @@
 
       return {
         id,
-        variantId: isLockedDefault ? (defaultLayer?.variantId || variantId) : variantId,
+        variantId: isLockedDefault ? (defaultLayer?.variantId || variantId) : 'generated-source',
         name: {
           en: englishName,
           de: germanName
@@ -1747,12 +1770,1270 @@
     }
 
     function cleanReferenceText(text) {
-      return String(text || '')
-        .replace(/\r/g, '\n')
+      const normalized = String(text || '')
+        .replace(/\r\n?/g, '\n')
+        .replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, ' ')
         .replace(/\u0000/g, ' ')
+        .replace(/\\([\-+|])/g, '$1')
+        .split('\n')
+        .map(line => line.replace(/[ \t]+/g, ' ').trimEnd())
+        .join('\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
+      return normalized.slice(0, MAX_REFERENCE_TEXT_CHARS);
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function truncateText(value, maxLength = 320) {
+      const normalized = cleanReferenceText(value);
+      if (normalized.length <= maxLength) {
+        return normalized;
+      }
+      return `${normalized.slice(0, Math.max(0, maxLength - 1)).trimEnd()}…`;
+    }
+
+    function getPrimarySourceText(layer = getContentLayer()) {
+      const seed = getRenderableContentSeed(layer);
+      return seed.files.find(file => file.excerpt)?.excerpt || seed.notes || '';
+    }
+
+    function renderMarkdownishToHtml(text, { tableClass = 'document-table document-table-pricing' } = {}) {
+      const lines = String(text || '').split('\n');
+      const blocks = [];
+      let index = 0;
+
+      while (index < lines.length) {
+        const line = lines[index].trim();
+        if (!line) {
+          index += 1;
+          continue;
+        }
+
+        if (/^\|/.test(line)) {
+          const tableLines = [];
+          while (index < lines.length && /^\|/.test(lines[index].trim())) {
+            tableLines.push(lines[index].trim());
+            index += 1;
+          }
+          blocks.push({ type: 'table', lines: tableLines });
+          continue;
+        }
+
+        if (/^#{1,6}\s+/.test(line)) {
+          blocks.push({ type: 'heading', level: line.match(/^#+/)[0].length, text: line.replace(/^#{1,6}\s+/, '').trim() });
+          index += 1;
+          continue;
+        }
+
+        if (/^[-*]\s+/.test(line)) {
+          const items = [];
+          while (index < lines.length && /^[-*]\s+/.test(lines[index].trim())) {
+            items.push(lines[index].trim().replace(/^[-*]\s+/, ''));
+            index += 1;
+          }
+          blocks.push({ type: 'list', items });
+          continue;
+        }
+
+        const paragraphLines = [];
+        while (index < lines.length) {
+          const current = lines[index].trim();
+          if (!current || /^\|/.test(current) || /^#{1,6}\s+/.test(current) || /^[-*]\s+/.test(current)) {
+            break;
+          }
+          paragraphLines.push(current);
+          index += 1;
+        }
+        blocks.push({ type: 'paragraph', text: paragraphLines.join(' ') });
+      }
+
+      return blocks.map(block => {
+        if (block.type === 'heading') {
+          const level = Math.min(3, Math.max(2, block.level));
+          return `<h${level}>${escapeHtml(block.text)}</h${level}>`;
+        }
+
+        if (block.type === 'list') {
+          return `<ul class="document-list">${block.items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+        }
+
+        if (block.type === 'table') {
+          const rows = block.lines.map(row => row.split('|').map(cell => cell.trim()).filter((_, idx, arr) => !(idx === 0 && arr[0] === '') && !(idx === arr.length - 1 && arr[arr.length - 1] === '')));
+          if (rows.length < 2) {
+            return '';
+          }
+          const [header, separator, ...body] = rows;
+          const separatorLooksValid = separator.every(cell => /^:?-{2,}:?$/.test(cell.replace(/\s+/g, '')));
+          const bodyRows = separatorLooksValid ? body : rows.slice(1);
+          return `
+            <table class="${tableClass}">
+              <thead>
+                <tr>${header.map(cell => `<th>${escapeHtml(cell)}</th>`).join('')}</tr>
+              </thead>
+              <tbody>
+                ${bodyRows.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+
+        return `<p>${escapeHtml(block.text)}</p>`;
+      }).filter(Boolean).join('\n');
+    }
+
+    function formatFileSize(size) {
+      if (!Number.isFinite(size) || size <= 0) {
+        return '';
+      }
+
+      if (size >= 1024 * 1024) {
+        return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+      }
+
+      if (size >= 1024) {
+        return `${Math.round(size / 1024)} KB`;
+      }
+
+      return `${size} B`;
+    }
+
+    function getRenderableContentSeed(layer = getContentLayer()) {
+      const references = layer?.references || {};
+      const notes = cleanReferenceText(references.notes || '');
+      const urls = Array.isArray(references.urls) ? references.urls.filter(Boolean).slice(0, 6) : [];
+      const files = Array.isArray(references.files)
+        ? references.files
+            .filter(file => file && typeof file === 'object' && file.name)
+            .map(file => ({
+              name: file.name,
+              type: file.type || '',
+              size: Number.isFinite(file.size) ? file.size : 0,
+              sizeLabel: formatFileSize(file.size),
+              excerpt: truncateText(file.excerpt || '', 440)
+            }))
+        : [];
+
+      return {
+        notes,
+        urls,
+        files,
+        excerptFiles: files.filter(file => file.excerpt).slice(0, 4)
+      };
+    }
+
+    function getSeedSourceText(layer = getContentLayer()) {
+      const references = layer?.references || {};
+      const notes = cleanReferenceText(references.notes || '');
+      const urls = Array.isArray(references.urls) ? references.urls.filter(Boolean).slice(0, 6) : [];
+      const files = Array.isArray(references.files)
+        ? references.files
+            .filter(file => file && typeof file === 'object' && file.name)
+            .map(file => ({
+              name: file.name,
+              excerpt: cleanReferenceText(file.excerpt || '')
+            }))
+        : [];
+      return [
+        layer?.name?.en || '',
+        layer?.name?.de || '',
+        notes,
+        ...urls,
+        ...files.map(file => [file.name, file.excerpt || '']).flat()
+      ].filter(Boolean).join(' \n ');
+    }
+
+    function normalizeInvoiceAmount(value) {
+      return String(value || '')
+        .replace(/\./g, '')
+        .replace(',', '.')
+        .replace(/[^\d.]/g, '')
+        .trim();
+    }
+
+    function splitInvoiceAddressBlock(value, type = 'generic') {
+      const normalized = cleanReferenceText(value)
         .replace(/\s+/g, ' ')
-        .trim()
-        .slice(0, MAX_REFERENCE_TEXT_CHARS);
+        .trim();
+      if (!normalized) {
+        return [];
+      }
+
+      const patterns = type === 'sender'
+        ? [
+            /\s+(?=Gesch[aä]ftsf[üu]hrer(?:in)?(?:\s+und\s+Gr[üu]nder)?\b)/g,
+            /\s+(?=E-?Mail:)/g,
+            /\s+(?=Tel\.:)/g
+          ]
+        : [
+            /\s+(?=Im\s+)/g,
+            /\s+(?=D-\d{5}\s+)/g,
+            /\s+(?=Germany\b|Deutschland\b)/g,
+            /\s+(?=USt-IdNr\.:)/g
+          ];
+
+      return patterns
+        .reduce((text, pattern) => text.replace(pattern, '\n'), normalized)
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+    }
+
+    function extractInvoiceData(layer = getContentLayer()) {
+      const text = getSeedSourceText(layer);
+      if (!text) {
+        return null;
+      }
+
+      const sourceFile = layer?.references?.files?.[0]?.name || '';
+      const invoiceNumber =
+        text.match(/(?:^|[\s|*])(?:Rechnung|Invoice)\s*[:#-]?\s*(\d[\d-]{3,})\b/i)?.[1]
+        || sourceFile.match(/(?:^|[\s_-])(\d[\d-]{4,})\b/)?.[1]
+        || '';
+      const grossAmount = text.match(/(?:Rechnungsbetrag|Invoice Amount)[^\d]*([0-9][0-9.,\s]*€?)/i)?.[1]?.trim() || '';
+      const looksLikeInvoice = /(?:\bRechnung\b|\bInvoice\b)/i.test(`${sourceFile}\n${text}`);
+      if (!looksLikeInvoice && !invoiceNumber && !grossAmount) {
+        return null;
+      }
+
+      const company =
+        text.match(/([A-Z][A-Za-z0-9&.,\- ]+?\sGmbH)/)?.[1]?.trim()
+        || layer?.name?.en
+        || 'Customer';
+      const invoiceDate = text.match(/(?:Rechnungsdatum|Invoice Date)\s*([0-9]{2}\.[0-9]{2}\.[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2})/i)?.[1] || '';
+      const period =
+        text.match(/(?:Liefer-\s*\/\s*Leistungszeitraum|Leistungszeitraum|Service Period)[^\d]*([0-9]{2}\.[0-9]{2}\.[0-9]{4}\s*(?:-|–)\s*[0-9]{2}\.[0-9]{2}\.[0-9]{4})/i)?.[1]?.trim()
+        || text.match(/(?:Liefer-\s*\/\s*Leistungszeitraum|Leistungszeitraum|Service Period)[^\d]*([0-9.\- ]+[0-9])/i)?.[1]?.trim()
+        || '';
+      const customerNumber = text.match(/(?:Kundennummer|Customer Number)\s*([A-Z0-9-]+)/i)?.[1] || '';
+      const reference = text.match(/Referenz:\s*([^|]+?)(?=\s+(?:Wir bedanken|We thank|Bestellnummer|Order))/i)?.[1]?.trim() || '';
+      const orderNumber = text.match(/(?:Bestellnummer|Order Number)\s*([A-Z0-9-]+)/i)?.[1] || '';
+      const contact = text.match(/Sehr geehrte\s+(?:Frau|Herr)\s+([A-Za-zÄÖÜäöüß-]+)/i)?.[1] || '';
+      const greeting = text.match(/(Sehr geehrte[^,\n]*,?)/i)?.[1]?.trim() || '';
+      const intro = text.match(/(Referenz:[^\n]+(?:Leistungen in Rechnung:)?)/i)?.[1]?.trim() || '';
+      const paymentTerms = text.match(/(Zahlung innerhalb[^\n]+)/i)?.[1]?.trim() || '';
+      const partyRowMatch = text.match(/^\|\s*(.+?USt-IdNr\.:.+?)\s*\|\s*(.+?(?:E-?Mail:|Tel\.:).+?)\s*\|$/im);
+      const recipientLines = splitInvoiceAddressBlock(partyRowMatch?.[1] || company, 'recipient');
+      const senderLines = splitInvoiceAddressBlock(partyRowMatch?.[2] || '', 'sender');
+      const lineItemMatch = text.match(/^\|\s*0*1\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|?\s*$/im);
+      const lineItem = lineItemMatch ? {
+        description: lineItemMatch[1].trim(),
+        quantity: lineItemMatch[2].trim(),
+        unit: lineItemMatch[3].trim(),
+        unitPrice: lineItemMatch[4].trim(),
+        total: lineItemMatch[5].trim()
+      } : null;
+      const netAmount = text.match(/Gesamtwert ohne MwSt\.?[^\d]*([0-9][0-9.,\s]*€?)/i)?.[1]?.trim() || '';
+      const vatRate = text.match(/Umsatzsteuer\s*([0-9.,]+%)/i)?.[1]?.trim() || '';
+      const vatAmount = text.match(/Umsatzsteuer[^\d]*[0-9.,]+%[^\d]*([0-9][0-9.,\s]*€?)/i)?.[1]?.trim() || '';
+      return {
+        invoiceNumber,
+        company,
+        invoiceDate,
+        period,
+        customerNumber,
+        reference,
+        orderNumber,
+        contact,
+        greeting,
+        intro,
+        paymentTerms,
+        recipientLines,
+        senderLines,
+        lineItem,
+        netAmount,
+        vatRate,
+        vatAmount,
+        grossAmount,
+        sourceFile,
+        grossValue: Number.parseFloat(normalizeInvoiceAmount(grossAmount)) || 0
+      };
+    }
+
+    function hasRenderableContentSeed(layer = getContentLayer()) {
+      const seed = getRenderableContentSeed(layer);
+      return Boolean(seed.notes || seed.urls.length || seed.files.length);
+    }
+
+    function hasGeneratedSourceExperience(content = currentContent) {
+      const layer = getContentLayer(content);
+      return !layer?.locked && hasRenderableContentSeed(layer);
+    }
+
+    function buildInvoiceDeckMarkdown(layer = getContentLayer(), language = currentLanguage) {
+      const invoice = extractInvoiceData(layer);
+      if (!invoice) {
+        return '';
+      }
+
+      const copy = language === 'de'
+        ? {
+            kicker: 'Rechnung',
+            title: 'PoC-Lizenzrechnung',
+            subtitle: 'Commercial summary derived from uploaded invoice source material.',
+            issued: 'Rechnungsdatum',
+            total: 'Rechnungsbetrag',
+            period: 'Leistungszeitraum',
+            customer: 'Kunde',
+            ref: 'Referenz',
+            summary: 'Rechnungsueberblick',
+            lineItem: 'Abgerechnete Position',
+            billing: 'Abrechnung',
+            source: 'Quelle'
+          }
+        : {
+            kicker: 'Invoice',
+            title: 'PoC License Invoice',
+            subtitle: 'Commercial summary derived from uploaded invoice source material.',
+            issued: 'Invoice Date',
+            total: 'Invoice Amount',
+            period: 'Service Period',
+            customer: 'Customer',
+            ref: 'Reference',
+            summary: 'Invoice Summary',
+            lineItem: 'Billed Line Item',
+            billing: 'Billing',
+            source: 'Source'
+          };
+
+      const amountLabel = invoice.grossAmount || invoice.netAmount || '';
+      const lineItemRows = invoice.lineItem ? `
+    <tr>
+      <td>${escapeHtml(invoice.lineItem.description)}</td>
+      <td>${escapeHtml(invoice.lineItem.quantity)}</td>
+      <td>${escapeHtml(invoice.lineItem.unit)}</td>
+      <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
+      <td>${escapeHtml(invoice.lineItem.total)}</td>
+    </tr>` : '';
+
+      return `
+<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
+
+<section class="cover-shell">
+  <div class="cover-brand-row">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+    <span class="cover-brand-divider" aria-hidden="true"></span>
+    <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+  </div>
+  <p class="cover-tagline">${copy.kicker}</p>
+  <div class="cover-rule"></div>
+  <p class="cover-tagline cover-tagline-secondary">${escapeHtml(invoice.company)}</p>
+  <p class="cover-tagline cover-tagline-secondary">${copy.title}</p>
+  <div class="cover-meta">
+    <span class="cover-meta-pill">${copy.issued}: ${escapeHtml(invoice.invoiceDate || 'n/a')}</span>
+    <span class="meta-separator">|</span>
+    <span class="cover-meta-pill">${copy.total}: ${escapeHtml(amountLabel || 'n/a')}</span>
+    <span class="meta-separator">|</span>
+    <span class="cover-meta-pill">${copy.period}: ${escapeHtml(invoice.period || 'n/a')}</span>
+  </div>
+</section>
+
+---
+<!-- .slide: data-theme-background="intro" -->
+## ${copy.summary}
+
+<p class="slide-lead">${escapeHtml(copy.subtitle)}</p>
+
+<div class="metric-strip three-up">
+  <div class="metric-card total-card">
+    <span class="metric-label">${copy.customer}</span>
+    <strong>${escapeHtml(invoice.company)}</strong>
+    <p>${escapeHtml(invoice.customerNumber || invoice.contact || '')}</p>
+  </div>
+  <div class="metric-card total-card">
+    <span class="metric-label">${copy.ref}</span>
+    <strong>${escapeHtml(invoice.reference || invoice.orderNumber || invoice.invoiceNumber)}</strong>
+    <p>${escapeHtml(invoice.invoiceNumber)}</p>
+  </div>
+  <div class="metric-card total-card">
+    <span class="metric-label">${copy.total}</span>
+    <strong>${escapeHtml(invoice.grossAmount || invoice.netAmount || 'n/a')}</strong>
+    <p>${escapeHtml(invoice.vatRate ? `${invoice.vatRate} VAT / MwSt.` : '')}</p>
+  </div>
+</div>
+
+---
+<!-- .slide: data-theme-background="platform" -->
+## ${copy.lineItem}
+
+<table class="proposal-table pricing-table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Qty</th>
+      <th>Unit</th>
+      <th>Unit Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+${lineItemRows}
+  </tbody>
+</table>
+
+<div class="summary-band">
+  <div>
+    <span class="metric-label">Net</span>
+    <strong>${escapeHtml(invoice.netAmount || 'n/a')}</strong>
+  </div>
+  <div>
+    <span class="metric-label">${escapeHtml(invoice.vatRate || 'VAT')}</span>
+    <strong>${escapeHtml(invoice.vatAmount || 'n/a')}</strong>
+  </div>
+  <div>
+    <span class="metric-label">Gross</span>
+    <strong>${escapeHtml(invoice.grossAmount || 'n/a')}</strong>
+  </div>
+</div>
+
+---
+<!-- .slide: data-theme-background="support" -->
+## ${copy.source}
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">Invoice Number</p>
+    <h3>${escapeHtml(invoice.invoiceNumber || 'n/a')}</h3>
+    <p>${escapeHtml(invoice.sourceFile || '')}</p>
+  </div>
+  <div class="proposal-card">
+    <p class="eyebrow">${copy.ref}</p>
+    <h3>${escapeHtml(invoice.reference || invoice.orderNumber || 'n/a')}</h3>
+    <p>${escapeHtml(invoice.period || '')}</p>
+  </div>
+</div>
+`;
+    }
+
+    function buildInvoiceDeckSectionsHtml(layer = getContentLayer(), language = currentLanguage) {
+      const invoice = extractInvoiceData(layer);
+      if (!invoice) {
+        return '';
+      }
+
+      const copy = language === 'de'
+        ? {
+            kicker: 'Rechnung',
+            title: 'PoC-Lizenzrechnung',
+            subtitle: 'Commercial summary derived from uploaded invoice source material.',
+            issued: 'Rechnungsdatum',
+            total: 'Rechnungsbetrag',
+            period: 'Leistungszeitraum',
+            customer: 'Kunde',
+            ref: 'Referenz',
+            summary: 'Zusammenfassung',
+            lineItem: 'Leistungsposition',
+            source: 'Quelle'
+          }
+        : {
+            kicker: 'Invoice',
+            title: 'PoC License Invoice',
+            subtitle: 'Commercial summary derived from uploaded invoice source material.',
+            issued: 'Invoice Date',
+            total: 'Invoice Amount',
+            period: 'Service Period',
+            customer: 'Customer',
+            ref: 'Reference',
+            summary: 'Summary',
+            lineItem: 'Line Item',
+            source: 'Source'
+          };
+
+      return `
+        <section class="title-slide proposal-cover hero-video-slide" data-theme-background="cover">
+          <section class="cover-shell">
+            <div class="cover-brand-row">
+              <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+              <span class="cover-brand-divider" aria-hidden="true"></span>
+              <img src="assets/lear-logo.svg" alt="${escapeHtml(invoice.company)}" class="cover-brand-mark cover-brand-mark-lear" />
+            </div>
+            <p class="cover-tagline">${copy.kicker}</p>
+            <div class="cover-rule"></div>
+            <p class="cover-tagline cover-tagline-secondary">${escapeHtml(invoice.company)}</p>
+            <p class="cover-tagline cover-tagline-secondary">${copy.title}</p>
+            <div class="cover-meta">
+              <span class="cover-meta-pill">${copy.issued}: ${escapeHtml(invoice.invoiceDate || 'n/a')}</span>
+              <span class="meta-separator">|</span>
+              <span class="cover-meta-pill">${copy.total}: ${escapeHtml(invoice.grossAmount || invoice.netAmount || 'n/a')}</span>
+              <span class="meta-separator">|</span>
+              <span class="cover-meta-pill">${copy.period}: ${escapeHtml(invoice.period || 'n/a')}</span>
+            </div>
+          </section>
+        </section>
+        <section data-theme-background="intro">
+          <h2>${copy.summary}</h2>
+          <p class="slide-lead">${escapeHtml(copy.subtitle)}</p>
+          <div class="metric-strip three-up">
+            <div class="metric-card total-card">
+              <span class="metric-label">${copy.customer}</span>
+              <strong>${escapeHtml(invoice.company)}</strong>
+              <p>${escapeHtml(invoice.customerNumber || invoice.contact || '')}</p>
+            </div>
+            <div class="metric-card total-card">
+              <span class="metric-label">${copy.ref}</span>
+              <strong>${escapeHtml(invoice.reference || invoice.orderNumber || invoice.invoiceNumber)}</strong>
+              <p>${escapeHtml(invoice.invoiceNumber)}</p>
+            </div>
+            <div class="metric-card total-card">
+              <span class="metric-label">${copy.total}</span>
+              <strong>${escapeHtml(invoice.grossAmount || invoice.netAmount || 'n/a')}</strong>
+              <p>${escapeHtml(invoice.vatRate ? `${invoice.vatRate} VAT / MwSt.` : '')}</p>
+            </div>
+          </div>
+        </section>
+        <section data-theme-background="platform">
+          <h2>${copy.lineItem}</h2>
+          <table class="proposal-table pricing-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${invoice.lineItem ? `
+              <tr>
+                <td>${escapeHtml(invoice.lineItem.description)}</td>
+                <td>${escapeHtml(invoice.lineItem.quantity)}</td>
+                <td>${escapeHtml(invoice.lineItem.unit)}</td>
+                <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
+                <td>${escapeHtml(invoice.lineItem.total)}</td>
+              </tr>` : ''}
+            </tbody>
+          </table>
+          <div class="summary-band">
+            <div>
+              <span class="metric-label">Net</span>
+              <strong>${escapeHtml(invoice.netAmount || 'n/a')}</strong>
+            </div>
+            <div>
+              <span class="metric-label">${escapeHtml(invoice.vatRate || 'VAT')}</span>
+              <strong>${escapeHtml(invoice.vatAmount || 'n/a')}</strong>
+            </div>
+            <div>
+              <span class="metric-label">Gross</span>
+              <strong>${escapeHtml(invoice.grossAmount || 'n/a')}</strong>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function buildGenericSourceDeckMarkdown(layer = getContentLayer(), language = currentLanguage) {
+      if (!hasRenderableContentSeed(layer)) {
+        return '';
+      }
+
+      const seed = getRenderableContentSeed(layer);
+      const sourceText = getPrimarySourceText(layer);
+      const title = escapeHtml(layer?.name?.[language] || layer?.name?.en || 'Custom Content Source');
+      const labels = language === 'de'
+        ? {
+            kicker: 'Inhaltsquelle',
+            subtitle: 'Generiert aus den hochgeladenen Ausgangsmaterialien.',
+            summary: 'Quellenueberblick',
+            content: 'Dokumentinhalt',
+            files: 'Dateien',
+            notes: 'Briefing',
+            excerpts: 'Textauszuege',
+            references: 'Referenzen',
+            noNotes: 'Kein zusaetzliches Briefing hinterlegt.'
+          }
+        : {
+            kicker: 'Content Source',
+            subtitle: 'Generated from the uploaded source material.',
+            summary: 'Source Summary',
+            content: 'Document Content',
+            files: 'Files',
+            notes: 'Brief',
+            excerpts: 'Text Excerpts',
+            references: 'References',
+            noNotes: 'No additional brief was provided.'
+          };
+
+      const fileItems = seed.files.slice(0, 6).map(file => `<li><strong>${escapeHtml(file.name)}</strong></li>`).join('');
+      const excerptCards = seed.excerptFiles.map(file => `
+<div class="proposal-card">
+  <p class="eyebrow">${escapeHtml(file.name)}</p>
+  <p class="source-seed-excerpt">${escapeHtml(file.excerpt)}</p>
+</div>`).join('');
+      const urlItems = seed.urls.slice(0, 6).map(url => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(url)}</a></li>`).join('');
+
+      return `
+<!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
+
+<section class="cover-shell">
+  <div class="cover-brand-row">
+    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+    <span class="cover-brand-divider" aria-hidden="true"></span>
+    <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+  </div>
+  <p class="cover-tagline">${labels.kicker}</p>
+  <div class="cover-rule"></div>
+  <p class="cover-tagline cover-tagline-secondary">${title}</p>
+  <p class="cover-tagline cover-tagline-secondary">${labels.subtitle}</p>
+</section>
+
+---
+<!-- .slide: data-theme-background="intro" -->
+## ${labels.summary}
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">${labels.notes}</p>
+    <p>${escapeHtml(seed.notes || labels.noNotes)}</p>
+  </div>
+  <div class="proposal-card">
+    <p class="eyebrow">${labels.files}</p>
+    <ul>
+      ${fileItems || '<li>No files</li>'}
+    </ul>
+  </div>
+</div>
+
+${urlItems ? `
+<div class="proposal-card source-seed-links-card">
+  <p class="eyebrow">${labels.references}</p>
+  <ul>
+    ${urlItems}
+  </ul>
+</div>` : ''}
+
+${sourceText ? `
+---
+<!-- .slide: data-theme-background="platform" -->
+## ${labels.content}
+
+<div class="proposal-card">
+  <p class="source-seed-excerpt">${escapeHtml(truncateText(sourceText, 1800))}</p>
+</div>` : ''}
+
+${excerptCards ? `
+---
+<!-- .slide: data-theme-background="summary" -->
+## ${labels.excerpts}
+
+<div class="proposal-grid two-up">
+${excerptCards}
+</div>` : ''}
+`;
+    }
+
+    function buildGenericSourceDeckSectionsHtml(layer = getContentLayer(), language = currentLanguage) {
+      if (!hasRenderableContentSeed(layer)) {
+        return '';
+      }
+
+      const seed = getRenderableContentSeed(layer);
+      const sourceText = getPrimarySourceText(layer);
+      const title = escapeHtml(layer?.name?.[language] || layer?.name?.en || 'Custom Content Source');
+      const labels = language === 'de'
+        ? {
+            kicker: 'Inhaltsquelle',
+            subtitle: 'Generiert aus den hochgeladenen Ausgangsmaterialien.',
+            summary: 'Quellenueberblick',
+            content: 'Dokumentinhalt',
+            files: 'Dateien',
+            notes: 'Briefing',
+            excerpts: 'Textauszuege',
+            references: 'Referenzen',
+            noNotes: 'Kein zusaetzliches Briefing hinterlegt.'
+          }
+        : {
+            kicker: 'Content Source',
+            subtitle: 'Generated from the uploaded source material.',
+            summary: 'Source Summary',
+            content: 'Document Content',
+            files: 'Files',
+            notes: 'Brief',
+            excerpts: 'Text Excerpts',
+            references: 'References',
+            noNotes: 'No additional brief was provided.'
+          };
+
+      const fileItems = seed.files.slice(0, 6).map(file => `<li><strong>${escapeHtml(file.name)}</strong></li>`).join('');
+      const urlItems = seed.urls.slice(0, 6).map(url => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(url)}</a></li>`).join('');
+      const excerptCards = seed.excerptFiles.map(file => `
+        <div class="proposal-card">
+          <p class="eyebrow">${escapeHtml(file.name)}</p>
+          <p class="source-seed-excerpt">${escapeHtml(file.excerpt)}</p>
+        </div>`).join('');
+
+      return `
+        <section class="title-slide proposal-cover hero-video-slide" data-theme-background="cover">
+          <section class="cover-shell">
+            <div class="cover-brand-row">
+              <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+              <span class="cover-brand-divider" aria-hidden="true"></span>
+              <img src="assets/lear-logo.svg" alt="${title}" class="cover-brand-mark cover-brand-mark-lear" />
+            </div>
+            <p class="cover-tagline">${labels.kicker}</p>
+            <div class="cover-rule"></div>
+            <p class="cover-tagline cover-tagline-secondary">${title}</p>
+            <p class="cover-tagline cover-tagline-secondary">${labels.subtitle}</p>
+          </section>
+        </section>
+        <section data-theme-background="intro">
+          <h2>${labels.summary}</h2>
+          <div class="proposal-grid two-up">
+            <div class="proposal-card">
+              <p class="eyebrow">${labels.notes}</p>
+              <p>${escapeHtml(seed.notes || labels.noNotes)}</p>
+            </div>
+            <div class="proposal-card">
+              <p class="eyebrow">${labels.files}</p>
+              <ul>${fileItems || '<li>No files</li>'}</ul>
+            </div>
+          </div>
+          ${urlItems ? `<div class="proposal-card source-seed-links-card"><p class="eyebrow">${labels.references}</p><ul>${urlItems}</ul></div>` : ''}
+        </section>
+        ${sourceText ? `
+        <section data-theme-background="platform">
+          <h2>${labels.content}</h2>
+          <div class="proposal-card">
+            <p class="source-seed-excerpt">${escapeHtml(truncateText(sourceText, 1800))}</p>
+          </div>
+        </section>` : ''}
+        ${excerptCards ? `
+        <section data-theme-background="summary">
+          <h2>${labels.excerpts}</h2>
+          <div class="proposal-grid two-up">${excerptCards}</div>
+        </section>` : ''}
+      `;
+    }
+
+    function buildSeedSlideMarkdown(layer = getContentLayer(), language = currentLanguage) {
+      if (!hasRenderableContentSeed(layer)) {
+        return '';
+      }
+
+      const seed = getRenderableContentSeed(layer);
+      const labels = language === 'de'
+        ? {
+            title: 'Hochgeladene Ausgangsinhalte',
+            lead: 'Diese Inhaltsquelle basiert auf den folgenden hochgeladenen oder verlinkten Materialien.',
+            brief: 'Briefing',
+            files: 'Dateien',
+            urls: 'Referenz-URLs',
+            excerpts: 'Textauszuege',
+            noBrief: 'Kein zusaetzliches Briefing hinterlegt.',
+            binaryHint: 'Keine Textvorschau verfuegbar'
+          }
+        : {
+            title: 'Uploaded Source Material',
+            lead: 'This content source is seeded from the uploaded and linked source material below.',
+            brief: 'Brief',
+            files: 'Files',
+            urls: 'Reference URLs',
+            excerpts: 'Text Excerpts',
+            noBrief: 'No additional brief was provided.',
+            binaryHint: 'No text preview available'
+          };
+
+      const fileItems = seed.files.slice(0, 6).map(file => {
+        const meta = [file.type || '', file.sizeLabel || '', file.excerpt ? '' : labels.binaryHint].filter(Boolean).join(' • ');
+        return `<li><strong>${escapeHtml(file.name)}</strong>${meta ? ` <span class="source-seed-meta">${escapeHtml(meta)}</span>` : ''}</li>`;
+      }).join('');
+
+      const urlItems = seed.urls.slice(0, 4).map(url => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(url)}</a></li>`).join('');
+
+      const excerptCards = seed.excerptFiles.map(file => `
+<div class="proposal-card">
+  <p class="eyebrow">${escapeHtml(file.name)}</p>
+  <p class="source-seed-excerpt">${escapeHtml(file.excerpt)}</p>
+</div>`).join('');
+
+      let markdown = `
+---
+<!-- .slide: data-theme-background="support" -->
+## ${labels.title}
+
+<p class="slide-lead">${labels.lead}</p>
+
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">${labels.brief}</p>
+    <p>${escapeHtml(seed.notes || labels.noBrief)}</p>
+  </div>
+  <div class="proposal-card">
+    <p class="eyebrow">${labels.files}</p>
+    <ul>
+      ${fileItems || `<li>${escapeHtml(labels.noBrief)}</li>`}
+    </ul>
+  </div>
+</div>
+`;
+
+      if (urlItems) {
+        markdown += `
+
+<div class="proposal-card source-seed-links-card">
+  <p class="eyebrow">${labels.urls}</p>
+  <ul>
+    ${urlItems}
+  </ul>
+</div>
+`;
+      }
+
+      if (excerptCards) {
+        markdown += `
+---
+<!-- .slide: data-theme-background="summary" -->
+## ${labels.excerpts}
+
+<div class="proposal-grid two-up">
+${excerptCards}
+</div>
+`;
+      }
+
+      return markdown;
+    }
+
+    function injectSeedSlidesIntoMarkdown(markdown, layer = getContentLayer(), language = currentLanguage) {
+      const invoiceMarkdown = buildInvoiceDeckMarkdown(layer, language);
+      if (invoiceMarkdown) {
+        return invoiceMarkdown;
+      }
+
+      const genericSourceMarkdown = buildGenericSourceDeckMarkdown(layer, language);
+      if (genericSourceMarkdown) {
+        return genericSourceMarkdown;
+      }
+
+      const seedMarkdown = buildSeedSlideMarkdown(layer, language);
+      if (!seedMarkdown) {
+        return markdown;
+      }
+      return `${markdown.trim()}\n${seedMarkdown}\n`;
+    }
+
+    function removeGeneratedSeedDocumentPages() {
+      document.querySelectorAll('.document-page[data-generated-source-seed="true"], .document-page[data-generated-invoice="true"]').forEach(page => {
+        const frame = page.parentElement;
+        if (frame?.classList.contains('document-page-frame')) {
+          frame.remove();
+          return;
+        }
+        page.remove();
+      });
+    }
+
+    function captureOriginalDocumentMarkup() {
+      document.querySelectorAll('.document-canvas').forEach(canvas => {
+        if (!(canvas instanceof HTMLElement) || canvas.dataset.originalMarkupCaptured === 'true' || canvas.dataset.dynamicSourceCanvas === 'true') {
+          return;
+        }
+        canvas.dataset.originalMarkup = canvas.innerHTML;
+        canvas.dataset.originalMarkupCaptured = 'true';
+      });
+    }
+
+    function getDocumentCanvasContentKey(layer = getContentLayer()) {
+      return layer?.locked ? (layer.variantId || 'offer') : (layer?.id || 'generated-source');
+    }
+
+    function syncActiveDocumentCanvas() {
+      const activeContentKey = getDocumentCanvasContentKey(getContentLayer());
+      document.querySelectorAll('.document-canvas').forEach(canvas => {
+        if (!(canvas instanceof HTMLElement)) {
+          return;
+        }
+        const isActive = canvas.dataset.content === activeContentKey && canvas.dataset.language === currentLanguage;
+        canvas.classList.toggle('is-active', isActive);
+        canvas.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    }
+
+    function ensureDynamicDocumentCanvas(layer = getContentLayer(), language = currentLanguage) {
+      const documentView = document.getElementById('document-view');
+      if (!(documentView instanceof HTMLElement) || layer?.locked) {
+        return document.querySelector(`.document-canvas[data-content="${getDocumentCanvasContentKey(layer)}"][data-language="${language}"]`);
+      }
+
+      const contentKey = getDocumentCanvasContentKey(layer);
+      let canvas = document.querySelector(`.document-canvas[data-content="${contentKey}"][data-language="${language}"]`);
+      if (canvas instanceof HTMLElement) {
+        return canvas;
+      }
+
+      canvas = document.createElement('div');
+      canvas.className = `document-canvas document-canvas-${language}`;
+      canvas.dataset.content = contentKey;
+      canvas.dataset.language = language;
+      canvas.dataset.dynamicSourceCanvas = 'true';
+      documentView.appendChild(canvas);
+      syncActiveDocumentCanvas();
+      return canvas;
+    }
+
+    function buildInvoiceDocumentMarkup(layer = getContentLayer(), language = currentLanguage) {
+      const invoice = extractInvoiceData(layer);
+      if (!invoice) {
+        return '';
+      }
+
+      const copy = language === 'de'
+        ? {
+            title: 'Rechnung',
+            customerNumber: 'Kundennummer',
+            amount: 'Rechnungsbetrag',
+            date: 'Rechnungsdatum',
+            period: 'Leistungszeitraum',
+            position: 'Pos.',
+            description: 'Bezeichnung',
+            quantity: 'Menge',
+            unit: 'Einheit',
+            unitPrice: 'Einzel (€)',
+            total: 'Gesamt (€)',
+            net: 'Gesamtwert ohne MwSt.',
+            vat: 'Umsatzsteuer',
+            paymentFallback: 'Zahlung innerhalb von 30 Tagen ab Rechnungseingang ohne Abzuege.',
+            closing: 'Mit freundlichen Gruessen',
+            issuerAddress: ['FORMATION GmbH', 'Urbanstr. 71', 'D-10967 Berlin'],
+            issuerMetaA: ['Sitz der Gesellschaft: Berlin', 'Amtsgericht Charlottenburg', 'Handelsregisternummer: HRB 218133', 'Geschaeftsfuehrer: Ian Hannigan'],
+            issuerMetaB: ['Commerzbank', 'BIC: COBA DE FF XXX', 'IBAN: DE92 1004 0000 0808 9898 00', 'USt.-ID: DE325337362'],
+            pageMark: 'S. 1'
+          }
+        : {
+            title: 'Invoice',
+            customerNumber: 'Customer Number',
+            amount: 'Invoice Amount',
+            date: 'Invoice Date',
+            period: 'Service Period',
+            position: 'Pos.',
+            description: 'Description',
+            quantity: 'Qty',
+            unit: 'Unit',
+            unitPrice: 'Unit (€)',
+            total: 'Total (€)',
+            net: 'Net Amount',
+            vat: 'VAT',
+            paymentFallback: 'Payment due within 30 days of invoice receipt without deductions.',
+            closing: 'Kind regards',
+            issuerAddress: ['FORMATION GmbH', 'Urbanstr. 71', 'D-10967 Berlin'],
+            issuerMetaA: ['Registered office: Berlin', 'Charlottenburg Local Court', 'Commercial Register: HRB 218133', 'Managing Director: Ian Hannigan'],
+            issuerMetaB: ['Commerzbank', 'BIC: COBA DE FF XXX', 'IBAN: DE92 1004 0000 0808 9898 00', 'VAT ID: DE325337362'],
+            pageMark: 'P. 1'
+          };
+
+      const recipientLines = invoice.recipientLines?.length ? invoice.recipientLines : [invoice.company];
+      const senderLines = invoice.senderLines?.length ? invoice.senderLines : ['Ian Hannigan', 'Geschaeftsfuehrer und Gruender', 'E-Mail: ih@tryformation.com', 'Tel.: +49 172 5856655'];
+      const greeting = invoice.greeting || (language === 'de' ? 'Sehr geehrte Damen und Herren,' : 'Dear Sir or Madam,');
+      const intro = invoice.intro || '';
+      const paymentTerms = invoice.paymentTerms || copy.paymentFallback;
+
+      return `
+        <article class="document-page invoice-document-page" data-generated-invoice="true">
+          <section class="invoice-document-header">
+            <p class="invoice-document-company-line">FORMATION GmbH, Urbanstr. 71, 10967 Berlin</p>
+            <img src="assets/formation-logo-text-black.png" alt="FORMATION" class="invoice-document-logo" />
+          </section>
+          <section class="invoice-document-parties">
+            <div class="invoice-document-party invoice-document-party-recipient">
+              ${recipientLines.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            </div>
+            <div class="invoice-document-party invoice-document-party-sender">
+              ${senderLines.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            </div>
+          </section>
+          <section class="invoice-document-meta-grid">
+            <div><span>${copy.date}</span><strong>${escapeHtml(invoice.invoiceDate || 'n/a')}</strong></div>
+            <div><span>${copy.customerNumber}</span><strong>${escapeHtml(invoice.customerNumber || 'n/a')}</strong></div>
+            <div><span>${copy.period}</span><strong>${escapeHtml(invoice.period || 'n/a')}</strong></div>
+          </section>
+          <section class="invoice-document-body">
+            <h1>${copy.title}: ${escapeHtml(invoice.invoiceNumber || 'n/a')}</h1>
+            <p class="invoice-document-greeting">${escapeHtml(greeting)}</p>
+            <p class="invoice-document-intro">${escapeHtml(intro)}</p>
+            <table class="document-table invoice-document-table">
+              <thead>
+                <tr>
+                  <th>${copy.position}</th>
+                  <th>${copy.description}</th>
+                  <th>${copy.quantity}</th>
+                  <th>${copy.unit}</th>
+                  <th>${copy.unitPrice}</th>
+                  <th>${copy.total}</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${invoice.lineItem ? `
+                <tr>
+                  <td>001</td>
+                  <td>${escapeHtml(invoice.lineItem.description)}</td>
+                  <td>${escapeHtml(invoice.lineItem.quantity)}</td>
+                  <td>${escapeHtml(invoice.lineItem.unit)}</td>
+                  <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
+                  <td>${escapeHtml(invoice.lineItem.total)}</td>
+                </tr>` : ''}
+              </tbody>
+            </table>
+            <div class="invoice-document-totals">
+              <div><span>${copy.net}</span><strong>${escapeHtml(invoice.netAmount || 'n/a')}</strong></div>
+              <div><span>${escapeHtml(`${copy.vat} ${invoice.vatRate || ''}`.trim())}</span><strong>${escapeHtml(invoice.vatAmount || 'n/a')}</strong></div>
+              <div class="is-grand-total"><span>${copy.amount}</span><strong>${escapeHtml(invoice.grossAmount || 'n/a')}</strong></div>
+            </div>
+            <p class="invoice-document-payment">${escapeHtml(paymentTerms)}</p>
+            <div class="invoice-document-signoff">
+              <p>${copy.closing}</p>
+              <img src="assets/ian-signature.png" alt="Ian Hannigan signature" class="document-signature-image" />
+              <p>Ian Hannigan</p>
+              <p>${language === 'de' ? 'Geschaeftsfuehrer und Gruender' : 'Managing Director and Founder'}</p>
+            </div>
+          </section>
+          <section class="invoice-document-legal">
+            <div>
+              ${copy.issuerAddress.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            </div>
+            <div>
+              ${copy.issuerMetaA.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            </div>
+            <div>
+              ${copy.issuerMetaB.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            </div>
+            <div class="invoice-document-page-mark">
+              <p>${copy.pageMark}</p>
+            </div>
+          </section>
+        </article>
+      `;
+    }
+
+    function buildGenericSourceDocumentMarkup(layer = getContentLayer(), language = currentLanguage) {
+      if (!hasRenderableContentSeed(layer)) {
+        return '';
+      }
+
+      const seed = getRenderableContentSeed(layer);
+      const sourceText = getPrimarySourceText(layer);
+      const sourceHtml = renderMarkdownishToHtml(sourceText);
+      const title = escapeHtml(layer?.name?.[language] || layer?.name?.en || 'Custom Content Source');
+      const labels = language === 'de'
+        ? {
+            kicker: 'Inhaltsquelle',
+            subtitle: 'Dokumentiert aus hochgeladenen Materialien',
+            notes: 'Briefing',
+            content: 'Dokumentinhalt',
+            files: 'Dateien',
+            excerpts: 'Textauszuege',
+            references: 'Referenzen',
+            noNotes: 'Kein zusaetzliches Briefing hinterlegt.'
+          }
+        : {
+            kicker: 'Content Source',
+            subtitle: 'Documented from uploaded source material',
+            notes: 'Brief',
+            content: 'Document Content',
+            files: 'Files',
+            excerpts: 'Text Excerpts',
+            references: 'References',
+            noNotes: 'No additional brief was provided.'
+          };
+
+      const fileItems = seed.files.slice(0, 8).map(file => `<li><strong>${escapeHtml(file.name)}</strong></li>`).join('');
+      const urlItems = seed.urls.slice(0, 8).map(url => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(url)}</a></li>`).join('');
+      const excerptMarkup = seed.excerptFiles.map(file => `
+        <div class="document-summary-card document-source-excerpt-card">
+          <h3>${escapeHtml(file.name)}</h3>
+          <p class="document-source-excerpt">${escapeHtml(file.excerpt)}</p>
+        </div>
+      `).join('');
+
+      return `
+        <article class="document-page document-page-cover">
+          <div class="document-brand-row">
+            <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
+            <span class="document-brand-divider" aria-hidden="true"></span>
+            <img src="assets/lear-logo.svg" alt="${title}" class="document-brand document-brand-lear" />
+          </div>
+          <div class="document-cover-body">
+            <p class="document-kicker">${labels.kicker}</p>
+            <h1>${title}</h1>
+            <p class="document-subtitle">${labels.subtitle}</p>
+          </div>
+        </article>
+        <article class="document-page" data-generated-invoice="true">
+          <section class="document-section">
+            <h2>${labels.notes}</h2>
+            <p>${escapeHtml(seed.notes || labels.noNotes)}</p>
+          </section>
+          ${sourceHtml ? `
+          <section class="document-section">
+            <h2>${labels.content}</h2>
+            ${sourceHtml}
+          </section>` : ''}
+          <section class="document-section">
+            <h2>${labels.files}</h2>
+            <ul class="document-list">
+              ${fileItems || '<li>No files</li>'}
+            </ul>
+          </section>
+          ${urlItems ? `
+          <section class="document-section">
+            <h2>${labels.references}</h2>
+            <ul class="document-list">
+              ${urlItems}
+            </ul>
+          </section>` : ''}
+          ${excerptMarkup ? `
+          <section class="document-section">
+            <h2>${labels.excerpts}</h2>
+            <div class="document-summary-grid">
+              ${excerptMarkup}
+            </div>
+          </section>` : ''}
+        </article>
+      `;
+    }
+
+    function buildSeedDocumentPageMarkup(layer = getContentLayer(), language = currentLanguage) {
+      if (!hasRenderableContentSeed(layer)) {
+        return '';
+      }
+
+      const seed = getRenderableContentSeed(layer);
+      const labels = language === 'de'
+        ? {
+            title: 'Anhang: Ausgangsmaterial',
+            intro: 'Die folgende Seite dokumentiert das hochgeladene und verlinkte Ausgangsmaterial dieser Inhaltsquelle.',
+            brief: 'Briefing / Notizen',
+            files: 'Quelldateien',
+            urls: 'Referenz-URLs',
+            excerpts: 'Textauszuege',
+            noBrief: 'Kein zusaetzliches Briefing hinterlegt.',
+            binaryHint: 'Keine Textvorschau verfuegbar'
+          }
+        : {
+            title: 'Appendix: Source Material',
+            intro: 'This page records the uploaded and linked source material used to seed this content source.',
+            brief: 'Brief / Notes',
+            files: 'Source Files',
+            urls: 'Reference URLs',
+            excerpts: 'Text Excerpts',
+            noBrief: 'No additional brief was provided.',
+            binaryHint: 'No text preview available'
+          };
+
+      const fileItems = seed.files.slice(0, 8).map(file => {
+        const meta = [file.type || '', file.sizeLabel || '', file.excerpt ? '' : labels.binaryHint].filter(Boolean).join(' • ');
+        return `<li><strong>${escapeHtml(file.name)}</strong>${meta ? ` <span class="document-source-meta">${escapeHtml(meta)}</span>` : ''}</li>`;
+      }).join('');
+
+      const urlItems = seed.urls.slice(0, 6).map(url => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(url)}</a></li>`).join('');
+
+      const excerptMarkup = seed.excerptFiles.map(file => `
+        <div class="document-summary-card document-source-excerpt-card">
+          <h3>${escapeHtml(file.name)}</h3>
+          <p class="document-source-excerpt">${escapeHtml(file.excerpt)}</p>
+        </div>
+      `).join('');
+
+      return `
+        <article class="document-page" data-generated-source-seed="true">
+          <section class="document-section">
+            <h2>${labels.title}</h2>
+            <p>${labels.intro}</p>
+          </section>
+          <section class="document-section">
+            <h2>${labels.brief}</h2>
+            <p>${escapeHtml(seed.notes || labels.noBrief)}</p>
+          </section>
+          <section class="document-section">
+            <h2>${labels.files}</h2>
+            <ul class="document-list">
+              ${fileItems || `<li>${escapeHtml(labels.noBrief)}</li>`}
+            </ul>
+          </section>
+          ${urlItems ? `
+          <section class="document-section">
+            <h2>${labels.urls}</h2>
+            <ul class="document-list">
+              ${urlItems}
+            </ul>
+          </section>` : ''}
+          ${excerptMarkup ? `
+          <section class="document-section">
+            <h2>${labels.excerpts}</h2>
+            <div class="document-summary-grid">
+              ${excerptMarkup}
+            </div>
+          </section>` : ''}
+        </article>
+      `;
+    }
+
+    function syncDynamicSeedDocumentPages() {
+      captureOriginalDocumentMarkup();
+      removeGeneratedSeedDocumentPages();
+
+      const layer = getContentLayer();
+      ['en', 'de'].forEach(language => {
+        const canvas = ensureDynamicDocumentCanvas(layer, language);
+        if (!(canvas instanceof HTMLElement)) {
+          return;
+        }
+
+        const invoiceMarkup = buildInvoiceDocumentMarkup(layer, language);
+        if (invoiceMarkup) {
+          canvas.innerHTML = invoiceMarkup;
+          return;
+        }
+
+        const genericSourceMarkup = buildGenericSourceDocumentMarkup(layer, language);
+        if (genericSourceMarkup) {
+          canvas.innerHTML = genericSourceMarkup;
+          return;
+        }
+
+        if (canvas.dataset.originalMarkupCaptured === 'true') {
+          canvas.innerHTML = canvas.dataset.originalMarkup || '';
+        }
+      });
+
+      if (!hasRenderableContentSeed(layer) && !extractInvoiceData(layer)) {
+        setupDocumentPageFrames();
+        populateDocumentFooters();
+        syncActiveDocumentCanvas();
+        return;
+      }
+
+      ['en', 'de'].forEach(language => {
+        const canvas = ensureDynamicDocumentCanvas(layer, language);
+        if (!(canvas instanceof HTMLElement)) {
+          return;
+        }
+
+        if (extractInvoiceData(layer) || buildGenericSourceDocumentMarkup(layer, language)) {
+          return;
+        }
+
+        const markup = buildSeedDocumentPageMarkup(layer, language);
+        if (!markup) {
+          return;
+        }
+
+        canvas.insertAdjacentHTML('beforeend', markup);
+      });
+
+      prepareDocumentPages();
+      populateDocumentFooters();
+      setupDocumentPageFrames();
+      syncActiveDocumentCanvas();
+      syncDocumentOverviewLayout();
+      syncDocumentPageState();
     }
 
     async function buildReferenceFileRecords(files) {
@@ -2595,6 +3876,16 @@
       return CONTENT_VARIANTS[layer?.variantId || 'offer'] || CONTENT_VARIANTS.offer;
     }
 
+    function getContentVariantLabel(variantId, language = currentLanguage) {
+      const copy = CONTENT_COPY[language] || CONTENT_COPY.en;
+      return copy.variantNames?.[normalizeContentVariant(variantId)] || copy.variantNames?.offer || 'Offer Lear 2026';
+    }
+
+    function hasCustomDocumentView(content = currentContent) {
+      return CUSTOM_DOCUMENT_VARIANTS.includes(getContentLayer(content)?.variantId || 'offer')
+        || hasGeneratedSourceExperience(content);
+    }
+
     function getContentLayer(content = currentContent) {
       return contentLayers.find(layer => layer.id === normalizeContent(content)) || contentLayers[0] || sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[0], 0);
     }
@@ -2620,7 +3911,9 @@
       const urls = Array.isArray(layer.references?.urls) ? layer.references.urls.filter(Boolean) : [];
       const files = Array.isArray(layer.references?.files) ? layer.references.files.filter(Boolean) : [];
       if (urls.length || files.length) {
-        const sourceLabel = getContentLabel(layer.id, language);
+        const sourceLabel = layer.locked
+          ? getContentVariantLabel(layer.variantId, language)
+          : getContentLabel(layer.id, language);
         const counts = [];
         if (urls.length) {
           counts.push(`${urls.length} ${contentCopy.urlsCount}`);
@@ -2762,10 +4055,9 @@
         .filter(Boolean);
       const notes = notesInput.value.trim();
       const files = await buildReferenceFileRecords(pendingContentReferenceFiles);
-      const sourceLayer = getContentLayer();
       const nextLayer = {
         id: editingContentId || `layer-${Date.now().toString(36)}`,
-        variantId: sourceLayer.variantId,
+        variantId: 'generated-source',
         name: {
           en: trimmedName,
           de: trimmedName
@@ -2784,7 +4076,7 @@
           return;
         }
 
-        nextLayer.variantId = existingLayer.variantId;
+        nextLayer.variantId = 'generated-source';
         nextLayer.locked = existingLayer.locked;
         nextLayer.name = {
           ...existingLayer.name,
@@ -2807,6 +4099,13 @@
         applyTheme(managedTheme.id);
         applyThemeBackgrounds();
       }
+      reloadDeckContent({ resetToStart: true }).then(() => {
+        if (currentView === 'document' && hasCustomDocumentView()) {
+          applyView(currentView);
+        }
+      }).catch(error => {
+        console.error('Failed to reload deck content after saving a content source.', error);
+      });
       closeContentCreatePanel({ reset: true });
       closeContentModal();
       openContentModal();
@@ -2836,7 +4135,6 @@
         const title = getContentLabel(layer.id, currentLanguage);
         const meta = getContentDetail(layer, currentLanguage) || contentCopy.fallbackDetail;
         const editLabel = contentCopy.editLabel;
-        const renameLabel = contentCopy.renameLabel;
         const duplicateLabel = contentCopy.duplicateLabel;
         const removeLabel = contentCopy.removeLabel;
         const removeAction = `
@@ -2867,12 +4165,6 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <rect x="8" y="8" width="10" height="10" rx="1.8"></rect>
                   <path d="M6 14H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1"></path>
-                </svg>
-              </button>
-              <button type="button" class="content-option-rename" data-content-rename="${layer.id}" aria-label="${renameLabel}" title="${renameLabel}">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 20h4.75L19 9.75 14.25 5 4 15.25Z"></path>
-                  <path d="M12.75 6.5 17.5 11.25"></path>
                 </svg>
               </button>
               ${removeAction}
@@ -2918,6 +4210,13 @@
       }
       syncThemeBranding(currentTheme);
       renderContentOptions();
+      syncDynamicSeedDocumentPages();
+      syncActiveDocumentCanvas();
+      syncDocumentViewAvailability();
+      if (currentView === 'document' && !hasCustomDocumentView()) {
+        persistView('slides');
+        applyView('slides');
+      }
     }
 
     function syncThemeBranding(themeId = currentTheme) {
@@ -2971,7 +4270,7 @@
     function applyView(view) {
       const previousView = currentView;
       currentView = normalizeView(view);
-      const useCustomDocumentView = currentView === 'document' && CUSTOM_DOCUMENT_VARIANTS.includes(getContentLayer().variantId);
+      const useCustomDocumentView = currentView === 'document' && hasCustomDocumentView();
       document.documentElement.classList.toggle('document-mode', currentView === 'document');
       document.documentElement.classList.toggle('slides-mode', currentView !== 'document');
       document.body.classList.toggle('document-mode', currentView === 'document');
@@ -3006,6 +4305,8 @@
         });
       }
 
+      syncActiveDocumentCanvas();
+
       if (previousView === 'document' && currentView !== 'document') {
         applyThemeBackgrounds();
         scheduleDeckVisualRefresh();
@@ -3037,11 +4338,26 @@
       });
     }
 
+    function syncDocumentViewAvailability() {
+      const documentButton = document.querySelector('.view-option[data-view="document"]');
+      if (!(documentButton instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+      const enabled = hasCustomDocumentView();
+      documentButton.disabled = !enabled;
+      documentButton.classList.toggle('is-disabled', !enabled);
+      documentButton.setAttribute('aria-disabled', enabled ? 'false' : 'true');
+      documentButton.title = enabled ? '' : contentCopy.documentUnavailable;
+    }
+
     function applyLanguageMetadata(language) {
       const copy = LANGUAGE_COPY[language] || LANGUAGE_COPY.en;
       document.documentElement.lang = copy.htmlLang;
       document.title = copy.title;
       document.body.setAttribute('data-language', language);
+      syncActiveDocumentCanvas();
 
       const switcher = document.querySelector('.language-switch');
       if (switcher) {
@@ -3205,6 +4521,7 @@
       prepareDocumentPages();
       populateDocumentFooters();
       applyContent(currentContent);
+      syncDocumentViewAvailability();
       syncDocumentColorModeControls();
       renderDeployTimestamp();
     }
@@ -3291,20 +4608,52 @@
       setTimeout(runRefresh, 320);
     }
 
+    function buildGeneratedDeckSectionsHtml(layer = getContentLayer(), language = currentLanguage) {
+      return buildInvoiceDeckSectionsHtml(layer, language)
+        || buildGenericSourceDeckSectionsHtml(layer, language)
+        || '';
+    }
+
     async function reloadDeckContent({ resetToStart = true } = {}) {
       const slidesRoot = document.querySelector('.reveal .slides');
-      if (!slidesRoot || typeof RevealMarkdown?.slidify !== 'function' || typeof RevealMarkdown?.convertSlides !== 'function') {
+      if (!slidesRoot) {
         return;
       }
 
       const reloadToken = ++deckContentReloadToken;
+      const generatedSlidesHtml = hasGeneratedSourceExperience() ? buildGeneratedDeckSectionsHtml(getContentLayer(), currentLanguage) : '';
+      if (generatedSlidesHtml) {
+        slidesRoot.innerHTML = generatedSlidesHtml;
+        if (reloadToken !== deckContentReloadToken) {
+          return;
+        }
+
+        if (typeof Reveal.sync === 'function') {
+          Reveal.sync();
+        }
+
+        syncThemeBranding(currentTheme);
+        applyThemeBackgrounds();
+        if (resetToStart && typeof Reveal.slide === 'function') {
+          Reveal.slide(0);
+        }
+
+        updateExternalLinks(slidesRoot);
+        scheduleDeckVisualRefresh();
+        return;
+      }
+
+      if (typeof RevealMarkdown?.slidify !== 'function' || typeof RevealMarkdown?.convertSlides !== 'function') {
+        return;
+      }
+
       const sourceUrl = getDeckSourceUrl(currentLanguage, { bustCache: true });
       const response = await fetch(sourceUrl, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error(`Failed to load deck content from ${sourceUrl}: ${response.status}`);
       }
 
-      const markdown = await response.text();
+      const markdown = injectSeedSlidesIntoMarkdown(await response.text(), getContentLayer(), currentLanguage);
       if (reloadToken !== deckContentReloadToken) {
         return;
       }
@@ -3370,6 +4719,13 @@
     function switchDeckView(view) {
       const nextView = normalizeView(view);
       if (nextView === currentView) {
+        return;
+      }
+
+      if (nextView === 'document' && !hasCustomDocumentView()) {
+        const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
+        window.alert(contentCopy.documentUnavailable);
+        syncDocumentViewAvailability();
         return;
       }
 
@@ -3449,46 +4805,6 @@
       }
       closeContentModal();
       openContentModal();
-    }
-
-    function renameContentLayer(contentId) {
-      const layer = getContentLayer(contentId);
-      if (!layer) {
-        return;
-      }
-
-      const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
-      const currentName = getContentLabel(contentId, currentLanguage);
-      const proposedName = window.prompt(contentCopy.renameLayerPrompt, currentName);
-      if (!proposedName) {
-        return;
-      }
-
-      const trimmedName = proposedName.trim();
-      if (!trimmedName) {
-        return;
-      }
-
-      contentLayers = contentLayers.map(entry => {
-        if (entry.id !== layer.id) {
-          return entry;
-        }
-
-        return {
-          ...entry,
-          name: {
-            ...entry.name,
-            [currentLanguage]: trimmedName,
-            ...(entry.name?.en ? {} : { en: trimmedName }),
-            ...(entry.name?.de ? {} : { de: trimmedName })
-          }
-        };
-      });
-      const updatedLayer = getContentLayer(contentId);
-      syncManagedThemeForContentLayer(updatedLayer);
-      persistContentLayers();
-      persistCustomThemes();
-      applyContent(currentContent);
     }
 
     function removeContentLayer(contentId) {
@@ -3663,7 +4979,7 @@
       const isDocOverview = isCustomDocumentViewActive() && isDocumentOverviewActive();
       const isOverview = isRevealOverview || isDocOverview;
       const indices = Reveal.getIndices(slide);
-      const totalSlides = Reveal.getTotalSlides();
+      const totalSlides = getRevealTotalSlides();
       const isFirstSlide = indices.h === 0;
       const isLastSlide = indices.h === totalSlides - 1;
       const hasSlideBackgroundVideo = slide.hasAttribute('data-background-video');
@@ -3732,8 +5048,8 @@
     function updateSlideCount() {
       const footer = document.getElementById('slide-counter');
       const copy = LANGUAGE_COPY[currentLanguage] || LANGUAGE_COPY.en;
-      let idx = Reveal.getSlidePastCount() + 1;
-      let total = Reveal.getTotalSlides();
+      let idx = getRevealActiveSlideNumber();
+      let total = getRevealTotalSlides();
 
       if (isCustomDocumentViewActive()) {
         const frames = getActiveDocumentFrames();
@@ -3745,6 +5061,25 @@
       footer.textContent = `${unitLabel} ${idx} ${copy.ofLabel} ${total}`;
     }
 
+    function getRevealActiveSlideNumber() {
+      if (typeof Reveal === 'undefined' || typeof Reveal.getCurrentSlide !== 'function') {
+        return 1;
+      }
+
+      const currentSlide = Reveal.getCurrentSlide();
+      const slides = Array.from(document.querySelectorAll('.reveal .slides section:not(.stack)'));
+      const index = slides.findIndex(slide => slide === currentSlide);
+      return index === -1 ? 1 : index + 1;
+    }
+
+    function getRevealTotalSlides() {
+      if (typeof Reveal !== 'undefined' && typeof Reveal.getTotalSlides === 'function') {
+        return Math.max(1, Reveal.getTotalSlides());
+      }
+
+      return Math.max(1, document.querySelectorAll('.reveal .slides section:not(.stack)').length || 1);
+    }
+
     function isCustomDocumentViewActive() {
       return currentView === 'document' && !document.body.classList.contains('document-fallback-mode') && !document.getElementById('document-view')?.hidden;
     }
@@ -3754,8 +5089,9 @@
     }
 
     function getActiveDocumentCanvas() {
-      const variantId = getContentLayer().variantId || 'offer';
-      return document.querySelector(`.document-canvas[data-content="${variantId}"][data-language="${currentLanguage}"]`);
+      const layer = getContentLayer();
+      const contentKey = getDocumentCanvasContentKey(layer);
+      return document.querySelector(`.document-canvas[data-content="${contentKey}"][data-language="${currentLanguage}"]`);
     }
 
     function getActiveDocumentFrames() {
@@ -4016,8 +5352,8 @@
         return;
       }
 
-      const totalSlides = Math.max(1, Reveal.getTotalSlides());
-      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const totalSlides = getRevealTotalSlides();
+      const activeSlide = Math.min(totalSlides, getRevealActiveSlideNumber());
       const segmentPercent = 100 / totalSlides;
       const fillPercent = segmentPercent * activeSlide;
       const segmentSizePx = progress.clientWidth / totalSlides;
@@ -4072,12 +5408,12 @@
 
       const progress = event.currentTarget;
       const hoverFill = progress?.querySelector('.progress-hover-fill');
-      const totalSlides = Reveal.getTotalSlides();
+      const totalSlides = getRevealTotalSlides();
       if (!progress || totalSlides <= 1) {
         return;
       }
 
-      const activeSlide = Math.min(totalSlides, Reveal.getSlidePastCount() + 1);
+      const activeSlide = Math.min(totalSlides, getRevealActiveSlideNumber());
       const hoveredSlide = getProgressHoverSlide(event, progress, totalSlides);
       const activeFillPercent = (activeSlide / totalSlides) * 100;
       const hoveredFillPercent = (hoveredSlide / totalSlides) * 100;
@@ -4131,8 +5467,7 @@
         && typeof Reveal.getCurrentSlide === 'function'
         && typeof Reveal.layout === 'function'
         && typeof Reveal.getIndices === 'function'
-        && typeof Reveal.getTotalSlides === 'function'
-        && typeof Reveal.getSlidePastCount === 'function';
+        && typeof Reveal.getTotalSlides === 'function';
     }
 
     function relayoutSoon() {
@@ -4348,7 +5683,7 @@
       }
 
       const progress = event.currentTarget;
-      const totalSlides = Reveal.getTotalSlides();
+      const totalSlides = getRevealTotalSlides();
       if (!progress || totalSlides <= 1) {
         return;
       }
@@ -4504,6 +5839,9 @@
       resetSlideGifs(event.currentSlide);
       watchSlideImages(event.currentSlide);
       relayoutSoon();
+      reloadDeckContent({ resetToStart: false }).catch(error => {
+        console.error('Failed to inject source material into deck content.', error);
+      });
     });
 
     Reveal.on('slidechanged', event => {
@@ -4651,12 +5989,6 @@
       const editButton = event.target.closest('[data-content-edit]');
       if (editButton) {
         editContentLayer(editButton.dataset.contentEdit || '');
-        return;
-      }
-
-      const renameButton = event.target.closest('[data-content-rename]');
-      if (renameButton) {
-        renameContentLayer(renameButton.dataset.contentRename || 'offer');
         return;
       }
 
