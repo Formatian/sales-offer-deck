@@ -350,6 +350,324 @@
       </article>
     </div>
 
+    <div class="document-canvas document-canvas-en" data-content="kaldewei" data-language="en">
+      <article class="document-page document-page-cover">
+        <div class="document-brand-row">
+          <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
+          <span class="document-brand-divider" aria-hidden="true"></span>
+          <img src="assets/kaldewei-wordmark.svg" alt="KALDEWEI" class="document-brand document-brand-lear" />
+        </div>
+        <div class="document-cover-body">
+          <p class="document-kicker">Solution Overview & Price Indication</p>
+          <h1>KALDEWEI Load Carrier Traceability</h1>
+          <p class="document-subtitle">Indicative offer structure for internal logistics based on two implementation options on the FORMATION platform.</p>
+          <div class="document-meta-row">
+            <span><strong>Prepared for:</strong> KALDEWEI</span>
+            <span><strong>Date:</strong> 19.01.2026</span>
+            <span><strong>Focus:</strong> Solution overview and indicative annual pricing</span>
+          </div>
+          <p class="document-intro">FORMATION proposes two implementation options to track approximately 3,000 load carriers across the defined storage and logistics areas at KALDEWEI. Both options share the same platform, asset model, and user workflow, while differing in positioning technology, accuracy, and integration depth.</p>
+        </div>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>1. Executive Summary</h2>
+          <p class="document-section-label">Commercial framing</p>
+          <p>KALDEWEI has a clear choice between a faster, lower-complexity QR-based solution and a more precise UWB-supported solution with mandatory SAP integration. Both options are built on the same FORMATION operating layer and remain within a comparable annual price range.</p>
+          <div class="document-two-up">
+            <div>
+              <p class="document-section-label">Shared platform basis</p>
+              <ul class="document-list">
+                <li>One FORMATION workspace and one asset model.</li>
+                <li>Identical check-in and check-out workflows for users.</li>
+                <li>Approximately 3,000 load carriers in scope.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="document-section-label">Decision criteria</p>
+              <ul class="document-list">
+                <li>Required positioning precision.</li>
+                <li>Need for direct SAP process linkage.</li>
+                <li>Preferred balance between rollout speed and system depth.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="document-section">
+          <h2>2. Option 1: QR-Based Virtual Shelf System</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Area</th><th>Description</th><th>Implication</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Operating model</td><td>Each load carrier receives a unique QR code. Storage positions are defined logically through scan events rather than fixed infrastructure.</td><td>No fixed tracking infrastructure is required.</td></tr>
+              <tr><td>Captured data</td><td>Each scan records asset identity, timestamp, user, and the GPS position of the scanning device.</td><td>Provides a semi-static but operationally useful spatial reference.</td></tr>
+              <tr><td>Strengths</td><td>Works indoors and outdoors, supports manual correction, and is quick to introduce.</td><td>Best fit where approximate positioning is sufficient to reduce search time.</td></tr>
+            </tbody>
+          </table>
+          <p class="document-callout-price">Indicative total for Option 1: EUR 36K per year.</p>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>3. Option 2: UWB Tracking with SAP Integration</h2>
+          <p>Option 2 extends the same workflow with UWB-supported positioning and a mandatory SAP integration layer. In this setup, scan events and position data are transferred into SAP and linked to material and logistics processes there. Without SAP integration, this option is not operationally meaningful.</p>
+          <table class="document-table">
+            <thead>
+              <tr><th>Area</th><th>Description</th><th>Implication</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Operating model</td><td>UWB trackers are mounted on handheld scanners, not on individual load carriers.</td><td>Keeps scope focused while increasing positioning precision.</td></tr>
+              <tr><td>Captured data</td><td>Each scan is enriched with precise real-time scanner position derived from the UWB system and transferred into SAP.</td><td>Reduces ambiguity, especially in indoor environments.</td></tr>
+              <tr><td>Strengths</td><td>Enables reliable indoor localization and direct linkage between scan events and SAP processes.</td><td>Best fit where process precision and system linkage matter more than simplicity.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>4. Pricing Comparison</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Cost item</th><th>Option 1</th><th>Option 2</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Tracking service</td><td>EUR 30K passive object tracking for 3,000 assets via QR scanning</td><td>EUR 24K active object tracking for 3,000 assets via barcode scanning</td></tr>
+              <tr><td>Integration layer</td><td>Not required</td><td>EUR 16K for SAP integration, setup, ongoing operation, maintenance, and support</td></tr>
+              <tr><td>Licenses</td><td>EUR 3K for 12 users</td><td>EUR 3K for 12 users</td></tr>
+              <tr><td>Workspace</td><td>EUR 3K</td><td>EUR 3K</td></tr>
+              <tr><td>Total</td><td>EUR 36K per year</td><td>EUR 48K per year</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>5. Price Conditions</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Assumption</th><th>Scope basis</th><th>Commercial note</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Storage area</td><td>Approximately 5,000 m² relevant storage area</td><td>Included in the indicative calculation.</td></tr>
+              <tr><td>Tracked volume</td><td>Approximately 3,000 load carriers</td><td>Core scaling parameter of the pricing model.</td></tr>
+              <tr><td>Users and devices</td><td>12 users and 3 shared handheld scanners</td><td>Assumed for both options.</td></tr>
+              <tr><td>Contract term</td><td>Minimum of 3 years</td><td>Prices are indicative and subject to final scope definition.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>6. ROI Outlook</h2>
+          <div class="document-summary-grid">
+            <div class="document-summary-card">
+              <h3>Baseline</h3>
+              <p>Assumed annualized production value of approximately EUR 200M.</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Effect range</h3>
+              <p>Conservative productivity improvement estimate of 1 to 5 percent.</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Payback view</h3>
+              <p>Payback within weeks at 1 percent improvement, and within days at 3 to 5 percent.</p>
+            </div>
+          </div>
+          <div class="document-total-band">
+            <span>Commercial interpretation</span>
+            <strong>Even the lower-cost option is expected to amortize very quickly if the productivity effect is realized.</strong>
+          </div>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>7. Implementation Overview</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Step</th><th>Description</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>01</td><td>Initial system setup and configuration</td><td>Prepare the workspace, workflows, and process scope for the chosen option.</td></tr>
+              <tr><td>02</td><td>Test operation in a limited storage area</td><td>Validate workflows and data quality with low operational risk.</td></tr>
+              <tr><td>03</td><td>Phased rollout to full operation</td><td>Expand in a controlled way once the setup is stable.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>8. Closing Note</h2>
+          <p>This document is a non-binding solution and pricing overview. A binding offer can be prepared once KALDEWEI confirms the preferred option and the final scope of services.</p>
+          <div class="document-total-band">
+            <span>Recommended next step</span>
+            <strong>Select the preferred option and finalize scope so the formal commercial offer can be issued.</strong>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <div class="document-canvas document-canvas-de" data-content="kaldewei" data-language="de">
+      <article class="document-page document-page-cover">
+        <div class="document-brand-row">
+          <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="document-brand document-brand-formation" />
+          <span class="document-brand-divider" aria-hidden="true"></span>
+          <img src="assets/kaldewei-wordmark.svg" alt="KALDEWEI" class="document-brand document-brand-lear" />
+        </div>
+        <div class="document-cover-body">
+          <p class="document-kicker">Lösungsübersicht & Preisindikation</p>
+          <h1>KALDEWEI Nachverfolgung von Ladungsträgern</h1>
+          <p class="document-subtitle">Indikative Angebotsstruktur für die interne Logistik auf Basis von zwei Implementierungsoptionen auf der FORMATION-Plattform.</p>
+          <div class="document-meta-row">
+            <span><strong>Vorbereitet für:</strong> KALDEWEI</span>
+            <span><strong>Datum:</strong> 19.01.2026</span>
+            <span><strong>Fokus:</strong> Lösungsübersicht und indikativer Jahrespreis</span>
+          </div>
+          <p class="document-intro">FORMATION schlägt zwei Implementierungsoptionen zur Nachverfolgung von rund 3.000 Ladungsträgern in den definierten Lager- und Logistikbereichen von KALDEWEI vor. Beide Optionen nutzen dieselbe Plattform, dasselbe Asset-Modell und denselben Benutzer-Workflow, unterscheiden sich jedoch in Ortungstechnologie, Genauigkeit und Integrationstiefe.</p>
+        </div>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>1. Zusammenfassung</h2>
+          <p class="document-section-label">Kommerzielle Einordnung</p>
+          <p>KALDEWEI hat die Wahl zwischen einer schnelleren, weniger komplexen QR-basierten Lösung und einer präziseren UWB-gestützten Lösung mit verpflichtender SAP-Integration. Beide Optionen basieren auf derselben FORMATION-Betriebsschicht und liegen in einem vergleichbaren jährlichen Preisrahmen.</p>
+          <div class="document-two-up">
+            <div>
+              <p class="document-section-label">Gemeinsame Plattformbasis</p>
+              <ul class="document-list">
+                <li>Ein FORMATION-Workspace und ein Asset-Modell.</li>
+                <li>Identische Check-in- und Check-out-Workflows für die Anwender.</li>
+                <li>Rund 3.000 Ladungsträger im Scope.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="document-section-label">Entscheidungskriterien</p>
+              <ul class="document-list">
+                <li>Benötigte Ortungsgenauigkeit.</li>
+                <li>Bedarf an direkter SAP-Prozessanbindung.</li>
+                <li>Gewünschte Balance zwischen Rollout-Geschwindigkeit und Systemtiefe.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="document-section">
+          <h2>2. Option 1: QR-basiertes virtuelles Regalsystem</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Bereich</th><th>Beschreibung</th><th>Implikation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Betriebsmodell</td><td>Jeder Ladungsträger erhält einen eindeutigen QR-Code. Lagerpositionen werden logisch über Scan-Ereignisse und nicht über feste Infrastruktur definiert.</td><td>Es ist keine feste Tracking-Infrastruktur erforderlich.</td></tr>
+              <tr><td>Erfasste Daten</td><td>Jeder Scan erfasst Asset-Identität, Zeitstempel, Nutzer sowie die GPS-Position des Scangeräts.</td><td>Erzeugt eine semistatische, operativ nutzbare räumliche Referenz.</td></tr>
+              <tr><td>Stärken</td><td>Innen und außen einsetzbar, manuelle Korrektur möglich, sehr schnell einführbar.</td><td>Besonders geeignet, wenn ungefähre Positionierung ausreicht, um Suchzeiten zu reduzieren.</td></tr>
+            </tbody>
+          </table>
+          <p class="document-callout-price">Indikativer Gesamtpreis für Option 1: 36K EUR pro Jahr.</p>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>3. Option 2: UWB-Tracking mit SAP-Integration</h2>
+          <p>Option 2 erweitert denselben Workflow um eine UWB-gestützte Ortung sowie eine verpflichtende SAP-Integrationsschicht. In diesem Setup werden Scan-Ereignisse und Positionsdaten in SAP übertragen und dort mit Material- und Logistikprozessen verknüpft. Ohne SAP-Integration ist diese Option operativ nicht sinnvoll nutzbar.</p>
+          <table class="document-table">
+            <thead>
+              <tr><th>Bereich</th><th>Beschreibung</th><th>Implikation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Betriebsmodell</td><td>UWB-Tracker sind an Handscannern montiert und nicht an einzelnen Ladungsträgern.</td><td>Der Scope bleibt fokussiert, während die Ortungspräzision steigt.</td></tr>
+              <tr><td>Erfasste Daten</td><td>Jeder Scan wird um eine präzise Echtzeitposition des Scanners aus dem UWB-System angereichert und nach SAP übertragen.</td><td>Reduziert Mehrdeutigkeit, insbesondere in Innenbereichen.</td></tr>
+              <tr><td>Stärken</td><td>Zuverlässige Indoor-Ortung und direkte Verknüpfung von Scan-Ereignissen mit SAP-Prozessen.</td><td>Besonders geeignet, wenn Prozesspräzision und Systemanbindung wichtiger sind als Einfachheit.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>4. Preisvergleich</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Kostenposition</th><th>Option 1</th><th>Option 2</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Tracking-Service</td><td>30K EUR passives Objekt-Tracking für 3.000 Assets über QR-Scanning</td><td>24K EUR aktives Objekt-Tracking für 3.000 Assets über Barcode-Scanning</td></tr>
+              <tr><td>Integrationsschicht</td><td>Nicht erforderlich</td><td>16K EUR für SAP-Integration, Setup, laufenden Betrieb, Wartung und Support</td></tr>
+              <tr><td>Lizenzen</td><td>3K EUR für 12 Nutzer</td><td>3K EUR für 12 Nutzer</td></tr>
+              <tr><td>Workspace</td><td>3K EUR</td><td>3K EUR</td></tr>
+              <tr><td>Gesamt</td><td>36K EUR pro Jahr</td><td>48K EUR pro Jahr</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>5. Preisbedingungen</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Annahme</th><th>Scope-Basis</th><th>Kommerzielle Anmerkung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Lagerfläche</td><td>Rund 5.000 m² relevante Lagerfläche</td><td>In der indikativen Kalkulation enthalten.</td></tr>
+              <tr><td>Verfolgtes Volumen</td><td>Rund 3.000 Ladungsträger</td><td>Zentraler Skalierungsparameter des Preismodells.</td></tr>
+              <tr><td>Nutzer und Geräte</td><td>12 Nutzer und 3 gemeinsam genutzte Handscanner</td><td>Für beide Optionen unterstellt.</td></tr>
+              <tr><td>Vertragslaufzeit</td><td>Mindestens 3 Jahre</td><td>Preise sind indikativ und vom finalen Scope abhängig.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>6. ROI-Ausblick</h2>
+          <div class="document-summary-grid">
+            <div class="document-summary-card">
+              <h3>Baseline</h3>
+              <p>Unterstellter annualisierter Produktionswert von rund 200 Mio. EUR.</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Effektspanne</h3>
+              <p>Konservativ angenommene Produktivitätssteigerung von 1 bis 5 Prozent.</p>
+            </div>
+            <div class="document-summary-card">
+              <h3>Amortisationssicht</h3>
+              <p>Amortisation innerhalb weniger Wochen bei 1 Prozent Verbesserung, innerhalb weniger Tage bei 3 bis 5 Prozent.</p>
+            </div>
+          </div>
+          <div class="document-total-band">
+            <span>Kommerzielle Interpretation</span>
+            <strong>Selbst die günstigere Option amortisiert sich sehr schnell, sofern der Produktivitätseffekt realisiert wird.</strong>
+          </div>
+        </section>
+      </article>
+
+      <article class="document-page">
+        <section class="document-section">
+          <h2>7. Implementierungsübersicht</h2>
+          <table class="document-table">
+            <thead>
+              <tr><th>Schritt</th><th>Beschreibung</th><th>Zweck</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>01</td><td>Initiales System-Setup und Konfiguration</td><td>Workspace, Workflows und Prozess-Scope für die gewählte Option vorbereiten.</td></tr>
+              <tr><td>02</td><td>Testbetrieb in einem begrenzten Lagerbereich</td><td>Workflows und Datenqualität mit geringem operativem Risiko validieren.</td></tr>
+              <tr><td>03</td><td>Schrittweiser Rollout in den Vollbetrieb</td><td>Nach Stabilisierung kontrolliert in den vollen Scope erweitern.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="document-section">
+          <h2>8. Abschließender Hinweis</h2>
+          <p>Dieses Dokument stellt eine unverbindliche Lösungs- und Preisübersicht dar. Ein verbindliches Angebot kann erstellt werden, sobald KALDEWEI die bevorzugte Option und den finalen Leistungsumfang bestätigt.</p>
+          <div class="document-total-band">
+            <span>Empfohlener nächster Schritt</span>
+            <strong>Bevorzugte Option wählen und Scope finalisieren, damit das formale kommerzielle Angebot erstellt werden kann.</strong>
+          </div>
+        </section>
+      </article>
+    </div>
+
     <div class="document-canvas document-canvas-en" data-content="hoffest-2025" data-language="en">
       <article class="document-page document-page-cover">
         <div class="document-brand-row">
@@ -875,7 +1193,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260406c';
+    const DECK_VERSION = '20260406e';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -893,7 +1211,7 @@
       separator: '^---$',
       verticalSeparator: '^--$'
     };
-    const CUSTOM_DOCUMENT_VARIANTS = ['offer', 'hoffest-2025', 'nobaxx'];
+    const CUSTOM_DOCUMENT_VARIANTS = ['offer', 'kaldewei', 'hoffest-2025', 'nobaxx'];
     const CONTENT_VARIANTS = {
       offer: {
         partnerBrandMode: 'theme',
@@ -902,7 +1220,7 @@
       },
       kaldewei: {
         partnerBrandMode: 'theme-only',
-        detail: { en: 'Kaldewei solution overview and pricing strategy', de: 'Kaldewei Lösungsüberblick und Preisstrategie' },
+        detail: { en: 'Kaldewei solution overview and price indication', de: 'Kaldewei Lösungsübersicht und Preisindikation' },
         sources: {
           en: `slides.kaldewei.md?v=${DECK_VERSION}`,
           de: `slides.kaldewei.de.md?v=${DECK_VERSION}`
@@ -957,7 +1275,7 @@
       {
         id: 'kaldewei',
         variantId: 'kaldewei',
-        name: { en: 'Kaldewei Strategy', de: 'Kaldewei Strategie' },
+        name: { en: 'Kaldewei Offer', de: 'Kaldewei Angebot' },
         locked: true
       },
       {
@@ -1277,59 +1595,59 @@
         locked: false,
         name: { en: 'Kaldewei', de: 'Kaldewei' },
         references: {
-          urls: [],
-          notes: 'Seeded Kaldewei style inferred from the provided solution overview and pricing strategy deck cover: dark navy field, sharp white typography, and a single green accent.',
+          urls: ['https://www.kaldewei.de/'],
+          notes: 'Refined against the live Kaldewei corporate site: black/white hero treatment, Franklin Gothic typography, pale stone surfaces, thin grey rules, champagne neutrals, and restrained orange CTAs.',
           files: [
             { name: 'kaldewei-wordmark.svg', type: 'image/svg+xml', size: 0 },
             { name: 'kaldewei-warehouse.webp', type: 'image/webp', size: 0 }
           ]
         },
         generated: {
-          accent: '#22c55e',
-          accentStrong: '#34d399',
-          line: 'rgba(34, 197, 94, 0.24)',
-          hover: 'rgba(34, 197, 94, 0.14)',
-          quote: 'rgba(34, 197, 94, 0.82)',
-          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
-          fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
+          accent: '#cdb496',
+          accentStrong: '#f15a22',
+          line: 'rgba(140, 140, 140, 0.24)',
+          hover: 'rgba(255, 255, 255, 0.08)',
+          quote: 'rgba(205, 180, 150, 0.88)',
+          fontHeading: '"Kaldewei Franklin Condensed", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Kaldewei Franklin Book", "Helvetica Neue", Arial, sans-serif',
           radiusMode: 'sharp',
-          imageMode: 'dark',
+          imageMode: 'light',
           baseTheme: 'formation',
-          colorBg: '#111827',
-          colorBg2: '#0b1220',
-          colorPanel: 'rgba(15, 23, 42, 0.8)',
-          colorPanelStrong: 'rgba(15, 23, 42, 0.94)',
-          colorInk: '#f8fafc',
-          colorMuted: 'rgba(203, 213, 225, 0.8)',
-          tableHeadBg: 'rgba(34, 197, 94, 0.86)',
-          footerBg: 'rgba(8, 14, 26, 0.64)',
-          footerInk: 'rgba(226, 232, 240, 0.78)',
-          controlBg: 'rgba(15, 23, 42, 0.56)',
-          switchBg: 'rgba(15, 23, 42, 0.48)',
-          cardBg: 'linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.92))',
-          tableBg: 'rgba(15, 23, 42, 0.94)',
-          summaryBg: 'rgba(15, 23, 42, 0.9)',
-          blockquoteBg: 'rgba(15, 23, 42, 0.9)',
-          documentBg: '#e5e7eb',
+          colorBg: '#000000',
+          colorBg2: '#1b1b1b',
+          colorPanel: 'rgba(250, 248, 245, 0.9)',
+          colorPanelStrong: 'rgba(255, 255, 255, 0.96)',
+          colorInk: '#111111',
+          colorMuted: 'rgba(49, 49, 49, 0.72)',
+          tableHeadBg: '#111111',
+          footerBg: 'rgba(12, 12, 12, 0.78)',
+          footerInk: 'rgba(255, 255, 255, 0.8)',
+          controlBg: 'rgba(18, 18, 18, 0.84)',
+          switchBg: 'rgba(18, 18, 18, 0.8)',
+          cardBg: 'linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(243, 239, 233, 0.96))',
+          tableBg: 'rgba(255, 255, 255, 0.97)',
+          summaryBg: 'rgba(252, 250, 246, 0.96)',
+          blockquoteBg: 'rgba(246, 242, 236, 0.96)',
+          documentBg: '#ede9e3',
           documentPaper: '#ffffff',
-          documentInk: '#111827',
-          documentLine: '#d1d5db',
-          documentAccent: '#16a34a',
-          documentAccentSoft: '#dcfce7',
-          documentAccentWash: 'rgba(34, 197, 94, 0.08)',
+          documentInk: '#111111',
+          documentLine: '#d7d1c8',
+          documentAccent: '#f15a22',
+          documentAccentSoft: '#f6e5da',
+          documentAccentWash: 'rgba(241, 90, 34, 0.06)',
           coverBrandPrimaryWidth: 'min(28vw, 290px)',
           coverBrandSecondaryWidth: 'min(26vw, 260px)',
           logoUrl: 'assets/kaldewei-wordmark.svg',
           logoAlt: 'KALDEWEI',
           themeBackgrounds: {
-            cover: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            intro: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            platform: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            roadmap: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            support: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            summary: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            closing: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
-            end: { type: 'image', url: 'assets/kaldewei-warehouse.webp' }
+            cover: { type: 'image', url: 'assets/kaldewei-cover-bath.png' },
+            intro: { type: 'image', url: 'https://images.cdn.kaldewei.com/data/inspiration/badplanung/badplanung-online-badplaner-kaldewei-2023.png?auto=format%2Ccompress&ixlib=php-2.1.1&q=80&s=ac3939893a4b9755976aad2849f9a7e4' },
+            platform: { type: 'image', url: 'assets/kaldewei-shower-dark.png' },
+            roadmap: { type: 'image', url: 'assets/kaldewei-washtop.png' },
+            support: { type: 'image', url: 'assets/kaldewei-shower-dark.png' },
+            summary: { type: 'image', url: 'assets/kaldewei-washtop.png' },
+            closing: { type: 'image', url: 'assets/kaldewei-cover-bath.png' },
+            end: { type: 'image', url: 'assets/kaldewei-cover-bath.png' }
           }
         }
       },
@@ -1630,7 +1948,7 @@
         documentUnavailable: 'DOC is only available for content sources that have a document template.',
         variantNames: {
           offer: 'Offer Lear 2026',
-          kaldewei: 'Kaldewei Strategy',
+          kaldewei: 'Kaldewei Offer',
           'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'hoffest-2025': 'Offer Hoffest 2025',
@@ -1673,7 +1991,7 @@
         documentUnavailable: 'DOC ist nur fuer Inhaltsquellen mit eigener Dokumentvorlage verfuegbar.',
         variantNames: {
           offer: 'Angebot Lear 2026',
-          kaldewei: 'Kaldewei Strategie',
+          kaldewei: 'Kaldewei Angebot',
           'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'hoffest-2025': 'Angebot Hoffest 2025',
@@ -4141,6 +4459,7 @@ ${excerptCards}
       document.body.style.setProperty('--font-heading', theme.generated.fontHeading);
       document.body.style.setProperty('--font-body', theme.generated.fontBody);
       document.body.style.setProperty('--font-ui', theme.generated.fontBody);
+      document.body.style.setProperty('--font-cover-title', theme.generated.fontHeading);
       document.body.style.setProperty('--media-filter', theme.generated.imageMode === 'bright' ? 'brightness(0.78) saturate(0.82)' : 'brightness(0.42) saturate(0.2) contrast(1.01)');
       if (theme.generated.colorBg) document.body.style.setProperty('--color-bg', theme.generated.colorBg);
       if (theme.generated.colorBg2) document.body.style.setProperty('--color-bg-2', theme.generated.colorBg2);
@@ -4349,6 +4668,13 @@ ${excerptCards}
     }
 
     function getThemeBackgroundConfig(themeId = currentTheme) {
+      if (currentContent === 'kaldewei') {
+        const kaldeweiTheme = getThemeDefinition('kaldewei');
+        if (kaldeweiTheme?.generated?.themeBackgrounds && Object.keys(kaldeweiTheme.generated.themeBackgrounds).length) {
+          return kaldeweiTheme.generated.themeBackgrounds;
+        }
+      }
+
       const theme = getThemeDefinition(themeId);
       if (theme?.generated?.themeBackgrounds && Object.keys(theme.generated.themeBackgrounds).length) {
         return theme.generated.themeBackgrounds;
@@ -5106,6 +5432,7 @@ ${excerptCards}
     function applyTheme(theme) {
       currentTheme = normalizeTheme(theme);
       document.body.setAttribute('data-theme', getThemeBaseTheme(currentTheme));
+      document.body.setAttribute('data-theme-id', currentTheme);
 
       const switcher = document.querySelector('.theme-switch');
       const copy = THEME_COPY[currentLanguage] || THEME_COPY.en;
