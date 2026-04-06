@@ -7,6 +7,8 @@ description: Guidance for writing and tightening slide copy in this presentation
 
 Use this skill when the task is primarily about slide wording rather than layout, styling, or deployment.
 
+When copy changes materially affect slide density or hierarchy, consult [slide-design-system](/Users/ianhannigan/Downloads/geoit-reveal-starter/skills/slide-design-system/SKILL.md) so wording and layout decisions stay aligned.
+
 ## Goals
 
 - Make slides fast to scan
@@ -17,9 +19,10 @@ Use this skill when the task is primarily about slide wording rather than layout
 
 1. Start with the one point the audience should remember from the slide.
 2. Reduce copy until only the essentials remain.
-3. Prefer short sentences, fragments, or noun phrases over full prose.
-4. Use blue emphasis for key essentials, but cap it at 2 or 3 items per slide.
-5. Keep the slide readable at presentation distance.
+3. Match the amount of copy to the slide pattern; if the slide needs too much explanation, split the idea instead of compressing it.
+4. Prefer short sentences, fragments, or noun phrases over full prose.
+5. Use blue emphasis for key essentials, but cap it at 2 or 3 items per slide.
+6. Keep the slide readable at presentation distance.
 
 ## Writing guidelines
 
@@ -45,6 +48,7 @@ Use this skill when the task is primarily about slide wording rather than layout
 - Assume the presenter will add detail verbally.
 - When a slide starts feeling crowded, split it into two slides instead of shrinking the message into smaller text.
 - If a slide mixes strategy, technical detail, and examples, separate those into clearer beats.
+- Let adjacent slides carry different rhetorical jobs: claim, proof, example, contrast, or CTA.
 
 ## Tone
 
@@ -56,4 +60,5 @@ Use this skill when the task is primarily about slide wording rather than layout
 ## Boundaries
 
 - Do not change the visual theme here; use `reveal-deck` for styling or structural deck work.
+- If copy edits require a different visual pattern, hand off to `reveal-deck` with `slide-design-system` as the design reference.
 - Keep this skill focused on wording, emphasis, and slide-level clarity rather than presentation-specific subject matter.

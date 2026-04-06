@@ -2,6 +2,8 @@
 
 Use this skill when working on slide content, styling, or static presentation assets in this project.
 
+Before making substantial visual or structural slide changes, read [slide-design-system](/Users/ianhannigan/Downloads/geoit-reveal-starter/skills/slide-design-system/SKILL.md). It is the repo-specific TypeUI-derived source of truth for slide quality, layout variation, and reusable design rules.
+
 ## Goals
 
 - Keep the deck easy to edit and easy to preview locally
@@ -17,11 +19,12 @@ Use this skill when working on slide content, styling, or static presentation as
 
 ## Workflow
 
-1. Inspect `slides.md` and `open-location-stack.css` before changing structure or tone.
-2. Prefer editing existing slides rather than adding complex runtime behavior.
-3. If a new concept needs a visual, prefer simple local SVG diagrams over screenshots.
-4. Keep copy concise and presentation-oriented, not website-paragraph oriented.
-5. After edits, preview locally with:
+1. Inspect `slides.md`, `open-location-stack.css`, and `skills/slide-design-system/SKILL.md` before changing structure or tone.
+2. Choose slide patterns that add contrast with nearby slides instead of repeating the same composition through a section.
+3. Prefer editing existing slides and reusable CSS patterns rather than adding complex runtime behavior.
+4. If a new concept needs a visual, prefer simple local SVG diagrams, masks, or editorial composition over screenshots.
+5. Keep copy concise and presentation-oriented, not website-paragraph oriented.
+6. After edits, preview locally with:
 
 ```bash
 bunx serve .
@@ -38,6 +41,8 @@ bunx serve .
 
 - Light backgrounds only unless the user explicitly wants a darker theme.
 - Keep borders, cards, and typography minimal and editorial.
+- Use the slide design system to increase variation through hierarchy, spacing, asymmetry, and motif changes before adding ornament.
+- Encode new successful patterns in reusable CSS classes instead of per-slide inline exceptions.
 - Reuse `assets/open-location-stack-logo.svg` for branding.
 - Avoid adding external asset dependencies when a local SVG will do.
 - Open all external links in a new tab using `target="_blank"` with `rel="noreferrer noopener"`.

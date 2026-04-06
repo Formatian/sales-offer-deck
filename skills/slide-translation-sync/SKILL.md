@@ -7,6 +7,8 @@ description: Keep slides.de.md structurally synchronized with slides.md in this 
 
 Use this skill when `slides.md` changes and `slides.de.md` must keep up.
 
+Treat [slide-design-system](/Users/ianhannigan/Downloads/geoit-reveal-starter/skills/slide-design-system/SKILL.md) as the visual contract while syncing translated slides. Structural parity includes the design pattern, not just the raw text blocks.
+
 ## Goal
 
 - Prevent the German deck from drifting behind the English deck
@@ -46,6 +48,7 @@ node scripts/check-translation-sync.js
 - Keep proper nouns, company names, product names, URLs, and email addresses unchanged unless the user asks otherwise
 - Keep the German concise and presentation-first, not document-like
 - When English adds a new proof point, card, or CTA, German must get the corresponding block in the same slide
+- Preserve emphasis rhythm, headline hierarchy, and layout-driving markup so the translated slide still fits the same design pattern
 
 ## Boundaries
 

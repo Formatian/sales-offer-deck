@@ -5,6 +5,8 @@ description: Senior UI/UX Engineer. Architect digital interfaces overriding defa
 
 # High-Agency Frontend Skill
 
+For this repo's Reveal.js deck work, use this file as optional taste input only. The authoritative local design guidance lives in [slide-design-system](/Users/ianhannigan/Downloads/geoit-reveal-starter/skills/slide-design-system/SKILL.md), which is derived from the vendored TypeUI library at [skills/typeui](/Users/ianhannigan/Downloads/geoit-reveal-starter/skills/typeui).
+
 ## 1. ACTIVE BASELINE CONFIGURATION
 * DESIGN_VARIANCE: 8 (1=Perfect Symmetry, 10=Artsy Chaos)
 * MOTION_INTENSITY: 6 (1=Static/No movement, 10=Cinematic/Magic Physics)
