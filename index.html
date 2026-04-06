@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260405f" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260406a" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -723,22 +723,33 @@
           <path d="M8.5 13.5h7"></path>
           <path d="M8.5 17h4.5"></path>
         </svg>
+        <span class="footer-button-label footer-content-label">ANGEBOT LEAR 2026</span>
       </button>
       <button type="button" class="content-modal-close" aria-label="Close content menu" title="Close content menu">
-        <span aria-hidden="true">&times;</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7.5 3.5Z"></path>
+          <path d="M14 3.5V7h3"></path>
+          <path d="M8.5 10h7"></path>
+          <path d="M8.5 13.5h7"></path>
+          <path d="M8.5 17h4.5"></path>
+        </svg>
+        <span class="footer-button-label footer-content-label">ANGEBOT LEAR 2026</span>
       </button>
-      <span id="content-indicator" class="content-indicator">OFFER LEAR 2026</span>
       <button type="button" class="theme-menu-toggle" aria-label="Open style menu" aria-haspopup="dialog"
         aria-expanded="false" aria-controls="theme-modal" title="Style menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 3 14.2 7.8 19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2Z"></path>
           <circle cx="18.2" cy="5.8" r="1.6"></circle>
         </svg>
+        <span class="footer-button-label footer-theme-label">LEAR DARK</span>
       </button>
       <button type="button" class="theme-modal-close" aria-label="Close style menu" title="Close style menu">
-        <span aria-hidden="true">&times;</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 14.2 7.8 19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2Z"></path>
+          <circle cx="18.2" cy="5.8" r="1.6"></circle>
+        </svg>
+        <span class="footer-button-label footer-theme-label">LEAR DARK</span>
       </button>
-      <span id="theme-indicator" class="content-indicator theme-indicator">LEAR DARK</span>
       <div class="view-switch" role="group" aria-label="View mode">
         <button type="button" class="view-option is-active" data-view="slides" aria-pressed="true">
           <span class="view-option-icon view-option-icon-landscape" aria-hidden="true"></span>
@@ -864,7 +875,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260405c';
+    const DECK_VERSION = '20260406a';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -4706,15 +4717,14 @@ ${excerptCards}
     }
 
     function syncFooterDeckLabel() {
-      const contentIndicator = document.getElementById('content-indicator');
-      const themeIndicator = document.getElementById('theme-indicator');
-      const fixedLabel = 'ANGEBOT LEAR 2026';
-      if (contentIndicator) {
-        contentIndicator.textContent = fixedLabel;
-      }
-      if (themeIndicator) {
-        themeIndicator.textContent = fixedLabel;
-      }
+      const contentLabel = getContentLabel(currentContent, currentLanguage).toUpperCase();
+      const themeLabel = getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
+      document.querySelectorAll('.footer-content-label').forEach(node => {
+        node.textContent = contentLabel;
+      });
+      document.querySelectorAll('.footer-theme-label').forEach(node => {
+        node.textContent = themeLabel;
+      });
     }
 
     function shouldHidePartnerBrand(content = currentContent, themeId = currentTheme) {
