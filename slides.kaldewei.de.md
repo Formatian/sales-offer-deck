@@ -13,9 +13,9 @@
       <h1 class="cover-title kaldewei-cover-title">Nachverfolgung von Ladungsträgern für die interne Logistik</h1>
       <p class="kaldewei-cover-subtitle">Zwei Implementierungsoptionen für rund 3.000 Ladungsträger auf einer gemeinsamen FORMATION-Plattform.</p>
     </div>
-    <div class="kaldewei-cover-actions" aria-hidden="true">
-      <span class="kaldewei-cover-action">Zusammenfassung</span>
-      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Indikatives Angebot</span>
+    <div class="kaldewei-cover-actions">
+      <a class="kaldewei-cover-action" href="https://tryformation.com/contact" target="_blank" rel="noreferrer noopener">Visit FORMATION</a>
+      <a class="kaldewei-cover-action kaldewei-cover-action-accent" href="#/" data-open-document-view="true">Open Document</a>
     </div>
   </div>
   <div class="cover-meta kaldewei-cover-meta">
@@ -253,9 +253,9 @@
       <h2 class="cover-end-title">Danke</h2>
       <p class="kaldewei-outro-cta">Jetzt Kontakt aufnehmen, um die bevorzugte Option zu finalisieren.</p>
     </div>
-    <div class="kaldewei-cover-actions" aria-hidden="true">
-      <span class="kaldewei-cover-action">FORMATION kontaktieren</span>
-      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Scope finalisieren</span>
+    <div class="kaldewei-cover-actions">
+      <a class="kaldewei-cover-action" href="https://tryformation.com/contact" target="_blank" rel="noreferrer noopener">Visit FORMATION</a>
+      <a class="kaldewei-cover-action kaldewei-cover-action-accent" href="#/" data-open-document-view="true">Open Document</a>
     </div>
   </div>
 </section>

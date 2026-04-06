@@ -1,8 +1,13 @@
 <!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
 
 <section class="cover-shell">
-  <div class="cover-brand-row">
-    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+  <div class="cover-brand-row cover-brand-row-xyz-offer">
+    <div class="xyz-offer-lockup" aria-label="XYZ">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+      </div>
+    </div>
     <span class="cover-brand-divider" aria-hidden="true"></span>
     <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
@@ -354,8 +359,13 @@
 <!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
-  <div class="cover-brand-row">
-    <img src="assets/formation-logo-text-white.png" alt="FORMATION" class="cover-brand-mark cover-brand-mark-formation" />
+  <div class="cover-brand-row cover-brand-row-xyz-outro">
+    <div class="xyz-offer-lockup" aria-label="XYZ">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+      </div>
+    </div>
     <span class="cover-brand-divider" aria-hidden="true"></span>
     <img src="assets/lear-logo.svg" alt="Lear Corporation" class="cover-brand-mark cover-brand-mark-lear" />
   </div>

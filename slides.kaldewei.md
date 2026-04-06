@@ -13,9 +13,9 @@
       <h1 class="cover-title kaldewei-cover-title">Load carrier traceability for internal logistics</h1>
       <p class="kaldewei-cover-subtitle">Two implementation options for approximately 3,000 load carriers using one FORMATION operating platform.</p>
     </div>
-    <div class="kaldewei-cover-actions" aria-hidden="true">
-      <span class="kaldewei-cover-action">Executive Summary</span>
-      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Indicative Offer</span>
+    <div class="kaldewei-cover-actions">
+      <a class="kaldewei-cover-action" href="https://tryformation.com/contact" target="_blank" rel="noreferrer noopener">Visit FORMATION</a>
+      <a class="kaldewei-cover-action kaldewei-cover-action-accent" href="#/" data-open-document-view="true">Open Document</a>
     </div>
   </div>
   <div class="cover-meta kaldewei-cover-meta">
@@ -253,9 +253,9 @@
       <h2 class="cover-end-title">Thank You</h2>
       <p class="kaldewei-outro-cta">Get in touch to finalize the preferred option.</p>
     </div>
-    <div class="kaldewei-cover-actions" aria-hidden="true">
-      <span class="kaldewei-cover-action">Contact FORMATION</span>
-      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Finalize Scope</span>
+    <div class="kaldewei-cover-actions">
+      <a class="kaldewei-cover-action" href="https://tryformation.com/contact" target="_blank" rel="noreferrer noopener">Visit FORMATION</a>
+      <a class="kaldewei-cover-action kaldewei-cover-action-accent" href="#/" data-open-document-view="true">Open Document</a>
     </div>
   </div>
 </section>

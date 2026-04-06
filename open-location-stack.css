@@ -274,8 +274,8 @@ body[data-theme="xyz"] {
   --platform-overlay-start: rgba(244, 238, 230, 0.58);
   --platform-overlay-end: rgba(236, 228, 219, 0.76);
   --platform-overlay-glow: rgba(77, 116, 255, 0.08);
-  --cover-overlay-start: rgba(245, 239, 231, 0.12);
-  --cover-overlay-end: rgba(239, 232, 223, 0.42);
+  --cover-overlay-start: rgba(33, 26, 22, 0.28);
+  --cover-overlay-end: rgba(20, 16, 14, 0.56);
   --cover-overlay-glow: rgba(114, 228, 135, 0.08);
   --viewport-overlay-start: rgba(246, 240, 232, 0.82);
   --viewport-overlay-end: rgba(237, 230, 221, 0.92);
@@ -358,8 +358,8 @@ body[data-theme="xyz"] {
   --image-overlay-start: rgba(247, 241, 234, 0.18);
   --image-overlay-end: rgba(237, 231, 223, 0.52);
   --image-overlay-glow: rgba(77, 116, 255, 0.08);
-  --cover-image-overlay-start: rgba(247, 241, 234, 0.08);
-  --cover-image-overlay-end: rgba(237, 231, 223, 0.36);
+  --cover-image-overlay-start: rgba(33, 26, 22, 0.18);
+  --cover-image-overlay-end: rgba(20, 16, 14, 0.48);
   --cover-image-overlay-glow: rgba(114, 228, 135, 0.08);
   --document-bg: #f3eee8;
   --document-paper: #fffdfa;
@@ -566,8 +566,12 @@ body[data-theme="xyz"] .closing-contact-note {
   letter-spacing: 0.08em;
 }
 
-body[data-theme="xyz"] .proposal-table th {
+body[data-theme="xyz"] .proposal-table thead {
   background: var(--table-head-bg);
+}
+
+body[data-theme="xyz"] .proposal-table th {
+  background: transparent;
   color: var(--color-ink) !important;
   font-family: var(--font-body);
   font-size: 0.68rem;
@@ -595,9 +599,13 @@ body[data-theme="xyz"] .corner-brand {
 }
 
 body[data-theme="xyz"] .corner-brand img {
-  content: url("assets/xyz-by-formation-light.svg");
   opacity: 1;
-  width: 126px;
+  width: 106px;
+}
+
+body[data-theme="xyz"] .cover-brand-mark-formation {
+  width: min(14vw, 146px);
+  max-height: 68px;
 }
 
 body[data-theme="xyz"] .slide-footer {
@@ -3033,6 +3041,11 @@ body.document-overview-active .document-page-frame > .document-page {
 body[data-theme="xyz"] .document-brand-divider {
   width: 2px;
   background: linear-gradient(180deg, rgba(255, 107, 69, 0.14), rgba(146, 240, 162, 0.92), rgba(77, 116, 255, 0.18));
+}
+
+body[data-theme="xyz"] .document-brand-formation {
+  width: 152px;
+  max-width: 34%;
 }
 
 .document-cover-body {
@@ -5493,6 +5506,7 @@ body[data-content="kaldewei"] .kaldewei-cover-action {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 body[data-content="kaldewei"] .kaldewei-cover-action-accent {
