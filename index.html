@@ -1596,15 +1596,7 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {
-            cover: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            intro: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            platform: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            roadmap: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            summary: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            closing: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            end: { type: 'image', url: 'assets/berlin-partner-home.png' }
-          }
+          themeBackgrounds: {}
         }
       },
       {
@@ -1771,36 +1763,7 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {
-            cover: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            intro: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            platform: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            roadmap: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            summary: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            closing: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            },
-            end: {
-              type: 'image',
-              url: 'assets/berlin-partner-home.png'
-            }
-          }
+          themeBackgrounds: {}
         }
       },
       {
@@ -2847,11 +2810,29 @@
     }
 
     function normalizeInvoiceAmount(value) {
-      return String(value || '')
-        .replace(/\./g, '')
-        .replace(',', '.')
-        .replace(/[^\d.]/g, '')
+      const raw = String(value || '')
+        .replace(/[^\d.,-]/g, '')
         .trim();
+
+      if (!raw) {
+        return '';
+      }
+
+      const lastComma = raw.lastIndexOf(',');
+      const lastDot = raw.lastIndexOf('.');
+
+      if (lastComma !== -1 && lastDot !== -1) {
+        if (lastComma > lastDot) {
+          return raw.replace(/\./g, '').replace(',', '.').trim();
+        }
+        return raw.replace(/,/g, '').trim();
+      }
+
+      if (lastComma !== -1) {
+        return raw.replace(/\./g, '').replace(',', '.').trim();
+      }
+
+      return raw.replace(/,/g, '').trim();
     }
 
     function formatInvoiceAmountFromNumber(value) {
@@ -2923,6 +2904,28 @@
       }
 
       return '';
+    }
+
+    function extractInvoiceLineItems(table) {
+      if (!table || !Array.isArray(table.body)) {
+        return [];
+      }
+
+      return table.body
+        .filter(row => Array.isArray(row) && row.length >= 6)
+        .filter(row => {
+          const firstCell = (row[0] || '').replace(/\*/g, '').trim();
+          return /^0*\d+$/.test(firstCell);
+        })
+        .map(row => ({
+          position: (row[0] || '').replace(/\*/g, '').trim(),
+          description: (row[1] || '').replace(/\*/g, '').trim(),
+          quantity: (row[2] || '').replace(/\*/g, '').trim(),
+          unit: (row[3] || '').replace(/\*/g, '').trim(),
+          unitPrice: (row[4] || '').replace(/\*/g, '').trim(),
+          total: (row[5] || '').replace(/\*/g, '').trim()
+        }))
+        .filter(item => item.description);
     }
 
     function splitInvoiceAddressBlock(value, type = 'generic') {
@@ -3014,25 +3017,24 @@
       const partyRowMatch = text.match(/^\|\s*(.+?USt-IdNr\.:.+?)\s*\|\s*(.+?(?:E-?Mail:|Tel\.:).+?)\s*\|$/im);
       const recipientLines = splitInvoiceAddressBlock(partyRowMatch?.[1] || company, 'recipient');
       const senderLines = splitInvoiceAddressBlock(partyRowMatch?.[2] || '', 'sender');
+      const lineItems = extractInvoiceLineItems(lineItemTable);
       const lineItemMatch = text.match(/^\|\s*0*1\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|?\s*$/im);
-      const firstLineItemRow = Array.isArray(lineItemTable?.body) ? lineItemTable.body.find(row => row.length >= 6 && /^0*1$/.test((row[0] || '').replace(/\*/g, '').trim())) : null;
-      const lineItem = firstLineItemRow ? {
-        description: firstLineItemRow[1].replace(/\*/g, '').trim(),
-        quantity: firstLineItemRow[2].replace(/\*/g, '').trim(),
-        unit: firstLineItemRow[3].replace(/\*/g, '').trim(),
-        unitPrice: firstLineItemRow[4].replace(/\*/g, '').trim(),
-        total: firstLineItemRow[5].replace(/\*/g, '').trim()
-      } : lineItemMatch ? {
+      const fallbackLineItem = lineItemMatch ? {
+        position: '001',
         description: lineItemMatch[1].trim(),
         quantity: lineItemMatch[2].trim(),
         unit: lineItemMatch[3].trim(),
         unitPrice: lineItemMatch[4].trim(),
         total: lineItemMatch[5].trim()
       } : null;
+      const resolvedLineItems = lineItems.length ? lineItems : (fallbackLineItem ? [fallbackLineItem] : []);
+      const lineItemsNetValue = resolvedLineItems.reduce((sum, item) => {
+        return sum + (Number.parseFloat(normalizeInvoiceAmount(item.total)) || 0);
+      }, 0);
       const netAmount =
         text.match(/Gesamtwert ohne MwSt\.?[^\d]*([0-9][0-9.,\s]*€?)/i)?.[1]?.trim()
         || getInvoiceTableValue(totalsTable, /Gesamtwert ohne MwSt|Net Amount/i)
-        || lineItem?.total
+        || formatInvoiceAmountFromNumber(lineItemsNetValue)
         || '';
       const vatRate = text.match(/Umsatzsteuer\s*([0-9.,]+%)/i)?.[1]?.trim() || '';
       const vatAmount =
@@ -3060,7 +3062,7 @@
         paymentTerms,
         recipientLines,
         senderLines,
-        lineItem,
+        lineItems: resolvedLineItems,
         netAmount,
         vatRate,
         vatAmount,
@@ -3123,14 +3125,14 @@
       const referenceMeta = invoice.reference
         ? (invoice.orderNumber || invoice.invoiceNumber || '')
         : (invoice.period || invoice.customerNumber || '');
-      const lineItemRows = invoice.lineItem ? `
+      const lineItemRows = (invoice.lineItems || []).map(item => `
     <tr>
-      <td>${escapeHtml(invoice.lineItem.description)}</td>
-      <td>${escapeHtml(invoice.lineItem.quantity)}</td>
-      <td>${escapeHtml(invoice.lineItem.unit)}</td>
-      <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
-      <td>${escapeHtml(invoice.lineItem.total)}</td>
-    </tr>` : '';
+      <td>${escapeHtml(item.description)}</td>
+      <td>${escapeHtml(item.quantity)}</td>
+      <td>${escapeHtml(item.unit)}</td>
+      <td>${escapeHtml(item.unitPrice)}</td>
+      <td>${escapeHtml(item.total)}</td>
+    </tr>`).join('');
 
       return `
 <!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
@@ -3325,14 +3327,7 @@ ${lineItemRows}
               </tr>
             </thead>
             <tbody>
-              ${invoice.lineItem ? `
-              <tr>
-                <td>${escapeHtml(invoice.lineItem.description)}</td>
-                <td>${escapeHtml(invoice.lineItem.quantity)}</td>
-                <td>${escapeHtml(invoice.lineItem.unit)}</td>
-                <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
-                <td>${escapeHtml(invoice.lineItem.total)}</td>
-              </tr>` : ''}
+              ${lineItemRows}
             </tbody>
           </table>
           <div class="summary-band">
@@ -3922,15 +3917,15 @@ ${excerptCards}
                 </tr>
               </thead>
               <tbody>
-                ${invoice.lineItem ? `
+                ${(invoice.lineItems || []).map(item => `
                 <tr>
-                  <td>001</td>
-                  <td>${escapeHtml(invoice.lineItem.description)}</td>
-                  <td>${escapeHtml(invoice.lineItem.quantity)}</td>
-                  <td>${escapeHtml(invoice.lineItem.unit)}</td>
-                  <td>${escapeHtml(invoice.lineItem.unitPrice)}</td>
-                  <td>${escapeHtml(invoice.lineItem.total)}</td>
-                </tr>` : ''}
+                  <td>${escapeHtml(item.position || '001')}</td>
+                  <td>${escapeHtml(item.description)}</td>
+                  <td>${escapeHtml(item.quantity)}</td>
+                  <td>${escapeHtml(item.unit)}</td>
+                  <td>${escapeHtml(item.unitPrice)}</td>
+                  <td>${escapeHtml(item.total)}</td>
+                </tr>`).join('')}
               </tbody>
             </table>
             <div class="invoice-document-totals">
@@ -6110,6 +6105,8 @@ ${excerptCards}
         return;
       }
 
+      const previousView = currentView;
+
       if (nextView === 'document' && !hasCustomDocumentView()) {
         const contentCopy = CONTENT_COPY[currentLanguage] || CONTENT_COPY.en;
         window.alert(contentCopy.documentUnavailable);
@@ -6121,6 +6118,19 @@ ${excerptCards}
       applyView(nextView);
       closeContentModal();
       closeThemeModal();
+      if (previousView === 'document' && nextView === 'slides') {
+        mountFooterControls();
+        syncFooterPageControls();
+        window.requestAnimationFrame(() => {
+          if (typeof Reveal.sync === 'function') {
+            Reveal.sync();
+          }
+          if (typeof Reveal.layout === 'function') {
+            Reveal.layout();
+          }
+          syncFooterPageControls();
+        });
+      }
       syncChromeSoon();
       relayoutSoon();
     }

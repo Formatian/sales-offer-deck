@@ -6,10 +6,18 @@
     <span class="cover-brand-divider" aria-hidden="true"></span>
     <img src="assets/kaldewei-wordmark.svg" alt="KALDEWEI" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
-  <p class="cover-tagline kaldewei-cover-kicker">Lösungsübersicht und Preisindikation</p>
-  <div class="cover-rule"></div>
-  <h1 class="cover-title kaldewei-cover-title">Nachverfolgung von Ladungsträgern für die interne Logistik</h1>
-  <p class="kaldewei-cover-subtitle">Zwei Implementierungsoptionen für rund 3.000 Ladungsträger auf einer gemeinsamen FORMATION-Plattform.</p>
+  <div class="kaldewei-cover-hero">
+    <div class="kaldewei-cover-copy">
+      <p class="cover-tagline kaldewei-cover-kicker">Lösungsübersicht und Preisindikation</p>
+      <div class="cover-rule"></div>
+      <h1 class="cover-title kaldewei-cover-title">Nachverfolgung von Ladungsträgern für die interne Logistik</h1>
+      <p class="kaldewei-cover-subtitle">Zwei Implementierungsoptionen für rund 3.000 Ladungsträger auf einer gemeinsamen FORMATION-Plattform.</p>
+    </div>
+    <div class="kaldewei-cover-actions" aria-hidden="true">
+      <span class="kaldewei-cover-action">Zusammenfassung</span>
+      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Indikatives Angebot</span>
+    </div>
+  </div>
   <div class="cover-meta kaldewei-cover-meta">
     <span class="cover-meta-pill">Vorbereitet für KALDEWEI</span>
     <span class="meta-separator">|</span>
@@ -238,7 +246,16 @@
     <span class="cover-brand-divider" aria-hidden="true"></span>
     <img src="assets/kaldewei-wordmark.svg" alt="KALDEWEI" class="cover-brand-mark cover-brand-mark-lear" />
   </div>
-  <p class="cover-tagline kaldewei-cover-kicker">Indikatives Angebot für KALDEWEI</p>
-  <div class="cover-rule"></div>
-  <h2 class="cover-end-title">Danke</h2>
+  <div class="kaldewei-cover-hero">
+    <div class="kaldewei-cover-copy">
+      <p class="cover-tagline kaldewei-cover-kicker">Indikatives Angebot für KALDEWEI</p>
+      <div class="cover-rule"></div>
+      <h2 class="cover-end-title">Danke</h2>
+      <p class="kaldewei-outro-cta">Jetzt Kontakt aufnehmen, um die bevorzugte Option zu finalisieren.</p>
+    </div>
+    <div class="kaldewei-cover-actions" aria-hidden="true">
+      <span class="kaldewei-cover-action">FORMATION kontaktieren</span>
+      <span class="kaldewei-cover-action kaldewei-cover-action-accent">Scope finalisieren</span>
+    </div>
+  </div>
 </section>
