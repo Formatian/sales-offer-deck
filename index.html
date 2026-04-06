@@ -1565,7 +1565,7 @@
           line: 'rgba(216, 31, 42, 0.18)',
           hover: 'rgba(216, 31, 42, 0.1)',
           quote: 'rgba(216, 31, 42, 0.82)',
-          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontHeading: '"Inter", "Helvetica Neue", Arial, sans-serif',
           fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
           radiusMode: 'sharp',
           imageMode: 'bright',
@@ -1596,7 +1596,16 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {}
+          themeBackgrounds: {
+            cover: { type: 'image', url: 'assets/berlin-partner-home.png' },
+            intro: { type: 'image', url: 'assets/berlin-partner-about.png' },
+            platform: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
+            roadmap: { type: 'image', url: 'assets/berlin-partner-sustainability.png' },
+            support: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
+            summary: { type: 'image', url: 'assets/berlin-partner-about.png' },
+            closing: { type: 'image', url: 'assets/berlin-partner-home.png' },
+            end: { type: 'image', url: 'assets/berlin-partner-sustainability.png' }
+          }
         }
       },
       {
@@ -1680,7 +1689,7 @@
           line: 'rgba(157, 188, 60, 0.2)',
           hover: 'rgba(157, 188, 60, 0.12)',
           quote: 'rgba(157, 188, 60, 0.82)',
-          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontHeading: '"Inter", "Helvetica Neue", Arial, sans-serif',
           fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
           radiusMode: 'soft',
           imageMode: 'dark',
@@ -1732,7 +1741,7 @@
           line: 'rgba(216, 31, 42, 0.18)',
           hover: 'rgba(216, 31, 42, 0.1)',
           quote: 'rgba(216, 31, 42, 0.82)',
-          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontHeading: '"Inter", "Helvetica Neue", Arial, sans-serif',
           fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
           radiusMode: 'sharp',
           imageMode: 'bright',
@@ -1763,7 +1772,16 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {}
+          themeBackgrounds: {
+            cover: { type: 'image', url: 'assets/berlin-partner-home.png' },
+            intro: { type: 'image', url: 'assets/berlin-partner-about.png' },
+            platform: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
+            roadmap: { type: 'image', url: 'assets/berlin-partner-sustainability.png' },
+            support: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
+            summary: { type: 'image', url: 'assets/berlin-partner-about.png' },
+            closing: { type: 'image', url: 'assets/berlin-partner-home.png' },
+            end: { type: 'image', url: 'assets/berlin-partner-sustainability.png' }
+          }
         }
       },
       {
@@ -1859,7 +1877,7 @@
           line: 'rgba(157, 188, 60, 0.2)',
           hover: 'rgba(157, 188, 60, 0.12)',
           quote: 'rgba(157, 188, 60, 0.82)',
-          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontHeading: '"Inter", "Helvetica Neue", Arial, sans-serif',
           fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
           radiusMode: 'soft',
           imageMode: 'dark',
@@ -2073,43 +2091,43 @@
       xyz: {
         cover: {
           type: 'image',
-          url: 'assets/lear-seat.webp'
+          url: 'assets/screenshots/formationxyz.webp'
         },
         intro: {
           type: 'image',
-          url: 'assets/lear-theme-light.jpg'
+          url: 'assets/xyz-why-choose.webp'
         },
         platform: {
           type: 'image',
-          url: 'assets/lear-seat.webp'
+          url: 'assets/xyz-ssl.webp'
         },
         roadmap: {
           type: 'image',
-          url: 'assets/lear-customer-experience.webp'
+          url: 'assets/xyz-deltacampus.webp'
         },
         'packages-a': {
           type: 'image',
-          url: 'assets/lear-hero-3.webp'
+          url: 'assets/logo-wall.webp'
         },
         'packages-b': {
           type: 'image',
-          url: 'assets/lear-hero.webp'
+          url: 'assets/xyz-gdpr.webp'
         },
         support: {
           type: 'image',
-          url: 'assets/lear-theme-light.jpg'
+          url: 'assets/zone-triggers.webp'
         },
         summary: {
           type: 'image',
-          url: 'assets/lear-seat.webp'
+          url: 'assets/event-navigation.webp'
         },
         closing: {
           type: 'image',
-          url: 'assets/lear-theme-light.jpg'
+          url: 'assets/screenshots/formationxyz.webp'
         },
         end: {
           type: 'image',
-          url: 'assets/panattoni-park-bremen-6.jpg'
+          url: 'assets/xyz-why-choose.webp'
         }
       },
       'lear-light': {
@@ -5141,13 +5159,11 @@ ${excerptCards}
     }
 
     function syncFooterDeckLabel() {
-      const useFixedLearLabel = currentContent === 'offer' || currentTheme === 'lear';
-      const contentLabel = useFixedLearLabel
+      const useFixedOfferContentLabel = currentContent === 'offer';
+      const contentLabel = useFixedOfferContentLabel
         ? 'ANGEBOT LEAR 2026'
         : getContentLabel(currentContent, currentLanguage).toUpperCase();
-      const themeLabel = useFixedLearLabel
-        ? 'ANGEBOT LEAR 2026'
-        : getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
+      const themeLabel = getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
       document.querySelectorAll('.footer-content-label').forEach(node => {
         node.textContent = contentLabel;
       });

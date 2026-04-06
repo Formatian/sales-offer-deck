@@ -90,7 +90,7 @@
   --switch-border: rgba(238, 49, 36, 0.18);
   --switch-bg: rgba(18, 18, 18, 0.46);
   --switch-hover-bg: rgba(238, 49, 36, 0.12);
-  --switch-active-bg: color-mix(in srgb, var(--color-accent) 88%, black 4%);
+  --switch-active-bg: color-mix(in srgb, var(--color-accent-strong) 88%, black 4%);
   --switch-active-ink: #fff5f2;
   --overview-toggle-hover-bg: rgba(30, 16, 16, 0.88);
   --cover-divider-gradient: linear-gradient(180deg, rgba(238, 49, 36, 0.08), rgba(238, 49, 36, 0.9), rgba(238, 49, 36, 0.08));
@@ -636,16 +636,16 @@ body[data-theme="xyz"] .language-option.is-active {
 
 body[data-theme="xyz"] .language-option.is-active,
 body[data-theme="xyz"] .view-option.is-active {
-  background: #ffffff;
-  color: #111315;
+  background: var(--switch-active-bg);
+  color: var(--switch-active-ink);
 }
 
 body[data-theme="xyz"] .language-option.is-active:hover,
 body[data-theme="xyz"] .language-option.is-active:focus-visible,
 body[data-theme="xyz"] .view-option.is-active:hover,
 body[data-theme="xyz"] .view-option.is-active:focus-visible {
-  background: #72e487;
-  color: #111315;
+  background: var(--color-accent-strong);
+  color: var(--switch-active-ink);
 }
 
 body[data-theme="xyz"] .content-option-title {
@@ -3087,7 +3087,7 @@ body[data-theme="xyz"] .document-brand-divider {
 }
 
 .document-section + .document-section {
-  margin-top: 1.5rem;
+  margin-top: 2.1rem;
 }
 
 .document-view h2 {
