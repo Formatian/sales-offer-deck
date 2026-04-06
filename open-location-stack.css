@@ -812,6 +812,60 @@ body[data-theme="lear-light"] .corner-partner-brand img[src$="lear-logo-dark.svg
   filter: none;
 }
 
+body[data-theme="lear-light"] .content-modal,
+body[data-theme="lear-light"] .theme-modal {
+  border-color: rgba(111, 90, 81, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 251, 0.985), rgba(248, 241, 236, 0.97)),
+    #fffdfa;
+  box-shadow: 0 26px 52px rgba(92, 63, 50, 0.16);
+}
+
+body[data-theme="lear-light"] .content-modal-title,
+body[data-theme="lear-light"] .theme-modal-title,
+body[data-theme="lear-light"] .content-option,
+body[data-theme="lear-light"] .theme-modal .theme-option {
+  color: #2b201b;
+}
+
+body[data-theme="lear-light"] .content-modal-subtitle,
+body[data-theme="lear-light"] .theme-modal-subtitle,
+body[data-theme="lear-light"] .content-option-meta,
+body[data-theme="lear-light"] .theme-option-meta {
+  color: rgba(111, 90, 81, 0.82);
+}
+
+body[data-theme="lear-light"] .content-option:hover,
+body[data-theme="lear-light"] .content-option:focus-visible,
+body[data-theme="lear-light"] .theme-modal .theme-option:hover,
+body[data-theme="lear-light"] .theme-modal .theme-option:focus-visible {
+  color: #2b201b;
+  background: rgba(238, 49, 36, 0.08);
+}
+
+body[data-theme="lear-light"] .content-option.is-active,
+body[data-theme="lear-light"] .theme-modal .theme-option.is-active {
+  background: #ee3124;
+  color: #fff8f5;
+}
+
+body[data-theme="lear-light"] .content-option.is-active .content-option-meta,
+body[data-theme="lear-light"] .theme-modal .theme-option.is-active .theme-option-meta {
+  color: rgba(255, 248, 245, 0.84);
+}
+
+body[data-theme="lear-light"] .content-option-duplicate,
+body[data-theme="lear-light"] .content-option-rename,
+body[data-theme="lear-light"] .content-option-remove,
+body[data-theme="lear-light"] .theme-option-edit,
+body[data-theme="lear-light"] .theme-option-duplicate,
+body[data-theme="lear-light"] .theme-option-delete {
+  border-color: rgba(111, 90, 81, 0.12);
+  background: rgba(255, 251, 248, 0.9);
+  color: rgba(111, 90, 81, 0.9);
+  opacity: 0.92;
+}
+
 body[data-theme="berlin-partner"] {
   --video-overlay-start: rgba(244, 240, 240, 0.24);
   --video-overlay-end: rgba(236, 230, 230, 0.36);
@@ -3897,6 +3951,50 @@ body[data-content="nobaxx"] .summary-band .metric-label {
     padding-top: 118mm;
   }
 
+  body[data-content="kaldewei"] .document-page-cover,
+  body[data-theme-id="kaldewei"] .document-page-cover {
+    background: #ffffff !important;
+    color: #111111 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body[data-content="kaldewei"] .document-page-cover::before,
+  body[data-theme-id="kaldewei"] .document-page-cover::before {
+    height: 7px;
+    background: #111111;
+  }
+
+  body[data-content="kaldewei"] .document-page-cover .document-brand,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-brand {
+    filter: brightness(0) invert(0);
+  }
+
+  body[data-content="kaldewei"] .document-page-cover .document-cover-body,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
+    padding-top: 2.4rem;
+  }
+
+  body[data-content="kaldewei"] .document-page-cover .document-intro,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-intro {
+    margin-top: 2rem;
+  }
+
+  body[data-content="kaldewei"] .document-page-cover h1,
+  body[data-theme-id="kaldewei"] .document-page-cover h1,
+  body[data-content="kaldewei"] .document-page-cover .document-subtitle,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
+  body[data-content="kaldewei"] .document-page-cover .document-meta-row,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
+    color: #111111 !important;
+  }
+
+  body[data-content="kaldewei"] .document-page-cover .document-meta-row,
+  body[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
+    border-top-color: rgba(17, 17, 17, 0.18);
+    border-bottom-color: rgba(17, 17, 17, 0.18);
+  }
+
   .document-page:last-child {
     break-after: auto;
     page-break-after: auto;
@@ -5516,6 +5614,18 @@ body[data-content="kaldewei"] .kaldewei-gate-card {
   gap: 0.55rem;
 }
 
+body[data-content="kaldewei"] .kaldewei-gate-card p {
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+body[data-content="kaldewei"] .kaldewei-gate-total {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.14);
+  font-size: 0.84rem !important;
+}
+
 body[data-content="kaldewei"] .kaldewei-bottom-band {
   margin-top: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -5584,24 +5694,24 @@ body[data-theme-id="kaldewei"] .document-page::before {
 
 body[data-content="kaldewei"] .document-page-cover,
 body[data-theme-id="kaldewei"] .document-page-cover {
-  background:
-    linear-gradient(180deg, #111111 0, #111111 94mm, #ffffff 94mm, #ffffff 100%);
+  background: #ffffff;
   color: #111111;
 }
 
 body[data-content="kaldewei"] .document-page-cover::before,
 body[data-theme-id="kaldewei"] .document-page-cover::before {
-  height: 0;
+  height: 7px;
+  background: #111111;
 }
 
 body[data-content="kaldewei"] .document-page-cover .document-brand,
 body[data-theme-id="kaldewei"] .document-page-cover .document-brand {
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(0);
 }
 
 body[data-content="kaldewei"] .document-page-cover .document-brand-divider,
 body[data-theme-id="kaldewei"] .document-page-cover .document-brand-divider {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.12));
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.1), rgba(17, 17, 17, 0.88), rgba(17, 17, 17, 0.1));
 }
 
 body[data-content="kaldewei"] .document-page-cover .document-kicker,
@@ -5615,19 +5725,24 @@ body[data-content="kaldewei"] .document-page-cover .document-subtitle,
 body[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
 body[data-content="kaldewei"] .document-page-cover .document-meta-row,
 body[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
-  color: #ffffff;
+  color: #111111;
 }
 
 body[data-content="kaldewei"] .document-page-cover .document-meta-row,
 body[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
-  border-top-color: rgba(255, 255, 255, 0.18);
-  border-bottom-color: rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(17, 17, 17, 0.18);
+  border-bottom-color: rgba(17, 17, 17, 0.18);
 }
 
 body[data-content="kaldewei"] .document-page-cover .document-intro,
 body[data-theme-id="kaldewei"] .document-page-cover .document-intro {
-  margin-top: 7.6rem;
+  margin-top: 2rem;
   color: #111111;
+}
+
+body[data-content="kaldewei"] .document-page-cover .document-cover-body,
+body[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
+  padding-top: 2.4rem;
 }
 
 body[data-content="kaldewei"] .document-view h1,
@@ -5669,7 +5784,7 @@ body[data-theme-id="kaldewei"] .document-kicker {
 
 body[data-content="kaldewei"] .document-table,
 body[data-theme-id="kaldewei"] .document-table {
-  font-size: 0.78rem;
+  font-size: 0.69rem;
 }
 
 body[data-content="kaldewei"] .document-table th,
@@ -5704,6 +5819,16 @@ body[data-theme-id="kaldewei"] .document-callout-price {
 body[data-content="kaldewei"] .document-total-band span,
 body[data-theme-id="kaldewei"] .document-total-band span {
   color: rgba(17, 17, 17, 0.66);
+}
+
+body[data-content="kaldewei"] .document-signoff,
+body[data-theme-id="kaldewei"] .document-signoff {
+  border-left-color: #111111;
+}
+
+body[data-content="kaldewei"] .document-signature-line,
+body[data-theme-id="kaldewei"] .document-signature-line {
+  border-top-color: rgba(17, 17, 17, 0.28);
 }
 
 body[data-theme-id="kaldewei"] .reveal h2,

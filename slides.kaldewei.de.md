@@ -115,6 +115,7 @@
     <p><strong>30K EUR</strong> passives Objekt-Tracking für 3.000 Assets über QR-Scanning.</p>
     <p><strong>3K EUR</strong> für 12 Benutzerlizenzen.</p>
     <p><strong>3K EUR</strong> für den KALDEWEI-Workspace.</p>
+    <p class="kaldewei-gate-total"><strong>Gesamt:</strong> 36K EUR pro Jahr.</p>
   </div>
   <div class="kaldewei-gate-card">
     <span class="kaldewei-gate-number">02</span>
@@ -122,6 +123,7 @@
     <p><strong>24K EUR</strong> aktives Tracking für 3.000 Assets über Barcode-Scanning.</p>
     <p><strong>16K EUR</strong> für SAP-Integration, Setup, laufenden Betrieb, Wartung und Support.</p>
     <p><strong>6K EUR</strong> für Lizenzen und Workspace.</p>
+    <p class="kaldewei-gate-total"><strong>Gesamt:</strong> 48K EUR pro Jahr.</p>
   </div>
   <div class="kaldewei-gate-card">
     <span class="kaldewei-gate-number">03</span>
