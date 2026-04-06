@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260406a" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260406c" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260405c" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260406c" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -875,7 +875,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260406a';
+    const DECK_VERSION = '20260406c';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -899,6 +899,22 @@
         partnerBrandMode: 'theme',
         detail: { en: 'Current Lear offer deck', de: 'Aktuelles Lear-Angebot' },
         sources: DECK_SOURCES
+      },
+      kaldewei: {
+        partnerBrandMode: 'theme-only',
+        detail: { en: 'Kaldewei solution overview and pricing strategy', de: 'Kaldewei Lösungsüberblick und Preisstrategie' },
+        sources: {
+          en: `slides.kaldewei.md?v=${DECK_VERSION}`,
+          de: `slides.kaldewei.de.md?v=${DECK_VERSION}`
+        }
+      },
+      'widget-lab': {
+        partnerBrandMode: 'theme',
+        detail: { en: 'Experimental deck widgets and layout patterns', de: 'Experimentelle Deck-Widgets und Layoutmuster' },
+        sources: {
+          en: `slides.widget-lab.md?v=${DECK_VERSION}`,
+          de: `slides.widget-lab.de.md?v=${DECK_VERSION}`
+        }
       },
       'hoffest-2025': {
         partnerBrandMode: 'content-only',
@@ -936,6 +952,18 @@
         id: 'offer',
         variantId: 'offer',
         name: { en: 'Offer Lear 2026', de: 'Angebot Lear 2026' },
+        locked: true
+      },
+      {
+        id: 'kaldewei',
+        variantId: 'kaldewei',
+        name: { en: 'Kaldewei Strategy', de: 'Kaldewei Strategie' },
+        locked: true
+      },
+      {
+        id: 'widget-lab',
+        variantId: 'widget-lab',
+        name: { en: 'Widget Lab', de: 'Widget Lab' },
         locked: true
       },
       {
@@ -1244,6 +1272,68 @@
         }
       },
       {
+        id: 'kaldewei',
+        baseTheme: 'formation',
+        locked: false,
+        name: { en: 'Kaldewei', de: 'Kaldewei' },
+        references: {
+          urls: [],
+          notes: 'Seeded Kaldewei style inferred from the provided solution overview and pricing strategy deck cover: dark navy field, sharp white typography, and a single green accent.',
+          files: [
+            { name: 'kaldewei-wordmark.svg', type: 'image/svg+xml', size: 0 },
+            { name: 'kaldewei-warehouse.webp', type: 'image/webp', size: 0 }
+          ]
+        },
+        generated: {
+          accent: '#22c55e',
+          accentStrong: '#34d399',
+          line: 'rgba(34, 197, 94, 0.24)',
+          hover: 'rgba(34, 197, 94, 0.14)',
+          quote: 'rgba(34, 197, 94, 0.82)',
+          fontHeading: '"Montserrat", "Helvetica Neue", Arial, sans-serif',
+          fontBody: '"Inter", "Helvetica Neue", Arial, sans-serif',
+          radiusMode: 'sharp',
+          imageMode: 'dark',
+          baseTheme: 'formation',
+          colorBg: '#111827',
+          colorBg2: '#0b1220',
+          colorPanel: 'rgba(15, 23, 42, 0.8)',
+          colorPanelStrong: 'rgba(15, 23, 42, 0.94)',
+          colorInk: '#f8fafc',
+          colorMuted: 'rgba(203, 213, 225, 0.8)',
+          tableHeadBg: 'rgba(34, 197, 94, 0.86)',
+          footerBg: 'rgba(8, 14, 26, 0.64)',
+          footerInk: 'rgba(226, 232, 240, 0.78)',
+          controlBg: 'rgba(15, 23, 42, 0.56)',
+          switchBg: 'rgba(15, 23, 42, 0.48)',
+          cardBg: 'linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.92))',
+          tableBg: 'rgba(15, 23, 42, 0.94)',
+          summaryBg: 'rgba(15, 23, 42, 0.9)',
+          blockquoteBg: 'rgba(15, 23, 42, 0.9)',
+          documentBg: '#e5e7eb',
+          documentPaper: '#ffffff',
+          documentInk: '#111827',
+          documentLine: '#d1d5db',
+          documentAccent: '#16a34a',
+          documentAccentSoft: '#dcfce7',
+          documentAccentWash: 'rgba(34, 197, 94, 0.08)',
+          coverBrandPrimaryWidth: 'min(28vw, 290px)',
+          coverBrandSecondaryWidth: 'min(26vw, 260px)',
+          logoUrl: 'assets/kaldewei-wordmark.svg',
+          logoAlt: 'KALDEWEI',
+          themeBackgrounds: {
+            cover: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            intro: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            platform: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            roadmap: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            support: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            summary: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            closing: { type: 'image', url: 'assets/kaldewei-warehouse.webp' },
+            end: { type: 'image', url: 'assets/kaldewei-warehouse.webp' }
+          }
+        }
+      },
+      {
         id: 'nobaxx',
         baseTheme: 'formation',
         locked: false,
@@ -1540,6 +1630,8 @@
         documentUnavailable: 'DOC is only available for content sources that have a document template.',
         variantNames: {
           offer: 'Offer Lear 2026',
+          kaldewei: 'Kaldewei Strategy',
+          'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'hoffest-2025': 'Offer Hoffest 2025',
           nobaxx: 'Nobaxx NoWay',
@@ -1581,6 +1673,8 @@
         documentUnavailable: 'DOC ist nur fuer Inhaltsquellen mit eigener Dokumentvorlage verfuegbar.',
         variantNames: {
           offer: 'Angebot Lear 2026',
+          kaldewei: 'Kaldewei Strategie',
+          'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'hoffest-2025': 'Angebot Hoffest 2025',
           nobaxx: 'Nobaxx NoWay',
@@ -1931,23 +2025,14 @@
         }
 
         const sanitized = parsed.map((layer, index) => sanitizeContentLayer(layer, index)).filter(Boolean);
-        const hasOffer = sanitized.some(layer => layer.id === 'offer');
-        const hasXyzSales = sanitized.some(layer => layer.id === 'xyz-sales');
-        const hasHoffest = sanitized.some(layer => layer.id === 'hoffest-2025');
-        const hasNobaxx = sanitized.some(layer => layer.id === 'nobaxx');
-
-        if (!hasOffer) {
-          sanitized.unshift(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[0], 0));
-        }
-        if (!hasXyzSales) {
-          sanitized.push(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[1], 1));
-        }
-        if (!hasHoffest) {
-          sanitized.push(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[2], 2));
-        }
-        if (!hasNobaxx) {
-          sanitized.push(sanitizeContentLayer(DEFAULT_CONTENT_LAYERS[3], 3));
-        }
+        DEFAULT_CONTENT_LAYERS.forEach((layer, index) => {
+          if (!sanitized.some(entry => entry.id === layer.id)) {
+            const defaultLayer = sanitizeContentLayer(layer, index);
+            if (defaultLayer) {
+              sanitized.push(defaultLayer);
+            }
+          }
+        });
 
         return sanitized;
       } catch (error) {
@@ -4717,8 +4802,13 @@ ${excerptCards}
     }
 
     function syncFooterDeckLabel() {
-      const contentLabel = getContentLabel(currentContent, currentLanguage).toUpperCase();
-      const themeLabel = getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
+      const useFixedLearLabel = currentContent === 'offer' || currentTheme === 'lear';
+      const contentLabel = useFixedLearLabel
+        ? 'ANGEBOT LEAR 2026'
+        : getContentLabel(currentContent, currentLanguage).toUpperCase();
+      const themeLabel = useFixedLearLabel
+        ? 'ANGEBOT LEAR 2026'
+        : getShortThemeLabel(currentTheme, currentLanguage).toUpperCase();
       document.querySelectorAll('.footer-content-label').forEach(node => {
         node.textContent = contentLabel;
       });
@@ -5514,6 +5604,7 @@ ${excerptCards}
           Reveal.layout();
         }
 
+        initializeInteractiveSlides(slidesRoot);
         updateExternalLinks(slidesRoot);
         scheduleDeckVisualRefresh();
         return;
@@ -5552,8 +5643,74 @@ ${excerptCards}
         Reveal.layout();
       }
 
+      initializeInteractiveSlides(slidesRoot);
       updateExternalLinks(slidesRoot);
       scheduleDeckVisualRefresh();
+    }
+
+    function initializeInteractiveSlides(root = document) {
+      root.querySelectorAll('.widget-lab-gallery-shell').forEach(shell => {
+        const activeThumb = shell.querySelector('.widget-lab-gallery-thumb-active') || shell.querySelector('.widget-lab-gallery-thumb');
+        if (activeThumb instanceof HTMLElement) {
+          applyWidgetLabGalleryState(activeThumb);
+        }
+      });
+
+      root.querySelectorAll('.widget-lab-tabs').forEach(tabList => {
+        const activeTab = tabList.querySelector('.widget-lab-tab-active') || tabList.querySelector('.widget-lab-tab');
+        if (activeTab instanceof HTMLElement) {
+          applyWidgetLabTabState(activeTab);
+        }
+      });
+    }
+
+    function applyWidgetLabGalleryState(trigger) {
+      const shell = trigger.closest('.widget-lab-gallery-shell');
+      if (!(shell instanceof HTMLElement)) {
+        return;
+      }
+
+      shell.querySelectorAll('.widget-lab-gallery-thumb').forEach(thumb => {
+        const isActive = thumb === trigger;
+        thumb.classList.toggle('widget-lab-gallery-thumb-active', isActive);
+        thumb.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      const main = shell.querySelector('.widget-lab-gallery-main');
+      const kicker = shell.querySelector('[data-gallery-kicker]');
+      const title = shell.querySelector('[data-gallery-title]');
+      const copy = shell.querySelector('[data-gallery-copy]');
+      if (main instanceof HTMLElement) {
+        main.dataset.galleryMain = trigger.dataset.galleryId || 'plant';
+      }
+      if (kicker) {
+        kicker.textContent = trigger.dataset.galleryKicker || '';
+      }
+      if (title) {
+        title.textContent = trigger.dataset.galleryTitle || '';
+      }
+      if (copy) {
+        copy.textContent = trigger.dataset.galleryCopy || '';
+      }
+    }
+
+    function applyWidgetLabTabState(trigger) {
+      const target = trigger.dataset.tabTarget || '';
+      const tabList = trigger.closest('.widget-lab-tabs');
+      const slide = trigger.closest('section');
+      if (!(tabList instanceof HTMLElement) || !(slide instanceof HTMLElement) || !target) {
+        return;
+      }
+
+      tabList.querySelectorAll('.widget-lab-tab').forEach(tab => {
+        const isActive = tab === trigger;
+        tab.classList.toggle('widget-lab-tab-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      slide.querySelectorAll('[data-tab-panel]').forEach(panel => {
+        panel.hidden = panel.getAttribute('data-tab-panel') !== target;
+      });
     }
 
     function updateLanguageLocation(language) {
@@ -7039,6 +7196,32 @@ ${excerptCards}
     });
     document.querySelector('.theme-modal-close')?.addEventListener('click', closeThemeModal);
     document.getElementById('theme-modal-backdrop')?.addEventListener('click', closeThemeModal);
+    document.addEventListener('click', event => {
+      const galleryThumb = event.target.closest('.widget-lab-gallery-thumb');
+      if (galleryThumb instanceof HTMLElement) {
+        applyWidgetLabGalleryState(galleryThumb);
+        return;
+      }
+
+      const widgetTab = event.target.closest('.widget-lab-tab');
+      if (widgetTab instanceof HTMLElement) {
+        applyWidgetLabTabState(widgetTab);
+        return;
+      }
+
+      const playButton = event.target.closest('.widget-lab-play-button');
+      if (playButton instanceof HTMLElement) {
+        const mediaBody = playButton.closest('.widget-lab-video-body');
+        const progress = mediaBody?.parentElement?.querySelector('.widget-lab-video-progress');
+        if (mediaBody instanceof HTMLElement) {
+          const nextState = mediaBody.dataset.widgetMediaState === 'paused' ? 'playing' : 'paused';
+          mediaBody.dataset.widgetMediaState = nextState;
+          if (progress instanceof HTMLElement) {
+            progress.style.width = nextState === 'paused' ? '18%' : '56%';
+          }
+        }
+      }
+    });
     window.addEventListener('keydown', event => {
       if (event.key === 'Escape' && !document.getElementById('content-modal')?.hidden) {
         closeContentModal();

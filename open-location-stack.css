@@ -5096,6 +5096,753 @@ body:not([data-theme="xyz"]):not([data-theme="lear-light"]) .closing-summary spa
   color: var(--color-muted);
 }
 
+body[data-content="kaldewei"] .reveal h2 {
+  max-width: 12ch;
+  letter-spacing: -0.05em;
+}
+
+body[data-content="kaldewei"] .slide-lead {
+  max-width: 40rem;
+  color: rgba(232, 240, 248, 0.88) !important;
+}
+
+body[data-content="kaldewei"] .proposal-cover:not(.end-cover) .cover-meta-pill,
+body[data-content="kaldewei"] .end-cover .cover-meta-pill,
+body[data-content="kaldewei"] .closing-summary,
+body[data-content="kaldewei"] .pull-quote,
+body[data-content="kaldewei"] .pull-quote p,
+body[data-content="kaldewei"] .pull-quote strong,
+body[data-content="kaldewei"] .pull-quote em,
+body[data-content="kaldewei"] .pull-quote span {
+  color: rgba(245, 248, 252, 0.9) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-shell {
+  gap: 0;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-row {
+  width: auto;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-kicker {
+  margin-top: 1.3rem;
+  font-size: 0.86rem;
+  letter-spacing: 0.18em;
+  color: rgba(52, 211, 153, 0.92) !important;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-title {
+  max-width: 12ch;
+  margin-top: 0.4rem;
+  font-size: 3.4rem !important;
+  line-height: 0.94;
+  letter-spacing: -0.07em !important;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-subtitle {
+  max-width: 34rem;
+  margin: 1.15rem auto 0;
+  font-size: 1rem;
+  line-height: 1.34;
+  color: rgba(216, 226, 236, 0.78);
+  text-align: center;
+}
+
+body[data-content="kaldewei"] .kaldewei-cover-meta {
+  margin-top: 2rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-editorial,
+body[data-content="kaldewei"] .kaldewei-system-layout,
+body[data-content="kaldewei"] .kaldewei-close-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.8fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin-top: 1rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-editorial-main,
+body[data-content="kaldewei"] .kaldewei-system-note,
+body[data-content="kaldewei"] .kaldewei-close-main {
+  padding: 1rem 1.05rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(10, 16, 30, 0.92)),
+    var(--card-bg);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.28);
+}
+
+body[data-content="kaldewei"] .kaldewei-editorial-lead {
+  margin-top: 1.15rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-editorial-rail,
+body[data-content="kaldewei"] .kaldewei-close-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-mega-statement {
+  max-width: 13ch;
+  margin: 0.25rem 0 0;
+  font-size: 2.15rem;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  color: var(--color-ink);
+}
+
+body[data-content="kaldewei"] .kaldewei-rail-card,
+body[data-content="kaldewei"] .kaldewei-close-item {
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.95));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+body[data-content="kaldewei"] .kaldewei-rail-card p,
+body[data-content="kaldewei"] .kaldewei-close-item p,
+body[data-content="kaldewei"] .kaldewei-system-note p {
+  margin: 0;
+  color: rgba(216, 226, 236, 0.82);
+}
+
+body[data-content="kaldewei"] .kaldewei-insight-grid,
+body[data-content="kaldewei"] .kaldewei-gate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-insight-card,
+body[data-content="kaldewei"] .kaldewei-gate-card,
+body[data-content="kaldewei"] .kaldewei-option-card {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.94)),
+    var(--card-bg);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+body[data-content="kaldewei"] .kaldewei-insight-card strong,
+body[data-content="kaldewei"] .kaldewei-gate-card h3,
+body[data-content="kaldewei"] .kaldewei-option-card h3,
+body[data-content="kaldewei"] .kaldewei-close-punch,
+body[data-content="kaldewei"] .kaldewei-side-title {
+  display: block;
+  margin: 0.15rem 0 0.35rem;
+  color: var(--color-ink);
+}
+
+body[data-content="kaldewei"] .kaldewei-flow-band,
+body[data-content="kaldewei"] .kaldewei-pricing-spectrum {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 1rem;
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  background: linear-gradient(180deg, rgba(8, 14, 26, 0.82), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="kaldewei"] .kaldewei-pricing-spectrum {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body[data-content="kaldewei"] .kaldewei-flow-step,
+body[data-content="kaldewei"] .kaldewei-pricing-spectrum > div,
+body[data-content="kaldewei"] .kaldewei-bottom-band {
+  min-width: 0;
+  padding: 0.9rem 1rem;
+  border-right: 1px solid rgba(34, 197, 94, 0.14);
+}
+
+body[data-content="kaldewei"] .kaldewei-flow-step:last-child,
+body[data-content="kaldewei"] .kaldewei-pricing-spectrum > div:last-child {
+  border-right: 0;
+}
+
+body[data-content="kaldewei"] .kaldewei-flow-step span {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.28;
+  color: rgba(232, 240, 248, 0.86);
+}
+
+body[data-content="kaldewei"] .kaldewei-system-stack {
+  display: grid;
+  gap: 0.8rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-system-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.95));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+body[data-content="kaldewei"] .kaldewei-stage-index,
+body[data-content="kaldewei"] .kaldewei-gate-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(34, 197, 94, 0.28);
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+body[data-content="kaldewei"] .kaldewei-note-divider {
+  width: 4rem;
+  height: 2px;
+  margin: 1rem 0 0.9rem;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.9), rgba(34, 197, 94, 0.12));
+}
+
+body[data-content="kaldewei"] .kaldewei-note-small {
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+body[data-content="kaldewei"] .kaldewei-commercial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-option-card-strong {
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(15, 23, 42, 0.96) 42%, rgba(9, 14, 26, 0.98)),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 14, 26, 0.95));
+}
+
+body[data-content="kaldewei"] .kaldewei-gate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+body[data-content="kaldewei"] .kaldewei-bottom-band {
+  margin-top: 1rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: linear-gradient(180deg, rgba(8, 14, 26, 0.82), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="kaldewei"] .kaldewei-bottom-band p {
+  margin: 0.2rem 0 0;
+  color: rgba(232, 240, 248, 0.84);
+}
+
+body[data-content="kaldewei"] .kaldewei-close-punch {
+  max-width: 13ch;
+  margin-top: 1rem;
+  font-size: 2rem;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+body[data-content="widget-lab"] .reveal h2 {
+  max-width: 11ch;
+  letter-spacing: -0.06em;
+}
+
+body[data-content="widget-lab"] .slide-lead {
+  max-width: 46rem;
+  color: rgba(230, 238, 246, 0.86) !important;
+}
+
+body[data-content="widget-lab"] .widget-lab-cover-shell {
+  gap: 0.8rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-media-layout,
+body[data-content="widget-lab"] .widget-lab-chart-layout,
+body[data-content="widget-lab"] .widget-lab-comparison-grid,
+body[data-content="widget-lab"] .widget-lab-proof-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-media-layout,
+body[data-content="widget-lab"] .widget-lab-chart-layout,
+body[data-content="widget-lab"] .widget-lab-proof-grid {
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+}
+
+body[data-content="widget-lab"] .widget-lab-comparison-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body[data-content="widget-lab"] .widget-lab-video-frame,
+body[data-content="widget-lab"] .widget-lab-thumbnail-card,
+body[data-content="widget-lab"] .widget-lab-bar-card,
+body[data-content="widget-lab"] .widget-lab-donut-card,
+body[data-content="widget-lab"] .widget-lab-compare-card,
+body[data-content="widget-lab"] .widget-lab-proof-quote,
+body[data-content="widget-lab"] .widget-lab-proof-tile,
+body[data-content="widget-lab"] .widget-lab-appendix-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(18, 28, 42, 0.82), rgba(8, 14, 26, 0.94)),
+    var(--card-bg);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.26);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-frame {
+  padding: 0.65rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-video-topbar {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.15rem 0 0.55rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-video-topbar span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-body,
+body[data-content="widget-lab"] .widget-lab-gallery-main {
+  position: relative;
+  min-height: 19rem;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(22, 163, 74, 0.12), rgba(6, 11, 19, 0.1) 45%, rgba(6, 11, 19, 0.18)),
+    url('assets/kaldewei-warehouse.webp') center/cover;
+}
+
+body[data-content="widget-lab"] .widget-lab-play-button {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.2rem;
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(8, 14, 26, 0.68);
+}
+
+body[data-content="widget-lab"] .widget-lab-play-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-38%, -50%);
+  border-top: 0.7rem solid transparent;
+  border-bottom: 0.7rem solid transparent;
+  border-left: 1rem solid rgba(255, 255, 255, 0.92);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-caption,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay {
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 1.1rem;
+  padding: 0.95rem 1rem;
+  background: rgba(8, 14, 26, 0.72);
+  backdrop-filter: blur(12px);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-caption span,
+body[data-content="widget-lab"] .widget-lab-video-caption strong,
+body[data-content="widget-lab"] .widget-lab-video-caption p,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay span,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay strong,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay p,
+body[data-content="widget-lab"] .widget-lab-proof-quote span,
+body[data-content="widget-lab"] .widget-lab-proof-quote strong,
+body[data-content="widget-lab"] .widget-lab-proof-tile span,
+body[data-content="widget-lab"] .widget-lab-proof-tile strong,
+body[data-content="widget-lab"] .widget-lab-appendix-card span,
+body[data-content="widget-lab"] .widget-lab-appendix-card strong {
+  display: block;
+}
+
+body[data-content="widget-lab"] .widget-lab-video-caption p,
+body[data-content="widget-lab"] .widget-lab-proof-tile span,
+body[data-content="widget-lab"] .widget-lab-appendix-card span,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay span,
+body[data-content="widget-lab"] .widget-lab-thumbnail-card span,
+body[data-content="widget-lab"] .widget-lab-card-kicker,
+body[data-content="widget-lab"] .widget-lab-flow-label,
+body[data-content="widget-lab"] .widget-lab-decision-matrix span {
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.78);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-scrub {
+  margin-top: 0.7rem;
+  height: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-progress {
+  width: 56%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.95), rgba(52, 211, 153, 0.7));
+  transition: width 180ms ease;
+}
+
+body[data-content="widget-lab"] .widget-lab-thumbnail-column,
+body[data-content="widget-lab"] .widget-lab-proof-stack,
+body[data-content="widget-lab"] .widget-lab-appendix-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-thumbnail-card,
+body[data-content="widget-lab"] .widget-lab-proof-tile,
+body[data-content="widget-lab"] .widget-lab-appendix-card {
+  padding: 1rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-thumbnail-card strong,
+body[data-content="widget-lab"] .widget-lab-thumbnail-card p,
+body[data-content="widget-lab"] .widget-lab-bar-card strong,
+body[data-content="widget-lab"] .widget-lab-bar-card span,
+body[data-content="widget-lab"] .widget-lab-donut-card strong,
+body[data-content="widget-lab"] .widget-lab-donut-card p,
+body[data-content="widget-lab"] .widget-lab-compare-card h3,
+body[data-content="widget-lab"] .widget-lab-compare-card li,
+body[data-content="widget-lab"] .widget-lab-decision-matrix strong,
+body[data-content="widget-lab"] .widget-lab-flow-column strong,
+body[data-content="widget-lab"] .widget-lab-appendix-card strong {
+  color: rgba(241, 245, 249, 0.94);
+}
+
+body[data-content="widget-lab"] .widget-lab-bar-card span:not(.widget-lab-card-kicker),
+body[data-content="widget-lab"] .widget-lab-donut-card small,
+body[data-content="widget-lab"] .widget-lab-compare-card ul,
+body[data-content="widget-lab"] .widget-lab-compare-card li,
+body[data-content="widget-lab"] .widget-lab-gallery-overlay p,
+body[data-content="widget-lab"] .widget-lab-flow-column,
+body[data-content="widget-lab"] .widget-lab-appendix-card,
+body[data-content="widget-lab"] .widget-lab-proof-quote {
+  color: rgba(226, 232, 240, 0.84);
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip,
+body[data-content="widget-lab"] .widget-lab-decision-matrix,
+body[data-content="widget-lab"] .widget-lab-tabs {
+  display: grid;
+  gap: 0;
+  margin-top: 1rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  background: rgba(8, 14, 26, 0.82);
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip div,
+body[data-content="widget-lab"] .widget-lab-decision-matrix div {
+  padding: 0.95rem 1rem;
+  border-right: 1px solid rgba(34, 197, 94, 0.14);
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip div:last-child,
+body[data-content="widget-lab"] .widget-lab-decision-matrix div:last-child {
+  border-right: 0;
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip span {
+  display: block;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+body[data-content="widget-lab"] .widget-lab-kpi-strip small {
+  display: block;
+  margin-top: 0.35rem;
+  color: rgba(226, 232, 240, 0.8);
+}
+
+body[data-content="widget-lab"] .widget-lab-bar-card,
+body[data-content="widget-lab"] .widget-lab-donut-card,
+body[data-content="widget-lab"] .widget-lab-compare-card,
+body[data-content="widget-lab"] .widget-lab-proof-quote {
+  padding: 1rem 1.05rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-play-button {
+  cursor: pointer;
+}
+
+body[data-content="widget-lab"] .widget-lab-video-body[data-widget-media-state="paused"] .widget-lab-play-button {
+  background: rgba(8, 14, 26, 0.86);
+}
+
+body[data-content="widget-lab"] .widget-lab-video-body[data-widget-media-state="paused"] .widget-lab-play-button::before {
+  transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.92) 0 38%, transparent 38% 62%, rgba(255, 255, 255, 0.92) 62% 100%);
+}
+
+body[data-content="widget-lab"] .widget-lab-bar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-bar-row i {
+  display: block;
+  height: 0.7rem;
+  background: rgba(148, 163, 184, 0.34);
+}
+
+body[data-content="widget-lab"] .widget-lab-bar-row-accent i {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.95), rgba(52, 211, 153, 0.78));
+}
+
+body[data-content="widget-lab"] .widget-lab-donut-shell {
+  position: relative;
+  width: 12rem;
+  height: 12rem;
+  margin: 1rem auto 0.75rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-donut-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: conic-gradient(rgba(34, 197, 94, 0.92) 0 74%, rgba(148, 163, 184, 0.18) 74% 100%);
+}
+
+body[data-content="widget-lab"] .widget-lab-donut-center {
+  position: absolute;
+  inset: 1.7rem;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 14, 26, 0.95);
+  border-radius: 999px;
+  text-align: center;
+}
+
+body[data-content="widget-lab"] .widget-lab-donut-center span {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+body[data-content="widget-lab"] .widget-lab-compare-card ul {
+  margin: 0.8rem 0 0;
+}
+
+body[data-content="widget-lab"] .widget-lab-compare-card-strong {
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(18, 28, 42, 0.92) 36%, rgba(8, 14, 26, 0.96)),
+    var(--card-bg);
+}
+
+body[data-content="widget-lab"] .widget-lab-decision-matrix {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  background: rgba(8, 14, 26, 0.84);
+}
+
+body[data-content="widget-lab"] .widget-lab-decision-matrix strong {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-flow-board {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.8fr) minmax(8rem, 0.8fr) minmax(10rem, 0.9fr) minmax(8rem, 0.8fr) minmax(10rem, 0.8fr);
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-flow-column {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  min-height: 13rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(18, 28, 42, 0.82), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="widget-lab"] .widget-lab-flow-stream {
+  display: grid;
+  gap: 0.85rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-flow-lane {
+  height: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.88), rgba(148, 163, 184, 0.14));
+}
+
+body[data-content="widget-lab"] .widget-lab-flow-lane-1 { width: 88%; }
+body[data-content="widget-lab"] .widget-lab-flow-lane-2 { width: 62%; }
+body[data-content="widget-lab"] .widget-lab-flow-lane-3 { width: 48%; }
+body[data-content="widget-lab"] .widget-lab-flow-lane-4 { width: 74%; }
+body[data-content="widget-lab"] .widget-lab-flow-lane-5 { width: 56%; }
+
+body[data-content="widget-lab"] .widget-lab-gallery-shell {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-rail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-thumb {
+  min-height: 5.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(22, 163, 74, 0.08), rgba(6, 11, 19, 0.16)),
+    url('assets/kaldewei-warehouse.webp') center/cover;
+  opacity: 0.45;
+  cursor: pointer;
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-thumb-active {
+  opacity: 1;
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.6);
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-main[data-gallery-main="product"] {
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(6, 11, 19, 0.18)),
+    radial-gradient(circle at 70% 28%, rgba(255, 255, 255, 0.14), transparent 28%),
+    linear-gradient(135deg, rgba(18, 28, 42, 0.96), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-main[data-gallery-main="interface"] {
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(8, 14, 26, 0.34)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 5rem),
+    linear-gradient(180deg, rgba(18, 28, 42, 0.96), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="widget-lab"] .widget-lab-gallery-main[data-gallery-main="reference"] {
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(6, 11, 19, 0.18)),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.08) 0 18%, transparent 18% 100%),
+    linear-gradient(180deg, rgba(18, 28, 42, 0.96), rgba(8, 14, 26, 0.94));
+}
+
+body[data-content="widget-lab"] .widget-lab-proof-quote {
+  display: grid;
+  align-content: end;
+}
+
+body[data-content="widget-lab"] .widget-lab-proof-quote strong {
+  margin-top: 0.7rem;
+  font-size: 1.45rem;
+  line-height: 1.08;
+  color: var(--color-ink);
+}
+
+body[data-content="widget-lab"] .widget-lab-tabs {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 14, 26, 0.84);
+}
+
+body[data-content="widget-lab"] .widget-lab-tab {
+  padding: 0.85rem 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+  background: transparent;
+  color: rgba(226, 232, 240, 0.72);
+  cursor: pointer;
+}
+
+body[data-content="widget-lab"] .widget-lab-tab:last-child {
+  border-right: 0;
+}
+
+body[data-content="widget-lab"] .widget-lab-tab-active {
+  color: var(--color-ink);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+@media (max-width: 1100px) {
+  body[data-content="kaldewei"] .kaldewei-editorial,
+  body[data-content="kaldewei"] .kaldewei-system-layout,
+  body[data-content="kaldewei"] .kaldewei-close-layout,
+  body[data-content="kaldewei"] .kaldewei-commercial-grid,
+  body[data-content="kaldewei"] .kaldewei-insight-grid,
+  body[data-content="kaldewei"] .kaldewei-gate-grid,
+  body[data-content="kaldewei"] .kaldewei-pricing-spectrum,
+  body[data-content="kaldewei"] .kaldewei-flow-band {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-content="kaldewei"] .kaldewei-flow-step,
+  body[data-content="kaldewei"] .kaldewei-pricing-spectrum > div {
+    border-right: 0;
+    border-bottom: 1px solid rgba(34, 197, 94, 0.14);
+  }
+
+  body[data-content="kaldewei"] .kaldewei-flow-step:last-child,
+  body[data-content="kaldewei"] .kaldewei-pricing-spectrum > div:last-child {
+    border-bottom: 0;
+  }
+
+  body[data-content="widget-lab"] .widget-lab-media-layout,
+  body[data-content="widget-lab"] .widget-lab-chart-layout,
+  body[data-content="widget-lab"] .widget-lab-comparison-grid,
+  body[data-content="widget-lab"] .widget-lab-proof-grid,
+  body[data-content="widget-lab"] .widget-lab-kpi-strip,
+  body[data-content="widget-lab"] .widget-lab-decision-matrix,
+  body[data-content="widget-lab"] .widget-lab-flow-board,
+  body[data-content="widget-lab"] .widget-lab-gallery-rail,
+  body[data-content="widget-lab"] .widget-lab-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-content="widget-lab"] .widget-lab-kpi-strip div,
+  body[data-content="widget-lab"] .widget-lab-decision-matrix div,
+  body[data-content="widget-lab"] .widget-lab-tab {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  body[data-content="widget-lab"] .widget-lab-kpi-strip div:last-child,
+  body[data-content="widget-lab"] .widget-lab-decision-matrix div:last-child,
+  body[data-content="widget-lab"] .widget-lab-tab:last-child {
+    border-bottom: 0;
+  }
+}
+
 .closing-contact {
   margin: 1rem 0 0;
   text-align: center;
