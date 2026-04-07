@@ -4,7 +4,7 @@
 
 <section class="cover-shell">
   <div class="cover-brand-row cover-brand-row-xyz-offer">
-    <img src="assets/xyz-mark-light.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
+    <img src="assets/xyz-mark.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
     <span class="xyz-cover-wordmark" aria-hidden="true">XYZ</span>
   </div>
   <p class="cover-tagline">AI Systems For Small Teams</p>
@@ -294,7 +294,7 @@
 
 <section class="cover-shell">
   <div class="cover-brand-row cover-brand-row-xyz-outro">
-    <img src="assets/xyz-mark-light.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
+    <img src="assets/xyz-mark.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
     <span class="xyz-cover-wordmark" aria-hidden="true">XYZ</span>
   </div>
   <p class="cover-tagline">Operate At Lightspeed</p>

@@ -2,22 +2,18 @@
   <title id="title">XYZ mark</title>
   <desc id="desc">A geometric connected-node mark for XYZ by FORMATION.</desc>
   <rect width="72" height="72" rx="14" fill="none"/>
-  <g fill="none" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
-    <path d="M16 13 32 29 16 45 32 61"/>
-    <path d="M56 13 40 29 56 45 40 61"/>
-    <path d="M16 13h40"/>
-    <path d="M16 61h40"/>
-    <path d="M32 29h8"/>
-    <path d="M32 45h8"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
+    <path d="M14 14h44" stroke="#3165d4"/>
+    <path d="M14 58h44" stroke="#3165d4"/>
+    <path d="M14 14 36 36 58 14" stroke="#68b48d"/>
+    <path d="M14 14 36 36 58 58" stroke="#ff6b57"/>
+    <path d="M14 58 36 36 58 14" stroke="#3165d4"/>
   </g>
-  <g>
-    <circle cx="16" cy="13" r="4.2" fill="#ff6b45" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="56" cy="13" r="4.2" fill="#4d74ff" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="32" cy="29" r="4.2" fill="#72e487" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="40" cy="29" r="4.2" fill="#ffd04d" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="16" cy="45" r="4.2" fill="#4d74ff" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="56" cy="45" r="4.2" fill="#ff6b45" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="32" cy="61" r="4.2" fill="#ffd04d" stroke="#141414" stroke-width="1.5"/>
-    <circle cx="40" cy="61" r="4.2" fill="#72e487" stroke="#141414" stroke-width="1.5"/>
+  <g fill="#fbfbf9" stroke="#2a292d" stroke-width="1.8">
+    <circle cx="14" cy="14" r="4.6"/>
+    <circle cx="58" cy="14" r="4.6"/>
+    <circle cx="36" cy="36" r="4.8"/>
+    <circle cx="14" cy="58" r="4.6"/>
+    <circle cx="58" cy="58" r="4.6"/>
   </g>
 </svg>

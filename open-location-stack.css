@@ -406,7 +406,7 @@ body[data-theme="xyz"] .cover-tagline {
 }
 
 body[data-theme="xyz"] .cover-brand-mark-formation {
-  filter: drop-shadow(0 8px 18px rgba(88, 67, 56, 0.12));
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.22));
 }
 
 body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer),
@@ -416,8 +416,11 @@ body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outr
 
 body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer) .cover-brand-mark-formation,
 body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outro) .cover-brand-mark-formation {
-  width: min(6vw, 62px);
-  max-height: none;
+  width: 72px;
+  height: 72px;
+  max-width: 72px;
+  max-height: 72px;
+  object-fit: contain;
 }
 
 body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer) .cover-brand-divider,
@@ -439,8 +442,8 @@ body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outr
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
-  color: rgba(31, 27, 27, 0.92);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+  color: rgba(248, 250, 248, 0.98);
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
 }
 
 body[data-theme="xyz"] .cover-brand-mark-lear {
@@ -495,6 +498,7 @@ body[data-theme="xyz"] .cover-tagline-secondary:last-of-type {
   line-height: 1.42;
   letter-spacing: 0.02em;
   text-transform: none;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
 }
 
 body[data-theme="xyz"] .proposal-cover .cover-rule {
@@ -515,6 +519,7 @@ body[data-theme="xyz"] .end-cover .cover-meta-pill {
   border-color: rgba(247, 248, 246, 0.18);
   background: rgba(247, 248, 246, 0.08);
   color: rgba(247, 248, 246, 0.92);
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
 body[data-theme="xyz"] .proposal-card,
@@ -633,9 +638,20 @@ body[data-theme="xyz"] .closing-summary {
 
 body[data-theme="xyz"] .proposal-cover .cover-tagline-secondary,
 body[data-theme="xyz"] .end-cover .cover-tagline-secondary,
+body[data-theme="xyz"] .proposal-cover .cover-tagline,
+body[data-theme="xyz"] .end-cover .cover-tagline,
 body[data-theme="xyz"] .proposal-cover .cover-meta a,
 body[data-theme="xyz"] .end-cover .cover-meta a {
   color: rgba(247, 248, 246, 0.92);
+}
+
+body[data-theme="xyz"] .proposal-cover .cover-title,
+body[data-theme="xyz"] .end-cover .cover-title,
+body[data-theme="xyz"] .proposal-cover .cover-meta,
+body[data-theme="xyz"] .end-cover .cover-meta,
+body[data-theme="xyz"] .proposal-cover .meta-separator,
+body[data-theme="xyz"] .end-cover .meta-separator {
+  color: rgba(247, 248, 246, 0.82) !important;
 }
 
 body[data-theme="xyz"] .proposal-cover .cover-end-title,
@@ -4417,8 +4433,11 @@ body.overview-active .cover-shell,
 }
 
 .xyz-cover-mark {
-  width: min(6vw, 62px);
-  max-height: none;
+  width: 84px;
+  height: 84px;
+  max-width: 84px;
+  max-height: 84px;
+  object-fit: contain;
   justify-self: end;
 }
 
