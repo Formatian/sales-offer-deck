@@ -207,6 +207,7 @@ body[data-theme="formation"] {
   --switch-border: rgba(88, 212, 108, 0.2);
   --switch-bg: rgba(18, 33, 36, 0.4);
   --switch-hover-bg: rgba(88, 212, 108, 0.12);
+  --switch-active-bg: rgba(244, 249, 245, 0.96);
   --switch-active-ink: #0d1718;
   --overview-toggle-hover-bg: rgba(24, 42, 46, 0.86);
   --cover-divider-gradient: linear-gradient(180deg, rgba(88, 212, 108, 0.1), rgba(88, 212, 108, 0.82), rgba(88, 212, 108, 0.1));
@@ -325,6 +326,7 @@ body[data-theme="xyz"] {
   --switch-border: rgba(77, 116, 255, 0.18);
   --switch-bg: rgba(255, 251, 245, 0.92);
   --switch-hover-bg: linear-gradient(90deg, rgba(77, 116, 255, 0.12), rgba(114, 228, 135, 0.1));
+  --switch-active-bg: rgba(255, 255, 255, 0.96);
   --switch-active-ink: #141414;
   --overview-toggle-hover-bg: rgba(250, 245, 238, 0.96);
   --cover-divider-gradient: linear-gradient(180deg, rgba(255, 107, 69, 0.12), rgba(255, 208, 77, 0.94), rgba(114, 228, 135, 0.78), rgba(77, 116, 255, 0.2));
@@ -405,6 +407,40 @@ body[data-theme="xyz"] .cover-tagline {
 
 body[data-theme="xyz"] .cover-brand-mark-formation {
   filter: drop-shadow(0 8px 18px rgba(88, 67, 56, 0.12));
+}
+
+body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer),
+body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outro) {
+  column-gap: 0.9rem;
+}
+
+body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer) .cover-brand-mark-formation,
+body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outro) .cover-brand-mark-formation {
+  width: min(6vw, 62px);
+  max-height: none;
+}
+
+body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer) .cover-brand-divider,
+body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outro) .cover-brand-divider {
+  position: relative;
+  margin-left: 5.3rem;
+}
+
+body[data-theme="xyz"] .proposal-cover .cover-brand-row:not(.cover-brand-row-xyz-offer) .cover-brand-divider::before,
+body[data-theme="xyz"] .end-cover .cover-brand-row:not(.cover-brand-row-xyz-outro) .cover-brand-divider::before {
+  content: "XYZ";
+  position: absolute;
+  right: 0.95rem;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(31, 27, 27, 0.92);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 body[data-theme="xyz"] .cover-brand-mark-lear {
@@ -736,7 +772,8 @@ body[data-theme="lear-light"] {
   --switch-border: rgba(238, 49, 36, 0.14);
   --switch-bg: rgba(255, 250, 246, 0.86);
   --switch-hover-bg: rgba(238, 49, 36, 0.08);
-  --switch-active-ink: #fff8f5;
+  --switch-active-bg: rgba(255, 255, 255, 0.98);
+  --switch-active-ink: #2b201b;
   --overview-toggle-hover-bg: rgba(255, 243, 236, 0.96);
   --cover-divider-gradient: linear-gradient(180deg, rgba(238, 49, 36, 0.06), rgba(238, 49, 36, 0.82), rgba(238, 49, 36, 0.06));
   --cover-divider-glow: 0 0 16px rgba(238, 49, 36, 0.12);
@@ -876,6 +913,31 @@ body[data-theme="lear-light"] .theme-option-delete {
 }
 
 body[data-theme="berlin-partner"] {
+  --color-bg: #f6f1ef;
+  --color-bg-2: #ece4e1;
+  --color-panel: rgba(255, 255, 255, 0.88);
+  --color-panel-strong: rgba(255, 255, 255, 0.96);
+  --color-line: rgba(216, 31, 42, 0.16);
+  --color-ink: #231e1e;
+  --color-muted: rgba(62, 51, 51, 0.74);
+  --selection-ink: #ffffff;
+  --control-radius: 0px;
+  --switch-radius: 0px;
+  --switch-option-radius: 0px;
+  --modal-radius: 0px;
+  --footer-bg: rgba(255, 252, 252, 0.82);
+  --footer-ink: rgba(62, 51, 51, 0.76);
+  --control-border: rgba(216, 31, 42, 0.18);
+  --control-bg: rgba(255, 255, 255, 0.78);
+  --control-hover-border: rgba(216, 31, 42, 0.42);
+  --control-hover-bg: rgba(216, 31, 42, 0.08);
+  --control-hover-glow: 0 0 14px rgba(216, 31, 42, 0.08);
+  --switch-border: rgba(216, 31, 42, 0.16);
+  --switch-bg: rgba(255, 255, 255, 0.74);
+  --switch-hover-bg: rgba(216, 31, 42, 0.08);
+  --switch-active-bg: #d81f2a;
+  --switch-active-ink: #fff7f7;
+  --overview-toggle-hover-bg: rgba(255, 247, 247, 0.98);
   --progress-track-bg: rgba(255, 252, 252, 0.86);
   --progress-track-border: rgba(216, 31, 42, 0.18);
   --progress-track-hover-bg: rgba(255, 248, 248, 0.96);
@@ -911,6 +973,25 @@ body[data-theme="berlin-partner"] {
   --overview-cover-overlay-start: rgba(245, 241, 241, 0.12);
   --overview-cover-overlay-end: rgba(236, 230, 230, 0.2);
   --overview-cover-overlay-glow: rgba(216, 31, 42, 0.02);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(216, 31, 42, 0.08), rgba(216, 31, 42, 0.78), rgba(216, 31, 42, 0.08));
+  --cover-divider-glow: none;
+  --cover-meta-color: rgba(67, 54, 54, 0.68);
+  --cover-meta-separator: rgba(67, 54, 54, 0.22);
+  --cover-meta-pill-border: rgba(216, 31, 42, 0.16);
+  --cover-meta-pill-bg: rgba(255, 255, 255, 0.86);
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(247, 241, 239, 0.98));
+  --card-hover-border: rgba(216, 31, 42, 0.2);
+  --card-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(244, 237, 235, 0.98));
+  --table-bg: rgba(255, 255, 255, 0.98);
+  --table-row-hover-bg: rgba(216, 31, 42, 0.05);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(216, 31, 42, 0.1);
+  --summary-border: rgba(216, 31, 42, 0.14);
+  --summary-bg: rgba(255, 255, 255, 0.94);
+  --blockquote-border: rgba(216, 31, 42, 0.18);
+  --blockquote-bg: rgba(39, 31, 31, 0.9);
+  --quote-mark-color: rgba(216, 31, 42, 0.72);
+  --portrait-border: rgba(216, 31, 42, 0.14);
+  --linkedin-bg: rgba(245, 240, 240, 0.96);
   --image-overlay-start: rgba(246, 242, 242, 0.16);
   --image-overlay-end: rgba(236, 230, 230, 0.28);
   --image-overlay-glow: rgba(216, 31, 42, 0.025);
@@ -918,6 +999,75 @@ body[data-theme="berlin-partner"] {
   --cover-image-overlay-end: rgba(236, 230, 230, 0.16);
   --cover-image-overlay-glow: rgba(216, 31, 42, 0.018);
   --media-filter: brightness(0.97) saturate(0.92) contrast(0.98);
+}
+
+body[data-theme="berlin-partner"] .proposal-card,
+body[data-theme="berlin-partner"] .metric-card,
+body[data-theme="berlin-partner"] .timeline-card,
+body[data-theme="berlin-partner"] .proposal-table,
+body[data-theme="berlin-partner"] .summary-band,
+body[data-theme="berlin-partner"] .pricing-callout,
+body[data-theme="berlin-partner"] .pull-quote,
+body[data-theme="berlin-partner"] .linkedin-preview,
+body[data-theme="berlin-partner"] .content-option,
+body[data-theme="berlin-partner"] .theme-modal,
+body[data-theme="berlin-partner"] .theme-modal .theme-option,
+body[data-theme="berlin-partner"] .theme-modal-close,
+body[data-theme="berlin-partner"] .slide-footer .controls.footer-controls button,
+body[data-theme="berlin-partner"] .cover-meta-pill,
+body[data-theme="berlin-partner"] .document-brand,
+body[data-theme="berlin-partner"] .view-option,
+body[data-theme="berlin-partner"] .language-option,
+body[data-theme="berlin-partner"] .overview-toggle,
+body[data-theme="berlin-partner"] .content-menu-toggle,
+body[data-theme="berlin-partner"] .theme-menu-toggle {
+  border-radius: 0 !important;
+}
+
+body[data-theme="berlin-partner"] .cover-brand-mark,
+body[data-theme="berlin-partner"] .cover-wordmark-image,
+body[data-theme="berlin-partner"] .corner-brand img,
+body[data-theme="berlin-partner"] .corner-partner-brand img {
+  filter: none;
+}
+
+body[data-theme="berlin-partner"] .cover-title,
+body[data-theme="berlin-partner"] .cover-end-title,
+body[data-theme="berlin-partner"] .cover-tagline-secondary,
+body[data-theme="berlin-partner"] .closing-summary,
+body[data-theme="berlin-partner"] .cover-meta,
+body[data-theme="berlin-partner"] .cover-meta-pill,
+body[data-theme="berlin-partner"] .slide-lead,
+body[data-theme="berlin-partner"] .proposal-card h3,
+body[data-theme="berlin-partner"] .metric-card strong,
+body[data-theme="berlin-partner"] .proposal-table td,
+body[data-theme="berlin-partner"] .linkedin-preview-body span,
+body[data-theme="berlin-partner"] .closing-card a,
+body[data-theme="berlin-partner"] .closing-card p {
+  color: var(--color-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none;
+}
+
+body[data-theme="berlin-partner"] .linkedin-preview-body strong {
+  color: #d81f2a !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+body[data-theme="berlin-partner"] .proposal-table thead th,
+body[data-theme="berlin-partner"] .reveal th {
+  color: #fff8f8 !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none;
+}
+
+body[data-theme="berlin-partner"] .cover-tagline {
+  color: #d81f2a !important;
+}
+
+body[data-theme="berlin-partner"] .proposal-cover .cover-meta-pill,
+body[data-theme="berlin-partner"] .end-cover .cover-meta-pill {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 body {
@@ -3044,8 +3194,32 @@ body[data-theme="xyz"] .document-brand-divider {
 }
 
 body[data-theme="xyz"] .document-brand-formation {
-  width: 152px;
-  max-width: 34%;
+  width: 48px;
+  max-width: none;
+}
+
+body[data-theme="xyz"] .document-brand-row {
+  gap: 0.85rem;
+}
+
+body[data-theme="xyz"] .document-brand-divider {
+  position: relative;
+  margin-left: 4.6rem;
+}
+
+body[data-theme="xyz"] .document-brand-divider::before {
+  content: "XYZ";
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(31, 27, 27, 0.92);
 }
 
 .document-cover-body {
@@ -5655,8 +5829,9 @@ body[data-content="kaldewei"] .kaldewei-bottom-band {
 body[data-content="kaldewei"] .kaldewei-bottom-band p {
   margin: 0.18rem 0 0;
   max-width: 52rem;
-  font-size: 0.9rem;
-  line-height: 1.24;
+  font-size: 1.18rem;
+  line-height: 1.18;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.94) !important;
 }
 
@@ -5739,7 +5914,9 @@ body[data-content="kaldewei"] .kaldewei-gate-total {
   margin-top: auto;
   padding-top: 0.55rem;
   border-top: 1px solid rgba(17, 17, 17, 0.14);
-  font-size: 0.84rem !important;
+  font-size: 1.14rem !important;
+  line-height: 1.16;
+  font-weight: 700;
 }
 
 body[data-content="kaldewei"] .kaldewei-bottom-band {

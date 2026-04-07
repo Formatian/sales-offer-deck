@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260406f" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260407b" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260406f" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260407b" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -1211,7 +1211,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260406f';
+    const DECK_VERSION = '20260407b';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -1596,16 +1596,7 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {
-            cover: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            intro: { type: 'image', url: 'assets/berlin-partner-about.png' },
-            platform: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
-            roadmap: { type: 'image', url: 'assets/berlin-partner-sustainability.png' },
-            support: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
-            summary: { type: 'image', url: 'assets/berlin-partner-about.png' },
-            closing: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            end: { type: 'image', url: 'assets/berlin-partner-sustainability.png' }
-          }
+          themeBackgrounds: {}
         }
       },
       {
@@ -1772,16 +1763,7 @@
           coverBrandSecondaryWidth: 'min(20vw, 220px)',
           logoUrl: 'https://www.berlin-partner.de/fileadmin/images/icons/Logomobile.svg',
           logoAlt: 'Berlin Partner',
-          themeBackgrounds: {
-            cover: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            intro: { type: 'image', url: 'assets/berlin-partner-about.png' },
-            platform: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
-            roadmap: { type: 'image', url: 'assets/berlin-partner-sustainability.png' },
-            support: { type: 'image', url: 'assets/berlin-partner-business-services.png' },
-            summary: { type: 'image', url: 'assets/berlin-partner-about.png' },
-            closing: { type: 'image', url: 'assets/berlin-partner-home.png' },
-            end: { type: 'image', url: 'assets/berlin-partner-sustainability.png' }
-          }
+          themeBackgrounds: {}
         }
       },
       {
@@ -4684,6 +4666,10 @@ ${excerptCards}
         return theme.generated.themeBackgrounds;
       }
 
+      if (getThemeBaseTheme(themeId) === 'berlin-partner') {
+        return {};
+      }
+
       return THEME_BACKGROUNDS[getThemeBaseTheme(themeId)] || THEME_BACKGROUNDS.xyz;
     }
 
@@ -5475,7 +5461,7 @@ ${excerptCards}
       const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId);
       const baseTheme = getThemeBaseTheme(themeId);
       const isXyzTheme = baseTheme === 'xyz';
-      const usesDarkFormationLogo = isXyzTheme || baseTheme === 'lear-light';
+      const usesDarkFormationLogo = isXyzTheme || baseTheme === 'lear-light' || baseTheme === 'berlin-partner';
       const logo = getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId);
       const cornerPartnerLogoUrl = baseTheme === 'lear-light' && logo.url === 'assets/lear-logo.svg'
         ? 'assets/lear-logo-dark.svg'
@@ -5485,6 +5471,7 @@ ${excerptCards}
         : 'assets/formation-logo-text-white.png';
       const formationLogoAlt = 'FORMATION';
       const xyzCornerLogoUrl = 'assets/xyz-logo-transparent.webp';
+      const xyzCoverLogoUrl = 'assets/xyz-mark.svg';
       const xyzCornerLogoAlt = 'XYZ';
 
       const cornerBrandImage = document.querySelector('.corner-brand img');
@@ -5506,7 +5493,7 @@ ${excerptCards}
 
       document.querySelectorAll('.cover-brand-mark-formation, .document-brand-formation').forEach(image => {
         if (image instanceof HTMLImageElement) {
-          image.src = isXyzTheme ? xyzCornerLogoUrl : formationLogoUrl;
+          image.src = isXyzTheme ? xyzCoverLogoUrl : formationLogoUrl;
           image.alt = isXyzTheme ? xyzCornerLogoAlt : formationLogoAlt;
         }
       });

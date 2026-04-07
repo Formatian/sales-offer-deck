@@ -3,6 +3,14 @@
 <!-- .slide: class="title-slide proposal-cover hero-video-slide" data-theme-background="cover" -->
 
 <section class="cover-shell">
+  <div class="cover-brand-row cover-brand-row-xyz-offer">
+    <div class="xyz-offer-lockup" aria-label="XYZ">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+      </div>
+    </div>
+  </div>
   <p class="cover-tagline">AI Systems For Small Teams</p>
   <div class="cover-rule"></div>
   <p class="cover-tagline cover-tagline-secondary">XYZ by FORMATION</p>
@@ -289,6 +297,14 @@
 <!-- .slide: class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end" -->
 
 <section class="cover-shell">
+  <div class="cover-brand-row cover-brand-row-xyz-outro">
+    <div class="xyz-offer-lockup" aria-label="XYZ">
+      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
+      <div class="xyz-offer-wordmark">
+        <strong>XYZ</strong>
+      </div>
+    </div>
+  </div>
   <p class="cover-tagline">Operate At Lightspeed</p>
   <div class="cover-rule"></div>
   <h2 class="cover-end-title">Meet XYZ In Berlin</h2>
