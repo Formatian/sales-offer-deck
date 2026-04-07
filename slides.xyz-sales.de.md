@@ -4,12 +4,8 @@
 
 <section class="cover-shell">
   <div class="cover-brand-row cover-brand-row-xyz-offer">
-    <div class="xyz-offer-lockup" aria-label="XYZ">
-      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
-      <div class="xyz-offer-wordmark">
-        <strong>XYZ</strong>
-      </div>
-    </div>
+    <img src="assets/xyz-mark-light.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
+    <span class="xyz-cover-wordmark" aria-hidden="true">XYZ</span>
   </div>
   <p class="cover-tagline">AI Systems For Small Teams</p>
   <div class="cover-rule"></div>
@@ -298,12 +294,8 @@
 
 <section class="cover-shell">
   <div class="cover-brand-row cover-brand-row-xyz-outro">
-    <div class="xyz-offer-lockup" aria-label="XYZ">
-      <img src="assets/xyz-logo-transparent.webp" alt="XYZ" class="xyz-offer-logo" />
-      <div class="xyz-offer-wordmark">
-        <strong>XYZ</strong>
-      </div>
-    </div>
+    <img src="assets/xyz-mark-light.svg" alt="XYZ" class="cover-brand-mark cover-brand-mark-formation xyz-cover-mark" />
+    <span class="xyz-cover-wordmark" aria-hidden="true">XYZ</span>
   </div>
   <p class="cover-tagline">Operate At Lightspeed</p>
   <div class="cover-rule"></div>

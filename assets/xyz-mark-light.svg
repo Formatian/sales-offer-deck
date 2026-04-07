@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-labelledby="title desc">
+  <title id="title">XYZ mark</title>
+  <desc id="desc">Light XYZ mark for dark backgrounds.</desc>
+  <rect width="72" height="72" rx="14" fill="none"/>
+  <g fill="none" stroke="#f7f8f6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+    <path d="M16 13 32 29 16 45 32 61"/>
+    <path d="M56 13 40 29 56 45 40 61"/>
+    <path d="M16 13h40"/>
+    <path d="M16 61h40"/>
+    <path d="M32 29h8"/>
+    <path d="M32 45h8"/>
+  </g>
+  <g>
+    <circle cx="16" cy="13" r="4.2" fill="#ff6b45" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="56" cy="13" r="4.2" fill="#4d74ff" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="32" cy="29" r="4.2" fill="#72e487" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="40" cy="29" r="4.2" fill="#ffd04d" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="16" cy="45" r="4.2" fill="#4d74ff" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="56" cy="45" r="4.2" fill="#ff6b45" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="32" cy="61" r="4.2" fill="#ffd04d" stroke="#f7f8f6" stroke-width="1.2"/>
+    <circle cx="40" cy="61" r="4.2" fill="#72e487" stroke="#f7f8f6" stroke-width="1.2"/>
+  </g>
+</svg>
