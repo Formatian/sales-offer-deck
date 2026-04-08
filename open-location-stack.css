@@ -4135,14 +4135,174 @@ body[data-content="nobaxx"] .summary-band .metric-label {
   }
 }
 
+.printing-deck {
+  background: #ffffff !important;
+}
+
+html.printing-deck,
+body.printing-deck {
+  background: #ffffff !important;
+  width: auto !important;
+  min-height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.printing-deck {
+  overflow: auto !important;
+}
+
+body.printing-deck .document-view,
+body.printing-deck .slide-footer,
+body.printing-deck .corner-brand,
+body.printing-deck .corner-partner-brand,
+body.printing-deck .theme-modal,
+body.printing-deck .theme-modal-backdrop,
+body.printing-deck .content-modal,
+body.printing-deck .content-modal-backdrop,
+body.printing-deck .reveal .controls,
+body.printing-deck .reveal .progress,
+body.printing-deck .reveal .backgrounds {
+  display: none !important;
+}
+
+body.printing-deck .reveal {
+  display: block !important;
+  width: 297mm !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 8mm 0 !important;
+  overflow: visible !important;
+  visibility: visible !important;
+  font-size: 100% !important;
+}
+
+body.printing-deck .reveal .slides {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  inset: auto !important;
+  display: block !important;
+  overflow: visible !important;
+  transform: none !important;
+  perspective: none !important;
+}
+
+body.printing-deck .reveal .slides > section.stack {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+}
+
+body.printing-deck .reveal .slides > section:not(.stack),
+body.printing-deck .reveal .slides > section.stack > section {
+  position: relative !important;
+  display: flex !important;
+  width: 281mm !important;
+  min-width: 281mm !important;
+  max-width: 281mm !important;
+  height: 158mm !important;
+  min-height: 158mm !important;
+  max-height: 158mm !important;
+  margin: 0 auto 8mm !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: hidden !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+  break-after: page;
+  page-break-after: always;
+}
+
+body.printing-deck .reveal .slides > section:not(.stack):last-child,
+body.printing-deck .reveal .slides > section.stack > section:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="cover"],
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="cover"] {
+  background: #111318 !important;
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="image"],
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="image"] {
+  background: #14161b !important;
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="video"],
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="video"] {
+  background: #111318 !important;
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="plain"],
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="plain"] {
+  background:
+    linear-gradient(180deg, var(--viewport-overlay-start), var(--viewport-overlay-end)),
+    radial-gradient(circle at top right, var(--viewport-glow-primary), transparent 22%),
+    radial-gradient(circle at 16% 84%, var(--viewport-glow-secondary), transparent 20%),
+    var(--viewport-image-url) center center / cover no-repeat,
+    var(--viewport-gradient-base) !important;
+}
+
+body.printing-deck .reveal .slides section {
+  filter: none !important;
+}
+
+body.printing-deck .reveal .slides section > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.printing-deck .print-slide-background-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+body.printing-deck .print-slide-background-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.printing-deck .print-slide-background-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="cover"] .print-slide-background-overlay,
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="cover"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--cover-image-overlay-start), var(--cover-image-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-image-overlay-glow), transparent 28%);
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="image"] .print-slide-background-overlay,
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="image"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--image-overlay-start), var(--image-overlay-end)),
+    radial-gradient(circle at top right, var(--image-overlay-glow), transparent 26%);
+}
+
+body.printing-deck .reveal .slides > section[data-print-background="video"] .print-slide-background-overlay,
+body.printing-deck .reveal .slides > section.stack > section[data-print-background="video"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--cover-overlay-start), var(--cover-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-overlay-glow), transparent 24%);
+}
+
 @page {
   size: A4 portrait;
   margin: 0;
 }
 
 @media print {
-  html,
-  body {
+  html:not(.printing-deck),
+  body:not(.printing-deck) {
     background: #fff !important;
     width: 210mm !important;
     min-height: auto !important;
@@ -4150,19 +4310,19 @@ body[data-content="nobaxx"] .summary-band .metric-label {
     padding: 0 !important;
   }
 
-  body {
+  body:not(.printing-deck) {
     overflow: visible !important;
   }
 
-  .slide-footer,
-  .corner-brand,
-  .reveal,
-  .theme-modal,
-  .theme-modal-backdrop {
+  body:not(.printing-deck) .slide-footer,
+  body:not(.printing-deck) .corner-brand,
+  body:not(.printing-deck) .reveal,
+  body:not(.printing-deck) .theme-modal,
+  body:not(.printing-deck) .theme-modal-backdrop {
     display: none !important;
   }
 
-  .document-view {
+  body:not(.printing-deck) .document-view {
     display: block !important;
     width: 210mm !important;
     min-height: auto !important;
@@ -4171,15 +4331,15 @@ body[data-content="nobaxx"] .summary-band .metric-label {
     background: #fff !important;
   }
 
-  .document-canvas {
+  body:not(.printing-deck) .document-canvas {
     display: none !important;
   }
 
-  .document-canvas.is-active {
+  body:not(.printing-deck) .document-canvas.is-active {
     display: block !important;
   }
 
-  .document-page {
+  body:not(.printing-deck) .document-page {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -4198,54 +4358,54 @@ body[data-content="nobaxx"] .summary-band .metric-label {
     page-break-inside: avoid;
   }
 
-  .document-page-cover {
+  body:not(.printing-deck) .document-page-cover {
     display: block;
     min-height: 297mm;
   }
 
-  .document-page-cover .document-brand-row {
+  body:not(.printing-deck) .document-page-cover .document-brand-row {
     margin-top: 2mm;
   }
 
-  .document-page-cover .document-cover-body {
+  body:not(.printing-deck) .document-page-cover .document-cover-body {
     padding-top: 118mm;
   }
 
-  body[data-content="kaldewei"] .document-page-cover,
-  body[data-theme-id="kaldewei"] .document-page-cover {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover {
     background: #ffffff !important;
     color: #111111 !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
 
-  body[data-content="kaldewei"] .document-page-cover::before,
-  body[data-theme-id="kaldewei"] .document-page-cover::before {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover::before,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover::before {
     height: 7px;
     background: #111111;
   }
 
-  body[data-content="kaldewei"] .document-page-cover .document-brand,
-  body[data-theme-id="kaldewei"] .document-page-cover .document-brand {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-brand,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-brand {
     filter: brightness(0) invert(0);
   }
 
-  body[data-content="kaldewei"] .document-page-cover .document-cover-body,
-  body[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-cover-body,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
     padding-top: 2.4rem;
   }
 
-  body[data-content="kaldewei"] .document-page-cover .document-intro,
-  body[data-theme-id="kaldewei"] .document-page-cover .document-intro {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-intro,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-intro {
     margin-top: 2rem;
   }
 
-  body[data-content="kaldewei"] .document-page-cover h1,
-  body[data-theme-id="kaldewei"] .document-page-cover h1,
-  body[data-content="kaldewei"] .document-page-cover .document-subtitle,
-  body[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
-  body[data-content="kaldewei"] .document-page-cover .document-meta-row,
-  body[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover h1,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover h1,
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-subtitle,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
+  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-meta-row,
+  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
     color: #111111 !important;
   }
 

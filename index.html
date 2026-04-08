@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260407l" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260408b" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260407l" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260408b" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -1211,7 +1211,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260407l';
+    const DECK_VERSION = '20260408b';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -2162,6 +2162,11 @@
     function getContentFromLocation() {
       const params = new URLSearchParams(window.location.search);
       return normalizeContent(params.get('content') || '');
+    }
+
+    function getPrintModeFromLocation() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('print') === 'deck' ? 'deck' : '';
     }
 
     function persistLanguage(language) {
@@ -5103,6 +5108,113 @@ ${excerptCards}
       }
     }
 
+    let activePrintMode = '';
+    let deckPrintPageStyle = null;
+
+    function ensureDeckPrintPageStyle() {
+      if (deckPrintPageStyle) {
+        return;
+      }
+
+      deckPrintPageStyle = document.createElement('style');
+      deckPrintPageStyle.setAttribute('data-deck-print-page-style', 'true');
+      deckPrintPageStyle.textContent = '@page { size: 297mm 210mm; margin: 0; }';
+      document.head.appendChild(deckPrintPageStyle);
+    }
+
+    function clearDeckPrintPageStyle() {
+      if (!deckPrintPageStyle) {
+        return;
+      }
+
+      deckPrintPageStyle.remove();
+      deckPrintPageStyle = null;
+    }
+
+    function prepareDeckSlidesForPrint() {
+      document.querySelectorAll('.reveal .slides > section, .reveal .slides > section.stack > section').forEach(slide => {
+        if (!(slide instanceof HTMLElement)) {
+          return;
+        }
+
+        const backgroundImage = slide.getAttribute('data-background-image') || '';
+        const backgroundVideo = slide.getAttribute('data-background-video') || '';
+        const isCoverSlide = slide.classList.contains('proposal-cover') || slide.classList.contains('end-cover') || slide.classList.contains('title-slide');
+        slide.querySelectorAll('.print-slide-background-layer').forEach(node => node.remove());
+        slide.dataset.printBackground = backgroundImage
+          ? (isCoverSlide ? 'cover' : 'image')
+          : (backgroundVideo ? 'video' : 'plain');
+
+        const backgroundLayer = document.createElement('div');
+        backgroundLayer.className = 'print-slide-background-layer';
+        backgroundLayer.setAttribute('aria-hidden', 'true');
+
+        if (backgroundImage) {
+          const media = document.createElement('img');
+          media.className = 'print-slide-background-media';
+          media.src = backgroundImage;
+          media.alt = '';
+          backgroundLayer.appendChild(media);
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'print-slide-background-overlay';
+        backgroundLayer.appendChild(overlay);
+
+        slide.insertBefore(backgroundLayer, slide.firstChild);
+      });
+    }
+
+    function clearDeckSlidesForPrint() {
+      document.querySelectorAll('.reveal .slides > section, .reveal .slides > section.stack > section').forEach(slide => {
+        if (!(slide instanceof HTMLElement)) {
+          return;
+        }
+
+        slide.querySelectorAll('.print-slide-background-layer').forEach(node => node.remove());
+        delete slide.dataset.printBackground;
+      });
+    }
+
+    function enterDeckPrintMode() {
+      activePrintMode = 'deck';
+      document.documentElement.classList.add('printing-deck');
+      document.body.classList.add('printing-deck');
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      closeContentModal();
+      closeThemeModal();
+      if (typeof Reveal?.isOverview === 'function' && Reveal.isOverview()) {
+        Reveal.toggleOverview();
+      }
+      prepareDeckSlidesForPrint();
+      ensureDeckPrintPageStyle();
+      if (typeof Reveal?.layout === 'function') {
+        Reveal.layout();
+      }
+    }
+
+    function exitDeckPrintMode() {
+      if (activePrintMode !== 'deck') {
+        return;
+      }
+
+      activePrintMode = '';
+      document.documentElement.classList.remove('printing-deck');
+      document.body.classList.remove('printing-deck');
+      clearDeckSlidesForPrint();
+      clearDeckPrintPageStyle();
+      if (typeof Reveal?.layout === 'function') {
+        Reveal.layout();
+      }
+    }
+
+    function isDeckPrintShortcut(event) {
+      return (event.ctrlKey || event.metaKey)
+        && !event.altKey
+        && !event.shiftKey
+        && event.key.toLowerCase() === 'p';
+    }
+
     function getContentVariant(content = currentContent) {
       const layer = getContentLayer(content);
       return CONTENT_VARIANTS[layer?.variantId || 'offer'] || CONTENT_VARIANTS.offer;
@@ -7342,6 +7454,10 @@ ${excerptCards}
     applyDeckSource(currentLanguage);
     applyLanguageMetadata(currentLanguage);
 
+    if (getPrintModeFromLocation() === 'deck' && currentView === 'slides') {
+      enterDeckPrintMode();
+    }
+
     Reveal.initialize({
       hash: true,
       hashOneBasedIndex: true,
@@ -7629,6 +7745,13 @@ ${excerptCards}
       }
     });
     window.addEventListener('keydown', event => {
+      if (isDeckPrintShortcut(event) && currentView === 'slides') {
+        event.preventDefault();
+        enterDeckPrintMode();
+        window.setTimeout(() => window.print(), 80);
+        return;
+      }
+
       if (event.key === 'Escape' && !document.getElementById('content-modal')?.hidden) {
         closeContentModal();
       }
@@ -7639,6 +7762,12 @@ ${excerptCards}
         setDocumentOverview(false);
       }
     });
+    window.addEventListener('beforeprint', () => {
+      if (currentView === 'slides') {
+        enterDeckPrintMode();
+      }
+    });
+    window.addEventListener('afterprint', exitDeckPrintMode);
     setupDocumentPageFrames();
     new MutationObserver(() => syncChromeSoon()).observe(document.body, {
       childList: true,
