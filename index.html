@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260409a" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260409b" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,12 +20,14 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260408b" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260409b" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
 
   <div class="document-view" id="document-view" hidden>
+    <div class="document-canvas document-canvas-en" data-content="refund-website" data-language="en"></div>
+    <div class="document-canvas document-canvas-de" data-content="refund-website" data-language="de"></div>
     <div class="document-canvas document-canvas-en" data-content="offer" data-language="en">
       <article class="document-page document-page-cover">
         <div class="document-brand-row">
@@ -1211,7 +1213,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260408b';
+    const DECK_VERSION = '20260409b';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -2103,23 +2105,48 @@
         },
         intro: {
           type: 'image',
-          url: 'assets/refund/refund-hero.webp',
-          position: '82% center'
+          url: 'assets/refund/refund-hero-left.webp',
+          position: 'center center'
+        },
+        platform: {
+          type: 'image',
+          url: 'assets/refund/refund-hero-close.webp',
+          position: 'center center'
+        },
+        roadmap: {
+          type: 'image',
+          url: 'assets/refund/refund-hero-soft.webp',
+          position: 'center center'
+        },
+        'packages-a': {
+          type: 'image',
+          url: 'assets/refund/refund-hero-left.webp',
+          position: 'center center'
+        },
+        'packages-b': {
+          type: 'image',
+          url: 'assets/refund/refund-hero-soft.webp',
+          position: 'center center'
+        },
+        support: {
+          type: 'image',
+          url: 'assets/refund/refund-hero-close.webp',
+          position: 'center center'
         },
         summary: {
           type: 'image',
-          url: 'assets/refund/refund-hero.webp',
-          position: '80% center'
+          url: 'assets/refund/refund-hero-left.webp',
+          position: 'center center'
         },
         closing: {
           type: 'image',
-          url: 'assets/refund/refund-hero.webp',
-          position: '80% center'
+          url: 'assets/refund/refund-hero-soft.webp',
+          position: 'center center'
         },
         end: {
           type: 'image',
-          url: 'assets/refund/refund-hero.webp',
-          position: '84% center'
+          url: 'assets/refund/refund-hero-close.webp',
+          position: '86% center'
         }
       },
       formation: {
@@ -3765,6 +3792,15 @@ ${excerptCards}
         return '';
       }
 
+      function renderRefundSplitWord(text) {
+        if (typeof text !== 'string' || !text.includes(':')) {
+          return escapeHtml(text || '');
+        }
+
+        const [leading, trailing] = text.split(/:(.+)/, 2);
+        return `${escapeHtml(leading)}<span class="refund-split-colon">:</span>${escapeHtml(trailing)}`;
+      }
+
       const isGerman = language === 'de';
       const copy = isGerman
         ? {
@@ -3781,7 +3817,7 @@ ${excerptCards}
             processLead: 'Die Website beschreibt einen stark vereinfachten digitalen Prozess: strukturierte Vorbereitung, fachliche Prüfung, Zertifizierung und steuerliche Geltendmachung.',
             faqTitle: 'FAQ-Regeln, die für Entscheider wichtig sind',
             faqLead: 'Die FAQ-Seiten schärfen die wirtschaftliche Logik: Rückwirkung, Fristenfreiheit, Anspruchslogik und die Rolle von BSFZ und Finanzamt.',
-            caseTitle: 'Belege und Erfolgsgeschichten',
+            caseTitle: 'Belege und Erfolgs:geschichten',
             caseLead: 're:fund untermauert die Story mit sichtbaren Case Studies und Testimonials aus Technologie- und Innovationsunternehmen.',
             teamTitle: 'Team, Standorte und Operating Model',
             teamLead: 'Die About-Seite präsentiert re:fund als moderne, tech-gestützte Beratungsorganisation mit operativer und fachlicher Tiefe.',
@@ -3877,7 +3913,7 @@ ${excerptCards}
             processLead: 'The site describes a simplified digital workflow: structured preparation, expert review, certification and tax-side recovery.',
             faqTitle: 'FAQ rules decision-makers should know',
             faqLead: 'The FAQs sharpen the economic logic: retroactivity, lack of deadlines, eligibility logic and the roles of BSFZ and the tax office.',
-            caseTitle: 'Proof and customer stories',
+            caseTitle: 'Proof and Success:stories',
             caseLead: 're:fund reinforces the story with visible case studies and founder/controller testimonials from innovation-driven companies.',
             teamTitle: 'Team, locations and operating model',
             teamLead: 'The About page presents re:fund as a modern, tech-enabled advisory business with operational and technical depth.',
@@ -3963,9 +3999,7 @@ ${excerptCards}
       return `
         <section class="title-slide proposal-cover hero-video-slide" data-theme-background="cover">
           <div class="cover-shell">
-            <div class="cover-brand-row">
-              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-formation" />
-              <span class="cover-brand-divider" aria-hidden="true"></span>
+            <div class="cover-brand-row refund-single-mark">
               <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${copy.kicker}</p>
@@ -4035,7 +4069,7 @@ ${excerptCards}
           </table>
         </section>
         <section data-theme-background="support">
-          <h2>${copy.caseTitle}</h2>
+          <h2>${renderRefundSplitWord(copy.caseTitle)}</h2>
           <p class="slide-lead">${copy.caseLead}</p>
           <div class="proposal-grid two-up">
             <div class="proposal-card"><p class="eyebrow">${copy.case1Title}</p><h3>${copy.case1Title}</h3><p>${copy.case1Text}</p></div>
@@ -4069,14 +4103,13 @@ ${excerptCards}
         </section>
         <section class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end">
           <div class="cover-shell">
-            <div class="cover-brand-row">
-              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-formation" />
-              <span class="cover-brand-divider" aria-hidden="true"></span>
+            <div class="cover-brand-row refund-single-mark">
               <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-lear" />
             </div>
             <p class="cover-tagline">${copy.ctaTitle}</p>
             <div class="cover-rule"></div>
             <h2 class="cover-end-title">${copy.endTitle}</h2>
+            <p class="cover-tagline cover-tagline-secondary cover-end-subtitle">${copy.endSubtitle}</p>
             <div class="proposal-grid two-up">
               <div class="proposal-card"><p class="eyebrow">${copy.ctaCard1}</p><p>${copy.ctaCard1Text}</p></div>
               <div class="proposal-card"><p class="eyebrow">${copy.ctaCard2}</p><p>${copy.ctaCard2Text}</p></div>
@@ -4592,9 +4625,7 @@ ${excerptCards}
 
       return `
         <article class="document-page document-page-cover" data-generated-source-seed="true">
-          <div class="document-brand-row">
-            <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="document-brand document-brand-formation" />
-            <span class="document-brand-divider" aria-hidden="true"></span>
+          <div class="document-brand-row refund-single-mark">
             <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="document-brand document-brand-lear" />
           </div>
           <div class="document-cover-body">

@@ -307,6 +307,8 @@ body[data-theme="refund"] {
   --color-muted: rgba(23, 23, 23, 0.68);
   --color-accent: #ef3d3d;
   --color-accent-strong: #f26c2f;
+  --color-accent-secondary: #5c9186;
+  --color-accent-secondary-strong: #74ab9f;
   --color-shadow: rgba(23, 23, 23, 0.1);
   --selection-ink: #ffffff;
   --video-overlay-start: rgba(246, 245, 242, 0.74);
@@ -362,19 +364,19 @@ body[data-theme="refund"] {
   --switch-active-bg: #171717;
   --switch-active-ink: #f6f5f2;
   --overview-toggle-hover-bg: rgba(255, 255, 255, 0.96);
-  --cover-divider-gradient: linear-gradient(180deg, rgba(239, 61, 61, 0.04), rgba(239, 61, 61, 0.9), rgba(239, 61, 61, 0.04));
-  --cover-divider-glow: 0 0 14px rgba(239, 61, 61, 0.12);
+  --cover-divider-gradient: linear-gradient(90deg, rgba(239, 61, 61, 0.92), rgba(242, 108, 47, 0.94), rgba(92, 145, 134, 0.92));
+  --cover-divider-glow: 0 0 16px rgba(92, 145, 134, 0.16);
   --cover-meta-color: rgba(23, 23, 23, 0.54);
   --cover-meta-separator: rgba(23, 23, 23, 0.12);
   --cover-meta-pill-border: rgba(23, 23, 23, 0.08);
   --cover-meta-pill-bg: rgba(255, 255, 255, 0.82);
   --card-bg: rgba(255, 255, 255, 0.92);
-  --card-hover-border: rgba(239, 61, 61, 0.16);
+  --card-hover-border: rgba(92, 145, 134, 0.18);
   --card-hover-bg: rgba(255, 255, 255, 0.98);
   --table-bg: rgba(255, 255, 255, 0.95);
   --table-row-hover-bg: rgba(239, 61, 61, 0.035);
   --table-row-hover-shadow: inset 0 0 0 1px rgba(239, 61, 61, 0.08);
-  --summary-border: rgba(23, 23, 23, 0.08);
+  --summary-border: rgba(92, 145, 134, 0.16);
   --summary-bg: rgba(255, 255, 255, 0.94);
   --blockquote-border: rgba(239, 61, 61, 0.14);
   --blockquote-bg: rgba(255, 255, 255, 0.9);
@@ -414,13 +416,17 @@ body[data-theme="refund"] .cover-shell {
   overflow: hidden;
 }
 
+body[data-theme="refund"] .corner-partner-brand {
+  display: none !important;
+}
+
 body[data-theme="refund"] .proposal-cover .cover-shell,
 body[data-theme="refund"] .end-cover .cover-shell {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 36% 0 8%;
+  padding: 0 30% 0 10%;
 }
 
 body[data-theme="refund"] .cover-shell > * {
@@ -434,6 +440,13 @@ body[data-theme="refund"] .document-brand-row {
   gap: 0.9rem;
 }
 
+body[data-theme="refund"] .refund-single-mark {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+}
+
 body[data-theme="refund"] .proposal-cover .cover-brand-row,
 body[data-theme="refund"] .proposal-cover .cover-tagline,
 body[data-theme="refund"] .proposal-cover .cover-rule,
@@ -444,7 +457,7 @@ body[data-theme="refund"] .end-cover .cover-tagline,
 body[data-theme="refund"] .end-cover .cover-rule,
 body[data-theme="refund"] .end-cover .cover-end-title,
 body[data-theme="refund"] .end-cover .cover-meta {
-  max-width: 34rem;
+  max-width: 42rem;
 }
 
 body[data-theme="refund"] .cover-brand-mark-formation,
@@ -457,8 +470,8 @@ body[data-theme="refund"] .document-brand-divider {
 body[data-theme="refund"] .cover-brand-mark-lear,
 body[data-theme="refund"] .document-brand-lear,
 body[data-theme="refund"] .corner-brand img {
-  width: min(15.5rem, 58vw);
-  max-height: 3.4rem;
+  width: min(22rem, 68vw);
+  max-height: 5.2rem;
   object-fit: contain;
   filter: none;
 }
@@ -467,17 +480,19 @@ body[data-theme="refund"] .proposal-cover .cover-shell::before,
 body[data-theme="refund"] .end-cover .cover-shell::before {
   content: "";
   position: absolute;
-  right: 5%;
-  bottom: 12%;
+  right: 4%;
+  bottom: 10%;
   z-index: 0;
-  width: min(24rem, 28%);
+  width: min(25rem, 29%);
   aspect-ratio: 16 / 5;
-  border: 1px solid rgba(23, 23, 23, 0.06);
-  border-radius: 18px;
+  border: 1px solid rgba(92, 145, 134, 0.16);
+  border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 245, 242, 0.74)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(240, 246, 244, 0.84)),
     url("assets/refund/refund-ui-secondary.webp") center center / 92% auto no-repeat;
-  box-shadow: 0 18px 34px rgba(23, 23, 23, 0.1);
+  box-shadow:
+    0 22px 44px rgba(23, 23, 23, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
   opacity: 0.96;
 }
 
@@ -488,22 +503,24 @@ body[data-theme="refund"] .end-cover .cover-shell::after {
   left: -6%;
   top: 12%;
   z-index: 0;
-  width: 18rem;
-  height: 18rem;
+  width: 20rem;
+  height: 20rem;
   border-radius: 999px;
-  background: radial-gradient(circle at 40% 40%, rgba(239, 61, 61, 0.12), rgba(239, 61, 61, 0));
+  background:
+    radial-gradient(circle at 38% 38%, rgba(239, 61, 61, 0.12), rgba(239, 61, 61, 0) 62%),
+    radial-gradient(circle at 68% 64%, rgba(92, 145, 134, 0.12), rgba(92, 145, 134, 0) 68%);
   opacity: 0.78;
 }
 
 body[data-theme="refund"] .reveal h2 {
-  font-size: 2.28rem;
+  font-size: 2.8rem;
   text-transform: none;
   letter-spacing: -0.04em;
-  line-height: 0.98;
+  line-height: 0.96;
 }
 
 body[data-theme="refund"] .reveal h3 {
-  font-size: 1.1rem;
+  font-size: 1.32rem;
   letter-spacing: -0.02em;
 }
 
@@ -515,6 +532,12 @@ body[data-theme="refund"] .minor-heading {
   letter-spacing: 0.12em;
 }
 
+body[data-theme="refund"] .refund-split-colon {
+  color: var(--color-accent);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
 body[data-theme="refund"] .cover-end-title,
 body[data-theme="refund"] .pull-quote,
 body[data-theme="refund"] .pricing-callout {
@@ -524,13 +547,34 @@ body[data-theme="refund"] .pricing-callout {
 }
 
 body[data-theme="refund"] .cover-end-title {
-  font-size: 3.2rem;
+  font-size: 4rem;
+}
+
+body[data-theme="refund"] .cover-end-subtitle {
+  margin-top: 0.9rem;
+  max-width: 34rem;
+  font-size: 1.16rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: rgba(23, 23, 23, 0.82) !important;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-tagline {
+  margin-top: 1.3rem;
+  font-size: 1.9rem;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-tagline-secondary {
+  font-size: 2.25rem;
+  line-height: 0.95;
 }
 
 body[data-theme="refund"] .cover-tagline-secondary:last-of-type {
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.04em;
+  font-size: 1.56rem;
+  line-height: 1.08;
 }
 
 body[data-theme="refund"] .proposal-cover .cover-tagline,
@@ -552,7 +596,23 @@ body[data-theme="refund"] .proposal-table td,
 body[data-theme="refund"] .linkedin-preview-body span,
 body[data-theme="refund"] .cover-meta,
 body[data-theme="refund"] .cover-meta-pill {
-  color: rgba(17, 17, 17, 0.72);
+  color: rgba(17, 17, 17, 0.82) !important;
+}
+
+body[data-theme="refund"] .slide-lead,
+body[data-theme="refund"] .closing-summary {
+  max-width: 70rem;
+  font-size: 1.18rem;
+  line-height: 1.42;
+}
+
+body[data-theme="refund"] .reveal h2,
+body[data-theme="refund"] .proposal-card h3,
+body[data-theme="refund"] .metric-card strong,
+body[data-theme="refund"] .timeline-card h3,
+body[data-theme="refund"] .summary-band strong {
+  color: rgba(19, 19, 19, 0.96);
+  text-shadow: none;
 }
 
 body[data-theme="refund"] .proposal-card,
@@ -579,6 +639,22 @@ body[data-theme="refund"] .theme-menu-toggle {
   box-shadow: 0 14px 30px rgba(23, 23, 23, 0.06);
 }
 
+body[data-theme="refund"] .cover-meta {
+  margin-top: 1.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+body[data-theme="refund"] .cover-meta-pill {
+  padding: 0.34rem 0.72rem;
+}
+
+body[data-theme="refund"] .eyebrow,
+body[data-theme="refund"] .metric-label,
+body[data-theme="refund"] .minor-heading {
+  font-size: 0.76rem;
+}
+
 body[data-theme="refund"] .proposal-card,
 body[data-theme="refund"] .metric-card,
 body[data-theme="refund"] .timeline-card,
@@ -586,6 +662,37 @@ body[data-theme="refund"] .proposal-table,
 body[data-theme="refund"] .summary-band {
   position: relative;
   overflow: hidden;
+}
+
+body[data-theme="refund"] .proposal-card,
+body[data-theme="refund"] .metric-card,
+body[data-theme="refund"] .timeline-card {
+  padding: 1.18rem 1.24rem;
+}
+
+body[data-theme="refund"] .proposal-card p,
+body[data-theme="refund"] .proposal-card li,
+body[data-theme="refund"] .metric-card p,
+body[data-theme="refund"] .timeline-card p {
+  font-size: 1rem;
+  line-height: 1.36;
+}
+
+body[data-theme="refund"] .proposal-card h3,
+body[data-theme="refund"] .timeline-card h3,
+body[data-theme="refund"] .closing-card h3 {
+  font-size: 1.42rem;
+}
+
+body[data-theme="refund"] .metric-card strong,
+body[data-theme="refund"] .summary-band strong {
+  font-size: 1.72rem;
+  line-height: 1.04;
+}
+
+body[data-theme="refund"] .proposal-table th,
+body[data-theme="refund"] .proposal-table td {
+  font-size: 0.96rem;
 }
 
 body[data-theme="refund"] .proposal-card::before,
@@ -597,7 +704,7 @@ body[data-theme="refund"] .summary-band::before {
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, #ef3d3d 0%, #f26c2f 100%);
+  background: linear-gradient(90deg, #ef3d3d 0%, #f26c2f 45%, #5c9186 100%);
 }
 
 body[data-theme="refund"] .proposal-table::after,
@@ -618,6 +725,12 @@ body[data-theme="refund"] .reveal th {
   color: #fff7f3;
 }
 
+body[data-theme="refund"] .proposal-card:nth-child(even) .eyebrow,
+body[data-theme="refund"] .metric-card:nth-child(even) .metric-label,
+body[data-theme="refund"] .timeline-card:nth-child(even) .metric-label {
+  color: var(--color-accent-secondary) !important;
+}
+
 body[data-theme="refund"] .pull-quote::before,
 body[data-theme="refund"] .pull-quote::after {
   color: rgba(239, 61, 61, 0.56);
@@ -632,6 +745,7 @@ body[data-theme="refund"] .document-view {
 body[data-theme="refund"] .document-page::before {
   background: linear-gradient(90deg, #ef3d3d 0%, #f26c2f 100%);
 }
+
 
 body[data-theme="xyz"] {
   --color-bg: #f6f2eb;
@@ -1991,9 +2105,10 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-center {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
   gap: 0.45rem;
   min-width: 0;
   max-width: 100%;
@@ -2004,6 +2119,7 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-company {
+  flex: 0 1 auto;
   color: color-mix(in srgb, var(--footer-ink) 92%, transparent);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
@@ -2013,8 +2129,10 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-center-meta {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  flex: 0 1 auto;
+  flex-wrap: nowrap;
   gap: 0.45rem;
   min-width: 0;
   white-space: nowrap;
@@ -2022,12 +2140,15 @@ body.platform-video-active .backgrounds .slide-background.present iframe {
 }
 
 .footer-divider {
+  flex: 0 0 auto;
   color: color-mix(in srgb, var(--footer-ink) 44%, transparent);
   font-size: 0.72rem;
   line-height: 1;
 }
 
 .deploy-timestamp {
+  display: inline-block;
+  flex: 0 1 auto;
   color: color-mix(in srgb, var(--footer-ink) 68%, transparent);
   font-size: 0.74rem;
   letter-spacing: 0.01em;
