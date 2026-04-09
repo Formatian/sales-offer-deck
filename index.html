@@ -7400,6 +7400,7 @@ ${excerptCards}
       const isRevealOverview = typeof Reveal.isOverview === 'function' ? Reveal.isOverview() : false;
       const isDocOverview = isCustomDocumentViewActive() && isDocumentOverviewActive();
       const isOverview = isRevealOverview || isDocOverview;
+      const isRefundTheme = getThemeBaseTheme(currentTheme) === 'refund';
       const indices = Reveal.getIndices(slide);
       const totalSlides = getRevealTotalSlides();
       const isFirstSlide = indices.h === 0;
@@ -7425,7 +7426,7 @@ ${excerptCards}
       document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
       const cornerPartnerBrand = document.querySelector('.corner-partner-brand');
       if (cornerPartnerBrand) {
-        cornerPartnerBrand.style.display = (isTitle || isOverview || shouldHidePartnerBrand(currentContent, currentTheme)) ? 'none' : '';
+        cornerPartnerBrand.style.display = (isTitle || isOverview || isRefundTheme || shouldHidePartnerBrand(currentContent, currentTheme)) ? 'none' : '';
       }
       document.body.classList.toggle('overview-active', isOverview);
       const overviewToggle = document.querySelector('.overview-toggle');
