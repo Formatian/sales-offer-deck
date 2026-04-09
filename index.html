@@ -5675,8 +5675,215 @@ ${excerptCards}
       }
     }
 
+    const DECK_PRINT_CAPTURE_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    const nativeWindowPrint = typeof window.print === 'function'
+      ? window.print.bind(window)
+      : null;
     let activePrintMode = '';
     let deckPrintPageStyle = null;
+    let deckPrintRasterShell = null;
+    let deckPrintRasterState = null;
+    let deckPrintCaptureLibraryPromise = null;
+
+    function loadDeckPrintCaptureLibrary() {
+      if (typeof window.html2canvas === 'function') {
+        return Promise.resolve(window.html2canvas);
+      }
+
+      if (deckPrintCaptureLibraryPromise) {
+        return deckPrintCaptureLibraryPromise;
+      }
+
+      deckPrintCaptureLibraryPromise = new Promise((resolve, reject) => {
+        const existingScript = document.querySelector('script[data-deck-print-capture-library="true"]');
+        if (existingScript instanceof HTMLScriptElement) {
+          existingScript.addEventListener('load', () => resolve(window.html2canvas), { once: true });
+          existingScript.addEventListener('error', () => reject(new Error('Failed to load deck print capture library.')), { once: true });
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = DECK_PRINT_CAPTURE_LIBRARY_URL;
+        script.async = true;
+        script.setAttribute('data-deck-print-capture-library', 'true');
+        script.addEventListener('load', () => {
+          if (typeof window.html2canvas === 'function') {
+            resolve(window.html2canvas);
+            return;
+          }
+          reject(new Error('Deck print capture library loaded without exposing html2canvas.'));
+        }, { once: true });
+        script.addEventListener('error', () => reject(new Error('Failed to load deck print capture library.')), { once: true });
+        document.head.appendChild(script);
+      }).catch(error => {
+        deckPrintCaptureLibraryPromise = null;
+        throw error;
+      });
+
+      return deckPrintCaptureLibraryPromise;
+    }
+
+    function waitForAnimationFrames(count = 2) {
+      return new Promise(resolve => {
+        const step = remaining => {
+          if (remaining <= 0) {
+            resolve();
+            return;
+          }
+          requestAnimationFrame(() => step(remaining - 1));
+        };
+        step(count);
+      });
+    }
+
+    function waitForSlideMedia(slide) {
+      if (!(slide instanceof HTMLElement)) {
+        return Promise.resolve();
+      }
+
+      const pendingImages = Array.from(slide.querySelectorAll('img'))
+        .filter(image => image instanceof HTMLImageElement && !image.complete);
+      if (!pendingImages.length) {
+        return Promise.resolve();
+      }
+
+      return Promise.all(pendingImages.map(image => new Promise(resolve => {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', resolve, { once: true });
+      }))).then(() => undefined);
+    }
+
+    function isDeckRasterPrintActive() {
+      return activePrintMode === 'deck-raster';
+    }
+
+    function getDeckPrintCaptureRoot() {
+      return document.querySelector('.reveal');
+    }
+
+    function clearDeckRasterPrintShell() {
+      if (deckPrintRasterShell) {
+        deckPrintRasterShell.remove();
+        deckPrintRasterShell = null;
+      }
+    }
+
+    function clearDeckRasterPrintState() {
+      if (deckPrintRasterState?.imageUrls?.length) {
+        deckPrintRasterState.imageUrls.forEach(url => URL.revokeObjectURL(url));
+      }
+      deckPrintRasterState = null;
+    }
+
+    function ensureDeckRasterPrintShell() {
+      if (deckPrintRasterShell) {
+        return deckPrintRasterShell;
+      }
+
+      deckPrintRasterShell = document.createElement('div');
+      deckPrintRasterShell.className = 'deck-print-raster-shell';
+      deckPrintRasterShell.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(deckPrintRasterShell);
+      return deckPrintRasterShell;
+    }
+
+    function renderDeckRasterPrintShell(imageUrls) {
+      const shell = ensureDeckRasterPrintShell();
+      shell.innerHTML = imageUrls.map(url => `
+        <div class="deck-print-raster-page">
+          <img src="${url}" alt="" class="deck-print-raster-image" />
+        </div>
+      `).join('');
+    }
+
+    async function captureDeckSlidesAsRasterImages() {
+      const captureRoot = getDeckPrintCaptureRoot();
+      if (!(captureRoot instanceof HTMLElement) || typeof Reveal?.getSlides !== 'function') {
+        throw new Error('Reveal deck is not ready for raster print capture.');
+      }
+
+      const html2canvas = await loadDeckPrintCaptureLibrary();
+      if (document.fonts?.ready) {
+        await document.fonts.ready.catch(() => undefined);
+      }
+
+      const wasOverviewActive = typeof Reveal?.isOverview === 'function' && Reveal.isOverview();
+      const previousIndices = typeof Reveal?.getIndices === 'function'
+        ? Reveal.getIndices()
+        : { h: 0, v: 0, f: undefined };
+      const slides = Reveal.getSlides().map(slide => {
+        const indices = Reveal.getIndices(slide);
+        return {
+          h: indices?.h || 0,
+          v: indices?.v || 0,
+          f: 0
+        };
+      });
+
+      const capturedImages = [];
+      document.documentElement.classList.add('capturing-deck-raster');
+      document.body.classList.add('capturing-deck-raster');
+      prepareDeckSlidesForPrint();
+      closeContentModal();
+      closeThemeModal();
+      if (wasOverviewActive) {
+        Reveal.toggleOverview();
+      }
+
+      try {
+        for (const slide of slides) {
+          Reveal.slide(slide.h, slide.v, slide.f);
+          if (typeof Reveal?.layout === 'function') {
+            Reveal.layout();
+          }
+          fitCurrentSlide();
+
+          await waitForAnimationFrames(3);
+          await waitForSlideMedia(Reveal.getCurrentSlide());
+          await waitForAnimationFrames(2);
+
+          const canvas = await html2canvas(captureRoot, {
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false,
+            scale: Math.max(2, Math.min(window.devicePixelRatio || 1, 2)),
+            width: Math.round(captureRoot.getBoundingClientRect().width),
+            height: Math.round(captureRoot.getBoundingClientRect().height),
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight
+          });
+
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          if (!(blob instanceof Blob)) {
+            throw new Error('Failed to convert captured slide into a print image.');
+          }
+          capturedImages.push(URL.createObjectURL(blob));
+        }
+      } catch (error) {
+        capturedImages.forEach(url => URL.revokeObjectURL(url));
+        throw error;
+      } finally {
+        clearDeckSlidesForPrint();
+        document.documentElement.classList.remove('capturing-deck-raster');
+        document.body.classList.remove('capturing-deck-raster');
+
+        if (typeof Reveal?.slide === 'function') {
+          Reveal.slide(previousIndices?.h || 0, previousIndices?.v || 0, previousIndices?.f);
+        }
+        if (wasOverviewActive && typeof Reveal?.isOverview === 'function' && !Reveal.isOverview()) {
+          Reveal.toggleOverview();
+        }
+        if (typeof Reveal?.layout === 'function') {
+          Reveal.layout();
+        }
+        fitCurrentSlide();
+      }
+
+      return {
+        imageUrls: capturedImages,
+        indices: previousIndices
+      };
+    }
 
     function ensureDeckPrintPageStyle() {
       if (deckPrintPageStyle) {
@@ -5761,6 +5968,20 @@ ${excerptCards}
     }
 
     function exitDeckPrintMode() {
+      if (activePrintMode === 'deck-raster') {
+        activePrintMode = '';
+        document.documentElement.classList.remove('printing-deck-raster');
+        document.body.classList.remove('printing-deck-raster');
+        clearDeckRasterPrintShell();
+        clearDeckRasterPrintState();
+        clearDeckPrintPageStyle();
+        if (typeof Reveal?.layout === 'function') {
+          Reveal.layout();
+        }
+        fitCurrentSlide();
+        return;
+      }
+
       if (activePrintMode !== 'deck') {
         return;
       }
@@ -5773,6 +5994,48 @@ ${excerptCards}
       if (typeof Reveal?.layout === 'function') {
         Reveal.layout();
       }
+    }
+
+    async function startDeckRasterPrintMode() {
+      if (isDeckRasterPrintActive()) {
+        window.print();
+        return;
+      }
+
+      const captureResult = await captureDeckSlidesAsRasterImages();
+      clearDeckRasterPrintState();
+      deckPrintRasterState = captureResult;
+      renderDeckRasterPrintShell(captureResult.imageUrls);
+      ensureDeckPrintPageStyle();
+      activePrintMode = 'deck-raster';
+      document.documentElement.classList.add('printing-deck-raster');
+      document.body.classList.add('printing-deck-raster');
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    async function printDeckFromRasterCapture() {
+      await startDeckRasterPrintMode();
+      if (!nativeWindowPrint) {
+        throw new Error('window.print is not available in this browser.');
+      }
+      window.setTimeout(() => nativeWindowPrint(), 80);
+    }
+
+    if (nativeWindowPrint) {
+      window.print = function printWithDeckRasterFallback() {
+        if (currentView === 'slides' && !isDeckRasterPrintActive()) {
+          printDeckFromRasterCapture().catch(error => {
+            console.error('Deck raster print capture failed.', error);
+            enterDeckPrintMode();
+            if (nativeWindowPrint) {
+              window.setTimeout(() => nativeWindowPrint(), 80);
+            }
+          });
+          return;
+        }
+
+        nativeWindowPrint();
+      };
     }
 
     function isDeckPrintShortcut(event) {
@@ -7438,9 +7701,30 @@ ${excerptCards}
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
         timeZone: 'Europe/Berlin',
         timeZoneName: 'short'
       }).format(date);
+    }
+
+    function getLocalTimestampFallback() {
+      const documentLastModified = document.lastModified ? new Date(document.lastModified) : null;
+      if (documentLastModified && !Number.isNaN(documentLastModified.getTime())) {
+        return documentLastModified.toISOString();
+      }
+
+      const match = /^(\d{4})(\d{2})(\d{2})/.exec(DECK_VERSION);
+      if (!match) {
+        return '';
+      }
+
+      const [, year, month, day] = match;
+      const date = new Date(`${year}-${month}-${day}T12:00:00+02:00`);
+      if (Number.isNaN(date.getTime())) {
+        return '';
+      }
+
+      return date.toISOString();
     }
 
     function isLocalPreview() {
@@ -7458,6 +7742,12 @@ ${excerptCards}
       const timestamp = isLocalPreview() ? localUpdatedAt : deployMetadata?.deployedAt;
       const label = isLocalPreview() ? copy.localLabel : copy.deployLabel;
       if (!timestamp) {
+        if (isLocalPreview()) {
+          const fallbackTimestamp = getLocalTimestampFallback();
+          deployLabel.textContent = fallbackTimestamp ? `${label}: ${formatDeployTimestamp(fallbackTimestamp, currentLanguage)}` : '';
+          return;
+        }
+
         deployLabel.textContent = '';
         return;
       }
@@ -8322,8 +8612,13 @@ ${excerptCards}
     window.addEventListener('keydown', event => {
       if (isDeckPrintShortcut(event) && currentView === 'slides') {
         event.preventDefault();
-        enterDeckPrintMode();
-        window.setTimeout(() => window.print(), 80);
+        printDeckFromRasterCapture().catch(error => {
+          console.error('Deck raster print capture failed.', error);
+          enterDeckPrintMode();
+          if (nativeWindowPrint) {
+            window.setTimeout(() => nativeWindowPrint(), 80);
+          }
+        });
         return;
       }
 
@@ -8338,6 +8633,10 @@ ${excerptCards}
       }
     });
     window.addEventListener('beforeprint', () => {
+      if (isDeckRasterPrintActive()) {
+        return;
+      }
+
       if (currentView === 'slides') {
         enterDeckPrintMode();
       }

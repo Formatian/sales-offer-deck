@@ -298,115 +298,115 @@ body[data-theme="formation"] {
 }
 
 body[data-theme="refund"] {
-  --color-bg: #f8f6f2;
-  --color-bg-2: #efe8df;
-  --color-panel: rgba(255, 255, 255, 0.8);
-  --color-panel-strong: rgba(248, 246, 242, 0.96);
-  --color-line: rgba(239, 61, 61, 0.16);
-  --color-ink: #111111;
-  --color-muted: rgba(17, 17, 17, 0.74);
+  --color-bg: #f6f5f2;
+  --color-bg-2: #efeeea;
+  --color-panel: rgba(255, 255, 255, 0.9);
+  --color-panel-strong: rgba(255, 255, 255, 0.98);
+  --color-line: rgba(238, 92, 54, 0.14);
+  --color-ink: #171717;
+  --color-muted: rgba(23, 23, 23, 0.68);
   --color-accent: #ef3d3d;
-  --color-accent-strong: #ec6e38;
-  --color-shadow: rgba(17, 17, 17, 0.14);
+  --color-accent-strong: #f26c2f;
+  --color-shadow: rgba(23, 23, 23, 0.1);
   --selection-ink: #ffffff;
-  --video-overlay-start: rgba(248, 246, 242, 0.66);
-  --video-overlay-end: rgba(248, 246, 242, 0.8);
-  --video-overlay-glow: rgba(239, 61, 61, 0.08);
-  --platform-overlay-start: rgba(248, 246, 242, 0.72);
-  --platform-overlay-end: rgba(248, 246, 242, 0.84);
-  --platform-overlay-glow: rgba(239, 61, 61, 0.06);
-  --cover-overlay-start: rgba(248, 246, 242, 0.18);
-  --cover-overlay-end: rgba(248, 246, 242, 0.36);
-  --cover-overlay-glow: rgba(239, 61, 61, 0.08);
-  --viewport-overlay-start: rgba(248, 246, 242, 0.86);
-  --viewport-overlay-end: rgba(248, 246, 242, 0.92);
-  --viewport-glow-primary: rgba(239, 61, 61, 0.1);
-  --viewport-glow-secondary: rgba(210, 241, 228, 0.34);
-  --viewport-gradient-base: linear-gradient(180deg, #f8f6f2 0%, #f1ece5 100%);
+  --video-overlay-start: rgba(246, 245, 242, 0.74);
+  --video-overlay-end: rgba(246, 245, 242, 0.88);
+  --video-overlay-glow: rgba(239, 61, 61, 0.05);
+  --platform-overlay-start: rgba(246, 245, 242, 0.78);
+  --platform-overlay-end: rgba(246, 245, 242, 0.9);
+  --platform-overlay-glow: rgba(239, 61, 61, 0.04);
+  --cover-overlay-start: rgba(246, 245, 242, 0.14);
+  --cover-overlay-end: rgba(246, 245, 242, 0.3);
+  --cover-overlay-glow: rgba(239, 61, 61, 0.05);
+  --viewport-overlay-start: rgba(246, 245, 242, 0.9);
+  --viewport-overlay-end: rgba(246, 245, 242, 0.95);
+  --viewport-glow-primary: rgba(239, 61, 61, 0.08);
+  --viewport-glow-secondary: rgba(242, 108, 47, 0.08);
+  --viewport-gradient-base: linear-gradient(180deg, #f6f5f2 0%, #efeeea 100%);
   --viewport-image-url: url("assets/refund/refund-hero.webp");
   --active-slide-image-url: none;
   --active-slide-image-size: cover;
   --active-slide-image-position: 80% center;
-  --overview-glow-primary: rgba(239, 61, 61, 0.14);
-  --overview-glow-secondary: rgba(210, 241, 228, 0.26);
-  --overview-glow-tertiary: rgba(236, 110, 56, 0.14);
-  --overview-glow-quaternary: rgba(9, 58, 62, 0.12);
-  --overview-gradient-base: linear-gradient(180deg, #f7f2ec 0%, #eee6dd 100%);
-  --overview-slide-overlay-start: rgba(248, 246, 242, 0.64);
-  --overview-slide-overlay-end: rgba(248, 246, 242, 0.78);
-  --overview-slide-overlay-glow: rgba(239, 61, 61, 0.08);
-  --overview-cover-overlay-start: rgba(248, 246, 242, 0.18);
-  --overview-cover-overlay-end: rgba(248, 246, 242, 0.4);
-  --overview-cover-overlay-glow: rgba(239, 61, 61, 0.12);
-  --media-filter: brightness(0.98) saturate(0.96) contrast(1.02);
+  --overview-glow-primary: rgba(239, 61, 61, 0.12);
+  --overview-glow-secondary: rgba(242, 108, 47, 0.1);
+  --overview-glow-tertiary: rgba(255, 255, 255, 0.2);
+  --overview-glow-quaternary: rgba(23, 23, 23, 0.06);
+  --overview-gradient-base: linear-gradient(180deg, #f3f2ee 0%, #eceae5 100%);
+  --overview-slide-overlay-start: rgba(246, 245, 242, 0.72);
+  --overview-slide-overlay-end: rgba(246, 245, 242, 0.84);
+  --overview-slide-overlay-glow: rgba(239, 61, 61, 0.05);
+  --overview-cover-overlay-start: rgba(246, 245, 242, 0.14);
+  --overview-cover-overlay-end: rgba(246, 245, 242, 0.32);
+  --overview-cover-overlay-glow: rgba(239, 61, 61, 0.08);
+  --media-filter: brightness(0.99) saturate(0.98) contrast(1.01);
   --table-head-bg: #ef3d3d;
-  --progress-track-bg: rgba(17, 17, 17, 0.08);
-  --progress-track-border: rgba(17, 17, 17, 0.08);
-  --progress-track-hover-bg: rgba(255, 255, 255, 0.84);
-  --progress-segment-shade: rgba(17, 17, 17, 0.04);
-  --progress-hover-segment-shade: rgba(17, 17, 17, 0.02);
-  --progress-hover-gradient: linear-gradient(90deg, #ec6e38, #ef3d3d);
-  --progress-hover-glow: 0 0 24px rgba(239, 61, 61, 0.18);
-  --progress-fill-gradient: linear-gradient(90deg, #ef3d3d, #ec6e38);
-  --progress-fill-glow: 0 0 18px rgba(239, 61, 61, 0.16);
-  --footer-bg: rgba(255, 255, 255, 0.72);
-  --footer-ink: rgba(17, 17, 17, 0.72);
-  --control-border: rgba(17, 17, 17, 0.08);
-  --control-bg: rgba(255, 255, 255, 0.72);
+  --progress-track-bg: rgba(23, 23, 23, 0.06);
+  --progress-track-border: rgba(23, 23, 23, 0.06);
+  --progress-track-hover-bg: rgba(255, 255, 255, 0.92);
+  --progress-segment-shade: rgba(23, 23, 23, 0.03);
+  --progress-hover-segment-shade: rgba(23, 23, 23, 0.015);
+  --progress-hover-gradient: linear-gradient(90deg, #ef3d3d, #f26c2f);
+  --progress-hover-glow: 0 0 20px rgba(239, 61, 61, 0.12);
+  --progress-fill-gradient: linear-gradient(90deg, #ef3d3d, #f26c2f);
+  --progress-fill-glow: 0 0 14px rgba(239, 61, 61, 0.12);
+  --footer-bg: rgba(255, 255, 255, 0.8);
+  --footer-ink: rgba(23, 23, 23, 0.72);
+  --control-border: rgba(23, 23, 23, 0.08);
+  --control-bg: rgba(255, 255, 255, 0.82);
   --control-hover-border: rgba(239, 61, 61, 0.28);
-  --control-hover-bg: rgba(239, 61, 61, 0.08);
-  --control-hover-glow: 0 0 14px rgba(239, 61, 61, 0.1);
-  --switch-border: rgba(17, 17, 17, 0.08);
-  --switch-bg: rgba(255, 255, 255, 0.8);
-  --switch-hover-bg: rgba(239, 61, 61, 0.08);
-  --switch-active-bg: #111111;
-  --switch-active-ink: #f8f6f2;
-  --overview-toggle-hover-bg: rgba(255, 255, 255, 0.94);
-  --cover-divider-gradient: linear-gradient(180deg, rgba(239, 61, 61, 0.06), rgba(239, 61, 61, 0.92), rgba(239, 61, 61, 0.06));
-  --cover-divider-glow: 0 0 18px rgba(239, 61, 61, 0.16);
-  --cover-meta-color: rgba(17, 17, 17, 0.54);
-  --cover-meta-separator: rgba(17, 17, 17, 0.14);
-  --cover-meta-pill-border: rgba(17, 17, 17, 0.08);
-  --cover-meta-pill-bg: rgba(255, 255, 255, 0.7);
-  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(251, 247, 243, 0.96));
-  --card-hover-border: rgba(239, 61, 61, 0.18);
-  --card-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 238, 231, 1));
-  --table-bg: rgba(255, 255, 255, 0.92);
-  --table-row-hover-bg: rgba(239, 61, 61, 0.05);
-  --table-row-hover-shadow: inset 0 0 0 1px rgba(239, 61, 61, 0.12);
-  --summary-border: rgba(17, 17, 17, 0.08);
-  --summary-bg: rgba(255, 255, 255, 0.9);
-  --blockquote-border: rgba(239, 61, 61, 0.16);
-  --blockquote-bg: rgba(255, 255, 255, 0.84);
-  --quote-mark-color: rgba(239, 61, 61, 0.72);
-  --portrait-border: rgba(17, 17, 17, 0.08);
-  --linkedin-bg: rgba(255, 255, 255, 0.82);
+  --control-hover-bg: rgba(239, 61, 61, 0.06);
+  --control-hover-glow: 0 0 12px rgba(239, 61, 61, 0.08);
+  --switch-border: rgba(23, 23, 23, 0.08);
+  --switch-bg: rgba(255, 255, 255, 0.86);
+  --switch-hover-bg: rgba(239, 61, 61, 0.06);
+  --switch-active-bg: #171717;
+  --switch-active-ink: #f6f5f2;
+  --overview-toggle-hover-bg: rgba(255, 255, 255, 0.96);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(239, 61, 61, 0.04), rgba(239, 61, 61, 0.9), rgba(239, 61, 61, 0.04));
+  --cover-divider-glow: 0 0 14px rgba(239, 61, 61, 0.12);
+  --cover-meta-color: rgba(23, 23, 23, 0.54);
+  --cover-meta-separator: rgba(23, 23, 23, 0.12);
+  --cover-meta-pill-border: rgba(23, 23, 23, 0.08);
+  --cover-meta-pill-bg: rgba(255, 255, 255, 0.82);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-hover-border: rgba(239, 61, 61, 0.16);
+  --card-hover-bg: rgba(255, 255, 255, 0.98);
+  --table-bg: rgba(255, 255, 255, 0.95);
+  --table-row-hover-bg: rgba(239, 61, 61, 0.035);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(239, 61, 61, 0.08);
+  --summary-border: rgba(23, 23, 23, 0.08);
+  --summary-bg: rgba(255, 255, 255, 0.94);
+  --blockquote-border: rgba(239, 61, 61, 0.14);
+  --blockquote-bg: rgba(255, 255, 255, 0.9);
+  --quote-mark-color: rgba(239, 61, 61, 0.62);
+  --portrait-border: rgba(23, 23, 23, 0.08);
+  --linkedin-bg: rgba(255, 255, 255, 0.88);
   --font-body: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --font-cover-title: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --font-ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --font-heading: "General Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-accent: "Fake Serif", Georgia, serif;
+  --font-accent: "General Sans", "Helvetica Neue", Arial, sans-serif;
   --control-radius: 999px;
   --switch-radius: 999px;
   --switch-option-radius: 999px;
-  --modal-radius: 28px;
-  --image-overlay-start: rgba(248, 246, 242, 0.18);
-  --image-overlay-end: rgba(248, 246, 242, 0.52);
-  --image-overlay-glow: rgba(210, 241, 228, 0.18);
-  --cover-image-overlay-start: rgba(248, 246, 242, 0.06);
-  --cover-image-overlay-end: rgba(248, 246, 242, 0.24);
-  --cover-image-overlay-glow: rgba(239, 61, 61, 0.12);
-  --document-bg: #eadfd4;
-  --document-paper: #fffdf9;
-  --document-ink: #111111;
-  --document-muted: #635a53;
-  --document-line: #e0d8cf;
+  --modal-radius: 22px;
+  --image-overlay-start: rgba(246, 245, 242, 0.18);
+  --image-overlay-end: rgba(246, 245, 242, 0.46);
+  --image-overlay-glow: rgba(242, 108, 47, 0.08);
+  --cover-image-overlay-start: rgba(246, 245, 242, 0.04);
+  --cover-image-overlay-end: rgba(246, 245, 242, 0.2);
+  --cover-image-overlay-glow: rgba(239, 61, 61, 0.08);
+  --document-bg: #efede8;
+  --document-paper: #fffdfa;
+  --document-ink: #171717;
+  --document-muted: #605852;
+  --document-line: #e5e0d8;
   --document-accent: #ef3d3d;
-  --document-accent-soft: #fbe2de;
-  --document-accent-wash: rgba(239, 61, 61, 0.06);
-  --document-total-row-bg: rgba(239, 61, 61, 0.04);
-  --document-page-border: rgba(92, 75, 66, 0.12);
-  --document-page-shadow: rgba(47, 35, 28, 0.12);
+  --document-accent-soft: #fce6df;
+  --document-accent-wash: rgba(239, 61, 61, 0.05);
+  --document-total-row-bg: rgba(239, 61, 61, 0.035);
+  --document-page-border: rgba(23, 23, 23, 0.08);
+  --document-page-shadow: rgba(23, 23, 23, 0.08);
 }
 
 body[data-theme="refund"] .cover-shell {
@@ -472,13 +472,13 @@ body[data-theme="refund"] .end-cover .cover-shell::before {
   z-index: 0;
   width: min(24rem, 28%);
   aspect-ratio: 16 / 5;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 24px;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  border-radius: 18px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 246, 242, 0.54)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 245, 242, 0.74)),
     url("assets/refund/refund-ui-secondary.webp") center center / 92% auto no-repeat;
-  box-shadow: 0 24px 52px rgba(17, 17, 17, 0.14);
-  opacity: 0.98;
+  box-shadow: 0 18px 34px rgba(23, 23, 23, 0.1);
+  opacity: 0.96;
 }
 
 body[data-theme="refund"] .proposal-cover .cover-shell::after,
@@ -491,8 +491,8 @@ body[data-theme="refund"] .end-cover .cover-shell::after {
   width: 18rem;
   height: 18rem;
   border-radius: 999px;
-  background: radial-gradient(circle at 40% 40%, rgba(210, 241, 228, 0.9), rgba(210, 241, 228, 0));
-  opacity: 0.92;
+  background: radial-gradient(circle at 40% 40%, rgba(239, 61, 61, 0.12), rgba(239, 61, 61, 0));
+  opacity: 0.78;
 }
 
 body[data-theme="refund"] .reveal h2 {
@@ -519,8 +519,8 @@ body[data-theme="refund"] .cover-end-title,
 body[data-theme="refund"] .pull-quote,
 body[data-theme="refund"] .pricing-callout {
   font-family: var(--font-accent);
-  font-weight: 400;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  letter-spacing: -0.04em;
 }
 
 body[data-theme="refund"] .cover-end-title {
@@ -529,8 +529,8 @@ body[data-theme="refund"] .cover-end-title {
 
 body[data-theme="refund"] .cover-tagline-secondary:last-of-type {
   font-family: var(--font-heading);
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 
 body[data-theme="refund"] .proposal-cover .cover-tagline,
@@ -574,9 +574,9 @@ body[data-theme="refund"] .language-option,
 body[data-theme="refund"] .overview-toggle,
 body[data-theme="refund"] .content-menu-toggle,
 body[data-theme="refund"] .theme-menu-toggle {
-  border-radius: 28px;
-  border-color: rgba(17, 17, 17, 0.08);
-  box-shadow: 0 20px 48px rgba(17, 17, 17, 0.08);
+  border-radius: 20px;
+  border-color: rgba(23, 23, 23, 0.07);
+  box-shadow: 0 14px 30px rgba(23, 23, 23, 0.06);
 }
 
 body[data-theme="refund"] .proposal-card,
@@ -596,8 +596,8 @@ body[data-theme="refund"] .summary-band::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 5px;
-  background: linear-gradient(90deg, #ef3d3d 0%, #ec6e38 58%, #d2f1e4 100%);
+  height: 4px;
+  background: linear-gradient(90deg, #ef3d3d 0%, #f26c2f 100%);
 }
 
 body[data-theme="refund"] .proposal-table::after,
@@ -609,7 +609,7 @@ body[data-theme="refund"] .summary-band::after {
   width: 8.5rem;
   height: 2.25rem;
   background: url("assets/refund/refund-ui-secondary.webp") center center / contain no-repeat;
-  opacity: 0.08;
+  opacity: 0.05;
   pointer-events: none;
 }
 
@@ -625,12 +625,12 @@ body[data-theme="refund"] .pull-quote::after {
 
 body[data-theme="refund"] .document-view {
   background:
-    radial-gradient(circle at top right, rgba(210, 241, 228, 0.4), transparent 24%),
-    linear-gradient(180deg, #eadfd4 0%, #e6d9cd 100%);
+    radial-gradient(circle at top right, rgba(239, 61, 61, 0.08), transparent 24%),
+    linear-gradient(180deg, #efede8 0%, #ebe8e2 100%);
 }
 
 body[data-theme="refund"] .document-page::before {
-  background: linear-gradient(90deg, #ef3d3d 0%, #ec6e38 56%, #d2f1e4 100%);
+  background: linear-gradient(90deg, #ef3d3d 0%, #f26c2f 100%);
 }
 
 body[data-theme="xyz"] {
@@ -4515,6 +4515,94 @@ body[data-content="nobaxx"] .summary-band .metric-label {
   background: #ffffff !important;
 }
 
+.capturing-deck-raster,
+.printing-deck-raster {
+  background: #ffffff !important;
+}
+
+.capturing-deck-raster .slide-footer,
+.capturing-deck-raster .corner-brand,
+.capturing-deck-raster .corner-partner-brand,
+.capturing-deck-raster .theme-modal,
+.capturing-deck-raster .theme-modal-backdrop,
+.capturing-deck-raster .content-modal,
+.capturing-deck-raster .content-modal-backdrop,
+.capturing-deck-raster .reveal .controls,
+.capturing-deck-raster .reveal .progress,
+.capturing-deck-raster .reveal .backgrounds {
+  display: none !important;
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="cover"],
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="cover"] {
+  background: #111318 !important;
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="image"],
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="image"] {
+  background: #14161b !important;
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="video"],
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="video"] {
+  background: #111318 !important;
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="plain"],
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="plain"] {
+  background:
+    linear-gradient(180deg, var(--viewport-overlay-start), var(--viewport-overlay-end)),
+    radial-gradient(circle at top right, var(--viewport-glow-primary), transparent 22%),
+    radial-gradient(circle at 16% 84%, var(--viewport-glow-secondary), transparent 20%),
+    var(--viewport-image-url) center center / cover no-repeat,
+    var(--viewport-gradient-base) !important;
+}
+
+.capturing-deck-raster .reveal .slides section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.capturing-deck-raster .print-slide-background-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.capturing-deck-raster .print-slide-background-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.capturing-deck-raster .print-slide-background-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="cover"] .print-slide-background-overlay,
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="cover"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--cover-image-overlay-start), var(--cover-image-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-image-overlay-glow), transparent 28%);
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="image"] .print-slide-background-overlay,
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="image"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--image-overlay-start), var(--image-overlay-end)),
+    radial-gradient(circle at top right, var(--image-overlay-glow), transparent 26%);
+}
+
+.capturing-deck-raster .reveal .slides > section[data-print-background="video"] .print-slide-background-overlay,
+.capturing-deck-raster .reveal .slides > section.stack > section[data-print-background="video"] .print-slide-background-overlay {
+  background:
+    linear-gradient(180deg, var(--cover-overlay-start), var(--cover-overlay-end)),
+    radial-gradient(circle at top right, var(--cover-overlay-glow), transparent 24%);
+}
+
 html.printing-deck,
 body.printing-deck {
   background: #ffffff !important;
@@ -4671,14 +4759,77 @@ body.printing-deck .reveal .slides > section.stack > section[data-print-backgrou
     radial-gradient(circle at top right, var(--cover-overlay-glow), transparent 24%);
 }
 
+html.printing-deck-raster,
+body.printing-deck-raster {
+  background: #ffffff !important;
+  width: auto !important;
+  min-height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.printing-deck-raster {
+  overflow: auto !important;
+}
+
+body.printing-deck-raster > *:not(.deck-print-raster-shell) {
+  display: none !important;
+}
+
+.deck-print-raster-shell {
+  display: none;
+}
+
+body.printing-deck-raster .deck-print-raster-shell {
+  display: block !important;
+  width: 297mm;
+  margin: 0 auto;
+  padding: 8mm 0;
+  box-sizing: border-box;
+}
+
+body.printing-deck-raster .deck-print-raster-page {
+  width: 281mm;
+  height: 158mm;
+  margin: 0 auto 8mm;
+  break-after: page;
+  page-break-after: always;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+body.printing-deck-raster .deck-print-raster-page:last-child {
+  margin-bottom: 0;
+}
+
+body.printing-deck-raster .deck-print-raster-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @page {
   size: A4 portrait;
   margin: 0;
 }
 
 @media print {
-  html:not(.printing-deck),
-  body:not(.printing-deck) {
+  html.printing-deck-raster,
+  body.printing-deck-raster {
+    background: #fff !important;
+    width: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.printing-deck-raster {
+    overflow: visible !important;
+  }
+
+  html:not(.printing-deck):not(.printing-deck-raster),
+  body:not(.printing-deck):not(.printing-deck-raster) {
     background: #fff !important;
     width: 210mm !important;
     min-height: auto !important;
@@ -4686,19 +4837,19 @@ body.printing-deck .reveal .slides > section.stack > section[data-print-backgrou
     padding: 0 !important;
   }
 
-  body:not(.printing-deck) {
+  body:not(.printing-deck):not(.printing-deck-raster) {
     overflow: visible !important;
   }
 
-  body:not(.printing-deck) .slide-footer,
-  body:not(.printing-deck) .corner-brand,
-  body:not(.printing-deck) .reveal,
-  body:not(.printing-deck) .theme-modal,
-  body:not(.printing-deck) .theme-modal-backdrop {
+  body:not(.printing-deck):not(.printing-deck-raster) .slide-footer,
+  body:not(.printing-deck):not(.printing-deck-raster) .corner-brand,
+  body:not(.printing-deck):not(.printing-deck-raster) .reveal,
+  body:not(.printing-deck):not(.printing-deck-raster) .theme-modal,
+  body:not(.printing-deck):not(.printing-deck-raster) .theme-modal-backdrop {
     display: none !important;
   }
 
-  body:not(.printing-deck) .document-view {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-view {
     display: block !important;
     width: 210mm !important;
     min-height: auto !important;
@@ -4707,15 +4858,15 @@ body.printing-deck .reveal .slides > section.stack > section[data-print-backgrou
     background: #fff !important;
   }
 
-  body:not(.printing-deck) .document-canvas {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-canvas {
     display: none !important;
   }
 
-  body:not(.printing-deck) .document-canvas.is-active {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-canvas.is-active {
     display: block !important;
   }
 
-  body:not(.printing-deck) .document-page {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-page {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -4734,54 +4885,54 @@ body.printing-deck .reveal .slides > section.stack > section[data-print-backgrou
     page-break-inside: avoid;
   }
 
-  body:not(.printing-deck) .document-page-cover {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-page-cover {
     display: block;
     min-height: 297mm;
   }
 
-  body:not(.printing-deck) .document-page-cover .document-brand-row {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-page-cover .document-brand-row {
     margin-top: 2mm;
   }
 
-  body:not(.printing-deck) .document-page-cover .document-cover-body {
+  body:not(.printing-deck):not(.printing-deck-raster) .document-page-cover .document-cover-body {
     padding-top: 118mm;
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover {
     background: #ffffff !important;
     color: #111111 !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover::before,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover::before {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover::before,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover::before {
     height: 7px;
     background: #111111;
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-brand,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-brand {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover .document-brand,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover .document-brand {
     filter: brightness(0) invert(0);
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-cover-body,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover .document-cover-body,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover .document-cover-body {
     padding-top: 2.4rem;
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-intro,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-intro {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover .document-intro,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover .document-intro {
     margin-top: 2rem;
   }
 
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover h1,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover h1,
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-subtitle,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
-  body:not(.printing-deck)[data-content="kaldewei"] .document-page-cover .document-meta-row,
-  body:not(.printing-deck)[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover h1,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover h1,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover .document-subtitle,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover .document-subtitle,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-content="kaldewei"] .document-page-cover .document-meta-row,
+  body:not(.printing-deck):not(.printing-deck-raster)[data-theme-id="kaldewei"] .document-page-cover .document-meta-row {
     color: #111111 !important;
   }
 
