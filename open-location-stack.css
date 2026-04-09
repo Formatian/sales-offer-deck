@@ -28,6 +28,46 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "General Sans";
+  src: url("https://cdn.prod.website-files.com/63305511acf06a764e381e00/63305511acf06a7123381e3f_GeneralSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("https://cdn.prod.website-files.com/63305511acf06a764e381e00/63305511acf06a82a6381e41_GeneralSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("https://cdn.prod.website-files.com/63305511acf06a764e381e00/63305511acf06a58cb381e45_GeneralSans-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("https://cdn.prod.website-files.com/63305511acf06a764e381e00/63305511acf06a3c90381e40_GeneralSans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fake Serif";
+  src: url("https://cdn.prod.website-files.com/63305511acf06a764e381e00/63305511acf06a43b3381ed4_Fake%20Serif.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-bg: #111111;
   --color-bg-2: #1a1a1a;
@@ -255,6 +295,342 @@ body[data-theme="formation"] {
   --document-total-row-bg: rgba(88, 212, 108, 0.06);
   --document-page-border: rgba(74, 112, 91, 0.14);
   --document-page-shadow: rgba(35, 57, 46, 0.14);
+}
+
+body[data-theme="refund"] {
+  --color-bg: #f8f6f2;
+  --color-bg-2: #efe8df;
+  --color-panel: rgba(255, 255, 255, 0.8);
+  --color-panel-strong: rgba(248, 246, 242, 0.96);
+  --color-line: rgba(239, 61, 61, 0.16);
+  --color-ink: #111111;
+  --color-muted: rgba(17, 17, 17, 0.74);
+  --color-accent: #ef3d3d;
+  --color-accent-strong: #ec6e38;
+  --color-shadow: rgba(17, 17, 17, 0.14);
+  --selection-ink: #ffffff;
+  --video-overlay-start: rgba(248, 246, 242, 0.66);
+  --video-overlay-end: rgba(248, 246, 242, 0.8);
+  --video-overlay-glow: rgba(239, 61, 61, 0.08);
+  --platform-overlay-start: rgba(248, 246, 242, 0.72);
+  --platform-overlay-end: rgba(248, 246, 242, 0.84);
+  --platform-overlay-glow: rgba(239, 61, 61, 0.06);
+  --cover-overlay-start: rgba(248, 246, 242, 0.18);
+  --cover-overlay-end: rgba(248, 246, 242, 0.36);
+  --cover-overlay-glow: rgba(239, 61, 61, 0.08);
+  --viewport-overlay-start: rgba(248, 246, 242, 0.86);
+  --viewport-overlay-end: rgba(248, 246, 242, 0.92);
+  --viewport-glow-primary: rgba(239, 61, 61, 0.1);
+  --viewport-glow-secondary: rgba(210, 241, 228, 0.34);
+  --viewport-gradient-base: linear-gradient(180deg, #f8f6f2 0%, #f1ece5 100%);
+  --viewport-image-url: url("assets/refund/refund-hero.webp");
+  --active-slide-image-url: none;
+  --active-slide-image-size: cover;
+  --active-slide-image-position: 80% center;
+  --overview-glow-primary: rgba(239, 61, 61, 0.14);
+  --overview-glow-secondary: rgba(210, 241, 228, 0.26);
+  --overview-glow-tertiary: rgba(236, 110, 56, 0.14);
+  --overview-glow-quaternary: rgba(9, 58, 62, 0.12);
+  --overview-gradient-base: linear-gradient(180deg, #f7f2ec 0%, #eee6dd 100%);
+  --overview-slide-overlay-start: rgba(248, 246, 242, 0.64);
+  --overview-slide-overlay-end: rgba(248, 246, 242, 0.78);
+  --overview-slide-overlay-glow: rgba(239, 61, 61, 0.08);
+  --overview-cover-overlay-start: rgba(248, 246, 242, 0.18);
+  --overview-cover-overlay-end: rgba(248, 246, 242, 0.4);
+  --overview-cover-overlay-glow: rgba(239, 61, 61, 0.12);
+  --media-filter: brightness(0.98) saturate(0.96) contrast(1.02);
+  --table-head-bg: #ef3d3d;
+  --progress-track-bg: rgba(17, 17, 17, 0.08);
+  --progress-track-border: rgba(17, 17, 17, 0.08);
+  --progress-track-hover-bg: rgba(255, 255, 255, 0.84);
+  --progress-segment-shade: rgba(17, 17, 17, 0.04);
+  --progress-hover-segment-shade: rgba(17, 17, 17, 0.02);
+  --progress-hover-gradient: linear-gradient(90deg, #ec6e38, #ef3d3d);
+  --progress-hover-glow: 0 0 24px rgba(239, 61, 61, 0.18);
+  --progress-fill-gradient: linear-gradient(90deg, #ef3d3d, #ec6e38);
+  --progress-fill-glow: 0 0 18px rgba(239, 61, 61, 0.16);
+  --footer-bg: rgba(255, 255, 255, 0.72);
+  --footer-ink: rgba(17, 17, 17, 0.72);
+  --control-border: rgba(17, 17, 17, 0.08);
+  --control-bg: rgba(255, 255, 255, 0.72);
+  --control-hover-border: rgba(239, 61, 61, 0.28);
+  --control-hover-bg: rgba(239, 61, 61, 0.08);
+  --control-hover-glow: 0 0 14px rgba(239, 61, 61, 0.1);
+  --switch-border: rgba(17, 17, 17, 0.08);
+  --switch-bg: rgba(255, 255, 255, 0.8);
+  --switch-hover-bg: rgba(239, 61, 61, 0.08);
+  --switch-active-bg: #111111;
+  --switch-active-ink: #f8f6f2;
+  --overview-toggle-hover-bg: rgba(255, 255, 255, 0.94);
+  --cover-divider-gradient: linear-gradient(180deg, rgba(239, 61, 61, 0.06), rgba(239, 61, 61, 0.92), rgba(239, 61, 61, 0.06));
+  --cover-divider-glow: 0 0 18px rgba(239, 61, 61, 0.16);
+  --cover-meta-color: rgba(17, 17, 17, 0.54);
+  --cover-meta-separator: rgba(17, 17, 17, 0.14);
+  --cover-meta-pill-border: rgba(17, 17, 17, 0.08);
+  --cover-meta-pill-bg: rgba(255, 255, 255, 0.7);
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(251, 247, 243, 0.96));
+  --card-hover-border: rgba(239, 61, 61, 0.18);
+  --card-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 238, 231, 1));
+  --table-bg: rgba(255, 255, 255, 0.92);
+  --table-row-hover-bg: rgba(239, 61, 61, 0.05);
+  --table-row-hover-shadow: inset 0 0 0 1px rgba(239, 61, 61, 0.12);
+  --summary-border: rgba(17, 17, 17, 0.08);
+  --summary-bg: rgba(255, 255, 255, 0.9);
+  --blockquote-border: rgba(239, 61, 61, 0.16);
+  --blockquote-bg: rgba(255, 255, 255, 0.84);
+  --quote-mark-color: rgba(239, 61, 61, 0.72);
+  --portrait-border: rgba(17, 17, 17, 0.08);
+  --linkedin-bg: rgba(255, 255, 255, 0.82);
+  --font-body: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-cover-title: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "General Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Fake Serif", Georgia, serif;
+  --control-radius: 999px;
+  --switch-radius: 999px;
+  --switch-option-radius: 999px;
+  --modal-radius: 28px;
+  --image-overlay-start: rgba(248, 246, 242, 0.18);
+  --image-overlay-end: rgba(248, 246, 242, 0.52);
+  --image-overlay-glow: rgba(210, 241, 228, 0.18);
+  --cover-image-overlay-start: rgba(248, 246, 242, 0.06);
+  --cover-image-overlay-end: rgba(248, 246, 242, 0.24);
+  --cover-image-overlay-glow: rgba(239, 61, 61, 0.12);
+  --document-bg: #eadfd4;
+  --document-paper: #fffdf9;
+  --document-ink: #111111;
+  --document-muted: #635a53;
+  --document-line: #e0d8cf;
+  --document-accent: #ef3d3d;
+  --document-accent-soft: #fbe2de;
+  --document-accent-wash: rgba(239, 61, 61, 0.06);
+  --document-total-row-bg: rgba(239, 61, 61, 0.04);
+  --document-page-border: rgba(92, 75, 66, 0.12);
+  --document-page-shadow: rgba(47, 35, 28, 0.12);
+}
+
+body[data-theme="refund"] .cover-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-shell,
+body[data-theme="refund"] .end-cover .cover-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 36% 0 8%;
+}
+
+body[data-theme="refund"] .cover-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-brand-row,
+body[data-theme="refund"] .end-cover .cover-brand-row,
+body[data-theme="refund"] .document-brand-row {
+  gap: 0.9rem;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-brand-row,
+body[data-theme="refund"] .proposal-cover .cover-tagline,
+body[data-theme="refund"] .proposal-cover .cover-rule,
+body[data-theme="refund"] .proposal-cover .cover-tagline-secondary,
+body[data-theme="refund"] .proposal-cover .cover-meta,
+body[data-theme="refund"] .end-cover .cover-brand-row,
+body[data-theme="refund"] .end-cover .cover-tagline,
+body[data-theme="refund"] .end-cover .cover-rule,
+body[data-theme="refund"] .end-cover .cover-end-title,
+body[data-theme="refund"] .end-cover .cover-meta {
+  max-width: 34rem;
+}
+
+body[data-theme="refund"] .cover-brand-mark-formation,
+body[data-theme="refund"] .document-brand-formation,
+body[data-theme="refund"] .cover-brand-divider,
+body[data-theme="refund"] .document-brand-divider {
+  display: none;
+}
+
+body[data-theme="refund"] .cover-brand-mark-lear,
+body[data-theme="refund"] .document-brand-lear,
+body[data-theme="refund"] .corner-brand img {
+  width: min(15.5rem, 58vw);
+  max-height: 3.4rem;
+  object-fit: contain;
+  filter: none;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-shell::before,
+body[data-theme="refund"] .end-cover .cover-shell::before {
+  content: "";
+  position: absolute;
+  right: 5%;
+  bottom: 12%;
+  z-index: 0;
+  width: min(24rem, 28%);
+  aspect-ratio: 16 / 5;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 246, 242, 0.54)),
+    url("assets/refund/refund-ui-secondary.webp") center center / 92% auto no-repeat;
+  box-shadow: 0 24px 52px rgba(17, 17, 17, 0.14);
+  opacity: 0.98;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-shell::after,
+body[data-theme="refund"] .end-cover .cover-shell::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  top: 12%;
+  z-index: 0;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 40% 40%, rgba(210, 241, 228, 0.9), rgba(210, 241, 228, 0));
+  opacity: 0.92;
+}
+
+body[data-theme="refund"] .reveal h2 {
+  font-size: 2.28rem;
+  text-transform: none;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+body[data-theme="refund"] .reveal h3 {
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+body[data-theme="refund"] .cover-tagline,
+body[data-theme="refund"] .eyebrow,
+body[data-theme="refund"] .metric-label,
+body[data-theme="refund"] .minor-heading {
+  color: var(--color-accent) !important;
+  letter-spacing: 0.12em;
+}
+
+body[data-theme="refund"] .cover-end-title,
+body[data-theme="refund"] .pull-quote,
+body[data-theme="refund"] .pricing-callout {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+body[data-theme="refund"] .cover-end-title {
+  font-size: 3.2rem;
+}
+
+body[data-theme="refund"] .cover-tagline-secondary:last-of-type {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+body[data-theme="refund"] .proposal-cover .cover-tagline,
+body[data-theme="refund"] .proposal-cover .cover-tagline-secondary,
+body[data-theme="refund"] .proposal-cover .cover-meta,
+body[data-theme="refund"] .end-cover .cover-tagline,
+body[data-theme="refund"] .end-cover .cover-end-title,
+body[data-theme="refund"] .end-cover .cover-meta {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+body[data-theme="refund"] .slide-lead,
+body[data-theme="refund"] .closing-summary,
+body[data-theme="refund"] .proposal-card p,
+body[data-theme="refund"] .proposal-card li,
+body[data-theme="refund"] .metric-card p,
+body[data-theme="refund"] .timeline-card p,
+body[data-theme="refund"] .proposal-table td,
+body[data-theme="refund"] .linkedin-preview-body span,
+body[data-theme="refund"] .cover-meta,
+body[data-theme="refund"] .cover-meta-pill {
+  color: rgba(17, 17, 17, 0.72);
+}
+
+body[data-theme="refund"] .proposal-card,
+body[data-theme="refund"] .metric-card,
+body[data-theme="refund"] .timeline-card,
+body[data-theme="refund"] .proposal-table,
+body[data-theme="refund"] .summary-band,
+body[data-theme="refund"] .pricing-callout,
+body[data-theme="refund"] .pull-quote,
+body[data-theme="refund"] .linkedin-preview,
+body[data-theme="refund"] .content-option,
+body[data-theme="refund"] .theme-modal,
+body[data-theme="refund"] .theme-modal .theme-option,
+body[data-theme="refund"] .theme-modal-close,
+body[data-theme="refund"] .slide-footer .controls.footer-controls button,
+body[data-theme="refund"] .cover-meta-pill,
+body[data-theme="refund"] .view-option,
+body[data-theme="refund"] .language-option,
+body[data-theme="refund"] .overview-toggle,
+body[data-theme="refund"] .content-menu-toggle,
+body[data-theme="refund"] .theme-menu-toggle {
+  border-radius: 28px;
+  border-color: rgba(17, 17, 17, 0.08);
+  box-shadow: 0 20px 48px rgba(17, 17, 17, 0.08);
+}
+
+body[data-theme="refund"] .proposal-card,
+body[data-theme="refund"] .metric-card,
+body[data-theme="refund"] .timeline-card,
+body[data-theme="refund"] .proposal-table,
+body[data-theme="refund"] .summary-band {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-theme="refund"] .proposal-card::before,
+body[data-theme="refund"] .metric-card::before,
+body[data-theme="refund"] .timeline-card::before,
+body[data-theme="refund"] .proposal-table::before,
+body[data-theme="refund"] .summary-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, #ef3d3d 0%, #ec6e38 58%, #d2f1e4 100%);
+}
+
+body[data-theme="refund"] .proposal-table::after,
+body[data-theme="refund"] .summary-band::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 8.5rem;
+  height: 2.25rem;
+  background: url("assets/refund/refund-ui-secondary.webp") center center / contain no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+body[data-theme="refund"] .proposal-table thead th,
+body[data-theme="refund"] .reveal th {
+  color: #fff7f3;
+}
+
+body[data-theme="refund"] .pull-quote::before,
+body[data-theme="refund"] .pull-quote::after {
+  color: rgba(239, 61, 61, 0.56);
+}
+
+body[data-theme="refund"] .document-view {
+  background:
+    radial-gradient(circle at top right, rgba(210, 241, 228, 0.4), transparent 24%),
+    linear-gradient(180deg, #eadfd4 0%, #e6d9cd 100%);
+}
+
+body[data-theme="refund"] .document-page::before {
+  background: linear-gradient(90deg, #ef3d3d 0%, #ec6e38 56%, #d2f1e4 100%);
 }
 
 body[data-theme="xyz"] {

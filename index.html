@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260408b" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260409a" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -1229,8 +1229,73 @@
       separator: '^---$',
       verticalSeparator: '^--$'
     };
-    const CUSTOM_DOCUMENT_VARIANTS = ['offer', 'kaldewei', 'hoffest-2025', 'nobaxx'];
+    const REFUND_WEBSITE_PRODUCTION_BRIEF = {
+      sourceKind: 'website-capture',
+      audience: 'Innovative Unternehmen in Deutschland',
+      objective: 're:fund als moderne, risikofreie und tech-gestuetzte Forschungszulage-Beratung erklaeren und Vertrauen fuer das Erstgespraech aufbauen.',
+      storyShape: 'problem-solution-proof-process',
+      styleMode: 'full-targeted',
+      fontMood: 'modern-grotesk-with-editorial-accent',
+      backgroundMode: 'bright-editorial',
+      documentMode: 'narrative-brief',
+      themeSignal: 're:fund | warm editorial fintech | compliance and growth | digital process',
+      primaryMessage: 're:fund hilft Unternehmen, die Forschungszulage schnell, digital und ohne Kostenrisiko zu erschliessen.',
+      storyBeats: [
+        'Marktversprechen: Bis zu 4,2 Mio. Euro Erstattung fuer F&E-Kosten',
+        'Warum re:fund: Erfolgshonorar, 200+ Antraege, 150+ Kunden, geringer Zeitaufwand',
+        'Was foerderfaehig ist: Vorhaben, Kostenarten, Rueckwirkung und Hoechstbetraege',
+        'Wie der Prozess funktioniert: BSFZ, Finanzamt, Dokumentation, ELSTER',
+        'Warum Vertrauen gerechtfertigt ist: Team, Referenzen, Werte und CTA'
+      ],
+      widgetChoices: [
+        'metric-strip',
+        'two-up proof cards',
+        'faq rules table',
+        'testimonial cards',
+        'team cards',
+        'document summary pages'
+      ],
+      highlights: [
+        'Bis zu 35% Erstattung fuer Forschungs- und Entwicklungskosten',
+        'Maximal 4,2 Mio. Euro pro Wirtschaftsjahr fuer KMU, 3,0 Mio. Euro fuer Nicht-KMU',
+        'Nur 6-10 Stunden Zeitaufwand laut Homepage',
+        'Erfahrung aus 200+ Antraegen und Vertrauen von 150+ Kunden',
+        'Rueckwirkende Beantragung fuer Projekte ab dem 2. Januar 2020 moeglich'
+      ]
+    };
+    const REFUND_WEBSITE_REFERENCE_FILES = [
+      {
+        name: 'letsrefund-homepage-summary.md',
+        type: 'text/markdown',
+        size: 0,
+        excerpt: 'Homepage claims: Bis zu 4,2 Million € Erstattung fuer R&D Kosten. Bis zu 35% Erstattung. Kosten nur bei erfolgreicher Foerderung. 150+ Kunden vertrauen re:fund. Erfahrung aus 200+ Antraegen. Nur 6-10 Stunden Zeitaufwand.'
+      },
+      {
+        name: 'letsrefund-faqs-summary.md',
+        type: 'text/markdown',
+        size: 0,
+        excerpt: 'FAQs cover eligibility, Foerderquoten, interne Personalkosten, externe Auftragsforschung, bewegliche Wirtschaftsgueter, Gemeinkostenpauschale, Rueckwirkung ab 02.01.2020, keine Antragsfristen, BSFZ + Finanzamt, ELSTER und Dokumentationsanforderungen.'
+      },
+      {
+        name: 'letsrefund-about-summary.md',
+        type: 'text/markdown',
+        size: 0,
+        excerpt: 'About page states mission, risk-free model, 20+ years team experience, leadership team, Berlin and Hamburg locations, partner network, and values: Innovation, Kundenfokus, Zuverlaessigkeit, Nachhaltigkeit.'
+      },
+      {
+        name: 'letsrefund-case-studies-summary.md',
+        type: 'text/markdown',
+        size: 0,
+        excerpt: 'Case studies page highlights Fluessigboden Engineering with a second successful claim, plans for a third, and visible metrics including €600k and 3-5h. Homepage testimonials include Akhetonics, NOTUS Energy, Adsorbus, Lindera, UnitPlus and Staffr.'
+      }
+    ];
+    const CUSTOM_DOCUMENT_VARIANTS = ['offer', 'kaldewei', 'hoffest-2025', 'nobaxx', 'refund-website'];
     const CONTENT_VARIANTS = {
+      'refund-website': {
+        partnerBrandMode: 'theme-only',
+        detail: { en: 're:fund website narrative deck and document', de: 're:fund Website-Story als Deck und Dokument' },
+        sources: DECK_SOURCES
+      },
       offer: {
         partnerBrandMode: 'theme',
         detail: { en: 'Current Lear offer deck', de: 'Aktuelles Lear-Angebot' },
@@ -1284,6 +1349,23 @@
       }
     };
     const DEFAULT_CONTENT_LAYERS = [
+      {
+        id: 'refund-website',
+        variantId: 'refund-website',
+        name: { en: 're:fund Website Story', de: 're:fund Website Story' },
+        locked: true,
+        references: {
+          urls: [
+            'https://letsrefund.de/',
+            'https://letsrefund.de/faqs',
+            'https://letsrefund.de/ueber-uns',
+            'https://letsrefund.de/case-studies'
+          ],
+          notes: 'Built solely from public content on the re:fund website: homepage value proposition, FAQs, about page, case studies, testimonials, leadership, locations, values, and call-to-action language.',
+          files: REFUND_WEBSITE_REFERENCE_FILES,
+          productionBrief: REFUND_WEBSITE_PRODUCTION_BRIEF
+        }
+      },
       {
         id: 'offer',
         variantId: 'offer',
@@ -1480,6 +1562,7 @@
       }
     };
     const BUILTIN_THEME_OPTIONS = [
+      { id: 'refund', baseTheme: 'refund', locked: true, name: { en: 're:fund', de: 're:fund' } },
       { id: 'xyz', baseTheme: 'xyz', locked: true, name: { en: 'XYZ', de: 'XYZ' } },
       { id: 'formation', baseTheme: 'formation', locked: true, name: { en: 'FORMATION', de: 'FORMATION' } }
     ];
@@ -1928,6 +2011,7 @@
         filesCount: 'files',
         documentUnavailable: 'DOC is only available for content sources that have a document template.',
         variantNames: {
+          'refund-website': 're:fund Website Story',
           offer: 'Offer Lear 2026',
           kaldewei: 'Kaldewei Offer',
           'widget-lab': 'Widget Lab',
@@ -1971,6 +2055,7 @@
         filesCount: 'Dateien',
         documentUnavailable: 'DOC ist nur fuer Inhaltsquellen mit eigener Dokumentvorlage verfuegbar.',
         variantNames: {
+          'refund-website': 're:fund Website Story',
           offer: 'Angebot Lear 2026',
           kaldewei: 'Kaldewei Angebot',
           'widget-lab': 'Widget Lab',
@@ -2010,6 +2095,33 @@
       }
     ];
     const THEME_BACKGROUNDS = {
+      refund: {
+        cover: {
+          type: 'image',
+          url: 'assets/refund/refund-hero.webp',
+          position: '78% center'
+        },
+        intro: {
+          type: 'image',
+          url: 'assets/refund/refund-hero.webp',
+          position: '82% center'
+        },
+        summary: {
+          type: 'image',
+          url: 'assets/refund/refund-hero.webp',
+          position: '80% center'
+        },
+        closing: {
+          type: 'image',
+          url: 'assets/refund/refund-hero.webp',
+          position: '80% center'
+        },
+        end: {
+          type: 'image',
+          url: 'assets/refund/refund-hero.webp',
+          position: '84% center'
+        }
+      },
       formation: {
         cover: {
           type: 'video',
@@ -2130,10 +2242,10 @@
     };
 
     let currentLanguage = 'en';
-    let currentTheme = 'lear';
+    let currentTheme = 'refund';
     let currentView = 'slides';
     let currentDocumentColorMode = 'color';
-    let currentContent = 'offer';
+    let currentContent = 'refund-website';
     let contentLayers = [];
     let customThemes = [];
     let deployMetadata = null;
@@ -2192,7 +2304,7 @@
 
     function normalizeTheme(theme) {
       const validIds = [...BUILTIN_THEME_OPTIONS, ...customThemes].map(entry => entry.id);
-      return validIds.includes(theme) ? theme : 'lear';
+      return validIds.includes(theme) ? theme : 'refund';
     }
 
     function normalizeView(view) {
@@ -2206,7 +2318,7 @@
     function normalizeContent(content) {
       const validIds = contentLayers.map(layer => layer.id);
       if (!content || !validIds.includes(content)) {
-        return 'offer';
+        return 'refund-website';
       }
       return content;
     }
@@ -2345,14 +2457,14 @@
 
     function getPreferredTheme() {
       const locationTheme = getThemeFromLocation();
-      if (locationTheme !== 'lear' || new URLSearchParams(window.location.search).has('theme')) {
+      if (locationTheme !== 'refund' || new URLSearchParams(window.location.search).has('theme')) {
         return locationTheme;
       }
 
       try {
-        return normalizeTheme(window.localStorage.getItem(DECK_THEME_KEY) || 'lear');
+        return normalizeTheme(window.localStorage.getItem(DECK_THEME_KEY) || 'refund');
       } catch (error) {
-        return 'lear';
+        return 'refund';
       }
     }
 
@@ -2361,7 +2473,7 @@
         return null;
       }
 
-      const baseTheme = ['xyz', 'formation', 'lear', 'lear-light', 'berlin-partner'].includes(theme.baseTheme) ? theme.baseTheme : 'xyz';
+      const baseTheme = ['refund', 'xyz', 'formation', 'lear', 'lear-light', 'berlin-partner'].includes(theme.baseTheme) ? theme.baseTheme : 'refund';
       const fallbackName = `Custom Style ${index + 1}`;
       const name = typeof theme.name === 'object'
         ? {
@@ -2398,7 +2510,7 @@
             fontBody: typeof theme.generated.fontBody === 'string' ? theme.generated.fontBody : '',
             radiusMode: theme.generated.radiusMode === 'soft' ? 'soft' : 'sharp',
             imageMode: theme.generated.imageMode === 'bright' ? 'bright' : 'dark',
-            baseTheme: ['xyz', 'formation', 'lear', 'lear-light', 'berlin-partner'].includes(theme.generated.baseTheme) ? theme.generated.baseTheme : baseTheme,
+            baseTheme: ['refund', 'xyz', 'formation', 'lear', 'lear-light', 'berlin-partner'].includes(theme.generated.baseTheme) ? theme.generated.baseTheme : baseTheme,
             colorBg: typeof theme.generated.colorBg === 'string' ? theme.generated.colorBg : '',
             colorBg2: typeof theme.generated.colorBg2 === 'string' ? theme.generated.colorBg2 : '',
             colorPanel: typeof theme.generated.colorPanel === 'string' ? theme.generated.colorPanel : '',
@@ -3074,7 +3186,7 @@
 
     function hasGeneratedSourceExperience(content = currentContent) {
       const layer = getContentLayer(content);
-      return !layer?.locked && hasRenderableContentSeed(layer);
+      return layer?.variantId === 'refund-website' || (!layer?.locked && hasRenderableContentSeed(layer));
     }
 
     function buildInvoiceDeckMarkdown(layer = getContentLayer(), language = currentLanguage) {
@@ -3648,6 +3760,335 @@ ${excerptCards}
       `;
     }
 
+    function buildRefundWebsiteDeckSectionsHtml(layer = getContentLayer(), language = currentLanguage) {
+      if (layer?.variantId !== 'refund-website') {
+        return '';
+      }
+
+      const isGerman = language === 'de';
+      const copy = isGerman
+        ? {
+            kicker: 'Forschungszulage digitalisiert',
+            coverTitle: 'F&E-Förderung ohne Papierkrieg.',
+            coverSubtitle: 'Ein reicher Website-basierter Story-Deck über Wertversprechen, Prozess, Förderlogik und Vertrauen.',
+            overviewTitle: 'Bis zu 4,2 Mio. Euro Erstattung für F&E-Kosten',
+            overviewLead: 're:fund positioniert die Forschungszulage als planbaren Liquiditätshebel für innovative Unternehmen in Deutschland: digital vorbereitet, professionell begleitet und nur im Erfolgsfall bezahlt.',
+            proofTitle: 'Warum das Angebot greifbar wirkt',
+            proofLead: 'Die Kernargumente auf der Website kombinieren Ergebnis, Risikoabbau, Erfahrung und geringen internen Aufwand.',
+            eligibilityTitle: 'Was die Website als förderfähig beschreibt',
+            eligibilityLead: 'Im Zentrum steht das Forschungszulagengesetz mit förderfähigen Vorhaben, klaren Kostenarten und festen Höchstbeträgen.',
+            processTitle: 'So läuft die Forschungszulage mit re:fund',
+            processLead: 'Die Website beschreibt einen stark vereinfachten digitalen Prozess: strukturierte Vorbereitung, fachliche Prüfung, Zertifizierung und steuerliche Geltendmachung.',
+            faqTitle: 'FAQ-Regeln, die für Entscheider wichtig sind',
+            faqLead: 'Die FAQ-Seiten schärfen die wirtschaftliche Logik: Rückwirkung, Fristenfreiheit, Anspruchslogik und die Rolle von BSFZ und Finanzamt.',
+            caseTitle: 'Belege und Erfolgsgeschichten',
+            caseLead: 're:fund untermauert die Story mit sichtbaren Case Studies und Testimonials aus Technologie- und Innovationsunternehmen.',
+            teamTitle: 'Team, Standorte und Operating Model',
+            teamLead: 'Die About-Seite präsentiert re:fund als moderne, tech-gestützte Beratungsorganisation mit operativer und fachlicher Tiefe.',
+            valuesTitle: 'Werte, die Vertrauen aufbauen sollen',
+            valuesLead: 'Die Marke setzt nicht nur auf Output, sondern auf professionelle Verlässlichkeit: Compliance, Transparenz, Kundenfokus und nachhaltige Zusammenarbeit.',
+            ctaTitle: 'Wann ein Erstgespräch Sinn ergibt',
+            ctaLead: 'Die Website drängt nicht auf komplexe Vorarbeit. Sie lädt auf ein risikofreies Erstgespräch ein, sobald F&E-Aktivitäten, Personalkosten oder externe Entwicklungsarbeit vorliegen.',
+            endTitle: 'Nächster Schritt',
+            endSubtitle: 'Kostenloses Erstgespräch vereinbaren und prüfen, welches Potenzial in Ihren F&E-Kosten steckt.',
+            metricA: 'Bis zu 35%',
+            metricAText: 'Erstattung auf förderfähige Forschungs- und Entwicklungskosten.',
+            metricB: 'Bis zu 4,2 Mio. €',
+            metricBText: 'Jährliche maximale Erstattung für KMU laut Website/FAQ.',
+            metricC: '6-10 Stunden',
+            metricCText: 'Zeitaufwand zur digitalen Vorbereitung des Antrags laut Homepage.',
+            stat1Title: 'Ohne Kostenrisiko',
+            stat1Text: 'Beratung und Durchführung werden laut Website nur im Erfolgsfall fällig.',
+            stat2Title: '200+ Anträge',
+            stat2Text: 'Die Website verweist auf Erfahrung aus mehr als 200 Anträgen.',
+            stat3Title: '150+ Kunden',
+            stat3Text: 'Über 150 Unternehmen vertrauen laut Homepage bereits auf re:fund.',
+            stat4Title: 'Digitale Abwicklung',
+            stat4Text: 'Anträge sollen 100% digital und mit geringer interner Reibung vorbereitet werden.',
+            eligible1: 'Förderfähige Vorhaben',
+            eligible1Text: 'Grundlagenforschung, industrielle Forschung und experimentelle Entwicklung werden in den FAQs als förderfähige Projektkategorien beschrieben.',
+            eligible2: 'Förderfähige Kosten',
+            eligible2Text: 'Interne Personalkosten, externe Auftragsforschung, bewegliche Wirtschaftsgüter und ab 2026 projektbezogene Gemeinkostenpauschalen.',
+            eligible3: 'Nicht förderfähig',
+            eligible3Text: 'Materialkosten, Reisekosten, allgemeine Investitionen und nicht projektzuordenbare Gemeinkosten zählen laut FAQ nicht dazu.',
+            process1: '1. Potenzial prüfen',
+            process1Text: 'Im Erstgespräch wird geklärt, ob das Unternehmen grundsätzlich von staatlichen Fördermitteln profitieren kann.',
+            process2: '2. Antrag digital vorbereiten',
+            process2Text: 're:fund strukturiert Projektbeschreibung, Kostenbasis und Nachweise über die eigene Plattform.',
+            process3: '3. BSFZ-Bescheinigung',
+            process3Text: 'Der Antrag auf Bescheinigung wird beim zuständigen Zertifizierer eingereicht.',
+            process4: '4. Steuerlich geltend machen',
+            process4Text: 'Nach der Bescheinigung erfolgt die Anrechnung bzw. Auszahlung über das Finanzamt via ELSTER.',
+            faqRow1A: 'Rückwirkung',
+            faqRow1B: 'Projekte ab 02.01.2020 können laut FAQ rückwirkend berücksichtigt werden.',
+            faqRow2A: 'Fristen',
+            faqRow2B: 'Es gibt keine klassischen Bewerbungsfristen; die Forschungszulage ist kein Wettbewerbstopf.',
+            faqRow3A: 'Maximalbetrag',
+            faqRow3B: 'Nicht-KMU: 3,0 Mio. € / KMU: 4,2 Mio. € pro Wirtschaftsjahr und verbundener Unternehmensgruppe.',
+            faqRow4A: 'Nachweispflicht',
+            faqRow4B: 'Stundenerfassung, Projektbeschreibung, Verträge und technische Dokumentation bleiben zentral.',
+            case1Title: 'Case Study',
+            case1Text: 'Flüssigboden Engineering sichert sich laut Case-Study-Seite zum zweiten Mal die Forschungszulage und plant bereits die dritte.',
+            case2Title: 'Sichtbare Kennzahlen',
+            case2Text: 'Die Case-Studies zeigen unter anderem €600k, 3-5h und 100% als hervorgehobene Resultatssignale.',
+            quote1: 'Unsere Partnerschaft mit re:fund hat gezeigt, wie wichtig kompetente Unterstützung bei der Antragstellung für innovative Projekte ist.',
+            quote1By: 'Michael Kissner, Akhetonics',
+            quote2: 'Die Antragstellung war klar, strukturiert und erfolgreich.',
+            quote2By: 'Jenny Stock, NOTUS Energy',
+            quote3: 'Ein Game-Changer! Wir haben unglaublich viel wertvolle Zeit und Ressourcen gespart.',
+            quote3By: 'Kerstin Schneider, UnitPlus',
+            team1Title: 'Mission',
+            team1Text: 're:fund will KMU und Startups bei Innovationsfördermitteln unterstützen und die Fördermittelberatung tech-gestützt neu denken.',
+            team2Title: '20+ Jahre Erfahrung',
+            team2Text: 'Das Team verweist auf mehr als 20 Jahre Beratungserfahrung auf Landes-, Bundes- und EU-Ebene.',
+            team3Title: 'Leadership',
+            team3Text: 'Genannt werden Marten Pieper (CEO), Elisabeth Teske (COO), Yannik Seyfert (Operations) und Robert Spatz (Funding Strategy).',
+            team4Title: 'Standorte & Netzwerk',
+            team4Text: 're:fund sitzt in Berlin und Hamburg und verweist auf Partner für weiterführende Finanzierung, Patent- und Steuerberatung.',
+            value1: 'Innovation',
+            value1Text: 'Moderne Prozesse, eigene Web-Plattform und kreative Förderlogik sollen die Beratung schneller und besser machen.',
+            value2: 'Kundenfokus',
+            value2Text: 'Von der Erstberatung bis zur erfolgreichen Akquise wird partnerschaftliche Begleitung als Kernversprechen formuliert.',
+            value3: 'Zuverlässigkeit',
+            value3Text: 'Compliance, Transparenz, Sorgfalt und Revisionssicherheit werden explizit als Grundsätze benannt.',
+            value4: 'Nachhaltigkeit',
+            value4Text: 'Die Beratung soll langfristige Förderstrukturen schaffen und ökologische Verantwortung mitdenken.',
+            ctaCard1: 'Relevant, wenn ...',
+            ctaCard1Text: 'Ihr Unternehmen F&E-Personalkosten hat, externe Entwicklungsleistungen einkauft oder technische Vorhaben sauber dokumentieren kann.',
+            ctaCard2: 'Erstes Ziel',
+            ctaCard2Text: 'Schnell verstehen, ob Anspruch besteht, welches Volumen realistisch ist und welche Nachweise fehlen.',
+            ctaCard3: 'CTA',
+            ctaCard3Text: 'Kostenloses Erstgespräch, Terminvereinbarung oder direkter Kontakt via info@letsrefund.de / +49 40 3990 3868.',
+            meta1: 'Website-basierte Story',
+            meta2: 'Öffentliche Inhalte ausgewertet',
+            meta3: 'Quelle: letsrefund.de'
+          }
+        : {
+            kicker: 'R&D tax credit, digitized',
+            coverTitle: 'R&D funding without paper chaos.',
+            coverSubtitle: 'A rich website-based story deck covering value proposition, process, funding logic and trust.',
+            overviewTitle: 'Up to EUR 4.2M reimbursed for R&D costs',
+            overviewLead: 're:fund positions the German R&D tax incentive as a practical liquidity lever for innovative companies: digitally prepared, professionally guided, and only paid for on success.',
+            proofTitle: 'Why the offer feels credible',
+            proofLead: 'The website combines result potential, risk reduction, experience and low internal effort into one clear commercial message.',
+            eligibilityTitle: 'What the website describes as eligible',
+            eligibilityLead: 'The narrative centers on the German Forschungszulage framework with eligible project types, clear cost categories and fixed annual caps.',
+            processTitle: 'How the process works with re:fund',
+            processLead: 'The site describes a simplified digital workflow: structured preparation, expert review, certification and tax-side recovery.',
+            faqTitle: 'FAQ rules decision-makers should know',
+            faqLead: 'The FAQs sharpen the economic logic: retroactivity, lack of deadlines, eligibility logic and the roles of BSFZ and the tax office.',
+            caseTitle: 'Proof and customer stories',
+            caseLead: 're:fund reinforces the story with visible case studies and founder/controller testimonials from innovation-driven companies.',
+            teamTitle: 'Team, locations and operating model',
+            teamLead: 'The About page presents re:fund as a modern, tech-enabled advisory business with operational and technical depth.',
+            valuesTitle: 'Values used to build trust',
+            valuesLead: 'The brand does not only sell output; it sells professional reliability through compliance, transparency, customer focus and sustainable partnership.',
+            ctaTitle: 'When an intro call makes sense',
+            ctaLead: 'The website does not ask for heavy prep. It invites a no-risk first conversation once relevant R&D activity, payroll cost or external development work exists.',
+            endTitle: 'Next step',
+            endSubtitle: 'Book a free intro call and check how much value may be hidden in your R&D cost base.',
+            metricA: 'Up to 35%',
+            metricAText: 'Reimbursement on eligible research and development costs.',
+            metricB: 'Up to EUR 4.2M',
+            metricBText: 'Annual maximum reimbursement for SMEs according to the website/FAQ.',
+            metricC: '6-10 hours',
+            metricCText: 'Estimated internal effort to prepare the application digitally.',
+            stat1Title: 'No cost risk',
+            stat1Text: 'The site states that fees are only due if funding is successful.',
+            stat2Title: '200+ applications',
+            stat2Text: 're:fund points to experience from more than 200 applications.',
+            stat3Title: '150+ customers',
+            stat3Text: 'The homepage states that more than 150 companies already trust re:fund.',
+            stat4Title: 'Digital workflow',
+            stat4Text: 'Applications are framed as fully digital and low-friction for internal teams.',
+            eligible1: 'Eligible projects',
+            eligible1Text: 'Basic research, industrial research and experimental development are described in the FAQ as eligible project categories.',
+            eligible2: 'Eligible cost base',
+            eligible2Text: 'Internal payroll, external commissioned R&D, movable assets and, from 2026, project-related overhead allowance.',
+            eligible3: 'Not eligible',
+            eligible3Text: 'Materials, travel, general investments and non-project-specific overhead are not framed as eligible.',
+            process1: '1. Check potential',
+            process1Text: 'An intro call clarifies whether the company should be eligible for innovation funding in principle.',
+            process2: '2. Prepare digitally',
+            process2Text: 're:fund structures the project description, cost base and evidence through its own platform and advisory workflow.',
+            process3: '3. Obtain BSFZ certificate',
+            process3Text: 'The project is submitted for eligibility certification via the official certification route.',
+            process4: '4. Realize the benefit',
+            process4Text: 'After certification, the benefit is claimed or paid out through the tax office via ELSTER.',
+            faqRow1A: 'Retroactivity',
+            faqRow1B: 'According to the FAQ, projects from January 2, 2020 onward can be considered retroactively.',
+            faqRow2A: 'Deadlines',
+            faqRow2B: 'There are no classic application windows; the tax credit is not positioned as a competitive grant pot.',
+            faqRow3A: 'Annual cap',
+            faqRow3B: 'Non-SMEs: EUR 3.0M / SMEs: EUR 4.2M per fiscal year and group.',
+            faqRow4A: 'Evidence discipline',
+            faqRow4B: 'Time tracking, project logic, contracts and technical documentation remain central.',
+            case1Title: 'Case study',
+            case1Text: 'The case-study page says Flüssigboden Engineering secured the tax credit for a second time and is already planning a third claim.',
+            case2Title: 'Visible proof points',
+            case2Text: 'The site surfaces metrics including EUR 600k, 3-5h and 100% as proof-style signals.',
+            quote1: 'Our partnership with re:fund showed how important competent support is when applying for funding for innovative projects.',
+            quote1By: 'Michael Kissner, Akhetonics',
+            quote2: 'The application was clear, structured and successful.',
+            quote2By: 'Jenny Stock, NOTUS Energy',
+            quote3: 'A game changer. We saved a huge amount of valuable time and resources.',
+            quote3By: 'Kerstin Schneider, UnitPlus',
+            team1Title: 'Mission',
+            team1Text: 're:fund wants to help SMEs and startups secure innovation funding and modernize advisory work through technology.',
+            team2Title: '20+ years of experience',
+            team2Text: 'The team references more than 20 years of funding-advisory experience across state, federal and EU programs.',
+            team3Title: 'Leadership',
+            team3Text: 'The About page names Marten Pieper, Elisabeth Teske, Yannik Seyfert and Robert Spatz as core leadership roles.',
+            team4Title: 'Locations & network',
+            team4Text: 're:fund operates from Berlin and Hamburg and references partners for follow-on financing, patent and tax advice.',
+            value1: 'Innovation',
+            value1Text: 'Modern processes, an in-house platform and creative funding logic are presented as operating advantages.',
+            value2: 'Customer focus',
+            value2Text: 'The company frames itself as a partner from first assessment through successful funding capture.',
+            value3: 'Reliability',
+            value3Text: 'Compliance, transparency, diligence and audit-safe work are explicit principles on the About page.',
+            value4: 'Sustainability',
+            value4Text: 'The advisory model aims to build lasting funding structures and treat ecological responsibility seriously.',
+            ctaCard1: 'Relevant when ...',
+            ctaCard1Text: 'Your company has R&D payroll, buys external development services, or can document technical innovation work.',
+            ctaCard2: 'First outcome',
+            ctaCard2Text: 'Understand quickly whether a claim exists, what reimbursement range is realistic and what evidence is still missing.',
+            ctaCard3: 'CTA',
+            ctaCard3Text: 'Free intro call, calendar booking, or direct contact via info@letsrefund.de / +49 40 3990 3868.',
+            meta1: 'Website-based story',
+            meta2: 'Built from public pages',
+            meta3: 'Source: letsrefund.de'
+          };
+
+      return `
+        <section class="title-slide proposal-cover hero-video-slide" data-theme-background="cover">
+          <div class="cover-shell">
+            <div class="cover-brand-row">
+              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-formation" />
+              <span class="cover-brand-divider" aria-hidden="true"></span>
+              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-lear" />
+            </div>
+            <p class="cover-tagline">${copy.kicker}</p>
+            <div class="cover-rule"></div>
+            <p class="cover-tagline cover-tagline-secondary">${copy.coverTitle}</p>
+            <p class="cover-tagline cover-tagline-secondary">${copy.coverSubtitle}</p>
+            <div class="cover-meta">
+              <span class="cover-meta-pill">${copy.meta1}</span>
+              <span class="meta-separator">|</span>
+              <span class="cover-meta-pill">${copy.meta2}</span>
+              <span class="meta-separator">|</span>
+              <span class="cover-meta-pill">${copy.meta3}</span>
+            </div>
+          </div>
+        </section>
+        <section data-theme-background="intro">
+          <h2>${copy.overviewTitle}</h2>
+          <p class="slide-lead">${copy.overviewLead}</p>
+          <div class="metric-strip three-up">
+            <div class="metric-card total-card"><span class="metric-label">${copy.metricA}</span><strong>${copy.metricA}</strong><p>${copy.metricAText}</p></div>
+            <div class="metric-card total-card"><span class="metric-label">${copy.metricB}</span><strong>${copy.metricB}</strong><p>${copy.metricBText}</p></div>
+            <div class="metric-card total-card"><span class="metric-label">${copy.metricC}</span><strong>${copy.metricC}</strong><p>${copy.metricCText}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="platform">
+          <h2>${copy.proofTitle}</h2>
+          <p class="slide-lead">${copy.proofLead}</p>
+          <div class="proposal-grid two-up">
+            <div class="proposal-card"><p class="eyebrow">${copy.stat1Title}</p><h3>${copy.stat1Title}</h3><p>${copy.stat1Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.stat2Title}</p><h3>${copy.stat2Title}</h3><p>${copy.stat2Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.stat3Title}</p><h3>${copy.stat3Title}</h3><p>${copy.stat3Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.stat4Title}</p><h3>${copy.stat4Title}</h3><p>${copy.stat4Text}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="roadmap">
+          <h2>${copy.eligibilityTitle}</h2>
+          <p class="slide-lead">${copy.eligibilityLead}</p>
+          <div class="timeline-grid">
+            <div class="timeline-card"><span class="metric-label">01</span><h3>${copy.eligible1}</h3><p>${copy.eligible1Text}</p></div>
+            <div class="timeline-card"><span class="metric-label">02</span><h3>${copy.eligible2}</h3><p>${copy.eligible2Text}</p></div>
+            <div class="timeline-card"><span class="metric-label">03</span><h3>${copy.eligible3}</h3><p>${copy.eligible3Text}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="packages-a">
+          <h2>${copy.processTitle}</h2>
+          <p class="slide-lead">${copy.processLead}</p>
+          <div class="proposal-grid two-up">
+            <div class="proposal-card"><p class="eyebrow">01</p><h3>${copy.process1}</h3><p>${copy.process1Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">02</p><h3>${copy.process2}</h3><p>${copy.process2Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">03</p><h3>${copy.process3}</h3><p>${copy.process3Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">04</p><h3>${copy.process4}</h3><p>${copy.process4Text}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="packages-b">
+          <h2>${copy.faqTitle}</h2>
+          <p class="slide-lead">${copy.faqLead}</p>
+          <table class="proposal-table roadmap-table">
+            <thead>
+              <tr><th>${isGerman ? 'Regel' : 'Rule'}</th><th>${isGerman ? 'Implikation' : 'Implication'}</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>${copy.faqRow1A}</td><td>${copy.faqRow1B}</td></tr>
+              <tr><td>${copy.faqRow2A}</td><td>${copy.faqRow2B}</td></tr>
+              <tr><td>${copy.faqRow3A}</td><td>${copy.faqRow3B}</td></tr>
+              <tr><td>${copy.faqRow4A}</td><td>${copy.faqRow4B}</td></tr>
+            </tbody>
+          </table>
+        </section>
+        <section data-theme-background="support">
+          <h2>${copy.caseTitle}</h2>
+          <p class="slide-lead">${copy.caseLead}</p>
+          <div class="proposal-grid two-up">
+            <div class="proposal-card"><p class="eyebrow">${copy.case1Title}</p><h3>${copy.case1Title}</h3><p>${copy.case1Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.case2Title}</p><h3>${copy.case2Title}</h3><p>${copy.case2Text}</p></div>
+          </div>
+          <div class="metric-strip three-up">
+            <div class="metric-card"><span class="metric-label">${copy.quote1By}</span><p>${copy.quote1}</p></div>
+            <div class="metric-card"><span class="metric-label">${copy.quote2By}</span><p>${copy.quote2}</p></div>
+            <div class="metric-card"><span class="metric-label">${copy.quote3By}</span><p>${copy.quote3}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="summary">
+          <h2>${copy.teamTitle}</h2>
+          <p class="slide-lead">${copy.teamLead}</p>
+          <div class="proposal-grid two-up">
+            <div class="proposal-card"><p class="eyebrow">${copy.team1Title}</p><h3>${copy.team1Title}</h3><p>${copy.team1Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.team2Title}</p><h3>${copy.team2Title}</h3><p>${copy.team2Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.team3Title}</p><h3>${copy.team3Title}</h3><p>${copy.team3Text}</p></div>
+            <div class="proposal-card"><p class="eyebrow">${copy.team4Title}</p><h3>${copy.team4Title}</h3><p>${copy.team4Text}</p></div>
+          </div>
+        </section>
+        <section data-theme-background="closing">
+          <h2>${copy.valuesTitle}</h2>
+          <p class="slide-lead">${copy.valuesLead}</p>
+          <div class="timeline-grid">
+            <div class="timeline-card"><span class="metric-label">01</span><h3>${copy.value1}</h3><p>${copy.value1Text}</p></div>
+            <div class="timeline-card"><span class="metric-label">02</span><h3>${copy.value2}</h3><p>${copy.value2Text}</p></div>
+            <div class="timeline-card"><span class="metric-label">03</span><h3>${copy.value3}</h3><p>${copy.value3Text}</p></div>
+          </div>
+          <blockquote class="pull-quote">${copy.value4}: ${copy.value4Text}</blockquote>
+        </section>
+        <section class="title-slide proposal-cover end-cover hero-video-slide" data-theme-background="end">
+          <div class="cover-shell">
+            <div class="cover-brand-row">
+              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-formation" />
+              <span class="cover-brand-divider" aria-hidden="true"></span>
+              <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="cover-brand-mark cover-brand-mark-lear" />
+            </div>
+            <p class="cover-tagline">${copy.ctaTitle}</p>
+            <div class="cover-rule"></div>
+            <h2 class="cover-end-title">${copy.endTitle}</h2>
+            <div class="proposal-grid two-up">
+              <div class="proposal-card"><p class="eyebrow">${copy.ctaCard1}</p><p>${copy.ctaCard1Text}</p></div>
+              <div class="proposal-card"><p class="eyebrow">${copy.ctaCard2}</p><p>${copy.ctaCard2Text}</p></div>
+            </div>
+            <div class="cover-meta">
+              <span class="cover-meta-pill">${copy.ctaCard3Text}</span>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
     function buildSeedSlideMarkdown(layer = getContentLayer(), language = currentLanguage) {
       if (!hasRenderableContentSeed(layer)) {
         return '';
@@ -4062,6 +4503,119 @@ ${excerptCards}
       `;
     }
 
+    function buildRefundWebsiteDocumentMarkup(layer = getContentLayer(), language = currentLanguage) {
+      if (layer?.variantId !== 'refund-website') {
+        return '';
+      }
+
+      const isGerman = language === 'de';
+      const copy = isGerman
+        ? {
+            coverKicker: 'Website Source Brief',
+            coverTitle: 're:fund Website Story',
+            coverSubtitle: 'Narrative document built only from public content on letsrefund.de',
+            p2h1: '1. Executive Summary',
+            p2a: 're:fund positioniert die Forschungszulage als klar verständlichen Hebel, um einen Teil der Forschungs- und Entwicklungskosten zurückzuholen. Das Website-Narrativ ist bewusst ergebnisorientiert: bis zu 35% Erstattung, bis zu 4,2 Mio. € pro Jahr und nur 6-10 Stunden Zeitaufwand für die digitale Vorbereitung.',
+            p2b: 'Gleichzeitig wird das Risikoargument konsequent entschärft. Die Beratung wird als erfolgsabhängig beschrieben, sodass Unternehmen keine Vorabkosten tragen sollen. Diese Kombination aus hoher potenzieller Liquidität und niedrigem kommerziellem Risiko ist der Kern der Website-Story.',
+            p3h1: '2. Angebotslogik',
+            p3a: 'Die Website richtet sich an innovative Unternehmen, insbesondere KMU und Startups in Deutschland. Das Ziel ist nicht nur Antragsschreiben, sondern eine moderne, tech-gestützte Fördermittelberatung, die Vorbereitung, Strukturierung und Qualitätssicherung digitalisiert.',
+            p3b: 'Der Call-to-Action bleibt niedrigschwellig: kostenloses Erstgespräch, Terminvereinbarung und schnelle Einschätzung des Förderpotenzials. Das wirkt wie ein produktisierter Einstieg in ein traditionell beratungsintensives Feld.',
+            p4h1: '3. Förderfähige Projekte und Kosten',
+            p4a: 'In den FAQs werden Grundlagenforschung, industrielle Forschung und experimentelle Entwicklung als förderfähige Vorhabensarten beschrieben. Förderfähig sind laut Website interne Personalkosten, externe Auftragsforschung und bewegliche Wirtschaftsgüter für F&E-Projekte.',
+            p4b: 'Zusätzlich wird auf neue Gemeinkostenregeln hingewiesen: Für nach dem 31. Dezember 2025 begonnene Projekte kann eine Pauschale von 20% auf bestimmte förderfähige Aufwendungen relevant werden. Nicht förderfähig sind laut FAQ vor allem Material, Reise- und allgemeine Investitionskosten.',
+            p5h1: '4. Wirtschaftliche Eckpunkte',
+            p5a: 'Die wirtschaftliche Story ist präzise: Nicht-KMU können bis zu 3,0 Mio. € pro Wirtschaftsjahr erhalten, KMU bis zu 4,2 Mio. €. Außerdem betont die Website, dass Anträge rückwirkend möglich sind, sofern Projekte ab dem 2. Januar 2020 gestartet wurden.',
+            p5b: 'Wichtig ist auch, dass die Forschungszulage nicht als kompetitives Förderprogramm mit Einreichungsfristen dargestellt wird. Das schafft einen anderen Kaufkontext als klassische Fördermittel: kein Pitch-Wettbewerb, sondern Anspruchsprüfung und saubere Dokumentation.',
+            p6h1: '5. Prozessmodell',
+            p6a: 'Das operative Modell hat vier Schritte: Potenzial bewerten, Inhalte digital vorbereiten, die Bescheinigung bei der BSFZ sichern und die Forschungszulage anschließend steuerlich über das Finanzamt bzw. ELSTER realisieren.',
+            p6b: 're:fund positioniert sich genau dort, wo interne Teams typischerweise Zeit verlieren: Projektlogik formulieren, Kosten sauber abgrenzen, Unterlagen strukturieren und die Förderfähigkeit revisionssicher argumentieren.',
+            p7h1: '6. Proof aus Case Studies und Testimonials',
+            p7a: 'Die Case-Study-Seite hebt Flüssigboden Engineering hervor: zweite erfolgreiche Forschungszulage, dritte bereits in Planung. Sichtbare Kennzahlen auf der Seite sind unter anderem 600k, 3-5h und 100%.',
+            p7b: 'Zusätzliche Testimonials von Akhetonics, NOTUS Energy, Adsorbus, Lindera, UnitPlus und Staffr verstärken die Kernbotschaft: Der Prozess sei klar, strukturiert, effizient und ressourcensparend gewesen.',
+            p8h1: '7. Team und Unternehmensaufbau',
+            p8a: 'Die About-Seite beschreibt ein Team mit mehr als 20 Jahren Erfahrung in Fördermittelberatung auf Landes-, Bundes- und EU-Ebene sowie Praxiserfahrung in Ingenieurwesen, Finanzplanung und Softwareentwicklung.',
+            p8b: 'Als Leadership Team werden Marten Pieper (CEO), Elisabeth Teske (COO), Yannik Seyfert (Operations) und Robert Spatz (Funding Strategy) vorgestellt. Hinzu kommen Standorte in Berlin und Hamburg sowie ein Partnernetzwerk für Finanzierung, Patent- und Steuerberatung.',
+            p9h1: '8. Werte und Vertrauenssignale',
+            p9a: 'Die Werte Innovation, Kundenfokus, Zuverlässigkeit und Nachhaltigkeit sind auf der About-Seite ausführlich beschrieben. Besonders wichtig ist die Betonung von Compliance, Transparenz, Sorgfalt und Revisionssicherheit.',
+            p9b: 'Damit versucht re:fund, die Brücke zwischen moderner, digitaler User Experience und traditionell hohem Vertrauensbedarf in steuer- und fördernahen Themen zu schlagen.',
+            p10h1: '9. Warum die Story funktioniert',
+            p10a: 'Die Website verkauft nicht nur eine Förderung, sondern eine Entlastung der internen Komplexität. Das Leistungsversprechen lautet im Kern: hohes Potenzial, wenig Zeitaufwand, geringes Kostenrisiko und kompetente Begleitung.',
+            p10b: 'Für ein Deck oder Sales-Dokument ergibt das eine saubere Dramaturgie: wirtschaftlicher Hebel, verständlicher Prozess, konkrete Fördersystematik, sichtbare Kundenerfolge und vertrauenswürdiges Team.',
+            p11h1: '10. Quellen und Call to Action',
+            p11a: 'Verwendete öffentliche Quellen: letsrefund.de, letsrefund.de/faqs, letsrefund.de/ueber-uns und letsrefund.de/case-studies. Kontaktangaben auf der Website: info@letsrefund.de, +49 40 3990 3868 und Terminvereinbarung via Google Calendar.',
+            p11b: 'Als nächster Schritt empfiehlt die Website ein kostenloses Erstgespräch, um Förderfähigkeit, voraussichtliches Volumen und notwendige Unterlagen zu klären.'
+          }
+        : {
+            coverKicker: 'Website Source Brief',
+            coverTitle: 're:fund Website Story',
+            coverSubtitle: 'Narrative document built only from public content on letsrefund.de',
+            p2h1: '1. Executive Summary',
+            p2a: 're:fund frames the German R&D tax incentive as a clear way to recover part of a company’s research and development spend. The website narrative is deliberately outcome-driven: up to 35% reimbursement, up to EUR 4.2M per year, and only 6-10 hours of internal effort for digital preparation.',
+            p2b: 'At the same time, the site consistently reduces perceived commercial risk. Advisory fees are positioned as success-based, meaning the customer should not carry upfront consulting cost. That combination of high upside and low commercial risk is the core of the website story.',
+            p3h1: '2. Offer Logic',
+            p3a: 'The site is aimed at innovative companies in Germany, especially SMEs and startups. The offer is not only application writing. It is framed as a modern, tech-enabled advisory model that digitizes preparation, structure and quality assurance.',
+            p3b: 'The CTA remains low friction: free intro call, calendar booking, and quick assessment of funding potential. That makes the business feel like a productized entry point into a normally advisory-heavy category.',
+            p4h1: '3. Eligible Projects and Cost Base',
+            p4a: 'The FAQs describe basic research, industrial research and experimental development as eligible project types. Eligible costs on the site include internal payroll, external commissioned R&D and movable assets used for R&D projects.',
+            p4b: 'The site also references newer overhead rules: for projects started after December 31, 2025, a 20% overhead allowance may become relevant on certain eligible expenses. Materials, travel and general investment spend are not positioned as eligible.',
+            p5h1: '4. Economic Framing',
+            p5a: 'The economic story is precise: non-SMEs can receive up to EUR 3.0M per fiscal year, SMEs up to EUR 4.2M. The website also emphasizes retroactive claims for projects started on or after January 2, 2020.',
+            p5b: 'Another important point is that the tax incentive is not framed as a competitive grant with fixed submission windows. That changes the buying context: not a pitch competition, but an entitlement and documentation problem.',
+            p6h1: '5. Process Model',
+            p6a: 'Operationally the story follows four steps: assess potential, prepare materials digitally, secure BSFZ certification, and then realize the benefit through the tax office and ELSTER.',
+            p6b: 're:fund positions itself exactly where internal teams tend to lose time: articulating project logic, delimiting eligible costs, structuring evidence and defending eligibility in an audit-safe way.',
+            p7h1: '6. Proof from Case Studies and Testimonials',
+            p7a: 'The case-study page highlights Flüssigboden Engineering: a second successful claim with a third already being planned. Visible proof metrics on the page include EUR 600k, 3-5h and 100%.',
+            p7b: 'Additional testimonials from Akhetonics, NOTUS Energy, Adsorbus, Lindera, UnitPlus and Staffr reinforce the central message: the process was clear, structured, efficient and time-saving.',
+            p8h1: '7. Team and Company Build',
+            p8a: 'The About page describes a team with more than 20 years of funding-advisory experience across state, federal and EU programs, plus practical experience in engineering, financial planning and software development.',
+            p8b: 'It names Marten Pieper, Elisabeth Teske, Yannik Seyfert and Robert Spatz as the leadership core. The company also points to offices in Berlin and Hamburg and a partner network for financing, patent and tax advice.',
+            p9h1: '8. Values and Trust Signals',
+            p9a: 'Innovation, customer focus, reliability and sustainability are explicitly described on the About page. Most importantly, the company emphasizes compliance, transparency, diligence and audit safety.',
+            p9b: 'That helps bridge two different expectations: a modern, digital user experience on one side and the high trust requirement of tax-adjacent funding work on the other.',
+            p10h1: '9. Why the Story Works',
+            p10a: 'The website does not only sell access to a funding program. It sells relief from internal complexity. The promise is simple: strong upside, low time burden, low commercial risk and expert guidance.',
+            p10b: 'For a deck or document, that creates a clean narrative arc: economic upside, understandable process, concrete funding logic, visible customer proof and a credible team.',
+            p11h1: '10. Sources and Call to Action',
+            p11a: 'Public sources used: letsrefund.de, letsrefund.de/faqs, letsrefund.de/ueber-uns and letsrefund.de/case-studies. Contact details on the site include info@letsrefund.de, +49 40 3990 3868 and a calendar-booking link.',
+            p11b: 'The website’s recommended next step is a free introductory call to assess eligibility, reimbursement range and the evidence package required.'
+          };
+
+      const article = (heading, a, b) => `
+        <article class="document-page" data-generated-source-seed="true">
+          <section class="document-section">
+            <h2>${heading}</h2>
+            <p>${a}</p>
+            <p>${b}</p>
+          </section>
+        </article>`;
+
+      return `
+        <article class="document-page document-page-cover" data-generated-source-seed="true">
+          <div class="document-brand-row">
+            <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="document-brand document-brand-formation" />
+            <span class="document-brand-divider" aria-hidden="true"></span>
+            <img src="assets/refund/refund-wordmark.webp" alt="re:fund" class="document-brand document-brand-lear" />
+          </div>
+          <div class="document-cover-body">
+            <p class="document-kicker">${copy.coverKicker}</p>
+            <h1>${copy.coverTitle}</h1>
+            <p class="document-subtitle">${copy.coverSubtitle}</p>
+          </div>
+        </article>
+        ${article(copy.p2h1, copy.p2a, copy.p2b)}
+        ${article(copy.p3h1, copy.p3a, copy.p3b)}
+        ${article(copy.p4h1, copy.p4a, copy.p4b)}
+        ${article(copy.p5h1, copy.p5a, copy.p5b)}
+        ${article(copy.p6h1, copy.p6a, copy.p6b)}
+        ${article(copy.p7h1, copy.p7a, copy.p7b)}
+        ${article(copy.p8h1, copy.p8a, copy.p8b)}
+        ${article(copy.p9h1, copy.p9a, copy.p9b)}
+        ${article(copy.p10h1, copy.p10a, copy.p10b)}
+        ${article(copy.p11h1, copy.p11a, copy.p11b)}
+      `;
+    }
+
     function buildSeedDocumentPageMarkup(layer = getContentLayer(), language = currentLanguage) {
       if (!hasRenderableContentSeed(layer)) {
         return '';
@@ -4149,6 +4703,12 @@ ${excerptCards}
           return;
         }
 
+        const refundMarkup = buildRefundWebsiteDocumentMarkup(layer, language);
+        if (refundMarkup) {
+          canvas.innerHTML = refundMarkup;
+          return;
+        }
+
         const invoiceMarkup = buildInvoiceDocumentMarkup(layer, language);
         if (invoiceMarkup) {
           canvas.innerHTML = invoiceMarkup;
@@ -4179,7 +4739,7 @@ ${excerptCards}
           return;
         }
 
-        if (extractInvoiceData(layer) || buildGenericSourceDocumentMarkup(layer, language)) {
+        if (buildRefundWebsiteDocumentMarkup(layer, language) || extractInvoiceData(layer) || buildGenericSourceDocumentMarkup(layer, language)) {
           return;
         }
 
@@ -4572,7 +5132,7 @@ ${excerptCards}
     }
 
     function getThemeDefinition(themeId = currentTheme) {
-      return getThemeDefinitions().find(entry => entry.id === themeId) || BUILTIN_THEME_OPTIONS.find(entry => entry.id === 'lear') || BUILTIN_THEME_OPTIONS[0];
+      return getThemeDefinitions().find(entry => entry.id === themeId) || BUILTIN_THEME_OPTIONS.find(entry => entry.id === 'refund') || BUILTIN_THEME_OPTIONS[0];
     }
 
     function getThemeDisplayName(themeId = currentTheme, language = currentLanguage) {
@@ -4583,7 +5143,7 @@ ${excerptCards}
 
     function getThemeBaseTheme(themeId = currentTheme) {
       const theme = getThemeDefinition(themeId);
-      return theme?.generated?.baseTheme || theme?.baseTheme || 'lear';
+      return theme?.generated?.baseTheme || theme?.baseTheme || 'refund';
     }
 
     function getThemeBrandLogo(themeId = currentTheme) {
@@ -4592,6 +5152,13 @@ ${excerptCards}
         return {
           url: theme.generated.logoUrl,
           alt: theme.generated.logoAlt || getThemeDisplayName(themeId, currentLanguage)
+        };
+      }
+
+      if (getThemeBaseTheme(themeId) === 'refund') {
+        return {
+          url: 'assets/refund/refund-wordmark.webp',
+          alt: 're:fund'
         };
       }
 
@@ -4998,8 +5565,8 @@ ${excerptCards}
       }
 
       if (currentTheme === themeId) {
-        persistTheme(theme.baseTheme || 'lear');
-        applyTheme(theme.baseTheme || 'lear');
+        persistTheme(theme.baseTheme || 'refund');
+        applyTheme(theme.baseTheme || 'refund');
       } else {
         renderThemeOptions();
       }
@@ -5097,14 +5664,14 @@ ${excerptCards}
 
     function getPreferredContent() {
       const locationContent = getContentFromLocation();
-      if (locationContent !== 'offer' || new URLSearchParams(window.location.search).has('content')) {
+      if (locationContent !== 'refund-website' || new URLSearchParams(window.location.search).has('content')) {
         return locationContent;
       }
 
       try {
-        return normalizeContent(window.localStorage.getItem(DECK_CONTENT_KEY) || 'offer');
+        return normalizeContent(window.localStorage.getItem(DECK_CONTENT_KEY) || 'refund-website');
       } catch (error) {
-        return 'offer';
+        return 'refund-website';
       }
     }
 
@@ -5590,11 +6157,16 @@ ${excerptCards}
     }
 
     function syncThemeBranding(themeId = currentTheme) {
-      const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId);
       const baseTheme = getThemeBaseTheme(themeId);
+      const isRefundTheme = baseTheme === 'refund';
       const isXyzTheme = baseTheme === 'xyz';
+      const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId) || isRefundTheme;
       const usesDarkFormationLogo = isXyzTheme || baseTheme === 'lear-light' || baseTheme === 'berlin-partner';
-      const logo = getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId);
+      const refundLogoUrl = 'assets/refund/refund-wordmark.webp';
+      const refundLogoAlt = 're:fund';
+      const logo = isRefundTheme
+        ? { url: refundLogoUrl, alt: refundLogoAlt }
+        : (getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId));
       const cornerPartnerLogoUrl = baseTheme === 'lear-light' && logo.url === 'assets/lear-logo.svg'
         ? 'assets/lear-logo-dark.svg'
         : logo.url;
@@ -5605,11 +6177,13 @@ ${excerptCards}
       const xyzCornerLogoUrl = 'assets/xyz-logo-transparent.webp';
       const xyzCoverLogoUrl = 'assets/xyz-mark.svg';
       const xyzCornerLogoAlt = 'XYZ';
+      const primaryLogoUrl = isXyzTheme ? xyzCoverLogoUrl : (isRefundTheme ? refundLogoUrl : formationLogoUrl);
+      const primaryLogoAlt = isXyzTheme ? xyzCornerLogoAlt : (isRefundTheme ? refundLogoAlt : formationLogoAlt);
 
       const cornerBrandImage = document.querySelector('.corner-brand img');
       if (cornerBrandImage instanceof HTMLImageElement) {
-        cornerBrandImage.src = isXyzTheme ? xyzCornerLogoUrl : formationLogoUrl;
-        cornerBrandImage.alt = isXyzTheme ? xyzCornerLogoAlt : formationLogoAlt;
+        cornerBrandImage.src = isXyzTheme ? xyzCornerLogoUrl : (isRefundTheme ? refundLogoUrl : formationLogoUrl);
+        cornerBrandImage.alt = isXyzTheme ? xyzCornerLogoAlt : (isRefundTheme ? refundLogoAlt : formationLogoAlt);
       }
 
       const cornerPartnerBrand = document.querySelector('.corner-partner-brand');
@@ -5625,8 +6199,8 @@ ${excerptCards}
 
       document.querySelectorAll('.cover-brand-mark-formation, .document-brand-formation').forEach(image => {
         if (image instanceof HTMLImageElement) {
-          image.src = isXyzTheme ? xyzCoverLogoUrl : formationLogoUrl;
-          image.alt = isXyzTheme ? xyzCornerLogoAlt : formationLogoAlt;
+          image.src = primaryLogoUrl;
+          image.alt = primaryLogoAlt;
         }
       });
 
@@ -6056,7 +6630,8 @@ ${excerptCards}
     }
 
     function buildGeneratedDeckSectionsHtml(layer = getContentLayer(), language = currentLanguage) {
-      return buildInvoiceDeckSectionsHtml(layer, language)
+      return buildRefundWebsiteDeckSectionsHtml(layer, language)
+        || buildInvoiceDeckSectionsHtml(layer, language)
         || buildGenericSourceDeckSectionsHtml(layer, language)
         || '';
     }
@@ -6388,8 +6963,8 @@ ${excerptCards}
       persistCustomThemes();
 
       if (currentTheme === managedThemeId) {
-        persistTheme('lear');
-        applyTheme('lear');
+        persistTheme('refund');
+        applyTheme('refund');
       }
 
       if (currentContent === layer.id) {
@@ -7612,7 +8187,7 @@ ${excerptCards}
         return;
       }
 
-      switchDeckTheme(button.dataset.theme || 'lear');
+      switchDeckTheme(button.dataset.theme || 'refund');
       closeThemeModal();
     });
     document.querySelector('.theme-team-add')?.addEventListener('click', () => {
