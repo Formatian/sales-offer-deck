@@ -7959,3 +7959,150 @@ body[data-content="widget-lab"] .widget-lab-tab-active {
     margin-top: 1.7rem;
   }
 }
+
+
+/* Delta Campus reference deck */
+body[data-content="delta-campus"],
+body[data-theme-id="delta-campus-style"] {
+  --delta-magenta: #e100d7;
+  --delta-black: #050607;
+  --delta-ink: #f8f8f5;
+  --delta-panel: rgba(0, 0, 0, 0.72);
+  --media-filter: none;
+  --image-overlay-start: transparent;
+  --image-overlay-end: transparent;
+  --image-overlay-glow: transparent;
+}
+
+body[data-content="delta-campus"] .reveal-viewport,
+body[data-theme-id="delta-campus-style"] .reveal-viewport {
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"].image-background-active::before {
+  background: none;
+}
+
+body[data-content="delta-campus"] .backgrounds .slide-background.is-image-background::after {
+  content: none;
+  background: none;
+}
+
+body[data-content="delta-campus"] .backgrounds .slide-background::after {
+  content: none;
+  display: none;
+  background: none;
+}
+
+body[data-content="delta-campus"] .backgrounds .slide-background[data-background-image],
+body[data-content="delta-campus"] .backgrounds .slide-background-content {
+  filter: none;
+  opacity: 1;
+}
+
+body[data-content="delta-campus"] .reveal .slides section.delta-reference-slide,
+body[data-content="delta-campus"] .reveal .slides section.delta-video-slide {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+body[data-content="delta-campus"] .reveal .slides section.delta-reference-slide {
+  background: transparent;
+}
+
+body[data-content="delta-campus"] .reveal .slides section.delta-video-slide {
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .delta-slide-alt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body[data-content="delta-campus"] .delta-reference-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  object-fit: contain;
+  background: var(--delta-black);
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-content="delta-campus"] .delta-video-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--delta-black);
+  overflow: hidden;
+}
+
+body[data-content="delta-campus"] .delta-flythrough-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .delta-video-caption {
+  position: absolute;
+  left: 3.8%;
+  top: 6.5%;
+  min-width: min(42vw, 760px);
+  padding: 1.05rem 1.45rem 1.15rem;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.62));
+  color: var(--delta-ink);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+body[data-content="delta-campus"] .delta-video-caption span,
+body[data-content="delta-campus"] .delta-video-caption strong,
+body[data-content="delta-campus"] .delta-video-caption em {
+  display: block;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+body[data-content="delta-campus"] .delta-video-caption span {
+  margin-bottom: 0.45rem;
+  color: var(--delta-magenta);
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.15rem, 2vw, 2.1rem);
+  font-weight: 800;
+}
+
+body[data-content="delta-campus"] .delta-video-caption strong {
+  color: var(--delta-ink);
+  font-family: "Arial Narrow", "DIN Condensed", Impact, sans-serif;
+  font-size: clamp(2.1rem, 4.8vw, 5.2rem);
+  font-weight: 800;
+}
+
+body[data-content="delta-campus"] .delta-video-caption em {
+  margin-top: 0.55rem;
+  color: rgba(248, 248, 245, 0.82);
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.95rem, 1.65vw, 1.75rem);
+}
+
+body[data-theme-id="delta-campus-style"] .content-option.is-active,
+body[data-theme-id="delta-campus-style"] .theme-modal .theme-option.is-active {
+  background: var(--delta-magenta);
+  color: #ffffff;
+}

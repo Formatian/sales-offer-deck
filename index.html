@@ -1344,6 +1344,14 @@
           de: `slides.xyz-sales.de.md?v=${DECK_VERSION}`
         }
       },
+      'delta-campus': {
+        partnerBrandMode: 'theme',
+        detail: { en: 'Delta Campus reference deck with Kukan flythrough', de: 'Delta Campus Referenzdeck mit Kukan-Flythrough' },
+        sources: {
+          en: `slides.delta-campus.md?v=${DECK_VERSION}`,
+          de: `slides.delta-campus.de.md?v=${DECK_VERSION}`
+        }
+      },
       'generated-source': {
         partnerBrandMode: 'theme',
         detail: { en: 'Generated from uploaded source material', de: 'Aus hochgeladenem Material generiert' },
@@ -1391,6 +1399,20 @@
         variantId: 'xyz-sales',
         name: { en: 'XYZ Sales Deck', de: 'XYZ Sales Deck' },
         locked: true
+      },
+      {
+        id: 'delta-campus',
+        variantId: 'delta-campus',
+        name: { en: 'Delta Campus', de: 'Delta Campus' },
+        locked: true,
+        references: {
+          urls: ['https://canva.link/gizr30cxrjlr5dg'],
+          notes: 'Seeded from the uploaded Delta Campus reference PDF and Kukan Gaussian splat flythrough video.',
+          files: [
+            { name: 'DELTA CAMPUS FORMATION (1).pdf', type: 'application/pdf', size: 0 },
+            { name: 'delta_2k.mp4', type: 'video/mp4', size: 42392258 }
+          ]
+        }
       },
       {
         id: 'hoffest-2025',
@@ -1743,6 +1765,59 @@
             summary: { type: 'image', url: 'assets/kaldewei-washtop.png' },
             closing: { type: 'image', url: 'assets/kaldewei-cover-bath.png' },
             end: { type: 'image', url: 'assets/kaldewei-cover-bath.png' }
+          }
+        }
+      },
+      {
+        id: 'delta-campus-style',
+        baseTheme: 'formation',
+        locked: false,
+        name: { en: 'Delta Campus', de: 'Delta Campus' },
+        references: {
+          urls: ['https://canva.link/gizr30cxrjlr5dg'],
+          notes: 'Seeded to match the Delta Campus reference deck: dark architectural photography, white logo lockups, magenta accent type, black translucent caption bands, and sharp-edged overlays.',
+          files: [
+            { name: 'DELTA CAMPUS FORMATION (1).pdf', type: 'application/pdf', size: 0 },
+            { name: 'delta_2k.mp4', type: 'video/mp4', size: 42392258 }
+          ]
+        },
+        generated: {
+          accent: '#e100d7',
+          accentStrong: '#ff28ec',
+          line: 'rgba(225, 0, 215, 0.34)',
+          hover: 'rgba(225, 0, 215, 0.12)',
+          quote: 'rgba(225, 0, 215, 0.9)',
+          fontHeading: '"Arial Narrow", "DIN Condensed", "Helvetica Neue Condensed", Impact, sans-serif',
+          fontBody: '"Helvetica Neue", Arial, sans-serif',
+          radiusMode: 'sharp',
+          imageMode: 'dark',
+          baseTheme: 'formation',
+          colorBg: '#050607',
+          colorBg2: '#101518',
+          colorPanel: 'rgba(0, 0, 0, 0.72)',
+          colorPanelStrong: 'rgba(0, 0, 0, 0.88)',
+          colorInk: '#f8f8f5',
+          colorMuted: 'rgba(248, 248, 245, 0.72)',
+          tableHeadBg: 'rgba(225, 0, 215, 0.9)',
+          footerBg: 'rgba(0, 0, 0, 0.74)',
+          footerInk: 'rgba(248, 248, 245, 0.78)',
+          controlBg: 'rgba(0, 0, 0, 0.68)',
+          switchBg: 'rgba(0, 0, 0, 0.72)',
+          cardBg: 'linear-gradient(180deg, rgba(4, 7, 9, 0.92), rgba(0, 0, 0, 0.9))',
+          tableBg: 'rgba(4, 7, 9, 0.9)',
+          summaryBg: 'rgba(0, 0, 0, 0.78)',
+          blockquoteBg: 'rgba(0, 0, 0, 0.74)',
+          documentBg: '#050607',
+          documentPaper: '#101518',
+          documentInk: '#f8f8f5',
+          documentLine: 'rgba(225, 0, 215, 0.34)',
+          documentAccent: '#e100d7',
+          documentAccentSoft: 'rgba(225, 0, 215, 0.22)',
+          documentAccentWash: 'rgba(225, 0, 215, 0.08)',
+          themeBackgrounds: {
+            cover: { type: 'image', url: 'assets/delta-campus/delta-reference-01.webp' },
+            video: { type: 'image', url: 'assets/delta-campus/delta-video-poster.jpg' },
+            end: { type: 'image', url: 'assets/delta-campus/delta-reference-08.webp' }
           }
         }
       },
@@ -5006,6 +5081,11 @@ ${excerptCards}
         '--switch-option-radius',
         '--modal-radius',
         '--media-filter',
+        '--progress-track-border',
+        '--progress-hover-gradient',
+        '--progress-hover-glow',
+        '--progress-fill-gradient',
+        '--progress-fill-glow',
         '--color-bg',
         '--color-bg-2',
         '--color-panel',
@@ -5058,6 +5138,17 @@ ${excerptCards}
       document.body.style.setProperty('--font-ui', theme.generated.fontBody);
       document.body.style.setProperty('--font-cover-title', theme.generated.fontHeading);
       document.body.style.setProperty('--media-filter', theme.generated.imageMode === 'bright' ? 'brightness(0.78) saturate(0.82)' : 'brightness(0.42) saturate(0.2) contrast(1.01)');
+      if (theme.generated.accent) {
+        document.body.style.setProperty('--progress-track-border', `color-mix(in srgb, ${theme.generated.accent} 32%, transparent)`);
+        document.body.style.setProperty('--progress-fill-gradient', `linear-gradient(90deg, ${theme.generated.accent}, ${theme.generated.accent})`);
+        document.body.style.setProperty('--progress-fill-glow', `0 0 18px color-mix(in srgb, ${theme.generated.accent} 34%, transparent)`);
+      }
+      if (theme.generated.accentStrong || theme.generated.accent) {
+        const progressHoverAccent = theme.generated.accentStrong || theme.generated.accent;
+        const progressAccent = theme.generated.accent || progressHoverAccent;
+        document.body.style.setProperty('--progress-hover-gradient', `linear-gradient(90deg, ${progressHoverAccent}, ${progressAccent})`);
+        document.body.style.setProperty('--progress-hover-glow', `0 0 24px color-mix(in srgb, ${progressAccent} 42%, transparent)`);
+      }
       if (theme.generated.colorBg) document.body.style.setProperty('--color-bg', theme.generated.colorBg);
       if (theme.generated.colorBg2) document.body.style.setProperty('--color-bg-2', theme.generated.colorBg2);
       if (theme.generated.colorPanel) document.body.style.setProperty('--color-panel', theme.generated.colorPanel);
