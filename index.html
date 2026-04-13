@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260409b" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260413a" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260409b" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260413a" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -1213,7 +1213,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260409b';
+    const DECK_VERSION = '20260413a';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -1222,6 +1222,8 @@
     const DECK_CONTENT_LAYERS_KEY = 'formation-deck-content-layers';
     const DECK_CUSTOM_THEMES_KEY = 'formation-deck-custom-themes';
     const DECK_RESET_POSITION_KEY = 'formation-deck-reset-position';
+    const DECK_FOOTER_HOLD_KEY = 'formation-deck-footer-hold-open';
+    const FOOTER_HOLD_OPEN_MS = 1700;
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
@@ -7182,6 +7184,47 @@ ${excerptCards}
       return url.toString();
     }
 
+    let footerHoldOpenTimer = 0;
+
+    function activateFooterHoldOpen(duration = FOOTER_HOLD_OPEN_MS) {
+      if (footerHoldOpenTimer) {
+        window.clearTimeout(footerHoldOpenTimer);
+      }
+
+      document.body.classList.add('footer-hold-open');
+      footerHoldOpenTimer = window.setTimeout(() => {
+        document.body.classList.remove('footer-hold-open');
+        footerHoldOpenTimer = 0;
+      }, duration);
+    }
+
+    function queueFooterHoldOpenForNextLoad() {
+      try {
+        window.sessionStorage.setItem(DECK_FOOTER_HOLD_KEY, 'true');
+      } catch (error) {
+        // Non-essential interaction polish; ignore restricted storage.
+      }
+    }
+
+    function restoreQueuedFooterHoldOpen() {
+      try {
+        if (window.sessionStorage.getItem(DECK_FOOTER_HOLD_KEY) !== 'true') {
+          return;
+        }
+
+        window.sessionStorage.removeItem(DECK_FOOTER_HOLD_KEY);
+        activateFooterHoldOpen();
+      } catch (error) {
+        // Non-essential interaction polish; ignore restricted storage.
+      }
+    }
+
+    function releaseFooterControlFocus(control) {
+      if (control instanceof HTMLElement && typeof control.blur === 'function') {
+        control.blur();
+      }
+    }
+
     function switchDeckLanguage(language) {
       const nextLanguage = normalizeLanguage(language);
       if (nextLanguage === currentLanguage) {
@@ -8444,6 +8487,7 @@ ${excerptCards}
     applyView(currentView);
     applyDeckSource(currentLanguage);
     applyLanguageMetadata(currentLanguage);
+    restoreQueuedFooterHoldOpen();
 
     if (getPrintModeFromLocation() === 'deck' && currentView === 'slides') {
       enterDeckPrintMode();
@@ -8568,7 +8612,14 @@ ${excerptCards}
     });
     document.querySelectorAll('.language-option').forEach(button => {
       button.addEventListener('click', () => {
-        switchDeckLanguage(button.dataset.language || 'en');
+        const nextLanguage = normalizeLanguage(button.dataset.language || 'en');
+        activateFooterHoldOpen();
+        releaseFooterControlFocus(button);
+        if (nextLanguage !== currentLanguage) {
+          queueFooterHoldOpenForNextLoad();
+        }
+
+        switchDeckLanguage(nextLanguage);
       });
     });
 
@@ -8670,6 +8721,8 @@ ${excerptCards}
     });
     document.querySelectorAll('.view-option').forEach(button => {
       button.addEventListener('click', () => {
+        activateFooterHoldOpen();
+        releaseFooterControlFocus(button);
         switchDeckView(button.dataset.view || 'slides');
       });
     });

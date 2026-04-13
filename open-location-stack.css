@@ -2061,6 +2061,7 @@ body:has(.reveal .progress:hover) .reveal .progress,
 body:has(.reveal .progress:focus-within) .reveal .progress,
 body.content-modal-open .reveal .progress,
 body.theme-modal-open .reveal .progress,
+body.footer-hold-open .reveal .progress,
 body.overview-active .reveal .progress {
   bottom: calc(40px + 1.44rem + 8px);
 }
@@ -2192,6 +2193,7 @@ body:has(.reveal .progress:hover) .slide-footer,
 body:has(.reveal .progress:focus-within) .slide-footer,
 body.content-modal-open .slide-footer,
 body.theme-modal-open .slide-footer,
+body.footer-hold-open .slide-footer,
 body.overview-active .slide-footer {
   opacity: 1;
   transform: translateY(0);
