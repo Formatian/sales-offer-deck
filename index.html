@@ -8268,6 +8268,9 @@ ${excerptCards}
     function stopOverviewEdgeScroll() {
       overviewEdgeDirection = 0;
       overviewEdgeLastStepAt = 0;
+      if (typeof Reveal !== 'undefined' && typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
+        clearViewportNavigationCursor();
+      }
 
       if (overviewEdgeTickHandle) {
         cancelAnimationFrame(overviewEdgeTickHandle);
@@ -8295,6 +8298,9 @@ ${excerptCards}
     }
 
     function startOverviewEdgeScroll(direction) {
+      document.body.classList.toggle('viewport-nav-left', direction < 0);
+      document.body.classList.toggle('viewport-nav-right', direction > 0);
+
       if (overviewEdgeDirection === direction && overviewEdgeTickHandle) {
         return;
       }
@@ -8318,16 +8324,29 @@ ${excerptCards}
       const rightThreshold = window.innerWidth - edgeZone;
 
       if (event.clientX <= leftThreshold) {
-        startOverviewEdgeScroll(-1);
+        const routes = typeof Reveal.availableRoutes === 'function' ? Reveal.availableRoutes() : null;
+        if (routes?.left || getRevealActiveSlideNumber() > 1) {
+          startOverviewEdgeScroll(-1);
+        } else {
+          stopOverviewEdgeScroll();
+          clearViewportNavigationCursor();
+        }
         return;
       }
 
       if (event.clientX >= rightThreshold) {
-        startOverviewEdgeScroll(1);
+        const routes = typeof Reveal.availableRoutes === 'function' ? Reveal.availableRoutes() : null;
+        if (routes?.right || getRevealActiveSlideNumber() < getRevealTotalSlides()) {
+          startOverviewEdgeScroll(1);
+        } else {
+          stopOverviewEdgeScroll();
+          clearViewportNavigationCursor();
+        }
         return;
       }
 
       stopOverviewEdgeScroll();
+      clearViewportNavigationCursor();
     }
 
     function handleOverviewWheel(event) {
@@ -8402,7 +8421,7 @@ ${excerptCards}
 
       if (
         target.closest(
-          'a, button, input, select, textarea, summary, details, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
+          'a, button, input, select, textarea, summary, details, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .theme-modal-backdrop, .content-menu-toggle, .content-modal, .content-modal-backdrop, .document-view'
         )
       ) {
         return false;
@@ -8627,6 +8646,8 @@ ${excerptCards}
     document.querySelector('.reveal-viewport')?.addEventListener('click', handleViewportSlideClick, true);
     document.querySelector('.reveal-viewport')?.addEventListener('pointermove', updateViewportNavigationCursor, true);
     document.querySelector('.reveal-viewport')?.addEventListener('pointerleave', clearViewportNavigationCursor, true);
+    document.addEventListener('pointermove', updateViewportNavigationCursor, true);
+    document.addEventListener('mousemove', updateViewportNavigationCursor, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       if (isCustomDocumentViewActive()) {
         toggleDocumentOverview();
