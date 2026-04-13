@@ -1,13 +1,14 @@
 {
-  "generatedAt": "2026-04-13T14:52:31.873Z",
+  "generatedAt": "2026-04-13T21:16:34.845Z",
   "files": {
     "offer|lear|en": {
       "href": "exports/offer__lear__en.pdf",
       "content": "offer",
       "theme": "lear",
       "lang": "en",
-      "sourceSignature": "43e7a40aecbe526b0ce163ffea36869d0f8cbc9f44f5ad5cd70cda1f33f656d3",
-      "generatedAt": "2026-04-13T14:52:31.872Z"
+      "view": "slides",
+      "sourceSignature": "255e0cc731f0d567ea166849ef10062ed5ab5a482d91d38667b6edcd45da7daa",
+      "generatedAt": "2026-04-13T21:16:34.844Z"
     },
     "offer|lear-light|en": {
       "href": "exports/offer__lear-light__en.pdf",
@@ -40,6 +41,15 @@
       "lang": "de",
       "sourceSignature": "e8a0bce613026bbb293cbc5a40d7526635670ae17a66f8aa09acb33a4b54dae1",
       "generatedAt": "2026-04-13T14:34:27.677Z"
+    },
+    "document|offer|lear|en": {
+      "href": "exports/offer__lear__en__document.pdf",
+      "content": "offer",
+      "theme": "lear",
+      "lang": "en",
+      "view": "document",
+      "sourceSignature": "255e0cc731f0d567ea166849ef10062ed5ab5a482d91d38667b6edcd45da7daa",
+      "generatedAt": "2026-04-13T21:16:18.113Z"
     }
   }
 }

@@ -7,6 +7,8 @@ const EXPORTS_DIR = path.join(ROOT, 'exports');
 const CONFIG_PATH = path.join(EXPORTS_DIR, 'pdf-config.json');
 const MANIFEST_PATH = path.join(EXPORTS_DIR, 'pdf-manifest.json');
 const EXPORT_SCRIPT = path.join(ROOT, 'skills', 'reveal-screenshot-pdf', 'scripts', 'export_reveal_screenshot_pdf.js');
+const DOCUMENT_EXPORT_SCRIPT = path.join(ROOT, 'scripts', 'export-document-pdf.js');
+const PDF_VIEWS = ['slides', 'document'];
 
 const CONTENT_SLIDE_SOURCES = {
   'refund-website': { en: 'slides.md', de: 'slides.de.md' },
@@ -50,8 +52,26 @@ function makeKey({ content, theme, lang }) {
   return `${content}|${theme}|${lang}`;
 }
 
+function normalizePdfView(view) {
+  return view === 'document' ? 'document' : 'slides';
+}
+
+function makePdfKey(variant) {
+  const view = normalizePdfView(variant.view);
+  const key = makeKey(variant);
+  return view === 'document' ? `${view}|${key}` : key;
+}
+
 function makeFileName({ content, theme, lang }) {
   return `${content}__${theme}__${lang}.pdf`.replace(/[^a-zA-Z0-9_.-]/g, '-');
+}
+
+function makePdfFileName(variant) {
+  const view = normalizePdfView(variant.view);
+  if (view === 'document') {
+    return `${variant.content}__${variant.theme}__${variant.lang}__document.pdf`.replace(/[^a-zA-Z0-9_.-]/g, '-');
+  }
+  return makeFileName(variant);
 }
 
 function normalizeFilterValue(value) {
@@ -96,7 +116,7 @@ function buildDeckUrl(baseUrl, variant) {
   url.searchParams.set('content', variant.content);
   url.searchParams.set('theme', variant.theme);
   url.searchParams.set('lang', variant.lang);
-  url.searchParams.set('view', 'slides');
+  url.searchParams.set('view', normalizePdfView(variant.view));
   return url.toString();
 }
 
@@ -162,7 +182,7 @@ function computeSourceSignature(variant) {
 }
 
 function getPdfStatus(variant, manifest = readManifest()) {
-  const key = makeKey(variant);
+  const key = makePdfKey(variant);
   const entry = manifest.files[key] || null;
   const sourceSignature = computeSourceSignature(variant);
   const absolutePdfPath = entry?.href ? path.join(ROOT, entry.href) : '';
@@ -180,7 +200,12 @@ function getPdfStatus(variant, manifest = readManifest()) {
 }
 
 function pruneManifest(config, manifest = readManifest(), options = {}) {
-  const validKeys = new Set(buildVariants(config).map(makeKey));
+  const validKeys = new Set();
+  for (const variant of buildVariants(config)) {
+    for (const view of PDF_VIEWS) {
+      validKeys.add(makePdfKey({ ...variant, view }));
+    }
+  }
   const keepFiles = new Set();
   let changed = false;
 
@@ -219,6 +244,7 @@ module.exports = {
   ROOT,
   EXPORTS_DIR,
   CONFIG_PATH,
+  DOCUMENT_EXPORT_SCRIPT,
   MANIFEST_PATH,
   EXPORT_SCRIPT,
   buildDeckUrl,
@@ -228,6 +254,9 @@ module.exports = {
   getPdfStatus,
   makeFileName,
   makeKey,
+  makePdfFileName,
+  makePdfKey,
+  normalizePdfView,
   pruneManifest,
   readConfig,
   readManifest,

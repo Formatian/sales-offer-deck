@@ -9,6 +9,8 @@ const {
   findVariant,
   getPdfStatus,
   makeKey,
+  makePdfKey,
+  normalizePdfView,
   pruneManifest,
   readConfig,
   readManifest,
@@ -47,7 +49,8 @@ function parseVariantFromUrl(requestUrl) {
   return {
     content: url.searchParams.get('content') || '',
     theme: url.searchParams.get('theme') || '',
-    lang: url.searchParams.get('lang') || ''
+    lang: url.searchParams.get('lang') || '',
+    view: normalizePdfView(url.searchParams.get('view') || 'slides')
   };
 }
 
@@ -63,7 +66,7 @@ function getVariantOrSendError(request, response) {
     return null;
   }
 
-  return { config, variant };
+  return { config, variant: { ...variant, view: requested.view } };
 }
 
 function getStatusPayload(variant) {
@@ -101,7 +104,7 @@ function handleExport(request, response) {
   }
 
   const { config, variant } = result;
-  const key = makeKey(variant);
+  const key = makePdfKey(variant);
   if (activeExports.has(key)) {
     sendJson(response, 202, {
       ok: true,
@@ -132,7 +135,9 @@ function handleExport(request, response) {
     '--theme',
     variant.theme,
     '--lang',
-    variant.lang
+    variant.lang,
+    '--view',
+    variant.view
   ];
   const child = spawn(process.execPath, args, {
     cwd: ROOT,

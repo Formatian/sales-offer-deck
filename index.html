@@ -6210,15 +6210,17 @@ ${excerptCards}
       window.alert(`Use the ${label} button in the footer to create the print-ready slide PDF. Then open or print that PDF.`);
     }
 
-    function getDeckPdfManifestKey(content = currentContent, theme = currentTheme, language = currentLanguage) {
-      return `${normalizeContent(content)}|${normalizeTheme(theme)}|${normalizeLanguage(language)}`;
+    function getDeckPdfManifestKey(content = currentContent, theme = currentTheme, language = currentLanguage, view = currentView) {
+      const key = `${normalizeContent(content)}|${normalizeTheme(theme)}|${normalizeLanguage(language)}`;
+      return normalizeView(view) === 'document' ? `document|${key}` : key;
     }
 
     function getDeckPdfStatusUrl(pathname = '/api/pdf-status') {
       const params = new URLSearchParams({
         content: normalizeContent(currentContent),
         theme: normalizeTheme(currentTheme),
-        lang: normalizeLanguage(currentLanguage)
+        lang: normalizeLanguage(currentLanguage),
+        view: normalizeView(currentView)
       });
       return `${pathname}?${params.toString()}`;
     }
@@ -6254,6 +6256,10 @@ ${excerptCards}
       }
     }
 
+    function getCurrentPdfDownloadMessage() {
+      return currentView === 'document' ? 'Download document PDF' : 'Download deck PDF';
+    }
+
     function setDeckPdfExportFromManifest() {
       const key = getDeckPdfManifestKey();
       const entry = deckPdfManifest?.files?.[key];
@@ -6262,7 +6268,7 @@ ${excerptCards}
           action: 'download',
           label: 'Download',
           href: entry.href,
-          message: 'Download deck PDF'
+          message: getCurrentPdfDownloadMessage()
         });
         return;
       }
@@ -6293,7 +6299,7 @@ ${excerptCards}
         action: 'download',
         label: 'Download',
         href: status.href,
-        message: 'Download deck PDF'
+        message: getCurrentPdfDownloadMessage()
       });
     }
 

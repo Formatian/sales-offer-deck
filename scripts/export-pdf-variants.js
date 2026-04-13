@@ -3,13 +3,16 @@
 const path = require('path');
 const { spawnSync } = require('child_process');
 const {
+  DOCUMENT_EXPORT_SCRIPT,
   EXPORT_SCRIPT,
   ROOT,
   buildDeckUrl,
   buildVariants,
   computeSourceSignature,
-  makeFileName,
   makeKey,
+  makePdfFileName,
+  makePdfKey,
+  normalizePdfView,
   pruneManifest,
   readConfig,
   readManifest,
@@ -18,7 +21,7 @@ const {
 
 function usage() {
   console.error([
-    'Usage: node scripts/export-pdf-variants.js [--base-url URL] [--content ID] [--theme ID] [--lang en|de] [--all] [--prune]',
+    'Usage: node scripts/export-pdf-variants.js [--base-url URL] [--content ID] [--theme ID] [--lang en|de] [--view slides|document] [--all] [--prune]',
     '',
     'Examples:',
     '  node scripts/export-pdf-variants.js --content offer --theme lear --lang en',
@@ -34,6 +37,7 @@ function parseArgs(argv) {
     content: '',
     theme: '',
     lang: '',
+    view: 'slides',
     all: false,
     prune: false,
     waitMs: '500'
@@ -67,6 +71,12 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (arg === '--view' && next) {
+      options.view = normalizePdfView(next);
+      i += 1;
+      continue;
+    }
+
     if (arg === '--wait-ms' && next) {
       options.waitMs = next;
       i += 1;
@@ -91,14 +101,16 @@ function parseArgs(argv) {
 }
 
 function exportVariant(variant, options, manifest) {
-  const fileName = makeFileName(variant);
+  const exportVariant = { ...variant, view: options.view };
+  const fileName = makePdfFileName(exportVariant);
   const outputPath = path.join(ROOT, 'exports', fileName);
-  const deckUrl = buildDeckUrl(options.baseUrl, variant);
-  const key = makeKey(variant);
+  const deckUrl = buildDeckUrl(options.baseUrl, exportVariant);
+  const key = makePdfKey(exportVariant);
+  const script = options.view === 'document' ? DOCUMENT_EXPORT_SCRIPT : EXPORT_SCRIPT;
 
   console.log(`Exporting ${key}`);
   const result = spawnSync(process.execPath, [
-    EXPORT_SCRIPT,
+    script,
     deckUrl,
     outputPath,
     '--wait-ms',
@@ -117,7 +129,8 @@ function exportVariant(variant, options, manifest) {
     content: variant.content,
     theme: variant.theme,
     lang: variant.lang,
-    sourceSignature: computeSourceSignature(variant),
+    view: options.view,
+    sourceSignature: computeSourceSignature(exportVariant),
     generatedAt: new Date().toISOString()
   };
 }
