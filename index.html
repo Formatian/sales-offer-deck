@@ -1112,6 +1112,15 @@
     </div>
     <div class="footer-nav">
       <span id="slide-counter"></span>
+      <a class="deck-pdf-export is-disabled" aria-disabled="true" aria-label="Download deck PDF" title="PDF not generated for this version yet">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7.5 3.5Z"></path>
+          <path d="M14 3.5V7h3"></path>
+          <path d="M8.5 11h7"></path>
+          <path d="M8.5 14.5h5"></path>
+        </svg>
+        <span class="deck-pdf-export-label">Download</span>
+      </a>
       <button type="button" class="overview-toggle" aria-label="Toggle slide overview" title="Slide overview">
         <svg class="overview-icon overview-icon-grid" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="3" width="7" height="7" rx="1.2"></rect>
@@ -1124,6 +1133,13 @@
           <path d="M18 6 6 18"></path>
         </svg>
       </button>
+    </div>
+  </div>
+
+  <div class="deck-print-guidance" aria-hidden="true">
+    <div class="deck-print-guidance-panel">
+      <strong>Use the Download button for slide PDFs.</strong>
+      <p>Browser printing is disabled for deck view because it does not preserve the slides reliably. Generate or regenerate the slide PDF from the footer, then open or print that PDF.</p>
     </div>
   </div>
 
@@ -1225,6 +1241,7 @@
     const DECK_FOOTER_HOLD_KEY = 'formation-deck-footer-hold-open';
     const FOOTER_HOLD_OPEN_MS = 1700;
     const DEPLOY_META_URL = `assets/deploy-meta.json?v=${DECK_VERSION}`;
+    const DECK_PDF_MANIFEST_URL = `exports/pdf-manifest.json?v=${DECK_VERSION}`;
     const DECK_SOURCES = {
       en: `slides.md?v=${DECK_VERSION}`,
       de: `slides.de.md?v=${DECK_VERSION}`
@@ -2381,6 +2398,11 @@
     function getContentFromLocation() {
       const params = new URLSearchParams(window.location.search);
       return normalizeContent(params.get('content') || '');
+    }
+
+    function getViewFromLocation() {
+      const params = new URLSearchParams(window.location.search);
+      return normalizeView(params.get('view') || '');
     }
 
     function getPrintModeFromLocation() {
@@ -5766,6 +5788,11 @@ ${excerptCards}
     }
 
     function getPreferredView() {
+      const locationView = getViewFromLocation();
+      if (locationView !== 'slides' || new URLSearchParams(window.location.search).has('view')) {
+        return locationView;
+      }
+
       try {
         return normalizeView(window.localStorage.getItem(DECK_VIEW_KEY) || 'slides');
       } catch (error) {
@@ -5802,7 +5829,7 @@ ${excerptCards}
       }
     }
 
-    const DECK_PRINT_CAPTURE_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    const DECK_PRINT_CAPTURE_LIBRARY_URL = 'assets/vendor/html2canvas/html2canvas.min.js';
     const nativeWindowPrint = typeof window.print === 'function'
       ? window.print.bind(window)
       : null;
@@ -5811,6 +5838,10 @@ ${excerptCards}
     let deckPrintRasterShell = null;
     let deckPrintRasterState = null;
     let deckPrintCaptureLibraryPromise = null;
+    let deckPdfManifest = null;
+    let deckPdfStatus = null;
+    let deckPdfStatusRequestToken = 0;
+    let deckPdfExportInProgress = false;
 
     function loadDeckPrintCaptureLibrary() {
       if (typeof window.html2canvas === 'function') {
@@ -5896,9 +5927,6 @@ ${excerptCards}
     }
 
     function clearDeckRasterPrintState() {
-      if (deckPrintRasterState?.imageUrls?.length) {
-        deckPrintRasterState.imageUrls.forEach(url => URL.revokeObjectURL(url));
-      }
       deckPrintRasterState = null;
     }
 
@@ -5921,6 +5949,31 @@ ${excerptCards}
           <img src="${url}" alt="" class="deck-print-raster-image" />
         </div>
       `).join('');
+    }
+
+    async function waitForDeckRasterPrintShell() {
+      await waitForAnimationFrames(2);
+      const shell = ensureDeckRasterPrintShell();
+      const images = Array.from(shell.querySelectorAll('.deck-print-raster-image'));
+      await Promise.all(images.map(image => {
+        if (!(image instanceof HTMLImageElement)) {
+          return Promise.resolve();
+        }
+
+        if (typeof image.decode === 'function') {
+          return image.decode().catch(() => undefined);
+        }
+
+        if (image.complete) {
+          return Promise.resolve();
+        }
+
+        return new Promise(resolve => {
+          image.addEventListener('load', resolve, { once: true });
+          image.addEventListener('error', resolve, { once: true });
+        });
+      }));
+      await waitForAnimationFrames(2);
     }
 
     async function captureDeckSlidesAsRasterImages() {
@@ -5980,14 +6033,9 @@ ${excerptCards}
             windowHeight: window.innerHeight
           });
 
-          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-          if (!(blob instanceof Blob)) {
-            throw new Error('Failed to convert captured slide into a print image.');
-          }
-          capturedImages.push(URL.createObjectURL(blob));
+          capturedImages.push(canvas.toDataURL('image/png'));
         }
       } catch (error) {
-        capturedImages.forEach(url => URL.revokeObjectURL(url));
         throw error;
       } finally {
         clearDeckSlidesForPrint();
@@ -6019,7 +6067,7 @@ ${excerptCards}
 
       deckPrintPageStyle = document.createElement('style');
       deckPrintPageStyle.setAttribute('data-deck-print-page-style', 'true');
-      deckPrintPageStyle.textContent = '@page { size: 297mm 210mm; margin: 0; }';
+      deckPrintPageStyle.textContent = '@page { size: 297mm 167.0625mm; margin: 0; }';
       document.head.appendChild(deckPrintPageStyle);
     }
 
@@ -6102,6 +6150,7 @@ ${excerptCards}
         clearDeckRasterPrintShell();
         clearDeckRasterPrintState();
         clearDeckPrintPageStyle();
+        resetAllSlideFitting();
         if (typeof Reveal?.layout === 'function') {
           Reveal.layout();
         }
@@ -6118,9 +6167,11 @@ ${excerptCards}
       document.body.classList.remove('printing-deck');
       clearDeckSlidesForPrint();
       clearDeckPrintPageStyle();
+      resetAllSlideFitting();
       if (typeof Reveal?.layout === 'function') {
         Reveal.layout();
       }
+      fitCurrentSlide();
     }
 
     async function startDeckRasterPrintMode() {
@@ -6138,6 +6189,7 @@ ${excerptCards}
       document.documentElement.classList.add('printing-deck-raster');
       document.body.classList.add('printing-deck-raster');
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      await waitForDeckRasterPrintShell();
     }
 
     async function printDeckFromRasterCapture() {
@@ -6145,19 +6197,188 @@ ${excerptCards}
       if (!nativeWindowPrint) {
         throw new Error('window.print is not available in this browser.');
       }
-      window.setTimeout(() => nativeWindowPrint(), 80);
+      window.setTimeout(() => nativeWindowPrint(), 250);
+    }
+
+    function showDeckPdfPrintGuidance() {
+      const link = document.querySelector('.deck-pdf-export');
+      const action = link instanceof HTMLAnchorElement ? (link.dataset.pdfAction || '') : '';
+      const label = action === 'generate'
+        ? 'Generate'
+        : (action === 'regenerate' ? 'Regenerate' : 'Download');
+
+      window.alert(`Use the ${label} button in the footer to create the print-ready slide PDF. Then open or print that PDF.`);
+    }
+
+    function getDeckPdfManifestKey(content = currentContent, theme = currentTheme, language = currentLanguage) {
+      return `${normalizeContent(content)}|${normalizeTheme(theme)}|${normalizeLanguage(language)}`;
+    }
+
+    function getDeckPdfStatusUrl(pathname = '/api/pdf-status') {
+      const params = new URLSearchParams({
+        content: normalizeContent(currentContent),
+        theme: normalizeTheme(currentTheme),
+        lang: normalizeLanguage(currentLanguage)
+      });
+      return `${pathname}?${params.toString()}`;
+    }
+
+    function setDeckPdfExportState({ action, label, href = '', message = '' }) {
+      const link = document.querySelector('.deck-pdf-export');
+      if (!(link instanceof HTMLAnchorElement)) {
+        return;
+      }
+
+      const labelNode = link.querySelector('.deck-pdf-export-label');
+      const isDisabled = action === 'disabled' || action === 'busy';
+      const isDownload = action === 'download' && href;
+
+      if (isDownload) {
+        link.href = href;
+        link.setAttribute('download', '');
+      } else {
+        link.removeAttribute('href');
+        link.removeAttribute('download');
+      }
+
+      link.dataset.pdfAction = action;
+      link.classList.toggle('is-disabled', isDisabled);
+      link.classList.toggle('is-busy', action === 'busy');
+      link.setAttribute('aria-disabled', isDisabled ? 'true' : 'false');
+      link.setAttribute('aria-busy', action === 'busy' ? 'true' : 'false');
+      link.setAttribute('title', message || label);
+      link.setAttribute('aria-label', message || label);
+
+      if (labelNode) {
+        labelNode.textContent = label;
+      }
+    }
+
+    function setDeckPdfExportFromManifest() {
+      const key = getDeckPdfManifestKey();
+      const entry = deckPdfManifest?.files?.[key];
+      if (entry?.href) {
+        setDeckPdfExportState({
+          action: 'download',
+          label: 'Download',
+          href: entry.href,
+          message: 'Download deck PDF'
+        });
+        return;
+      }
+
+      setDeckPdfExportState({
+        action: 'disabled',
+        label: 'No PDF',
+        message: `PDF not generated for ${key}`
+      });
+    }
+
+    function setDeckPdfExportFromStatus(status) {
+      if (!status?.ok) {
+        setDeckPdfExportFromManifest();
+        return;
+      }
+
+      if (status.stale) {
+        setDeckPdfExportState({
+          action: status.exists ? 'regenerate' : 'generate',
+          label: status.exists ? 'Regenerate' : 'Generate',
+          message: status.exists ? 'Regenerate stale PDF' : 'Generate PDF'
+        });
+        return;
+      }
+
+      setDeckPdfExportState({
+        action: 'download',
+        label: 'Download',
+        href: status.href,
+        message: 'Download deck PDF'
+      });
+    }
+
+    async function refreshDeckPdfStatus() {
+      const token = ++deckPdfStatusRequestToken;
+      try {
+        const response = await fetch(getDeckPdfStatusUrl(), { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`PDF status request failed with ${response.status}`);
+        }
+        const status = await response.json();
+        if (token !== deckPdfStatusRequestToken) {
+          return;
+        }
+        deckPdfStatus = status;
+        setDeckPdfExportFromStatus(status);
+      } catch (error) {
+        if (token !== deckPdfStatusRequestToken) {
+          return;
+        }
+        deckPdfStatus = null;
+        setDeckPdfExportFromManifest();
+      }
+    }
+
+    function updateDeckPdfExportLink() {
+      if (deckPdfExportInProgress) {
+        return;
+      }
+
+      setDeckPdfExportFromManifest();
+      refreshDeckPdfStatus();
+    }
+
+    async function generateCurrentDeckPdf() {
+      if (deckPdfExportInProgress) {
+        return;
+      }
+
+      deckPdfExportInProgress = true;
+      setDeckPdfExportState({
+        action: 'busy',
+        label: 'Generating',
+        message: 'Generating PDF'
+      });
+
+      try {
+        const response = await fetch(getDeckPdfStatusUrl('/api/export-pdf'), {
+          method: 'POST',
+          cache: 'no-store'
+        });
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.error || `PDF generation failed with ${response.status}`);
+        }
+        await loadDeckPdfManifest();
+        deckPdfStatus = result;
+        setDeckPdfExportFromStatus(result);
+      } catch (error) {
+        console.error('PDF generation failed.', error);
+        setDeckPdfExportFromManifest();
+        window.alert('PDF generation failed. Start the export server with `node scripts/preview-export-server.js` or run the export script manually.');
+      } finally {
+        deckPdfExportInProgress = false;
+      }
+    }
+
+    async function loadDeckPdfManifest() {
+      try {
+        const response = await fetch(DECK_PDF_MANIFEST_URL, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`PDF manifest request failed with ${response.status}`);
+        }
+        deckPdfManifest = await response.json();
+      } catch (error) {
+        deckPdfManifest = null;
+        console.warn('PDF manifest unavailable.', error);
+      }
+      updateDeckPdfExportLink();
     }
 
     if (nativeWindowPrint) {
       window.print = function printWithDeckRasterFallback() {
         if (currentView === 'slides' && !isDeckRasterPrintActive()) {
-          printDeckFromRasterCapture().catch(error => {
-            console.error('Deck raster print capture failed.', error);
-            enterDeckPrintMode();
-            if (nativeWindowPrint) {
-              window.setTimeout(() => nativeWindowPrint(), 80);
-            }
-          });
+          showDeckPdfPrintGuidance();
           return;
         }
 
@@ -6521,6 +6742,7 @@ ${excerptCards}
       syncKaldeweiSlideCtas(currentTheme, currentContent);
       syncFooterDeckLabel();
       renderThemeOptions();
+      updateDeckPdfExportLink();
     }
 
     function applyContent(content) {
@@ -6540,6 +6762,7 @@ ${excerptCards}
       syncDynamicSeedDocumentPages();
       syncActiveDocumentCanvas();
       syncDocumentViewAvailability();
+      updateDeckPdfExportLink();
       if (currentView === 'document' && !hasCustomDocumentView()) {
         persistView('slides');
         applyView('slides');
@@ -6702,6 +6925,7 @@ ${excerptCards}
       syncDocumentOverviewLayout();
       syncDocumentColorModeControls();
       updateSlideCount();
+      updateDeckPdfExportLink();
     }
 
     function applyDocumentColorMode(mode) {
@@ -8579,6 +8803,7 @@ ${excerptCards}
       ensureProgressHoverFill();
       loadDeployMetadata();
       loadLocalUpdateTimestamp();
+      loadDeckPdfManifest();
       syncChromeSoon();
       updateSlideCount();
       syncProgressTicks();
@@ -8655,6 +8880,25 @@ ${excerptCards}
       }
 
       Reveal.toggleOverview();
+    });
+    document.querySelector('.deck-pdf-export')?.addEventListener('click', event => {
+      const link = event.currentTarget;
+      if (!(link instanceof HTMLAnchorElement)) {
+        return;
+      }
+
+      const action = link.dataset.pdfAction || '';
+      if (action === 'download' && link.href) {
+        return;
+      }
+
+      event.preventDefault();
+      if (action === 'generate' || action === 'regenerate') {
+        generateCurrentDeckPdf();
+        return;
+      }
+
+      window.alert(link.getAttribute('title') || 'PDF not generated for this version yet.');
     });
     document.getElementById('document-view')?.addEventListener('click', event => {
       if (!isDocumentOverviewActive()) {
@@ -8861,13 +9105,7 @@ ${excerptCards}
     window.addEventListener('keydown', event => {
       if (isDeckPrintShortcut(event) && currentView === 'slides') {
         event.preventDefault();
-        printDeckFromRasterCapture().catch(error => {
-          console.error('Deck raster print capture failed.', error);
-          enterDeckPrintMode();
-          if (nativeWindowPrint) {
-            window.setTimeout(() => nativeWindowPrint(), 80);
-          }
-        });
+        showDeckPdfPrintGuidance();
         return;
       }
 
@@ -8887,7 +9125,7 @@ ${excerptCards}
       }
 
       if (currentView === 'slides') {
-        enterDeckPrintMode();
+        showDeckPdfPrintGuidance();
       }
     });
     window.addEventListener('afterprint', exitDeckPrintMode);

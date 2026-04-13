@@ -1,0 +1,44 @@
+{
+  "variants": [
+    {
+      "content": "refund-website",
+      "themes": ["refund"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "offer",
+      "themes": ["lear", "lear-light", "formation", "xyz"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "kaldewei",
+      "themes": ["kaldewei"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "widget-lab",
+      "themes": ["formation"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "xyz-sales",
+      "themes": ["xyz"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "delta-campus",
+      "themes": ["delta-campus-style"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "hoffest-2025",
+      "themes": ["berlin-partner"],
+      "languages": ["en", "de"]
+    },
+    {
+      "content": "nobaxx",
+      "themes": ["nobaxx"],
+      "languages": ["en", "de"]
+    }
+  ]
+}

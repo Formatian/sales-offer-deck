@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-04-13T14:52:31.873Z",
+  "files": {
+    "offer|lear|en": {
+      "href": "exports/offer__lear__en.pdf",
+      "content": "offer",
+      "theme": "lear",
+      "lang": "en",
+      "sourceSignature": "43e7a40aecbe526b0ce163ffea36869d0f8cbc9f44f5ad5cd70cda1f33f656d3",
+      "generatedAt": "2026-04-13T14:52:31.872Z"
+    },
+    "offer|lear-light|en": {
+      "href": "exports/offer__lear-light__en.pdf",
+      "content": "offer",
+      "theme": "lear-light",
+      "lang": "en",
+      "sourceSignature": "42bcddc6dc64c22a4ee45ad0b8b617de351ae3b072e67c545d93ae24e8344dbe",
+      "generatedAt": "2026-04-13T14:31:44.045Z"
+    },
+    "offer|formation|en": {
+      "href": "exports/offer__formation__en.pdf",
+      "content": "offer",
+      "theme": "formation",
+      "lang": "en",
+      "sourceSignature": "150001d75d03253fc734dec86e414c72469787feefe58cb6937d5fc105cf006a",
+      "generatedAt": "2026-04-13T14:44:03.343Z"
+    },
+    "offer|xyz|en": {
+      "href": "exports/offer__xyz__en.pdf",
+      "content": "offer",
+      "theme": "xyz",
+      "lang": "en",
+      "sourceSignature": "42bcddc6dc64c22a4ee45ad0b8b617de351ae3b072e67c545d93ae24e8344dbe",
+      "generatedAt": "2026-04-13T14:32:13.142Z"
+    },
+    "offer|lear|de": {
+      "href": "exports/offer__lear__de.pdf",
+      "content": "offer",
+      "theme": "lear",
+      "lang": "de",
+      "sourceSignature": "e8a0bce613026bbb293cbc5a40d7526635670ae17a66f8aa09acb33a4b54dae1",
+      "generatedAt": "2026-04-13T14:34:27.677Z"
+    }
+  }
+}

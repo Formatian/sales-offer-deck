@@ -178,6 +178,8 @@
   --document-total-row-bg: rgba(182, 48, 35, 0.04);
   --document-page-border: rgba(123, 94, 83, 0.12);
   --document-page-shadow: rgba(62, 42, 32, 0.16);
+  --deck-print-page-width: 297mm;
+  --deck-print-page-height: 167.0625mm;
 
   --r-background-color: var(--color-bg);
   --r-main-color: var(--color-ink);
@@ -680,6 +682,7 @@ body[data-theme="refund"] .cover-meta-pill,
 body[data-theme="refund"] .view-option,
 body[data-theme="refund"] .language-option,
 body[data-theme="refund"] .overview-toggle,
+body[data-theme="refund"] .deck-pdf-export,
 body[data-theme="refund"] .content-menu-toggle,
 body[data-theme="refund"] .theme-menu-toggle {
   border-radius: 20px;
@@ -1255,6 +1258,7 @@ body[data-theme="xyz"] .deploy-timestamp {
 body[data-theme="xyz"] .content-menu-toggle,
 body[data-theme="xyz"] .theme-menu-toggle,
 body[data-theme="xyz"] .overview-toggle,
+body[data-theme="xyz"] .deck-pdf-export,
 body[data-theme="xyz"] .theme-modal-close,
 body[data-theme="xyz"] .slide-footer .controls.footer-controls button {
   border-radius: 999px;
@@ -1614,6 +1618,7 @@ body[data-theme="berlin-partner"] .document-brand,
 body[data-theme="berlin-partner"] .view-option,
 body[data-theme="berlin-partner"] .language-option,
 body[data-theme="berlin-partner"] .overview-toggle,
+body[data-theme="berlin-partner"] .deck-pdf-export,
 body[data-theme="berlin-partner"] .content-menu-toggle,
 body[data-theme="berlin-partner"] .theme-menu-toggle {
   border-radius: 0 !important;
@@ -2577,6 +2582,67 @@ body.theme-switching .theme-option {
     border-color 160ms ease,
     background-color 160ms ease,
     color 160ms ease;
+}
+
+.deck-pdf-export {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.36rem;
+  min-width: 112px;
+  height: 30px;
+  padding: 0 0.58rem;
+  border: 1px solid var(--control-border);
+  border-radius: var(--control-radius);
+  background: var(--control-bg);
+  color: color-mix(in srgb, var(--footer-ink) 94%, transparent);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.deck-pdf-export svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.deck-pdf-export:hover,
+.deck-pdf-export:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--control-hover-border);
+  background: var(--control-hover-bg);
+  color: var(--color-accent-strong);
+  outline: none;
+}
+
+.deck-pdf-export.is-busy,
+.deck-pdf-export[aria-busy="true"] {
+  opacity: 0.76;
+  pointer-events: none;
+}
+
+.deck-pdf-export.is-disabled,
+.deck-pdf-export[aria-disabled="true"] {
+  opacity: 0.52;
+}
+
+.deck-print-guidance {
+  display: none;
 }
 
 .overview-toggle svg {
@@ -4881,10 +4947,10 @@ body.printing-deck .reveal .backgrounds {
 
 body.printing-deck .reveal {
   display: block !important;
-  width: 297mm !important;
+  width: var(--deck-print-page-width) !important;
   height: auto !important;
   margin: 0 auto !important;
-  padding: 8mm 0 !important;
+  padding: 0 !important;
   overflow: visible !important;
   visibility: visible !important;
   font-size: 100% !important;
@@ -4912,13 +4978,13 @@ body.printing-deck .reveal .slides > section:not(.stack),
 body.printing-deck .reveal .slides > section.stack > section {
   position: relative !important;
   display: flex !important;
-  width: 281mm !important;
-  min-width: 281mm !important;
-  max-width: 281mm !important;
-  height: 158mm !important;
-  min-height: 158mm !important;
-  max-height: 158mm !important;
-  margin: 0 auto 8mm !important;
+  width: var(--deck-print-page-width) !important;
+  min-width: var(--deck-print-page-width) !important;
+  max-width: var(--deck-print-page-width) !important;
+  height: var(--deck-print-page-height) !important;
+  min-height: var(--deck-print-page-height) !important;
+  max-height: var(--deck-print-page-height) !important;
+  margin: 0 auto !important;
   padding: 0 !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -5031,16 +5097,16 @@ body.printing-deck-raster > *:not(.deck-print-raster-shell) {
 
 body.printing-deck-raster .deck-print-raster-shell {
   display: block !important;
-  width: 297mm;
+  width: var(--deck-print-page-width);
   margin: 0 auto;
-  padding: 8mm 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body.printing-deck-raster .deck-print-raster-page {
-  width: 281mm;
-  height: 158mm;
-  margin: 0 auto 8mm;
+  width: var(--deck-print-page-width);
+  height: var(--deck-print-page-height);
+  margin: 0 auto;
   break-after: page;
   page-break-after: always;
   overflow: hidden;
@@ -5049,6 +5115,8 @@ body.printing-deck-raster .deck-print-raster-page {
 
 body.printing-deck-raster .deck-print-raster-page:last-child {
   margin-bottom: 0;
+  break-after: auto;
+  page-break-after: auto;
 }
 
 body.printing-deck-raster .deck-print-raster-image {
@@ -5113,6 +5181,51 @@ body.printing-deck-raster .deck-print-raster-image {
 
   body:not(.printing-deck):not(.printing-deck-raster) .document-canvas.is-active {
     display: block !important;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    background: #fff !important;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .document-view,
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .document-canvas,
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .document-canvas.is-active {
+    display: none !important;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .deck-print-guidance {
+    display: flex !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 32mm;
+    background: #fff;
+    color: #161616;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .deck-print-guidance-panel {
+    max-width: 128mm;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    padding: 14mm;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .deck-print-guidance strong {
+    display: block;
+    margin: 0 0 6mm;
+    font-size: 18pt;
+    line-height: 1.2;
+  }
+
+  body.slides-mode:not(.printing-deck):not(.printing-deck-raster) .deck-print-guidance p {
+    margin: 0;
+    font-size: 11pt;
+    line-height: 1.45;
   }
 
   body:not(.printing-deck):not(.printing-deck-raster) .document-page {

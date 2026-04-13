@@ -145,6 +145,9 @@ async function main() {
         autoAnimate: false,
       });
     });
+    await page.addStyleTag({
+      content: '.reveal .progress { display: none !important; }'
+    });
 
     const slides = await page.evaluate(() => {
       return window.Reveal.getSlides().map((slide, index) => {
