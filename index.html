@@ -6654,6 +6654,7 @@ ${excerptCards}
       document.body.classList.toggle('document-mode', currentView === 'document');
       document.body.classList.toggle('document-fallback-mode', currentView === 'document' && !useCustomDocumentView);
       document.body.classList.toggle('slides-mode', currentView !== 'document');
+      clearViewportNavigationCursor();
 
       const documentView = document.getElementById('document-view');
       if (documentView) {
@@ -7833,12 +7834,14 @@ ${excerptCards}
       }
 
       if (!isCustomDocumentViewActive() || isDocumentOverviewActive()) {
+        const { hasPrevious, hasNext } = getDeckNavigationAvailability();
+
         previousButton.disabled = false;
         nextButton.disabled = false;
-        previousButton.classList.remove('enabled');
-        nextButton.classList.remove('enabled');
-        previousButton.removeAttribute('aria-disabled');
-        nextButton.removeAttribute('aria-disabled');
+        previousButton.classList.toggle('enabled', hasPrevious);
+        nextButton.classList.toggle('enabled', hasNext);
+        previousButton.setAttribute('aria-disabled', hasPrevious ? 'false' : 'true');
+        nextButton.setAttribute('aria-disabled', hasNext ? 'false' : 'true');
         return;
       }
 
@@ -7852,6 +7855,21 @@ ${excerptCards}
       nextButton.classList.toggle('enabled', hasNext);
       previousButton.setAttribute('aria-disabled', hasPrevious ? 'false' : 'true');
       nextButton.setAttribute('aria-disabled', hasNext ? 'false' : 'true');
+    }
+
+    function getDeckNavigationAvailability() {
+      const routes = typeof Reveal.availableRoutes === 'function' ? Reveal.availableRoutes() : null;
+      const isDeckActive = currentView === 'slides'
+        && !(typeof Reveal.isOverview === 'function' && Reveal.isOverview());
+
+      return {
+        hasPrevious: isDeckActive ? Boolean(routes?.left) || getRevealActiveSlideNumber() > 1 : false,
+        hasNext: isDeckActive ? Boolean(routes?.right) || getRevealActiveSlideNumber() < getRevealTotalSlides() : false
+      };
+    }
+
+    function clearViewportNavigationCursor() {
+      document.body.classList.remove('viewport-nav-left', 'viewport-nav-right');
     }
 
     function formatDeployTimestamp(isoString, language) {
@@ -8368,13 +8386,49 @@ ${excerptCards}
       Reveal.slide(targetIndex);
     }
 
-    function handleViewportSlideClick(event) {
-      if (typeof Reveal.isOverview === 'function' && Reveal.isOverview()) {
-        return;
+    function isViewportNavigationTarget(event) {
+      if (
+        currentView !== 'slides' ||
+        event.defaultPrevented ||
+        (typeof Reveal.isOverview === 'function' && Reveal.isOverview())
+      ) {
+        return false;
+      }
+
+      const target = event.target;
+      if (!(target instanceof Element)) {
+        return false;
       }
 
       if (
-        event.defaultPrevented ||
+        target.closest(
+          'a, button, input, select, textarea, summary, details, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
+        )
+      ) {
+        return false;
+      }
+
+      return !target.closest('.reveal .slides video, .reveal .slides iframe');
+    }
+
+    function updateViewportNavigationCursor(event) {
+      if (!isViewportNavigationTarget(event)) {
+        clearViewportNavigationCursor();
+        return;
+      }
+
+      const { hasPrevious, hasNext } = getDeckNavigationAvailability();
+      const isLeftSide = event.clientX < window.innerWidth / 2;
+      const showLeftCursor = isLeftSide && hasPrevious;
+      const showRightCursor = !isLeftSide && hasNext;
+
+      document.body.classList.toggle('viewport-nav-left', showLeftCursor);
+      document.body.classList.toggle('viewport-nav-right', showRightCursor);
+    }
+
+    function handleViewportSlideClick(event) {
+      if (
+        !isViewportNavigationTarget(event) ||
         event.button !== 0 ||
         event.metaKey ||
         event.ctrlKey ||
@@ -8384,25 +8438,17 @@ ${excerptCards}
         return;
       }
 
-      if (
-        event.target.closest(
-          'a, button, input, select, textarea, summary, details, .slide-footer, .controls, .progress, .overview-toggle, .language-switch, .theme-menu-toggle, .theme-modal, .content-menu-toggle, .content-modal'
-        )
-      ) {
-        return;
-      }
+      const { hasPrevious, hasNext } = getDeckNavigationAvailability();
 
-      if (event.target.closest('.reveal .slides video, .reveal .slides iframe')) {
-        return;
-      }
-
-      if (event.clientX < window.innerWidth / 2) {
+      if (event.clientX < window.innerWidth / 2 && hasPrevious) {
         Reveal.left();
+        requestAnimationFrame(() => updateViewportNavigationCursor(event));
         return;
       }
 
-      if (event.clientX >= window.innerWidth / 2) {
+      if (event.clientX >= window.innerWidth / 2 && hasNext) {
         Reveal.right();
+        requestAnimationFrame(() => updateViewportNavigationCursor(event));
       }
     }
 
@@ -8547,6 +8593,7 @@ ${excerptCards}
     });
 
     Reveal.on('overviewshown', () => {
+      clearViewportNavigationCursor();
       syncBackgroundClasses();
       resetAllSlideFitting();
       syncChromeSoon();
@@ -8578,6 +8625,8 @@ ${excerptCards}
     document.querySelector('.reveal .progress')?.addEventListener('mouseleave', clearProgressHover, true);
     document.querySelector('.reveal .progress')?.addEventListener('click', handleProgressClick, true);
     document.querySelector('.reveal-viewport')?.addEventListener('click', handleViewportSlideClick, true);
+    document.querySelector('.reveal-viewport')?.addEventListener('pointermove', updateViewportNavigationCursor, true);
+    document.querySelector('.reveal-viewport')?.addEventListener('pointerleave', clearViewportNavigationCursor, true);
     document.querySelector('.overview-toggle')?.addEventListener('click', () => {
       if (isCustomDocumentViewActive()) {
         toggleDocumentOverview();
