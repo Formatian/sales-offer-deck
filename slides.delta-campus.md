@@ -14,6 +14,8 @@
 <!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-03.webp" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Visitor Wayfinding, Blue Line Routes Inside The Campus</span>
 
+---
+
 <!-- .slide: class="delta-reference-slide delta-kukan-logo-slide" data-background-image="assets/delta-campus/delta-reference-04.webp" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Guided POIs, The Most Relevant Spaces And Services</span>
 
@@ -40,14 +42,12 @@
 
 ---
 
-<!-- .slide: class="delta-reference-slide delta-static-image-slide" data-background-color="#050607" -->
-<div class="delta-static-image-fill" style="background-image:url('assets/delta-campus/delta-reference-07.webp')"></div>
+<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-07.webp" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Community Networking</span>
 
 ---
 
-<!-- .slide: class="delta-reference-slide delta-static-image-slide delta-caption-slide" data-background-color="#050607" -->
-<div class="delta-static-image-fill" style="background-image:url('assets/delta-campus/delta-reference-09-event-inquiries.webp')"></div>
+<!-- .slide: class="delta-reference-slide delta-caption-slide" data-background-image="assets/delta-campus/delta-reference-09-event-inquiries.webp" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Simple Event Enquiries</span>
 
 ---

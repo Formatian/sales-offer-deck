@@ -8362,31 +8362,11 @@ body[data-content="delta-campus"] .delta-reference-image {
   max-width: none;
   max-height: none;
   margin: 0;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   background: var(--delta-black);
   border: 0;
   box-shadow: none;
-}
-
-body[data-content="delta-campus"] .reveal .slides section.delta-static-image-slide {
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-  background: var(--delta-black);
-}
-
-body[data-content="delta-campus"] .delta-static-image-fill {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: var(--delta-black);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-body[data-content="delta-campus"] .reveal.overview .slides > section.delta-static-image-slide {
-  overflow: hidden !important;
 }
 
 body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) {
@@ -8411,7 +8391,7 @@ body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > i
   max-width: none;
   max-height: none;
   margin: 0;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   background: var(--delta-black);
   border: 0;
