@@ -1,5 +1,17 @@
-<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-01.webp" data-background-size="contain" data-background-color="#050607" -->
+<!-- .slide: class="delta-reference-slide delta-start-kukan-logo-slide" data-background-image="assets/delta-campus/delta-reference-01.webp" data-background-size="contain" data-background-color="#050607" -->
 <span class="delta-slide-alt">The Delta Advanced Visitor Experience</span>
+<img src="assets/delta-campus/kukan-logo-white.png" alt="Kukan" class="delta-start-kukan-logo" />
+
+---
+
+<!-- .slide: class="delta-reference-slide delta-kukan-logo-slide" data-background-image="assets/delta-campus/delta-reference-04.webp" data-background-size="contain" data-background-color="#050607" -->
+<span class="delta-slide-alt">Guided POIs, The Most Relevant Spaces And Services</span>
+
+---
+
+<!-- .slide: class="delta-video-slide delta-kukan-logo-slide" data-background-video="assets/delta-campus/delta_2k.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
+<div class="delta-video-shell">
+</div>
 
 ---
 
@@ -13,19 +25,18 @@
 
 ---
 
-<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-04.webp" data-background-size="contain" data-background-color="#050607" -->
-<span class="delta-slide-alt">Guided POIs, The Most Relevant Spaces And Services</span>
-
----
-
-<!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/delta_2k.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
-<div class="delta-video-shell">
-</div>
-
----
-
-<!-- .slide: class="delta-reference-slide" data-state="delta-dark-corner-logo" data-background-image="assets/delta-campus/delta-reference-05.webp" data-background-size="contain" data-background-color="#050607" -->
+<!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/ahoy-screen-take-2-composite.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Data Layer, Visitor Analytics And Operational Insight</span>
+
+---
+
+<!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/delta-campus-screen-video-2.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
+<span class="delta-slide-alt">Delta Campus Screen Concept</span>
+
+---
+
+<!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/room-book-video-1.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
+<span class="delta-slide-alt">Book Room Screen Concept</span>
 
 ---
 

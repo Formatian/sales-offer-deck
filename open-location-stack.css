@@ -8172,7 +8172,8 @@ body[data-theme-id="delta-campus-style"] .reveal-viewport:has(.reveal.overview) 
 body[data-content="delta-campus"].image-background-active::before,
 body[data-content="delta-campus"].cover-slide-active::before,
 body[data-content="delta-campus"].video-slide-active::before,
-body[data-content="delta-campus"].platform-video-active::before {
+body[data-content="delta-campus"].platform-video-active::before,
+body[data-content="delta-campus"]:has(.slides section.present.delta-inline-video-slide)::before {
   content: none;
   background: none;
 }
@@ -8200,8 +8201,39 @@ body[data-content="delta-campus"] .backgrounds .slide-background-content {
 
 
 body[data-content="delta-campus"] .backgrounds .slide-background.present video {
-  filter: none;
+  filter: none !important;
   object-fit: cover;
+}
+
+body[data-content="delta-campus"] .backgrounds .slide-background.present:has(video[src*="ahoy-screen-take-2-composite"]) video {
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+body[data-content="delta-campus"] .delta-start-kukan-logo {
+  position: absolute;
+  bottom: 43px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 128px;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  opacity: 0.56;
+}
+
+body[data-content="delta-campus"]:has(.slides section.present.delta-kukan-logo-slide) .corner-brand::after {
+  content: "";
+  display: block;
+  width: 128px;
+  height: 40px;
+  margin-top: 10px;
+  background: url("assets/delta-campus/kukan-logo-white.png") left center / contain no-repeat;
+  opacity: 0.56;
 }
 
 body[data-content="delta-campus"].delta-dark-corner-logo .corner-partner-brand img,
@@ -8249,6 +8281,93 @@ body[data-content="delta-campus"] .delta-reference-image {
   background: var(--delta-black);
   border: 0;
   box-shadow: none;
+}
+
+body[data-content="delta-campus"] .delta-navigation-phone-slide,
+body[data-theme-id="delta-campus-style"] .delta-navigation-phone-slide {
+  position: relative;
+}
+
+body[data-content="delta-campus"] .delta-phone-navigation-video,
+body[data-theme-id="delta-campus-style"] .delta-phone-navigation-video {
+  position: absolute;
+  left: 17.85%;
+  top: 19.8%;
+  width: 18.1%;
+  height: 69.1%;
+  z-index: 2;
+  display: block;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  border: 0;
+  border-radius: 1.25%;
+  box-shadow: none;
+  pointer-events: none;
+  transform: translateZ(0) scale(0.982);
+  transform-origin: center;
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .delta-inline-video-slide {
+  position: absolute;
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"]:has(.slides section.present.delta-inline-video-slide) .reveal-viewport,
+body[data-theme-id="delta-campus-style"]:has(.slides section.present.delta-inline-video-slide) .reveal-viewport {
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .reveal .slides section.present.delta-inline-video-slide {
+  inset: 0 !important;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  transform: none !important;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  z-index: 0;
+}
+
+body[data-content="delta-campus"] .reveal .slides section.present.delta-inline-video-slide .delta-full-slide-video {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+body[data-content="delta-campus"] .delta-full-slide-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  background: var(--delta-black);
+  border: 0;
+  box-shadow: none;
+  filter: none;
+  opacity: 1;
+  pointer-events: none;
+}
+
+body[data-content="delta-campus"] .delta-full-slide-video-contain {
+  object-fit: contain;
+}
+
+body[data-content="delta-campus"] .delta-full-slide-video-cover {
+  object-fit: cover;
 }
 
 body[data-content="delta-campus"] .delta-video-shell {
