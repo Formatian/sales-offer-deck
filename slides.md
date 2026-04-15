@@ -163,7 +163,7 @@
 </div>
 
 ---
-<!-- .slide: data-theme-background="packages-a" -->
+<!-- .slide: class="dark-corner-logo-slide" data-theme-background="packages-a" -->
 ## Work Packages 1 To 4
 
 <table class="proposal-table roadmap-table">

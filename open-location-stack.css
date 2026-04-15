@@ -8211,21 +8211,6 @@ body[data-content="delta-campus"] .backgrounds .slide-background.present:has(vid
   mix-blend-mode: normal !important;
 }
 
-body[data-content="delta-campus"] .delta-start-kukan-logo {
-  position: absolute;
-  bottom: 43px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 128px;
-  height: auto;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  border: 0;
-  box-shadow: none;
-  opacity: 0.56;
-}
-
 body[data-content="delta-campus"]:has(.slides section.present.delta-kukan-logo-slide) .corner-brand::after {
   content: "";
   display: block;
@@ -8270,6 +8255,90 @@ body[data-content="delta-campus"] .delta-slide-alt {
   border: 0;
 }
 
+body[data-content="delta-campus"] .delta-caption-slide {
+  position: relative;
+  overflow: visible !important;
+}
+
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-reference-slide,
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-video-slide {
+  height: auto;
+  min-height: 0;
+  overflow: hidden !important;
+}
+
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-caption-slide {
+  overflow: hidden !important;
+}
+
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-caption-slide::before,
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-caption-slide::after,
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-report-location-slide::before,
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-report-location-slide::after {
+  content: none !important;
+  display: none !important;
+}
+
+body[data-content="delta-campus"] .delta-caption-slide::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: clamp(28px, 4vw, 56px);
+  z-index: 3;
+  display: block;
+  width: min(56vw, 680px);
+  height: clamp(74px, 8vw, 122px);
+  background: rgba(0, 0, 0, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+body[data-content="delta-campus"] .delta-caption-slide::after {
+  content: "Simple Event Enquiries";
+  position: absolute;
+  left: 0;
+  bottom: clamp(28px, 4vw, 56px);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  max-width: min(56vw, 680px);
+  padding: 14px 20px 12px 12px;
+  color: var(--delta-magenta);
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: 32.2px;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+body[data-content="delta-campus"] .delta-report-location-slide {
+  position: relative;
+}
+
+body[data-content="delta-campus"] .delta-report-location-slide::before {
+  content: none;
+}
+
+body[data-content="delta-campus"] .reveal .slides > section.present.delta-report-location-slide::before {
+  content: "";
+  position: absolute;
+  top: 34.5%;
+  left: 61.7%;
+  z-index: 2;
+  width: clamp(18px, 1.6vw, 26px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: #e100d7;
+  border: 2px solid rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0 0 8px rgba(225, 0, 215, 0.18);
+}
+
+body[data-content="delta-campus"] .delta-report-location-slide::after,
+body[data-content="delta-campus"] .reveal .slides > section.present.delta-report-location-slide::after {
+  content: none;
+}
+
 body[data-content="delta-campus"] .delta-reference-image {
   display: block;
   width: 100%;
@@ -8282,6 +8351,69 @@ body[data-content="delta-campus"] .delta-reference-image {
   border: 0;
   box-shadow: none;
 }
+
+body[data-content="delta-campus"] .reveal .slides section.delta-inline-image-slide {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .delta-full-slide-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  background: var(--delta-black);
+  border: 0;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+body[data-content="delta-campus"] .delta-full-slide-image-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-inline-image-slide {
+  overflow: hidden !important;
+}
+
+body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  background: var(--delta-black);
+}
+
+body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) > p:only-child {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) > p:only-child > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  background: var(--delta-black);
+  border: 0;
+  box-shadow: none;
+}
+
 
 body[data-content="delta-campus"] .delta-navigation-phone-slide,
 body[data-theme-id="delta-campus-style"] .delta-navigation-phone-slide {

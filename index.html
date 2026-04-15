@@ -1229,7 +1229,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260413a';
+    const DECK_VERSION = '20260415b';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -2368,10 +2368,10 @@
     };
 
     let currentLanguage = 'en';
-    let currentTheme = 'refund';
+    let currentTheme = 'delta-campus-style';
     let currentView = 'slides';
     let currentDocumentColorMode = 'color';
-    let currentContent = 'refund-website';
+    let currentContent = 'delta-campus';
     let contentLayers = [];
     let customThemes = [];
     let deployMetadata = null;
@@ -6782,7 +6782,16 @@ ${excerptCards}
       const isRefundTheme = baseTheme === 'refund';
       const isXyzTheme = baseTheme === 'xyz';
       const hidePartnerBrand = shouldHidePartnerBrand(currentContent, themeId) || isRefundTheme;
+      const activeSlide = typeof Reveal !== 'undefined' && typeof Reveal.getCurrentSlide === 'function'
+        ? Reveal.getCurrentSlide()
+        : null;
+      const activeSlideThemeBackground = activeSlide?.getAttribute('data-theme-background');
       const usesDarkFormationLogo = isXyzTheme || baseTheme === 'lear-light' || baseTheme === 'berlin-partner';
+      const usesDarkCornerFormationLogo = usesDarkFormationLogo
+        || activeSlide?.classList.contains('end-cover')
+        || activeSlide?.classList.contains('dark-corner-logo-slide')
+        || activeSlideThemeBackground === 'packages-a'
+        || activeSlideThemeBackground === 'end';
       const refundLogoUrl = 'assets/refund/refund-wordmark.webp';
       const refundLogoAlt = 're:fund';
       const logo = isRefundTheme
@@ -6794,6 +6803,9 @@ ${excerptCards}
       const formationLogoUrl = usesDarkFormationLogo
         ? 'assets/formation-logo-text-black.png'
         : 'assets/formation-logo-text-white.png';
+      const cornerFormationLogoUrl = usesDarkCornerFormationLogo
+        ? 'assets/formation-logo-text-black.png'
+        : 'assets/formation-logo-text-white.png';
       const formationLogoAlt = 'FORMATION';
       const xyzCornerLogoUrl = 'assets/xyz-logo-transparent.webp';
       const xyzCoverLogoUrl = 'assets/xyz-mark.svg';
@@ -6803,7 +6815,7 @@ ${excerptCards}
 
       const cornerBrandImage = document.querySelector('.corner-brand img');
       if (cornerBrandImage instanceof HTMLImageElement) {
-        cornerBrandImage.src = isXyzTheme ? xyzCornerLogoUrl : (isRefundTheme ? refundLogoUrl : formationLogoUrl);
+        cornerBrandImage.src = isXyzTheme ? xyzCornerLogoUrl : (isRefundTheme ? refundLogoUrl : cornerFormationLogoUrl);
         cornerBrandImage.alt = isXyzTheme ? xyzCornerLogoAlt : (isRefundTheme ? refundLogoAlt : formationLogoAlt);
       }
 
@@ -7791,9 +7803,27 @@ ${excerptCards}
       const isPlatformVideoSlide =
         slide.classList.contains('platform-video-slide') &&
         (hasSlideBackgroundVideo || activeBackgroundHasVideo);
+      const activeThemeBackground = slide.getAttribute('data-theme-background');
+      const shouldKeepCornerBrandVisible = slide.classList.contains('end-cover')
+        || slide.classList.contains('dark-corner-logo-slide')
+        || activeThemeBackground === 'packages-a'
+        || activeThemeBackground === 'end'
+        || slide.getAttribute('data-state') === 'delta-dark-corner-logo';
+      const shouldUseDarkCornerBrand = shouldKeepCornerBrandVisible
+        || getThemeBaseTheme(currentTheme) === 'lear-light'
+        || getThemeBaseTheme(currentTheme) === 'berlin-partner'
+        || getThemeBaseTheme(currentTheme) === 'xyz';
       document.querySelector('.slide-footer').style.display =
         (isTitle && !keepFooterVisible) ? 'none' : '';
-      document.querySelector('.corner-brand').style.display = isTitle || isOverview ? 'none' : '';
+      const cornerBrand = document.querySelector('.corner-brand');
+      cornerBrand.style.display =
+        ((isTitle && !shouldKeepCornerBrandVisible) || isOverview) ? 'none' : '';
+      const cornerBrandImage = cornerBrand?.querySelector('img');
+      if (cornerBrandImage instanceof HTMLImageElement && getThemeBaseTheme(currentTheme) !== 'refund') {
+        cornerBrandImage.src = shouldUseDarkCornerBrand
+          ? 'assets/formation-logo-text-black.png'
+          : 'assets/formation-logo-text-white.png';
+      }
       const cornerPartnerBrand = document.querySelector('.corner-partner-brand');
       if (cornerPartnerBrand) {
         cornerPartnerBrand.style.display = (isTitle || isOverview || isRefundTheme || shouldHidePartnerBrand(currentContent, currentTheme)) ? 'none' : '';
@@ -8771,8 +8801,8 @@ ${excerptCards}
     contentLayers = loadContentLayers();
     syncManagedThemesForContentLayers();
     persistCustomThemes();
-    const preferredTheme = getPreferredTheme();
-    const preferredContent = getPreferredContent();
+    const preferredTheme = 'delta-campus-style';
+    const preferredContent = 'delta-campus';
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
     currentView = preferredView;
@@ -8834,6 +8864,7 @@ ${excerptCards}
     });
 
     Reveal.on('slidechanged', event => {
+      syncThemeBranding(currentTheme);
       syncBackgroundClasses();
       syncChromeSoon();
       updateSlideCount();
