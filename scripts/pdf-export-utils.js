@@ -18,7 +18,8 @@ const CONTENT_SLIDE_SOURCES = {
   'hoffest-2025': { en: 'slides.hoffest-2025.md', de: 'slides.hoffest-2025.de.md' },
   nobaxx: { en: 'slides.nobaxx.md', de: 'slides.nobaxx.de.md' },
   'xyz-sales': { en: 'slides.xyz-sales.md', de: 'slides.xyz-sales.de.md' },
-  'delta-campus': { en: 'slides.delta-campus.md', de: 'slides.delta-campus.de.md' }
+  'delta-campus': { en: 'slides.delta-campus.md', de: 'slides.delta-campus.de.md' },
+  'delta-campus-offer': { en: 'slides.delta-campus-offer.md', de: 'slides.delta-campus-offer.de.md' }
 };
 
 function readJson(filePath, fallback) {

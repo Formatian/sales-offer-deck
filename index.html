@@ -1371,6 +1371,14 @@
           de: `slides.delta-campus.de.md?v=${DECK_VERSION}`
         }
       },
+      'delta-campus-offer': {
+        partnerBrandMode: 'theme',
+        detail: { en: 'Offer-structured Delta Campus narrative', de: 'Angebotsstrukturierte Delta-Campus-Erzaehlung' },
+        sources: {
+          en: `slides.delta-campus-offer.md?v=${DECK_VERSION}`,
+          de: `slides.delta-campus-offer.de.md?v=${DECK_VERSION}`
+        }
+      },
       'generated-source': {
         partnerBrandMode: 'theme',
         detail: { en: 'Generated from uploaded source material', de: 'Aus hochgeladenem Material generiert' },
@@ -1427,6 +1435,20 @@
         references: {
           urls: ['https://canva.link/gizr30cxrjlr5dg'],
           notes: 'Seeded from the uploaded Delta Campus reference PDF and Kukan Gaussian splat flythrough video.',
+          files: [
+            { name: 'DELTA CAMPUS FORMATION (1).pdf', type: 'application/pdf', size: 0 },
+            { name: 'delta_2k.mp4', type: 'video/mp4', size: 42392258 }
+          ]
+        }
+      },
+      {
+        id: 'delta-campus-offer',
+        variantId: 'delta-campus-offer',
+        name: { en: 'Delta Campus Offer', de: 'Delta Campus Angebot' },
+        locked: true,
+        references: {
+          urls: ['https://canva.link/gizr30cxrjlr5dg'],
+          notes: 'Offer-shaped Delta Campus narrative migrated from the existing reference deck, videos, and campus visuals.',
           files: [
             { name: 'DELTA CAMPUS FORMATION (1).pdf', type: 'application/pdf', size: 0 },
             { name: 'delta_2k.mp4', type: 'video/mp4', size: 42392258 }
@@ -2116,6 +2138,7 @@
           'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'delta-campus': 'Delta Campus',
+          'delta-campus-offer': 'Delta Campus Offer',
           'hoffest-2025': 'Offer Hoffest 2025',
           nobaxx: 'Nobaxx NoWay',
           'generated-source': 'Uploaded Source'
@@ -2161,6 +2184,7 @@
           'widget-lab': 'Widget Lab',
           'xyz-sales': 'XYZ Sales Deck',
           'delta-campus': 'Delta Campus',
+          'delta-campus-offer': 'Delta Campus Angebot',
           'hoffest-2025': 'Angebot Hoffest 2025',
           nobaxx: 'Nobaxx NoWay',
           'generated-source': 'Hochgeladene Quelle'
@@ -8795,14 +8819,14 @@ ${excerptCards}
 
     customThemes = loadCustomThemes();
     const preferredLanguage = getPreferredLanguage();
+    const preferredTheme = getPreferredTheme();
     const preferredView = getPreferredView();
     const preferredDocumentColorMode = getPreferredDocumentColorMode();
     const shouldResetPresentationPosition = consumeQueuedPresentationPositionReset();
     contentLayers = loadContentLayers();
     syncManagedThemesForContentLayers();
     persistCustomThemes();
-    const preferredTheme = 'delta-campus-style';
-    const preferredContent = 'delta-campus';
+    const preferredContent = getPreferredContent();
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
     currentView = preferredView;

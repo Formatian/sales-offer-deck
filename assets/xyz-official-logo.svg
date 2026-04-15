@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 760" role="img" aria-labelledby="title desc">
+  <title id="title">XYZ official logo</title>
+  <desc id="desc">Five-node geometric logo with blue, green, and orange connecting lines.</desc>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M160 110H660" stroke="#1f3f9d" stroke-width="24"/>
+    <path d="M190 570H630" stroke="#1f3f9d" stroke-width="24"/>
+    <path d="M640 140L230 550" stroke="#1f3f9d" stroke-width="24"/>
+
+    <path d="M180 130L405 355" stroke="#5d9b6b" stroke-width="24"/>
+    <path d="M620 130L405 345" stroke="#5d9b6b" stroke-width="24"/>
+    <path d="M210 540L405 345" stroke="#5d9b6b" stroke-width="24"/>
+
+    <path d="M170 140L600 570" stroke="#e84a2a" stroke-width="24"/>
+    <path d="M210 530L625 115" stroke="#e84a2a" stroke-width="24"/>
+  </g>
+
+  <g fill="#fff" stroke="#000" stroke-width="20">
+    <circle cx="160" cy="110" r="42"/>
+    <circle cx="660" cy="110" r="42"/>
+    <circle cx="410" cy="360" r="42"/>
+    <circle cx="190" cy="570" r="42"/>
+    <circle cx="630" cy="570" r="42"/>
+  </g>
+</svg>
