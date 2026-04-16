@@ -35,3 +35,9 @@ npx wrangler pages dev .
 
 - This is a static deck. No framework or bundler is required.
 - Keep assets local so the presentation works offline.
+
+## Design References
+
+The curated `DESIGN.md` collection from `VoltAgent/awesome-design-md` is vendored into [vendor/awesome-design-md](/Users/ianhannigan/Downloads/geoit-reveal-starter/vendor/awesome-design-md/README.md) for local reference.
+
+Use those files as source material when adapting the deck theme, copy direction, or visual system without relying on a network fetch.
