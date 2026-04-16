@@ -6247,6 +6247,9 @@ ${excerptCards}
         return;
       }
 
+      document.body.classList.add('deck-content-reloading');
+      resetAllSlideFitting();
+
       const reloadToken = ++deckContentReloadToken;
       const currentIndices = typeof Reveal?.getIndices === 'function'
         ? Reveal.getIndices()
@@ -6258,9 +6261,51 @@ ${excerptCards}
             v: Number.isInteger(currentIndices?.v) ? currentIndices.v : 0,
             f: Number.isInteger(currentIndices?.f) ? currentIndices.f : undefined
           };
-      const generatedSlidesHtml = hasGeneratedSourceExperience() ? buildGeneratedDeckSectionsHtml(getContentLayer(), currentLanguage) : '';
-      if (generatedSlidesHtml) {
-        slidesRoot.innerHTML = generatedSlidesHtml;
+      try {
+        const generatedSlidesHtml = hasGeneratedSourceExperience() ? buildGeneratedDeckSectionsHtml(getContentLayer(), currentLanguage) : '';
+        if (generatedSlidesHtml) {
+          slidesRoot.innerHTML = generatedSlidesHtml;
+          if (reloadToken !== deckContentReloadToken) {
+            return;
+          }
+
+          if (typeof Reveal.sync === 'function') {
+            Reveal.sync();
+          }
+
+          syncThemeBranding(currentTheme);
+          syncKaldeweiSlideCtas(currentTheme, currentContent);
+          applyThemeBackgrounds();
+          if (typeof Reveal.slide === 'function') {
+            Reveal.slide(targetIndices.h, targetIndices.v, targetIndices.f);
+          } else if (typeof Reveal.layout === 'function') {
+            Reveal.layout();
+          }
+
+          initializeInteractiveSlides(slidesRoot);
+          updateExternalLinks(slidesRoot);
+          updateSlideCount();
+          scheduleDeckVisualRefresh();
+          return;
+        }
+
+        if (typeof RevealMarkdown?.slidify !== 'function' || typeof RevealMarkdown?.convertSlides !== 'function') {
+          return;
+        }
+
+        const sourceUrl = getDeckSourceUrl(currentLanguage, { bustCache: true });
+        const response = await fetch(sourceUrl, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Failed to load deck content from ${sourceUrl}: ${response.status}`);
+        }
+
+        const markdown = injectSeedSlidesIntoMarkdown(await response.text(), getContentLayer(), currentLanguage);
+        if (reloadToken !== deckContentReloadToken) {
+          return;
+        }
+
+        slidesRoot.innerHTML = RevealMarkdown.slidify(markdown, DECK_MARKDOWN_OPTIONS);
+        await RevealMarkdown.convertSlides();
         if (reloadToken !== deckContentReloadToken) {
           return;
         }
@@ -6280,47 +6325,15 @@ ${excerptCards}
 
         initializeInteractiveSlides(slidesRoot);
         updateExternalLinks(slidesRoot);
+        updateSlideCount();
         scheduleDeckVisualRefresh();
-        return;
+      } finally {
+        if (reloadToken === deckContentReloadToken) {
+          window.requestAnimationFrame(() => {
+            document.body.classList.remove('deck-content-reloading');
+          });
+        }
       }
-
-      if (typeof RevealMarkdown?.slidify !== 'function' || typeof RevealMarkdown?.convertSlides !== 'function') {
-        return;
-      }
-
-      const sourceUrl = getDeckSourceUrl(currentLanguage, { bustCache: true });
-      const response = await fetch(sourceUrl, { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`Failed to load deck content from ${sourceUrl}: ${response.status}`);
-      }
-
-      const markdown = injectSeedSlidesIntoMarkdown(await response.text(), getContentLayer(), currentLanguage);
-      if (reloadToken !== deckContentReloadToken) {
-        return;
-      }
-
-      slidesRoot.innerHTML = RevealMarkdown.slidify(markdown, DECK_MARKDOWN_OPTIONS);
-      await RevealMarkdown.convertSlides();
-      if (reloadToken !== deckContentReloadToken) {
-        return;
-      }
-
-      if (typeof Reveal.sync === 'function') {
-        Reveal.sync();
-      }
-
-      syncThemeBranding(currentTheme);
-      syncKaldeweiSlideCtas(currentTheme, currentContent);
-      applyThemeBackgrounds();
-      if (typeof Reveal.slide === 'function') {
-        Reveal.slide(targetIndices.h, targetIndices.v, targetIndices.f);
-      } else if (typeof Reveal.layout === 'function') {
-        Reveal.layout();
-      }
-
-      initializeInteractiveSlides(slidesRoot);
-      updateExternalLinks(slidesRoot);
-      scheduleDeckVisualRefresh();
     }
 
     function initializeInteractiveSlides() {}
@@ -6334,6 +6347,45 @@ ${excerptCards}
       }
 
       return url.toString();
+    }
+
+    function getDeckLocationStateUrl({
+      language = currentLanguage,
+      theme = currentTheme,
+      content = currentContent,
+      view = currentView
+    } = {}) {
+      const url = new URL(window.location.href);
+
+      if (normalizeLanguage(language) === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', normalizeLanguage(language));
+      }
+
+      if (normalizeTheme(theme) === 'formation') {
+        url.searchParams.delete('theme');
+      } else {
+        url.searchParams.set('theme', normalizeTheme(theme));
+      }
+
+      if (normalizeContent(content) === 'offer') {
+        url.searchParams.delete('content');
+      } else {
+        url.searchParams.set('content', normalizeContent(content));
+      }
+
+      if (normalizeView(view) === 'slides') {
+        url.searchParams.delete('view');
+      } else {
+        url.searchParams.set('view', normalizeView(view));
+      }
+
+      return url.toString();
+    }
+
+    function syncDeckLocationState(nextState = {}) {
+      window.history.replaceState({}, '', getDeckLocationStateUrl(nextState));
     }
 
     let footerHoldOpenTimer = 0;
@@ -6397,19 +6449,7 @@ ${excerptCards}
       queuePresentationPositionReset();
       persistTheme(nextTheme);
       document.body.classList.add('theme-switching');
-      applyTheme(nextTheme);
-      if (currentView === 'document') {
-        currentDocumentPageIndex = 0;
-        setDocumentOverview(false);
-        window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
-      } else if (typeof Reveal.slide === 'function') {
-        Reveal.slide(0, 0);
-      }
-      applyThemeBackgrounds();
-      scheduleDeckVisualRefresh();
-      window.setTimeout(() => {
-        document.body.classList.remove('theme-switching');
-      }, 180);
+      window.location.replace(getDeckLocationStateUrl({ theme: nextTheme }));
     }
 
     function switchDeckView(view) {
@@ -7974,9 +8014,9 @@ ${excerptCards}
 
       queuePresentationPositionReset();
       persistContent(nextContent);
-      applyContent(nextContent);
       closeContentModal();
-      window.location.reload();
+      document.body.classList.add('deck-content-reloading');
+      window.location.replace(getDeckLocationStateUrl({ content: nextContent }));
     });
     document.querySelector('.content-layer-add')?.addEventListener('click', addContentLayer);
     document.getElementById('content-reference-files')?.addEventListener('change', handleContentReferenceFiles);
