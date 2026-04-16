@@ -7707,13 +7707,13 @@ ${excerptCards}
 
     customThemes = loadCustomThemes();
     const preferredLanguage = getPreferredLanguage();
-    const preferredTheme = getPreferredTheme();
     const preferredView = getPreferredView();
     const preferredDocumentColorMode = getPreferredDocumentColorMode();
     const shouldResetPresentationPosition = consumeQueuedPresentationPositionReset();
     contentLayers = loadContentLayers();
     syncManagedThemesForContentLayers();
     persistCustomThemes();
+    const preferredTheme = getPreferredTheme();
     const preferredContent = getPreferredContent();
     currentLanguage = preferredLanguage;
     currentTheme = preferredTheme;
