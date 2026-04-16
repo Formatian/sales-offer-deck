@@ -6954,6 +6954,19 @@ body[data-content="delta-campus"] .reveal.overview .slides > section.delta-video
 }
 
 body[data-content="delta-campus"] .reveal.overview .slides > section.delta-caption-slide {
+  position: absolute;
+  overflow: hidden !important;
+}
+
+body[data-content="delta-campus"] .reveal.overview .slides > section.delta-report-location-slide {
+  position: absolute;
+  overflow: hidden !important;
+}
+
+body[data-content="delta-campus"] .reveal.overview .backgrounds > .slide-background.delta-caption-slide,
+body[data-content="delta-campus"] .reveal.overview .backgrounds > .slide-background.delta-report-location-slide {
+  position: absolute;
+  top: 0 !important;
   overflow: hidden !important;
 }
 
