@@ -52,23 +52,23 @@
 
 ---
 
-<!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/room-book-video-1.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
-<span class="delta-slide-alt">Book Room Screen Concept</span>
+<!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
+![Book Room Screen Still](assets/delta-campus/book-room-5.webp)
 
 ---
 
 <!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
+![Arrival And Spatial Experience](assets/delta-campus/delta-reference-05.webp)
+
+---
+
+<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-campus-screen-concept.webp" data-background-size="cover" data-background-color="#050607" -->
+<span class="delta-slide-alt">Delta Campus Screen Still</span>
+
+---
+
+<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-08.webp" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Delta Campus Closing Slide</span>
-
----
-
-<!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
-<span class="delta-slide-alt">Delta Campus Blank Slide 12</span>
-
----
-
-<!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
-<span class="delta-slide-alt">Delta Campus Blank Slide 13</span>
 
 ---
 

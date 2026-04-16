@@ -11,12 +11,9 @@ const DOCUMENT_EXPORT_SCRIPT = path.join(ROOT, 'scripts', 'export-document-pdf.j
 const PDF_VIEWS = ['slides', 'document'];
 
 const CONTENT_SLIDE_SOURCES = {
-  'refund-website': { en: 'slides.md', de: 'slides.de.md' },
   offer: { en: 'slides.md', de: 'slides.de.md' },
   kaldewei: { en: 'slides.kaldewei.md', de: 'slides.kaldewei.de.md' },
-  'widget-lab': { en: 'slides.widget-lab.md', de: 'slides.widget-lab.de.md' },
   'hoffest-2025': { en: 'slides.hoffest-2025.md', de: 'slides.hoffest-2025.de.md' },
-  nobaxx: { en: 'slides.nobaxx.md', de: 'slides.nobaxx.de.md' },
   'xyz-sales': { en: 'slides.xyz-sales.md', de: 'slides.xyz-sales.de.md' },
   'delta-campus': { en: 'slides.delta-campus.md', de: 'slides.delta-campus.de.md' },
   'delta-campus-offer': { en: 'slides.delta-campus-offer.md', de: 'slides.delta-campus-offer.de.md' }
