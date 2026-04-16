@@ -50,6 +50,8 @@
 <!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/delta-campus-screen-video-2.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Delta Campus Screen Concept</span>
 
+---
+
 <!-- .slide: class="delta-video-slide" data-background-video="assets/delta-campus/room-book-video-1.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover" data-background-color="#050607" -->
 <span class="delta-slide-alt">Book Room Screen Concept</span>
 
