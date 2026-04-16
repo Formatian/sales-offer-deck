@@ -6843,6 +6843,10 @@ body[data-content="delta-campus"] .backgrounds .slide-background.present {
   opacity: 1 !important;
 }
 
+body[data-content="delta-campus"] .backgrounds .slide-background {
+  top: 0 !important;
+}
+
 body[data-content="delta-campus"] .backgrounds .slide-background.is-image-background::after {
   content: none;
   background: none;
@@ -6938,13 +6942,14 @@ body[data-content="delta-campus"] .delta-slide-alt {
 
 body[data-content="delta-campus"] .delta-caption-slide {
   position: relative;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
 body[data-content="delta-campus"] .reveal.overview .slides > section.delta-reference-slide,
 body[data-content="delta-campus"] .reveal.overview .slides > section.delta-video-slide {
   height: 100%;
   min-height: 100%;
+  padding: 0 !important;
   overflow: hidden !important;
 }
 
@@ -7033,36 +7038,6 @@ body[data-content="delta-campus"] .delta-reference-image {
   border: 0;
   box-shadow: none;
 }
-
-body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) {
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-  background: var(--delta-black);
-}
-
-body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) > p:only-child {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-body[data-content="delta-campus"] .reveal .slides section:has(> p:only-child > img) > p:only-child > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  object-fit: cover;
-  object-position: center;
-  background: var(--delta-black);
-  border: 0;
-  box-shadow: none;
-}
-
 
 body[data-content="delta-campus"] .delta-navigation-phone-slide,
 body[data-theme-id="delta-campus-style"] .delta-navigation-phone-slide {

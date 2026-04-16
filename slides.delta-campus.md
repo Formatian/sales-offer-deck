@@ -52,13 +52,13 @@
 
 ---
 
-<!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
-![Book Room Screen Still](assets/delta-campus/book-room-5.webp)
+<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/book-room-5.webp" data-background-size="cover" data-background-color="#050607" -->
+<span class="delta-slide-alt">Book Room Screen Still</span>
 
 ---
 
-<!-- .slide: class="delta-reference-slide" data-background-color="#050607" -->
-![Arrival And Spatial Experience](assets/delta-campus/delta-reference-05.webp)
+<!-- .slide: class="delta-reference-slide" data-background-image="assets/delta-campus/delta-reference-05.webp" data-background-size="cover" data-background-color="#050607" -->
+<span class="delta-slide-alt">Arrival And Spatial Experience</span>
 
 ---
 

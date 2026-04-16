@@ -7364,7 +7364,13 @@ ${excerptCards}
     }
 
     function fitSlide(slide) {
-      if (!slide || slide.classList.contains('stack')) {
+      if (
+        !slide
+        || slide.classList.contains('stack')
+        || slide.classList.contains('delta-reference-slide')
+        || slide.classList.contains('delta-video-slide')
+        || slide.classList.contains('delta-image-slide')
+      ) {
         return;
       }
 
