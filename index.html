@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@5.0.5/dist/reveal.css" />
-  <link rel="stylesheet" href="open-location-stack.css?v=20260413a" />
+  <link rel="stylesheet" href="open-location-stack.css?v=20260422a" />
   <script src="https://use.typekit.net/dae1bou.js"></script>
   <script>
     try { Typekit.load(); } catch (error) { }
@@ -20,7 +20,7 @@
 <body>
   <div class="reveal">
     <div class="slides">
-      <section data-markdown="slides.md?v=20260413a" data-separator="^---$" data-separator-vertical="^--$"
+      <section data-markdown="slides.md?v=20260422a" data-separator="^---$" data-separator-vertical="^--$"
         data-separator-notes="^Note:"></section>
     </div>
   </div>
@@ -1060,7 +1060,7 @@
   <script src="https://unpkg.com/reveal.js@5.0.5/plugin/markdown/markdown.js"></script>
 
   <script>
-    const DECK_VERSION = '20260415b';
+    const DECK_VERSION = '20260422b';
     const DECK_LANG_KEY = 'formation-deck-language';
     const DECK_THEME_KEY = 'formation-deck-theme';
     const DECK_VIEW_KEY = 'formation-deck-view';
@@ -1922,7 +1922,7 @@
         },
         platform: {
           type: 'image',
-          url: 'assets/lear-theme-dark.jpg'
+          url: 'assets/lear-theme-dark-crop.webp'
         },
         roadmap: {
           type: 'image',
@@ -1942,7 +1942,7 @@
         },
         summary: {
           type: 'image',
-          url: 'assets/lear-theme-dark.jpg'
+          url: 'assets/lear-theme-dark-crop.webp'
         },
         closing: {
           type: 'image',
@@ -4564,10 +4564,38 @@ ${excerptCards}
       return currentView === 'document' ? 'Download document PDF' : 'Download deck PDF';
     }
 
+    function isManifestEntryStaleInLocalPreview(entry) {
+      if (!isLocalPreview() || !entry?.generatedAt) {
+        return false;
+      }
+
+      const deckTimestamp = getLocalTimestampFallback();
+      if (!deckTimestamp) {
+        return false;
+      }
+
+      const generatedAtMs = Date.parse(entry.generatedAt);
+      const deckTimestampMs = Date.parse(deckTimestamp);
+      if (Number.isNaN(generatedAtMs) || Number.isNaN(deckTimestampMs)) {
+        return false;
+      }
+
+      return generatedAtMs < deckTimestampMs;
+    }
+
     function setDeckPdfExportFromManifest() {
       const key = getDeckPdfManifestKey();
       const entry = deckPdfManifest?.files?.[key];
       if (entry?.href) {
+        if (isManifestEntryStaleInLocalPreview(entry)) {
+          setDeckPdfExportState({
+            action: 'regenerate',
+            label: 'Regenerate',
+            message: 'Regenerate stale PDF'
+          });
+          return;
+        }
+
         setDeckPdfExportState({
           action: 'download',
           label: 'Download',
@@ -5091,7 +5119,6 @@ ${excerptCards}
       const usesDarkCornerFormationLogo = usesDarkFormationLogo
         || activeSlide?.classList.contains('end-cover')
         || activeSlide?.classList.contains('dark-corner-logo-slide')
-        || activeSlideThemeBackground === 'packages-a'
         || activeSlideThemeBackground === 'end';
       const logo = getPartnerBrandLogo(themeId, currentContent) || getThemeBrandLogo(themeId);
       const cornerPartnerLogoUrl = baseTheme === 'lear-light' && logo.url === 'assets/lear-logo.svg'
@@ -6752,7 +6779,6 @@ ${excerptCards}
       const activeThemeBackground = slide.getAttribute('data-theme-background');
       const shouldKeepCornerBrandVisible = slide.classList.contains('end-cover')
         || slide.classList.contains('dark-corner-logo-slide')
-        || activeThemeBackground === 'packages-a'
         || activeThemeBackground === 'end'
         || slide.getAttribute('data-state') === 'delta-dark-corner-logo';
       const shouldUseDarkCornerBrand = shouldKeepCornerBrandVisible

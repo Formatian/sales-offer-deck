@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-13T21:16:34.845Z",
+  "generatedAt": "2026-04-22T09:17:39.949Z",
   "files": {
     "offer|lear|en": {
       "href": "exports/offer__lear__en.pdf",
@@ -7,8 +7,8 @@
       "theme": "lear",
       "lang": "en",
       "view": "slides",
-      "sourceSignature": "255e0cc731f0d567ea166849ef10062ed5ab5a482d91d38667b6edcd45da7daa",
-      "generatedAt": "2026-04-13T21:16:34.844Z"
+      "sourceSignature": "7681d0bb6bfde2a76bb4c1f9d5bdf29c3018803b0b59d87a24c216b2093e2a58",
+      "generatedAt": "2026-04-22T09:10:25.837Z"
     },
     "offer|lear-light|en": {
       "href": "exports/offer__lear-light__en.pdf",
@@ -39,8 +39,9 @@
       "content": "offer",
       "theme": "lear",
       "lang": "de",
-      "sourceSignature": "e8a0bce613026bbb293cbc5a40d7526635670ae17a66f8aa09acb33a4b54dae1",
-      "generatedAt": "2026-04-13T14:34:27.677Z"
+      "view": "slides",
+      "sourceSignature": "26cf9e91d8baab9f4f344a05595308b002468c233a5ee410a95286ffa9302e41",
+      "generatedAt": "2026-04-22T09:17:39.949Z"
     },
     "document|offer|lear|en": {
       "href": "exports/offer__lear__en__document.pdf",

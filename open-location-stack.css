@@ -4915,6 +4915,75 @@ body.overview-active .cover-title,
   margin-top: 0.3rem;
 }
 
+body[data-theme="lear"] .commercial-breakdown-slide .proposal-grid {
+  gap: 0.72rem;
+  margin-top: 0.72rem;
+}
+
+body[data-theme="lear"] .commercial-breakdown-slide .proposal-card {
+  padding: 0.72rem 0.82rem;
+}
+
+body[data-theme="lear"] .commercial-breakdown-slide .proposal-card ul {
+  margin-top: 0.18rem;
+}
+
+body[data-theme="lear"] .commercial-breakdown-slide .proposal-card li,
+body[data-theme="lear"] .commercial-breakdown-slide .proposal-card p,
+body[data-theme="lear"] .commercial-breakdown-slide .minor-heading {
+  font-size: 0.8rem;
+  line-height: 1.24;
+}
+
+body[data-theme="lear"] .commercial-breakdown-slide .eyebrow {
+  margin-bottom: 0.22rem;
+}
+
+body[data-theme="lear"] .commercial-breakdown-slide .minor-heading {
+  margin-bottom: 0.42rem !important;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .slide-lead {
+  margin-bottom: 0.72rem;
+  font-size: 0.92rem;
+  line-height: 1.28;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .proposal-table {
+  margin-top: 0.72rem;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .proposal-table th,
+body[data-theme="lear"] .platform-commercials-slide .proposal-table td {
+  padding-top: 0.46rem;
+  padding-bottom: 0.46rem;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .metric-strip {
+  gap: 0.72rem;
+  margin-top: 0.72rem;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .metric-card {
+  padding: 0.72rem 0.82rem;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .metric-card p {
+  font-size: 0.8rem;
+  line-height: 1.22;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .metric-card strong {
+  font-size: 1.18rem;
+}
+
+body[data-theme="lear"] .platform-commercials-slide .pricing-callout {
+  margin-top: 0.62rem !important;
+  padding: 0.64rem 0.82rem !important;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
 .source-seed-meta {
   color: var(--color-muted);
   font-size: 0.8em;

@@ -67,7 +67,7 @@
 </div>
 
 ---
-<!-- .slide: class="hero-video-slide platform-video-slide" data-theme-background="platform" -->
+<!-- .slide: class="hero-video-slide platform-video-slide platform-commercials-slide" data-theme-background="platform" -->
 ## Platform Commercials
 
 <p class="slide-lead">Core recurring platform pricing for <strong>10 users</strong>, <strong>1 admin</strong>, and <strong>1,000 tracked assets</strong>.</p>
@@ -163,7 +163,7 @@
 </div>
 
 ---
-<!-- .slide: class="dark-corner-logo-slide" data-theme-background="packages-a" -->
+<!-- .slide: data-theme-background="packages-a" -->
 ## Work Packages 1 To 4
 
 <table class="proposal-table roadmap-table">
@@ -280,19 +280,29 @@
 <blockquote class="pull-quote">The commercial goal is not short-term cost minimization. It is a stable, low-risk production rollout structure for long-term operation in live manufacturing environments.</blockquote>
 
 ---
-<!-- .slide: data-theme-background="summary" -->
-## Three-Year Cost Summary
+<!-- .slide: class="commercial-breakdown-slide" data-theme-background="summary" -->
+## Three-Year Commercial Structure
 
-<div class="metric-strip two-up">
-  <div class="metric-card total-card">
-    <span class="metric-label">Without Platform Discount</span>
-    <strong>€180,540</strong>
-    <p>3-year platform plus roadmap development plus support.</p>
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">Standard 3-Year Structure</p>
+    <h3 class="minor-heading">What makes up the total</h3>
+    <ul>
+      <li>Platform subscription for 36 months: €77,040</li>
+      <li>Roadmap delivery across 49 days: €73,500</li>
+      <li>Optional production support across 3 years: €30,000</li>
+      <li><strong>Total 3-year investment: €180,540</strong></li>
+    </ul>
   </div>
-  <div class="metric-card total-card">
-    <span class="metric-label">With 3-Year Upfront Commitment</span>
-    <strong>€172,836</strong>
-    <p>Includes discounted platform total of <strong>€69,336</strong></p>
+  <div class="proposal-card">
+    <p class="eyebrow">3-Year Upfront Platform Commitment</p>
+    <h3 class="minor-heading">Same scope, lower platform cost</h3>
+    <ul>
+      <li>Discounted platform subscription for 36 months: €69,336</li>
+      <li>Roadmap delivery across 49 days: €73,500</li>
+      <li>Optional production support across 3 years: €30,000</li>
+      <li><strong>Total 3-year investment: €172,836</strong></li>
+    </ul>
   </div>
 </div>
 
@@ -307,12 +317,12 @@
     </ul>
   </div>
   <div class="proposal-card">
-    <p class="eyebrow">Next Step</p>
+    <p class="eyebrow">Commercial Note</p>
     <ul>
-      <li>Confirm final requirements and integration assumptions</li>
-      <li>Align the roadmap into a committed delivery block</li>
-      <li>Finalize commercial structure and rollout sequence</li>
-      <li>Begin production implementation planning</li>
+      <li>The difference between both options is only the platform commitment discount</li>
+      <li>Roadmap delivery scope remains unchanged at €73,500</li>
+      <li>Production support remains unchanged at €10,000 per year</li>
+      <li>Total savings from the upfront platform commitment: €7,704</li>
     </ul>
   </div>
 </div>

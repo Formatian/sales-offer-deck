@@ -67,7 +67,7 @@
 </div>
 
 ---
-<!-- .slide: class="hero-video-slide platform-video-slide" data-theme-background="platform" -->
+<!-- .slide: class="hero-video-slide platform-video-slide platform-commercials-slide" data-theme-background="platform" -->
 ## Plattform-Konditionen
 
 <p class="slide-lead">Wiederkehrende Kernplattform-Preise für <strong>10 Nutzer</strong>, <strong>1 Admin</strong> und <strong>1.000 getrackte Assets</strong>.</p>
@@ -280,19 +280,29 @@
 <blockquote class="pull-quote">Das kommerzielle Ziel ist nicht die kurzfristige Kostenminimierung. Es ist eine stabile, risikoarme Produktions-Rollout-Struktur für den langfristigen Betrieb in Live-Produktionsumgebungen.</blockquote>
 
 ---
-<!-- .slide: data-theme-background="summary" -->
-## Drei-Jahres-Kostenzusammenfassung
+<!-- .slide: class="commercial-breakdown-slide" data-theme-background="summary" -->
+## Drei-Jahres-Kommerzstruktur
 
-<div class="metric-strip two-up">
-  <div class="metric-card total-card">
-    <span class="metric-label">Ohne Plattformrabatt</span>
-    <strong>180.540 €</strong>
-    <p>3 Jahre Plattform plus Roadmap-Entwicklung plus Support.</p>
+<div class="proposal-grid two-up">
+  <div class="proposal-card">
+    <p class="eyebrow">Standardstruktur über 3 Jahre</p>
+    <h3 class="minor-heading">Woraus sich die Summe zusammensetzt</h3>
+    <ul>
+      <li>Plattform-Subscription für 36 Monate: 77.040 €</li>
+      <li>Roadmap-Lieferung über 49 Tage: 73.500 €</li>
+      <li>Optionaler Produktiv-Support über 3 Jahre: 30.000 €</li>
+      <li><strong>Gesamtinvestition über 3 Jahre: 180.540 €</strong></li>
+    </ul>
   </div>
-  <div class="metric-card total-card">
-    <span class="metric-label">Mit 3 Jahren Voraus-Verpflichtung</span>
-    <strong>172.836 €</strong>
-    <p>Enthält den rabattierten Plattformgesamtbetrag von <strong>69.336 €</strong></p>
+  <div class="proposal-card">
+    <p class="eyebrow">Plattform-Commitment mit 3 Jahren Vorauszahlung</p>
+    <h3 class="minor-heading">Gleicher Scope, geringere Plattformkosten</h3>
+    <ul>
+      <li>Rabattierte Plattform-Subscription für 36 Monate: 69.336 €</li>
+      <li>Roadmap-Lieferung über 49 Tage: 73.500 €</li>
+      <li>Optionaler Produktiv-Support über 3 Jahre: 30.000 €</li>
+      <li><strong>Gesamtinvestition über 3 Jahre: 172.836 €</strong></li>
+    </ul>
   </div>
 </div>
 
@@ -307,12 +317,12 @@
     </ul>
   </div>
   <div class="proposal-card">
-    <p class="eyebrow">Nächster Schritt</p>
+    <p class="eyebrow">Kommerzieller Hinweis</p>
     <ul>
-      <li>Finale Anforderungen und Integrationsannahmen bestätigen</li>
-      <li>Die Roadmap in einen verbindlichen Lieferblock überführen</li>
-      <li>Kommerzielle Struktur und Rollout-Sequenz finalisieren</li>
-      <li>Mit der Produktions-Implementierungsplanung beginnen</li>
+      <li>Der Unterschied zwischen beiden Optionen ist ausschließlich der Plattformrabatt</li>
+      <li>Der Scope der Roadmap-Lieferung bleibt unverändert bei 73.500 €</li>
+      <li>Der Produktiv-Support bleibt unverändert bei 10.000 € pro Jahr</li>
+      <li>Gesamtersparnis durch das Plattform-Commitment mit Vorauszahlung: 7.704 €</li>
     </ul>
   </div>
 </div>
